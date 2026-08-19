@@ -1,0 +1,63 @@
+.deck { position: fixed; inset: 0; overflow: hidden; background: var(--paper); }
+
+.deck-grille {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(var(--rule-2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule-2) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.5;
+}
+
+.deck-barre {
+  position: fixed; top: 0; left: 0; height: 2px; z-index: 100;
+  background: linear-gradient(90deg, var(--accent), var(--ciel));
+  transition: width 0.4s ease;
+}
+
+.diapo {
+  position: absolute; inset: 0; z-index: 10;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(32px, 5vh, 56px) clamp(40px, 6vw, 80px);
+  opacity: 0; pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.diapo.active { opacity: 1; pointer-events: auto; transform: none; }
+
+.diapo.encre { background: var(--ink); color: var(--paper); }
+.diapo.encre h1, .diapo.encre h2, .diapo.encre h3 { color: var(--paper); }
+.diapo.encre p, .diapo.encre li { color: var(--paper-2); }
+
+/* Entrée échelonnée: chaque enfant direct marqué .e entre à son tour. */
+.diapo .e {
+  opacity: 0; transform: translateY(14px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.diapo.active .e { opacity: 1; transform: none; }
+.diapo.active .e:nth-child(1) { transition-delay: 0.06s; }
+.diapo.active .e:nth-child(2) { transition-delay: 0.14s; }
+.diapo.active .e:nth-child(3) { transition-delay: 0.22s; }
+.diapo.active .e:nth-child(4) { transition-delay: 0.30s; }
+.diapo.active .e:nth-child(5) { transition-delay: 0.38s; }
+.diapo.active .e:nth-child(6) { transition-delay: 0.46s; }
+
+.deck-pied {
+  position: fixed; bottom: 14px; right: 20px; z-index: 100;
+  display: flex; align-items: center; gap: 14px;
+  font-family: var(--police-mono); font-size: 0.72rem; color: var(--ink-3);
+}
+
+.deck-points { display: flex; gap: 5px; }
+.point {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--rule); border: 0; padding: 0; cursor: pointer;
+}
+.point.on { background: var(--accent); }
+
+@media print {
+  .deck-barre, .deck-pied, .deck-grille { display: none; }
+  .diapo { position: relative; opacity: 1; page-break-after: always; height: 100vh; }
+  .diapo .e { opacity: 1; transform: none; }
+}
