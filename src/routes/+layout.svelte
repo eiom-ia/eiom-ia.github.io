@@ -6,8 +6,13 @@
   import '@fontsource/jetbrains-mono/400.css';
   import '$lib/styles/tokens.css';
   import '$lib/styles/base.css';
+  import { page } from '$app/state';
+  import Nav from '$lib/components/Nav.svelte';
 
   let { children } = $props();
+  // Les decks occupent tout l'écran: pas de barre de navigation par-dessus.
+  const estDeck = $derived(page.url.pathname.startsWith('/diapos'));
 </script>
 
+{#if !estDeck}<Nav />{/if}
 {@render children()}

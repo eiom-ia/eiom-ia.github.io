@@ -1,0 +1,78 @@
+export const SEANCES = [
+  {
+    numero: 1,
+    date: '2026-08-24',
+    jour: 'lundi 24 août',
+    titre: 'Comprendre les LLM et y accéder pour la recherche',
+    formateur: 'Laurence-Olivier M. Foisy',
+    resume:
+      "Le fonctionnement des grands modèles de langue, et l'accès programmatique par API — " +
+      "la condition d'une utilisation systématique, transparente et reproductible en recherche. " +
+      'Chacun·e repart avec un environnement de travail fonctionnel.',
+    statut: 'complet'
+  },
+  {
+    numero: 2,
+    date: '2026-08-25',
+    jour: 'mardi 25 août',
+    titre: 'Valider les LLM dans un cadre scientifique',
+    formateur: 'Antoine Lemor',
+    resume:
+      'Métriques de validation, benchmarks, cas ambigus, validation de différents formats de ' +
+      'données dont les images, et distinction entre classifieurs et modèles génératifs.',
+    statut: 'gabarit'
+  },
+  {
+    numero: 3,
+    date: '2026-08-26',
+    jour: 'mercredi 26 août',
+    titre: 'Des sorties de modèles aux mesures scientifiques',
+    formateur: 'Antoine Lemor',
+    resume:
+      "Traduire l'output d'un modèle en mesure valide, puis les modèles open weights exécutés " +
+      'localement : sécurité des données, reproductibilité, contrôle des coûts, et leurs limites.',
+    statut: 'gabarit'
+  },
+  {
+    numero: 4,
+    date: '2026-08-27',
+    jour: 'jeudi 27 août',
+    titre: "L'IA agentique dans le flux de travail de recherche",
+    formateur: 'Laurence-Olivier M. Foisy',
+    resume:
+      'Les concepts fondamentaux des agents, dont les skills et les protocoles de contexte de ' +
+      'modèle (MCP), et leur intégration fiable et vérifiable aux étapes du cycle de la recherche.',
+    statut: 'complet'
+  },
+  {
+    numero: 5,
+    date: '2026-08-28',
+    jour: 'vendredi 28 août',
+    titre: "Visite d'un acteur de l'industrie et atelier intégratif",
+    formateur: 'Antoine Lemor et Laurence-Olivier M. Foisy',
+    resume:
+      "Une rencontre avec des praticien·ne·s du domaine, puis un atelier où l'on mobilise " +
+      'tous les outils de la semaine dans un flux complet, de la question de recherche à la diffusion.',
+    statut: 'complet'
+  }
+];
+
+export const seanceParNumero = (n) => SEANCES.find((s) => s.numero === Number(n));
+
+/** Ce que la séance 1 garantit aux séances suivantes. Voir §8 du devis. */
+export const INTERFACES = {
+  produitParSeance1: [
+    'un environnement R fonctionnel avec ellmer',
+    'une clé d’API opérationnelle, lue depuis .Renviron',
+    'le corpus de la semaine en local',
+    'sorties/seance1_notes.json — une note structurée pour environ 50 avis',
+    'le journal des appels : modèle épinglé, paramètres, horodatage'
+  ],
+  laisseIntact: [
+    'les métriques de validation et les benchmarks',
+    'la gestion des cas ambigus',
+    'la validation sur d’autres formats, dont les images',
+    'le choix entre classifieur et modèle génératif selon la tâche',
+    'les modèles open weights et leur exécution locale'
+  ]
+};
