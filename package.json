@@ -1,0 +1,35 @@
+{
+  "name": "eiom-ia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eiom-ia/eiom-ia.github.io.git"
+  },
+  "keywords": [],
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/eiom-ia/eiom-ia.github.io/issues"
+  },
+  "homepage": "https://github.com/eiom-ia/eiom-ia.github.io#readme",
+  "private": "true",
+  "devDependencies": {
+    "@sveltejs/adapter-static": "^3.0.10",
+    "@sveltejs/kit": "^2.70.3",
+    "@sveltejs/vite-plugin-svelte": "^7.3.0",
+    "svelte": "^5.56.9",
+    "vite": "^8.2.1",
+    "vitest": "^4.1.11"
+  }
+}
