@@ -1,0 +1,38 @@
+[
+  {
+    "amorce": "Le service était vraiment",
+    "note": "Distribution étalée : le modèle hésite réellement.",
+    "jetons": [
+      { "t": "excellent", "p": 69.25 },
+      { "t": "ex", "p": 13.64 },
+      { "t": "exception", "p": 10.62 },
+      { "t": "mé", "p": 1.63 },
+      { "t": "m", "p": 1.63 },
+      { "t": "dé", "p": 1.27 },
+      { "t": "par", "p": 0.60 },
+      { "t": "medi", "p": 0.53 }
+    ]
+  },
+  {
+    "amorce": "La capitale de la France est",
+    "note": "Distribution effondrée : aucune hésitation. C'est ce qui ressemble le plus à « savoir ».",
+    "jetons": [
+      { "t": "Paris", "p": 100.0 },
+      { "t": "Par", "p": 0.0 },
+      { "t": "Berlin", "p": 0.0 },
+      { "t": "Madrid", "p": 0.0 }
+    ]
+  },
+  {
+    "amorce": "Les gyros de ce restaurant sont",
+    "note": "Le jeton gagnant est un FRAGMENT, pas un mot : « dé » comme début de « délicieux ».",
+    "jetons": [
+      { "t": "dé", "p": 99.41 },
+      { "t": "ex", "p": 0.41 },
+      { "t": "succ", "p": 0.09 },
+      { "t": "d", "p": 0.03 },
+      { "t": " délicieux", "p": 0.02 },
+      { "t": "del", "p": 0.01 }
+    ]
+  }
+]

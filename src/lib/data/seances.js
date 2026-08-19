@@ -9,7 +9,8 @@ export const SEANCES = [
       "Le fonctionnement des grands modèles de langue, et l'accès programmatique par API — " +
       "la condition d'une utilisation systématique, transparente et reproductible en recherche. " +
       'Chacun·e repart avec un environnement de travail fonctionnel.',
-    statut: 'complet'
+    statut: 'complet',
+    deck: 'seance-1'
   },
   {
     numero: 2,
@@ -42,7 +43,8 @@ export const SEANCES = [
     resume:
       'Les concepts fondamentaux des agents, dont les skills et les protocoles de contexte de ' +
       'modèle (MCP), et leur intégration fiable et vérifiable aux étapes du cycle de la recherche.',
-    statut: 'complet'
+    statut: 'complet',
+    deck: 'seance-4'
   },
   {
     numero: 5,

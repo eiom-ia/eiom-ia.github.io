@@ -1,0 +1,127 @@
+[
+  {
+    "fr": {
+      "texte": "Le service est raide, mais les gyros sont excellents.",
+      "jetons": [
+        "Le",
+        " service",
+        " est",
+        " ra",
+        "ide",
+        ",",
+        " mais",
+        " les",
+        " gy",
+        "ros",
+        " sont",
+        " excell",
+        "ents",
+        "."
+      ],
+      "n": 14
+    },
+    "en": {
+      "texte": "The service is rough, but the gyros are excellent.",
+      "jetons": [
+        "The",
+        " service",
+        " is",
+        " rough",
+        ",",
+        " but",
+        " the",
+        " gy",
+        "ros",
+        " are",
+        " excellent",
+        "."
+      ],
+      "n": 12
+    },
+    "surcout": 17
+  },
+  {
+    "fr": {
+      "texte": "La qualité est au rendez-vous et les portions sont généreuses.",
+      "jetons": [
+        "La",
+        " qualité",
+        " est",
+        " au",
+        " rendez",
+        "-vous",
+        " et",
+        " les",
+        " portions",
+        " sont",
+        " génére",
+        "uses",
+        "."
+      ],
+      "n": 13
+    },
+    "en": {
+      "texte": "The quality is there and the portions are generous.",
+      "jetons": [
+        "The",
+        " quality",
+        " is",
+        " there",
+        " and",
+        " the",
+        " portions",
+        " are",
+        " generous",
+        "."
+      ],
+      "n": 10
+    },
+    "surcout": 30
+  },
+  {
+    "fr": {
+      "texte": "Ouvert la nuit, pas cher, mais l'accueil laisse à désirer.",
+      "jetons": [
+        "Ou",
+        "vert",
+        " la",
+        " nuit",
+        ",",
+        " pas",
+        " cher",
+        ",",
+        " mais",
+        " l",
+        "'accueil",
+        " laisse",
+        " à",
+        " dés",
+        "irer",
+        "."
+      ],
+      "n": 16
+    },
+    "en": {
+      "texte": "Open at night, cheap, but the welcome leaves much to be desired.",
+      "jetons": [
+        "Open",
+        " at",
+        " night",
+        ",",
+        " cheap",
+        ",",
+        " but",
+        " the",
+        " welcome",
+        " leaves",
+        " much",
+        " to",
+        " be",
+        " desired",
+        "."
+      ],
+      "n": 15
+    },
+    "surcout": 7
+  }
+]

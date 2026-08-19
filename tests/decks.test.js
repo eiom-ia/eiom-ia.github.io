@@ -1,0 +1,59 @@
+import { describe, it, expect } from 'vitest';
+import { existsSync, readFileSync } from 'node:fs';
+import { SEANCES } from '../src/lib/data/seances.js';
+
+const lire = (n) => readFileSync(`build/diapos/${n}/index.html`, 'utf8');
+const compterDiapos = (html) => (html.match(/class="diapo[ "]/g) || []).length;
+
+describe('decks publiés', () => {
+  it('publie un deck pour les séances 1 et 4', () => {
+    expect(existsSync('build/diapos/seance-1/index.html')).toBe(true);
+    expect(existsSync('build/diapos/seance-4/index.html')).toBe(true);
+  });
+
+  it('rend toutes les diapos dans le HTML statique, sans JavaScript', () => {
+    expect(compterDiapos(lire('seance-1'))).toBeGreaterThanOrEqual(50);
+    expect(compterDiapos(lire('seance-4'))).toBeGreaterThanOrEqual(30);
+  });
+
+  it('colorie le code R au rendu statique', () => {
+    expect(lire('seance-1')).toContain('r-fn');
+    expect(lire('seance-4')).toContain('r-fn');
+  });
+
+  it('affiche les données de tokenisation réelles', () => {
+    const h = lire('seance-1');
+    expect(h).toContain('14 jetons');
+    expect(h).toContain('69.25');
+  });
+
+  it('cite la distribution réelle du corpus', () => {
+    expect(lire('seance-1')).toContain('384');
+  });
+
+  // On vise les CHARGEMENTS de ressources, pas les URL citées dans du code
+  // affiché à l'écran: un exemple qui montre une requête vers Crossref n'est
+  // pas une dépendance réseau du deck.
+  it('ne charge aucune ressource externe', () => {
+    const chargements = /(?:<link[^>]+href|<script[^>]+src|<img[^>]+src)=["']https?:\/\//g;
+    const dansCss = /url\(\s*["']?https?:\/\//g;
+    for (const d of ['seance-1', 'seance-4']) {
+      const h = lire(d);
+      expect(h.match(chargements), `${d} charge une ressource externe`).toBeNull();
+      expect(h.match(dansCss), `${d} charge une police ou image externe en CSS`).toBeNull();
+    }
+  });
+
+  it('relie chaque deck depuis sa page de séance', () => {
+    for (const s of SEANCES.filter((x) => x.deck)) {
+      expect(readFileSync(`build/seances/${s.numero}/index.html`, 'utf8')).toContain(
+        `diapos/${s.deck}/`
+      );
+    }
+  });
+
+  it('associe les decks aux bonnes séances', () => {
+    const avecDeck = SEANCES.filter((s) => s.deck).map((s) => s.numero);
+    expect(avecDeck).toEqual([1, 4]);
+  });
+});

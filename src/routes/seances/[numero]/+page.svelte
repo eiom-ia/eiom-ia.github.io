@@ -3,6 +3,8 @@
   import Encadre from '$lib/components/Encadre.svelte';
   import { INTERFACES } from '$lib/data/seances.js';
 
+  import { base } from '$app/paths';
+
   let { data } = $props();
   const s = $derived(data.seance);
 </script>
@@ -16,6 +18,14 @@
   <h1>{s.titre}</h1>
   <p class="formateur">{s.formateur}</p>
   <p class="chapeau">{s.resume}</p>
+
+  {#if s.deck}
+    <a class="lien-deck" href="{base}/diapos/{s.deck}/">
+      <span class="ld-t">Voir les diapositives</span>
+      <span class="ld-s">Flèches ou molette pour avancer · s'imprime en PDF</span>
+      <span class="ld-f">→</span>
+    </a>
+  {/if}
 
   {#if s.statut === 'gabarit'}
     <Encadre ton="ambre" titre="Contenu à venir">
@@ -61,6 +71,24 @@
     margin-bottom: 0.6em;
   }
   .formateur { color: var(--ink-3); font-size: 0.92rem; margin-top: 0.3em; }
+  .lien-deck {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2px 18px;
+    padding: 18px 22px;
+    margin: 1.6em 0;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: var(--rayon);
+    text-decoration: none;
+    transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .lien-deck:hover { transform: translateY(-2px); }
+  .ld-t { font-family: var(--police-display); font-size: 1.2rem; font-weight: 600; }
+  .ld-s { font-size: 0.78rem; color: var(--rule); }
+  .ld-f { grid-column: 2; grid-row: 1 / span 2; font-size: 1.5rem; }
+
   .chapeau {
     font-size: 1.05rem;
     border-left: 2px solid var(--accent);
