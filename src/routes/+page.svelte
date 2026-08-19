@@ -8,69 +8,234 @@
   <meta name="description" content="Parcours DKN-1289 de l'École interdisciplinaire outils & méthodes, du 24 au 28 août 2026 à l'Université Laval." />
 </svelte:head>
 
-<header>
-  <p class="surtitre">EIOM 2026 · DKN-1289 · Université Laval</p>
-  <h1>L'intelligence artificielle<br />et la recherche</h1>
-  <p class="chapeau">
-    L'IA peut transformer les pratiques de recherche, mais son utilisation doit se faire dans un cadre
-    méthodologique clair. Cinq matinées structurées selon le cycle de la recherche, de la question de
-    départ à la diffusion des résultats, avec la rigueur scientifique comme critère central.
-  </p>
-  <a class="cta" href="{base}/avant-de-venir/">
-    Avant de venir — préparez votre ordinateur
-    <span>30 minutes, à faire avant le lundi 24 août</span>
-  </a>
-</header>
+<article>
+  <header class="masthead">
+    <div class="filets">
+      <span>EIOM 2026</span>
+      <span>DKN-1289</span>
+      <span>Université Laval</span>
+      <span class="fin">24 → 28 août</span>
+    </div>
 
-<section class="semaine">
-  <h2>La semaine</h2>
-  <div class="grille">
-    {#each SEANCES as s}
-      <a class="carte" href="{base}/seances/{s.numero}/">
-        <p class="jour">{s.jour}</p>
-        <h3>{s.titre}</h3>
-        <p class="resume">{s.resume}</p>
-        <p class="formateur">{s.formateur}</p>
-      </a>
-    {/each}
-  </div>
-  <p class="horaire">Toutes les séances ont lieu de 8h45 à 12h45.</p>
-</section>
+    <h1>
+      <span class="l1">L'intelligence</span>
+      <span class="l2">artificielle</span>
+      <span class="l3">et la recherche</span>
+    </h1>
+
+    <div class="sous">
+      <p class="chapeau">
+        L'IA peut transformer les pratiques de recherche, mais son utilisation doit se faire dans un
+        cadre méthodologique clair. Cinq matinées structurées selon le cycle de la recherche, de la
+        question de départ à la diffusion des résultats.
+      </p>
+      <p class="auteurs">
+        Laurence-Olivier&nbsp;M.&nbsp;Foisy<br />
+        Antoine&nbsp;Lemor
+      </p>
+    </div>
+
+    <a class="cta" href="{base}/avant-de-venir/">
+      <span class="cta-t">Avant de venir</span>
+      <span class="cta-s">Préparez votre ordinateur — 30 minutes, avant le lundi 24 août</span>
+      <span class="cta-f">→</span>
+    </a>
+  </header>
+
+  <section class="programme">
+    <h2 class="titre-section"><span>Programme</span></h2>
+
+    <ol class="seances">
+      {#each SEANCES as s, i}
+        <li style="--i: {i}">
+          <a href="{base}/seances/{s.numero}/">
+            <span class="num">{s.numero}</span>
+            <div class="corps">
+              <p class="jour">{s.jour}</p>
+              <h3>{s.titre}</h3>
+              <p class="resume">{s.resume}</p>
+              <p class="formateur">{s.formateur}</p>
+            </div>
+            <span class="fleche">→</span>
+          </a>
+        </li>
+      {/each}
+    </ol>
+
+    <p class="horaire">Toutes les séances ont lieu de 8h45 à 12h45.</p>
+  </section>
+</article>
 
 <style>
-  header { max-width: 68ch; margin: 0 auto; padding: clamp(40px, 8vh, 96px) 24px 40px; }
-  .surtitre {
-    font-family: var(--police-mono); font-size: 0.72rem;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--ink-3); margin-bottom: 1em;
+  article {
+    max-width: 62rem;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 48px) 120px;
   }
-  .chapeau { font-size: 1.1rem; margin: 1.4em 0 2em; }
+
+  /* ---------- Masthead ---------- */
+  .masthead { padding: clamp(40px, 9vh, 96px) 0 0; }
+
+  .filets {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    align-items: baseline;
+    font-family: var(--police-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    padding-bottom: 10px;
+    border-bottom: var(--filet-fort);
+  }
+  .filets .fin { margin-left: auto; color: var(--accent); }
+
+  h1 {
+    margin: clamp(24px, 5vh, 48px) 0 0;
+    font-size: clamp(2.6rem, 9vw, 6.4rem);
+    line-height: 0.94;
+    display: grid;
+  }
+  h1 span { display: block; animation: monte 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+  .l1 { animation-delay: 0.05s; }
+  .l2 { animation-delay: 0.13s; font-style: italic; color: var(--accent); }
+  .l3 { animation-delay: 0.21s; }
+
+  @keyframes monte {
+    from { opacity: 0; transform: translateY(0.4em); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .sous {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    margin: clamp(28px, 5vh, 44px) 0 0;
+    padding-top: 20px;
+    border-top: var(--filet);
+    animation: monte 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s both;
+  }
+  @media (min-width: 42rem) {
+    .sous { grid-template-columns: minmax(0, 1fr) auto; gap: 48px; }
+  }
+  .chapeau { font-size: 1.02rem; max-width: var(--mesure); margin: 0; }
+  .auteurs {
+    font-family: var(--police-mono);
+    font-size: 0.72rem;
+    line-height: 1.9;
+    color: var(--ink-3);
+    text-align: right;
+    margin: 0;
+    white-space: nowrap;
+  }
+
   .cta {
-    display: block; padding: 16px 20px;
-    background: var(--ink); color: var(--paper);
-    border-radius: var(--rayon); text-decoration: none;
-    font-weight: 600; box-shadow: var(--ombre);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 6px 20px;
+    margin-top: clamp(32px, 6vh, 56px);
+    padding: 22px 26px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    border-radius: var(--rayon);
+    animation: monte 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.38s both;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
-  .cta span {
-    display: block; font-weight: 400; font-size: 0.8rem;
-    color: var(--rule); margin-top: 3px;
+  .cta:hover { transform: translateY(-2px); }
+  .cta-t {
+    font-family: var(--police-display);
+    font-size: 1.35rem;
+    font-weight: 600;
+    grid-column: 1;
   }
-  .semaine { max-width: 68ch; margin: 0 auto; padding: 24px 24px 96px; }
-  .grille { display: grid; gap: 12px; margin-top: 1em; }
-  .carte {
-    display: block; padding: 18px 20px;
-    background: #fff; border: 1px solid var(--rule);
-    border-radius: var(--rayon); text-decoration: none;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  .cta-s {
+    grid-column: 1;
+    font-size: 0.82rem;
+    color: var(--rule);
   }
-  .carte:hover { box-shadow: var(--ombre); transform: translateY(-1px); }
+  .cta-f {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    font-size: 1.6rem;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .cta:hover .cta-f { transform: translateX(5px); }
+
+  /* ---------- Programme ---------- */
+  .programme { margin-top: clamp(64px, 12vh, 120px); }
+
+  .titre-section {
+    font-family: var(--police-mono);
+    font-size: 0.66rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .titre-section::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .seances { list-style: none; padding: 0; margin: 8px 0 0; }
+  .seances li { border-bottom: var(--filet); }
+  .seances li:first-child { border-top: var(--filet); }
+
+  .seances a {
+    display: grid;
+    grid-template-columns: 3.2rem minmax(0, 1fr) 1.5rem;
+    gap: clamp(12px, 3vw, 28px);
+    align-items: start;
+    padding: 26px 4px;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s ease, padding 0.2s ease;
+  }
+  .seances a:hover { background: var(--paper-2); padding-left: 12px; padding-right: 12px; }
+
+  .num {
+    font-family: var(--police-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 0.85;
+    color: var(--rule);
+    font-variant-numeric: tabular-nums;
+    transition: color 0.2s ease;
+  }
+  .seances a:hover .num { color: var(--accent); }
+
   .jour {
-    font-family: var(--police-mono); font-size: 0.68rem;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 0.4em;
+    font-family: var(--police-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 6px;
   }
-  .carte h3 { font-size: 1.05rem; margin-bottom: 0.4em; }
-  .resume { font-size: 0.88rem; margin-bottom: 0.5em; }
-  .formateur { font-size: 0.76rem; color: var(--ink-3); margin: 0; }
-  .horaire { margin-top: 1.4em; font-size: 0.82rem; color: var(--ink-3); }
+  .corps h3 { font-size: 1.18rem; margin: 0 0 8px; }
+  .resume { font-size: 0.88rem; margin: 0 0 8px; max-width: var(--mesure); }
+  .formateur { font-size: 0.74rem; color: var(--ink-3); margin: 0; }
+
+  .fleche {
+    align-self: center;
+    color: var(--rule);
+    font-size: 1.1rem;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+  .seances a:hover .fleche { color: var(--accent); transform: translateX(4px); }
+
+  .horaire {
+    margin-top: 20px;
+    font-family: var(--police-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+  }
 </style>

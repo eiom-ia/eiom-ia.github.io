@@ -27,3 +27,21 @@ p, li { color: var(--ink-2); }
 code, pre { font-family: var(--police-mono); font-size: 0.88em; }
 
 a { color: var(--accent); text-underline-offset: 3px; }
+
+/* Grain de papier: donne de la matière sans coûter une requête réseau. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: var(--grain);
+}
+body > * { position: relative; z-index: 2; }
+
+::selection { background: var(--ink); color: var(--paper); }
+
+h1 { letter-spacing: -0.035em; font-weight: 600; }
+
+/* Chiffres tabulaires partout: les numéros de séance doivent s'aligner. */
+.mono, code, pre { font-variant-numeric: tabular-nums; }
