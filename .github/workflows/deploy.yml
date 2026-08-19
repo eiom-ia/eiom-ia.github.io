@@ -2,7 +2,10 @@ name: Publier le site
 
 on:
   push:
-    branches: [main]
+    # parcours-ia figure ici parce que main n'existe pas encore: le site doit
+    # etre verifiable avant la fusion, le guide d'installation etant attendu
+    # par les participant-e-s avant le week-end.
+    branches: [main, parcours-ia]
   workflow_dispatch:
 
 permissions:
