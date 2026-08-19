@@ -54,6 +54,32 @@ Les compétences techniques sont **hétérogènes avec un plancher bas** : on ti
 - Depuis le 1ᵉʳ avril 2026, les modèles Pro ne sont plus offerts au palier gratuit. Seuls Flash et Flash-Lite le sont. Le matériel ne doit citer que des modèles Flash.
 - La limite de 15 RPM interdit un `parallel_chat()` naïf. La limitation de débit devient donc un objet d'enseignement plutôt qu'un obstacle.
 
+### Constats empiriques du 19 août 2026 — vérifiés par appel réel, pas par mémoire
+
+Ces résultats proviennent d'appels réellement exécutés depuis la machine de développement. Ils
+contredisent partiellement la documentation et les souvenirs du modèle, et doivent primer.
+
+- **`type_enum(values, description)` prend les valeurs EN PREMIER**, la description ensuite. L'ordre
+  inverse lève « @description must be a single string ». `type_object(.description, ...)` utilise des
+  arguments préfixés d'un point. À écrire correctement dans tout le matériel de la séance 1.
+- **GitHub Models est en cours de retrait** (« scheduled retirement brownout », HTTP 410). La piste
+  `chat_github()` est morte. Ne pas l'inscrire au guide.
+- **`gemini-2.5-flash` est retiré aux nouveaux usagers** (HTTP 404).
+- **Tous les modèles Flash testés renvoient HTTP 429 sur la clé de développement**, avec le message
+  « Your prepayment credits are depleted ». Cette clé est rattachée à un projet facturé dont les
+  crédits sont épuisés : dans ce cas, **il n'y a pas de repli automatique vers le palier gratuit**.
+  Il reste à établir si une clé neuve, sur un projet sans facturation, obtient bien le palier gratuit.
+  **C'est la seule question ouverte du parcours, et elle est bloquante pour la séance 1.**
+- **OpenRouter offre 19 modèles réellement gratuits** (prix nul à l'entrée comme à la sortie) sur les
+  414 de son catalogue. Les candidats sérieux pour une salle de classe sont `google/gemma-4-31b-it:free`,
+  `openai/gpt-oss-20b:free`, `z-ai/glm-5.2:free` et `openrouter/free`. Les noms de modèles gratuits
+  changent souvent : toujours interroger `https://openrouter.ai/api/v1/models` plutôt que de citer
+  une liste de mémoire.
+- **Avantage pédagogique inattendu d'OpenRouter** : ses modèles gratuits sont en bonne partie des
+  modèles *open weights* (Gemma, GPT-OSS, GLM, Nemotron). Utiliser l'un d'eux en séance 1 prépare
+  concrètement l'argument de la séance 3 sur les modèles ouverts, au lieu de le contredire comme le
+  ferait un modèle propriétaire.
+
 ### Une contrainte transformée en leçon
 
 Au palier gratuit de Google, **les données transmises peuvent servir à améliorer les produits de Google**. C'est un enjeu déontologique réel dès qu'on traite des données de recherche sensibles, et il faut le dire franchement en séance 1. Cela installe naturellement l'argument central de la séance 3 d'Antoine sur les modèles open weights exécutés localement : confidentialité, reproductibilité, contrôle des coûts. La limite du dispositif pédagogique devient l'argument du lendemain.
