@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { FOURNISSEUR, URL_VERIFICATEUR } from '../src/lib/data/config.js';
+import { FOURNISSEURS, URL_VERIFICATEUR } from '../src/lib/data/config.js';
 
 const verifierR = readFileSync('static/verifier.R', 'utf8');
 
@@ -8,18 +8,12 @@ const verifierR = readFileSync('static/verifier.R', 'utf8');
 // d'un seul fichier. verifier.R est en R, donc hors de sa portée: ces
 // assertions font échouer la compilation si l'un des deux dérive de l'autre.
 describe('cohérence entre config.js et verifier.R', () => {
-  it('épingle le même modèle des deux côtés', () => {
-    expect(verifierR, `verifier.R ne mentionne pas ${FOURNISSEUR.modele}`).toContain(
-      FOURNISSEUR.modele
-    );
-  });
-
-  it('nomme le même fournisseur des deux côtés', () => {
-    expect(verifierR, `verifier.R ne mentionne pas ${FOURNISSEUR.nom}`).toContain(FOURNISSEUR.nom);
-  });
-
-  it('nomme la même variable d’environnement des deux côtés', () => {
-    expect(verifierR).toContain(FOURNISSEUR.variableEnv);
+  it('décrit les mêmes fournisseurs des deux côtés', () => {
+    for (const fournisseur of Object.values(FOURNISSEURS)) {
+      expect(verifierR).toContain(fournisseur.modele);
+      expect(verifierR).toContain(fournisseur.nom);
+      expect(verifierR).toContain(fournisseur.variableEnv);
+    }
   });
 
   it("annonce dans verifier.R l'URL à laquelle il est réellement servi", () => {

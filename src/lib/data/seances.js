@@ -10,7 +10,20 @@ export const SEANCES = [
       "la condition d'une utilisation systématique, transparente et reproductible en recherche. " +
       'Chacun·e repart avec un environnement de travail fonctionnel.',
     statut: 'complet',
-    deck: 'seance-1'
+    deck: 'seance-1',
+    objectifs: [
+      'expliquer pourquoi un LLM produit des erreurs plausibles',
+      'effectuer un appel reproductible depuis R avec Gemini ou OpenRouter',
+      'transformer une réponse en variables structurées et bornées',
+      'journaliser le fournisseur, le modèle, les paramètres, les entrées et les erreurs'
+    ],
+    livrable: 'sorties/seance1_notes.json, avec un identifiant stable pour chaque observation',
+    materiel: [
+      { label: 'Prévol R', url: '/materiel/00_prevol.R' },
+      { label: 'Script de mesure', url: '/materiel/01_mesurer.R' },
+      { label: 'Corpus synthétique', url: '/materiel/donnees/avis_exemple.csv' },
+      { label: 'Sortie canonique de secours', url: '/materiel/sorties/seance1_notes_exemple.json' }
+    ]
   },
   {
     numero: 2,
@@ -44,7 +57,19 @@ export const SEANCES = [
       'Les concepts fondamentaux des agents, dont les skills et les protocoles de contexte de ' +
       'modèle (MCP), et leur intégration fiable et vérifiable aux étapes du cycle de la recherche.',
     statut: 'complet',
-    deck: 'seance-4'
+    deck: 'seance-4',
+    objectifs: [
+      "décomposer un agent en modèle, outils, boucle et critère d'arrêt",
+      'construire un outil borné en R avant de passer à un harnais agentique',
+      'appliquer moindre privilège, journalisation, tests et points de contrôle',
+      'détecter les références fabriquées et les injections de prompt indirectes'
+    ],
+    livrable: "un journal d'agent et un protocole de délégation exécutés dans un bac à sable",
+    materiel: [
+      { label: 'Agent R borné', url: '/materiel/04_agent.R' },
+      { label: 'Corpus synthétique', url: '/materiel/donnees/avis_exemple.csv' },
+      { label: 'Consignes du matériel', url: '/materiel/README.md' }
+    ]
   },
   {
     numero: 5,
@@ -55,13 +80,28 @@ export const SEANCES = [
     resume:
       "Une rencontre avec des praticien·ne·s du domaine, puis un atelier où l'on mobilise " +
       'tous les outils de la semaine dans un flux complet, de la question de recherche à la diffusion.',
-    statut: 'complet'
+    statut: 'complet',
+    deck: 'seance-5',
+    objectifs: [
+      'assembler un flux minimal de la question à la diffusion',
+      'passer cinq contrôles explicites sans dépendre des séances précédentes',
+      'auditer le dossier de preuve produit par un autre binôme',
+      "rédiger une déclaration transparente de l'usage de l'IA"
+    ],
+    livrable: 'un HTML autonome, une fiche méthodologique et un journal de délégation',
+    materiel: [
+      { label: "Mode d'emploi de l'atelier", url: '/materiel/atelier-integratif/README.md' },
+      { label: 'Question mesurable', url: '/materiel/atelier-integratif/question.md' },
+      { label: 'Fiche méthodologique', url: '/materiel/atelier-integratif/methods-card.md' },
+      { label: 'Journal de délégation', url: '/materiel/atelier-integratif/agents.md' },
+      { label: "Vérificateur de l'atelier", url: '/materiel/atelier-integratif/verifier_atelier.R' }
+    ]
   }
 ];
 
 export const seanceParNumero = (n) => SEANCES.find((s) => s.numero === Number(n));
 
-/** Ce que la séance 1 garantit aux séances suivantes. Voir §8 du devis. */
+/** Artefacts que les séances suivantes peuvent reprendre, sans dépendance obligatoire. */
 export const INTERFACES = {
   produitParSeance1: [
     'un environnement R fonctionnel avec ellmer',

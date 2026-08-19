@@ -1,4 +1,5 @@
 <script>
+  import { untrack } from 'svelte';
   import { allerA, creerDeck, etiquette, precedent, progression, suivant } from './navigation.js';
   import './deck.css';
 
@@ -7,7 +8,7 @@
   // Le deck est navigable sans JavaScript: cet état ne sert qu'au confort
   // (barre de progression, pastilles, compteur). Il ne commande jamais la
   // visibilité d'une diapo.
-  let deck = $state(creerDeck(total));
+  let deck = $state(creerDeck(untrack(() => total)));
   let conteneur = $state(null);
   let js = $state(false);
 

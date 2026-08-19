@@ -1,0 +1,42 @@
+---
+title: "Mesurer avec un LLM: une capsule reproductible"
+lang: fr
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  echo: true
+---
+
+## Question
+
+Dans quelle mesure un modèle de langue retrouve-t-il la note associée à un court avis de restaurant synthétique?
+
+## Dispositif
+
+Le corpus, le schéma, le fournisseur, le modèle et l'horodatage sont consignés dans les fichiers du dossier `sorties/`. La sortie du modèle est jointe au corpus par un identifiant stable, jamais par l'ordre des lignes.
+
+```{r}
+metriques <- read.csv("sorties/metriques.csv")
+knitr::kable(metriques, digits = 3)
+```
+
+## Résultat
+
+![](sorties/accord.png){fig-alt="Nuage de points comparant chaque note de référence à la note prédite"}
+
+## Analyse des erreurs
+
+```{r}
+desaccords <- read.csv("sorties/desaccords.csv")
+knitr::kable(desaccords)
+```
+
+## Limites
+
+Le corpus est petit et synthétique. Ce résultat décrit uniquement cette exécution, sur cette tâche et ce jeu de données. Il ne justifie aucune affirmation générale sur les capacités du modèle.
+
+## Usage de l'IA
+
+Le système d'IA, ses paramètres et ses actions sont décrits dans `methods-card.md`, `agents.md` et `sorties/seance1_notes.json`. La responsabilité de la question, du dispositif, de l'interprétation et du texte final demeure humaine.

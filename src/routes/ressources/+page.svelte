@@ -1,7 +1,13 @@
 <script>
   import Prose from '$lib/components/Prose.svelte';
   import Encadre from '$lib/components/Encadre.svelte';
-  import { FOURNISSEUR, URL_VERIFICATEUR, CONTACT } from '$lib/data/config.js';
+  import {
+    FOURNISSEURS,
+    FOURNISSEUR,
+    URL_VERIFICATEUR,
+    URL_OUTILS_R,
+    CONTACT
+  } from '$lib/data/config.js';
 </script>
 
 <svelte:head><title>Ressources — Parcours IA, EIOM 2026</title></svelte:head>
@@ -11,12 +17,29 @@
 
   <h2>Accès aux modèles</h2>
   <p>
-    Le parcours utilise <strong>{FOURNISSEUR.nom}</strong> au palier gratuit, appelé depuis R par la
-    fonction <code>{FOURNISSEUR.fonctionR}()</code> du paquet <code>ellmer</code>. Le modèle est
-    épinglé explicitement à <code>{FOURNISSEUR.modele}</code> : ne jamais s'en remettre à la valeur
-    par défaut, qui change d'une version à l'autre et rend un résultat irreproductible.
+    Le parcours recommande <strong>{FOURNISSEUR.nom}</strong>, avec OpenRouter comme relève. Une petite
+    fonction commune choisit automatiquement le fournisseur dont la clé est présente. Le reste du code
+    ne change pas.
   </p>
-  <p>Quota du palier gratuit : {FOURNISSEUR.quota}.</p>
+  <pre><code>source("{URL_OUTILS_R}")
+chat &lt;- creer_chat_eiom()</code></pre>
+  <table>
+    <thead><tr><th>Fournisseur</th><th>Variable</th><th>Modèle pédagogique</th></tr></thead>
+    <tbody>
+      {#each Object.values(FOURNISSEURS) as fournisseur}
+        <tr>
+          <td>{fournisseur.nom}</td>
+          <td><code>{fournisseur.variableEnv}</code></td>
+          <td><code>{fournisseur.modele}</code></td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+  <p>
+    Les quotas et les catalogues changent. Le modèle réellement utilisé doit toujours être écrit dans
+    le journal d'exécution. L'alias générique <code>openrouter/free</code> dépanne, mais ne convient pas
+    à un résultat publié puisqu'il peut router vers des modèles différents.
+  </p>
 
   <h2>Dépannage</h2>
   <p>Relancer la vérification à tout moment :</p>
@@ -30,14 +53,15 @@
 
   <h3>J'obtiens une erreur 429</h3>
   <p>
-    Le quota par minute est atteint. Attendez une minute, puis ralentissez vos appels. Ce n'est pas
-    une panne : c'est la limitation de débit, et savoir la gérer fait partie du métier.
+    Le quota par minute ou le crédit disponible est atteint. Attendez une minute, ralentissez les
+    appels, choisissez l'autre fournisseur, ou passez aux sorties préenregistrées.
   </p>
 
   <h3>J'obtiens une erreur 404 sur le nom du modèle</h3>
   <p>
-    Le modèle a été retiré ou renommé. Les catalogues changent vite. Listez les modèles réellement
-    disponibles avec <code>ellmer::models_google_gemini()</code> plutôt que de deviner un nom.
+    Le modèle a été retiré ou renommé. Les catalogues changent vite. Pour Gemini, consultez
+    <code>ellmer::models_google_gemini()</code>. Pour OpenRouter, vérifiez le catalogue avant de modifier
+    <code>EIOM_MODELE_OPENROUTER</code> dans <code>.Renviron</code>.
   </p>
 
   <Encadre ton="rose" titre="La règle qui ne souffre pas d'exception">

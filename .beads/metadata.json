@@ -2,6 +2,6 @@
   "database": "dolt",
   "backend": "dolt",
   "dolt_mode": "embedded",
-  "dolt_database": "eiom_ia.github.io",
+  "dolt_database": "eiom_ia_github_io",
   "project_id": "567cba9b-ad97-4a30-900e-08cec1159f9d"
 }

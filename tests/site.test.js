@@ -47,4 +47,13 @@ describe('routes prérendues', () => {
     const html = readFileSync('build/seances/2/index.html', 'utf8');
     expect(html).toMatch(/Lemor/);
   });
+
+  it('publie objectifs, livrables et matériel pour les séances prises en charge', () => {
+    for (const n of [1, 4, 5]) {
+      const html = readFileSync(`build/seances/${n}/index.html`, 'utf8');
+      expect(html).toContain('Objectifs observables');
+      expect(html).toContain('Livrable');
+      expect(html).not.toContain('Matériel en préparation');
+    }
+  });
 });

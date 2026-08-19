@@ -1,5 +1,10 @@
 # Plan 1 — Fondations du site et guide d'installation
 
+> **Document historique.** Ce plan décrit l'échafaudage initial et conserve ses exemples pour retracer
+> les décisions. L'état exécutable se trouve dans `README.md`, `static/eiom.R`, `static/materiel/` et le
+> backlog Beads. Les quotas, fournisseurs et noms de modèles cités plus bas ne doivent pas être repris
+> sans le prévol actuel.
+
 > **Pour les agents exécutants :** SOUS-COMPÉTENCE REQUISE — utiliser `superpowers:subagent-driven-development` (recommandé) ou `superpowers:executing-plans` pour exécuter ce plan tâche par tâche. Les étapes utilisent la syntaxe à cases (`- [ ]`).
 
 **But :** mettre en ligne le site du parcours IA de l'EIOM avec, comme livrable central, le guide d'installation que les participant·e·s doivent recevoir avant le week-end.

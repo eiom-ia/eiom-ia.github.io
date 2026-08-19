@@ -2,7 +2,7 @@
 
 **Date** : 19 août 2026
 **Auteur** : Laurence-Olivier M. Foisy, avec Claude
-**Statut** : en attente de relecture
+**Statut** : mis en œuvre; décisions techniques actualisées après prévol réel
 
 ---
 
@@ -40,7 +40,7 @@ Les compétences techniques sont **hétérogènes avec un plancher bas** : on ti
 
 | Sujet | Décision | Motif |
 |---|---|---|
-| Accès aux modèles | **Google AI Studio, palier gratuit** | Seul palier gratuit majeur sans carte de crédit et sans expiration. 1 500 requêtes/jour et 15 RPM sur Flash, chaque participant·e disposant de son propre quota. Vérifié le 19 août 2026. |
+| Accès aux modèles | **Gemini direct, OpenRouter en relève, sorties préenregistrées** | Une clé Gemini neuve demeure la voie gratuite visée. OpenRouter avec quelques crédits et un modèle Gemini épinglé est la relève vérifiée. Les quotas ne sont jamais promis dans le matériel. |
 | Client R | **ellmer 0.4.2** | Vérifié empiriquement sur la machine. Couvre tout le parcours : 23 fournisseurs, sortie structurée, appels parallèles, outils d'agent, images et PDF. |
 | Langage | **R d'abord, Python en appui** | Langue du public. Python réservé aux modèles open weights (séance 3) et à `LLM_Tool` d'Antoine. |
 | Stack du site | **SvelteKit + adapter-static** | Choix du client. Site et diapos dans la même technologie, animations agréables à écrire. |
@@ -52,7 +52,7 @@ Les compétences techniques sont **hétérogènes avec un plancher bas** : on ti
 - Dans ellmer 0.4.2, l'argument **`api_key` est déprécié**. On enseigne la variable d'environnement `GEMINI_API_KEY` (ou `GOOGLE_API_KEY`) déposée dans `.Renviron`, et `credentials` pour les cas particuliers. Le matériel FAS1001 existant utilise l'ancien patron et doit être corrigé.
 - Le modèle Gemini par défaut d'ellmer est `gemini-3.5-flash`, mais **la valeur par défaut change au fil des versions**. On épingle donc explicitement le modèle dans chaque appel. Ce n'est pas un détail de style : c'est la condition de reproductibilité d'un résultat de recherche.
 - Depuis le 1ᵉʳ avril 2026, les modèles Pro ne sont plus offerts au palier gratuit. Seuls Flash et Flash-Lite le sont. Le matériel ne doit citer que des modèles Flash.
-- La limite de 15 RPM interdit un `parallel_chat()` naïf. La limitation de débit devient donc un objet d'enseignement plutôt qu'un obstacle.
+- Les limites de débit varient par projet et fournisseur. La pause est configurable, les erreurs sont journalisées et les sorties sont sauvegardées après chaque appel.
 
 ### Constats empiriques du 19 août 2026 — vérifiés par appel réel, pas par mémoire
 
@@ -79,6 +79,10 @@ contredisent partiellement la documentation et les souvenirs du modèle, et doiv
   modèles *open weights* (Gemma, GPT-OSS, GLM, Nemotron). Utiliser l'un d'eux en séance 1 prépare
   concrètement l'argument de la séance 3 sur les modèles ouverts, au lieu de le contredire comme le
   ferait un modèle propriétaire.
+- **Prévol supplémentaire du 19 août 2026** : `openrouter/free` a répondu, mais son routage variable a
+  produit des sorties invalides et n'a traité que sept avis en quatre minutes. Le modèle épinglé
+  `google/gemini-3.5-flash-lite`, avec quelques crédits OpenRouter, a réussi le schéma complet, trois
+  observations consécutives et un appel d'outil `ellmer`. Il devient la relève reproductible.
 
 ### Une contrainte transformée en leçon
 
@@ -208,7 +212,7 @@ Le contexte comme ressource rare et gérée.
 
 ### Bloc 2 — L'écosystème (50 min)
 
-MCP : ce qu'est le protocole, ce qu'est un serveur, et ce que ça change concrètement. Les skills, c'est-à-dire des instructions chargées à la demande. Installation de Claude Code et branchement d'un serveur MCP Zotero.
+MCP : ce qu'est le protocole, ce qu'est un serveur, et ce que ça change concrètement. Les skills, c'est-à-dire des instructions chargées à la demande. Installation d'OpenCode avec Gemini ou OpenRouter; Claude Code reste une comparaison facultative. Le serveur Zotero est présenté en lecture seule.
 
 Panorama honnête des outils, terminal et interface graphique confondus.
 

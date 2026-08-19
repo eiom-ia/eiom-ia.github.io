@@ -1,0 +1,25 @@
+{
+  "journal": {
+    "fournisseur": "préenregistré",
+    "modele": "sortie-canonique-v1",
+    "temperature": 0,
+    "schema": "note_avis-v1",
+    "jeu": "avis_exemple.csv",
+    "n": 12,
+    "horodatage": "2026-08-19T12:00:00-0400"
+  },
+  "sorties": [
+    {"id":"avis-001","prediction":{"note":5,"sentiment":"positif","langue":"francais","sujets":["nourriture","service","portions"]},"valide":true,"erreur":null},
+    {"id":"avis-002","prediction":{"note":4,"sentiment":"positif","langue":"francais","sujets":["nourriture","proprete"]},"valide":true,"erreur":null},
+    {"id":"avis-003","prediction":{"note":3,"sentiment":"neutre","langue":"francais","sujets":["nourriture","prix"]},"valide":true,"erreur":null},
+    {"id":"avis-004","prediction":{"note":2,"sentiment":"negatif","langue":"francais","sujets":["commande","attente","service"]},"valide":true,"erreur":null},
+    {"id":"avis-005","prediction":{"note":1,"sentiment":"negatif","langue":"francais","sujets":["horaire","deplacement"]},"valide":true,"erreur":null},
+    {"id":"avis-006","prediction":{"note":5,"sentiment":"positif","langue":"anglais","sujets":["nourriture","service","prix"]},"valide":true,"erreur":null},
+    {"id":"avis-007","prediction":{"note":4,"sentiment":"positif","langue":"anglais","sujets":["nourriture","paiement","signalisation"]},"valide":true,"erreur":null},
+    {"id":"avis-008","prediction":{"note":3,"sentiment":"neutre","langue":"anglais","sujets":["nourriture"]},"valide":true,"erreur":null},
+    {"id":"avis-009","prediction":{"note":2,"sentiment":"negatif","langue":"anglais","sujets":["temperature","livraison"]},"valide":true,"erreur":null},
+    {"id":"avis-010","prediction":{"note":1,"sentiment":"negatif","langue":"anglais","sujets":["livraison","service"]},"valide":true,"erreur":null},
+    {"id":"avis-011","prediction":{"note":5,"sentiment":"positif","langue":"francais","sujets":["service","espace","nourriture"]},"valide":true,"erreur":null},
+    {"id":"avis-012","prediction":{"note":2,"sentiment":"negatif","langue":"francais","sujets":["qualite","fidelite"]},"valide":true,"erreur":null}
+  ]
+}

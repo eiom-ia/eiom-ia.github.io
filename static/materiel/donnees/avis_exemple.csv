@@ -1,0 +1,13 @@
+id,review_text,review_rating,origine
+avis-001,"Excellent repas, service rapide et portions généreuses.",5,synthétique
+avis-002,"Très bon sandwich, mais la salle était un peu sale.",4,synthétique
+avis-003,"Correct sans plus. Les frites étaient tièdes et le prix raisonnable.",3,synthétique
+avis-004,"Commande incomplète et attente interminable malgré un personnel poli.",2,synthétique
+avis-005,"Fermé sans avertissement après trente minutes de déplacement.",1,synthétique
+avis-006,"Best gyro in town, friendly staff and excellent value.",5,synthétique
+avis-007,"Good food, cash only and no clear sign at the entrance.",4,synthétique
+avis-008,"Average meal. Nothing terrible, nothing memorable.",3,synthétique
+avis-009,"The order was cold and arrived much later than promised.",2,synthétique
+avis-010,"Never received the meal and could not reach anyone.",1,synthétique
+avis-011,"Le service est brusque, l'endroit minuscule, et pourtant je reviens pour les gyros.",5,synthétique
+avis-012,"J'adorais cet endroit, mais les deux dernières commandes étaient décevantes.",2,synthétique

@@ -2,7 +2,12 @@
   import Prose from '$lib/components/Prose.svelte';
   import Etape from '$lib/components/Etape.svelte';
   import Encadre from '$lib/components/Encadre.svelte';
-  import { FOURNISSEUR, URL_VERIFICATEUR, CONTACT } from '$lib/data/config.js';
+  import {
+    FOURNISSEUR,
+    FOURNISSEUR_SECOURS,
+    URL_VERIFICATEUR,
+    CONTACT
+  } from '$lib/data/config.js';
 </script>
 
 <svelte:head>
@@ -38,10 +43,10 @@
       <li>Installer R et un éditeur de code.</li>
       <li>Obtenir une clé d'accès gratuite à un modèle de langue.</li>
       <li>Déposer cette clé au bon endroit sur votre ordinateur.</li>
-      <li>Lancer notre vérification en une ligne et obtenir quatre lignes vertes.</li>
+      <li>Lancer notre vérification en une ligne et obtenir cinq lignes vertes.</li>
     </ol>
     <p>
-      Si les quatre lignes sont vertes, vous êtes prêt·e et vous pouvez fermer cette page.
+      Si les cinq lignes sont vertes, vous êtes prêt·e et vous pouvez fermer cette page.
       Sinon, écrivez-nous <strong>avant le dimanche 23 août</strong> — voir la dernière section.
     </p>
   </Etape>
@@ -91,19 +96,34 @@
 
     <h3>Installer le paquet dont nous aurons besoin</h3>
     <p>Ouvrez RStudio. Dans la fenêtre du bas nommée « Console », tapez cette ligne et appuyez sur Entrée :</p>
-    <pre><code>install.packages(c("ellmer", "usethis"))</code></pre>
+    <pre><code>install.packages(c("ellmer", "usethis", "jsonlite", "httr2"))</code></pre>
     <p>
       L'installation prend une à trois minutes et affiche beaucoup de texte. Tant qu'aucune ligne ne
       commence par <code>Error</code>, tout va bien : les avertissements commençant par
       <code>Warning</code> sont normaux et sans conséquence.
     </p>
+
+    <h3>À préparer avant jeudi : OpenCode</h3>
+    <p>
+      La séance agentique utilise OpenCode, un harnais open source qui peut appeler Gemini ou
+      OpenRouter. Cette préparation n'est pas requise pour lundi, mais faites-la avant mercredi soir.
+    </p>
+    <ol>
+      <li>Installez la version LTS de <a href="https://nodejs.org/">Node.js</a>.</li>
+      <li>Ouvrez le terminal de RStudio : menu « Tools », puis « Terminal », puis « New Terminal ».</li>
+      <li>Tapez <code>npm install -g opencode-ai</code>.</li>
+      <li>Après l'étape 5, tapez <code>verifier_agentique()</code> dans R.</li>
+    </ol>
   </Etape>
 
-  <Etape numero="3" titre="Obtenir une clé {FOURNISSEUR.nom}">
+  <Etape numero="3" titre="Choisir un accès au modèle">
     <p>
       Une clé d'API est un mot de passe qui autorise votre ordinateur à parler à un modèle de langue.
-      Celle-ci est <strong>gratuite et ne demande aucune carte de crédit</strong>.
+      Le matériel accepte deux fournisseurs. Commencez par <strong>{FOURNISSEUR.nom}</strong>, dont le
+      palier gratuit ne demande normalement aucune carte. Si votre compte institutionnel le bloque ou
+      si le quota est indisponible, utilisez <strong>{FOURNISSEUR_SECOURS.nom}</strong>.
     </p>
+    <h3>Voie recommandée : {FOURNISSEUR.nom}</h3>
     <ol>
       <li>Allez sur <a href={FOURNISSEUR.urlCle}>{FOURNISSEUR.urlCle}</a>.</li>
       <li>Connectez-vous avec un compte Google. Un compte personnel suffit.</li>
@@ -115,9 +135,27 @@
       </li>
     </ol>
     <p>
-      Le palier gratuit offre {FOURNISSEUR.quota}, ce qui est largement au-delà de ce que nous ferons
-      pendant la semaine.
+      Les quotas gratuits changent sans préavis et dépendent du projet. Ils ne sont donc pas imprimés
+      comme une promesse dans ce guide : le diagnostic de l'étape 5 effectue un appel réel.
     </p>
+
+    <h3>Voie de relève : {FOURNISSEUR_SECOURS.nom}</h3>
+    <ol>
+      <li>Créez un compte sur <a href={FOURNISSEUR_SECOURS.urlCle}>OpenRouter</a>.</li>
+      <li>Créez une clé dans la section « API Keys ».</li>
+      <li>
+        Les modèles gratuits suffisent souvent aux exercices. Ajouter quelques crédits demeure la
+        manière la plus fiable d'éviter un blocage au moment où toute la salle se connecte.
+      </li>
+    </ol>
+
+    <Encadre ton="ciel" titre="État vérifié le 19 août">
+      <p>
+        Un appel OpenRouter complet fonctionne avec la version d'<code>ellmer</code> du cours. Notre
+        ancien projet Gemini facturé refuse les appels lorsque ses crédits sont épuisés, sans revenir
+        automatiquement au gratuit. Le diagnostic est donc obligatoire même si votre clé existe.
+      </p>
+    </Encadre>
 
     <Encadre ton="ambre" titre="Un point d'éthique de recherche, dès maintenant">
       <p>
@@ -130,8 +168,8 @@
     </Encadre>
 
     <p>
-      Vous n'avez pas de compte Google et vous ne souhaitez pas en créer un ? Écrivez-nous, on vous
-      trouve une autre voie. Ne restez pas bloqué·e là-dessus.
+      Vous n'avez pas de compte Google et vous ne souhaitez pas en créer un ? Choisissez OpenRouter.
+      Le code du cours reste identique dans les deux cas.
     </p>
   </Etape>
 
@@ -145,9 +183,18 @@
     <p>
       Un fichier s'ouvre, probablement vide. Ajoutez-y cette ligne, en remplaçant
       <code>votre_cle_ici</code> par la clé copiée à l'étape 3, sans guillemets et sans espace autour
-      du signe égal :
+      du signe égal. Ajoutez <strong>une seule</strong> des deux lignes :
     </p>
-    <pre><code>{FOURNISSEUR.variableEnv}=votre_cle_ici</code></pre>
+    <pre><code># Pour Google AI Studio
+{FOURNISSEUR.variableEnv}=votre_cle_ici
+
+# OU pour OpenRouter
+{FOURNISSEUR_SECOURS.variableEnv}=votre_cle_ici</code></pre>
+    <p>
+      Si vous conservez les deux clés, ajoutez aussi <code>EIOM_FOURNISSEUR=openrouter</code> ou
+      <code>EIOM_FOURNISSEUR=gemini</code> pour choisir explicitement. Le cours ne change jamais de
+      modèle en silence au milieu d'une analyse.
+    </p>
     <p>
       Enregistrez le fichier, puis <strong>redémarrez R</strong> : menu « Session », puis « Restart R ».
       Cette étape est obligatoire — sans redémarrage, R ne verra pas la clé, et c'est de loin la cause
@@ -173,14 +220,17 @@
     <p>Vous devriez voir apparaître un rapport de ce genre :</p>
     <pre><code>== Vérification de l'environnement — Parcours IA, EIOM 2026 ==
 
+Fournisseur: {FOURNISSEUR.nom} · Modèle: {FOURNISSEUR.modele}
+
 [ OK   ] Version de R                 4.6.1
 [ OK   ] Paquet ellmer                0.4.2
+[ OK   ] Paquet jsonlite              2.0.0
 [ OK   ] Clé {FOURNISSEUR.nom}        trouvée (39 caractères)
 [ OK   ] Appel réel au modèle         pret
 
 Tout est en place. Vous êtes prêt·e pour lundi matin.</code></pre>
     <p>
-      <strong>Quatre lignes « OK » : c'est fini, vous êtes prêt·e.</strong> Si une ligne affiche
+      <strong>Cinq lignes « OK » : c'est fini, vous êtes prêt·e.</strong> Si une ligne affiche
       « ÉCHEC », le rapport vous dit quoi faire juste en dessous. Suivez l'indication, puis relancez
       la même ligne.
     </p>
@@ -197,9 +247,10 @@ Tout est en place. Vous êtes prêt·e pour lundi matin.</code></pre>
       l'informatique de recherche.
     </p>
     <p>
-      Nous aurons en classe une solution de secours qui fonctionne dans un simple navigateur, sans
-      aucune installation sur votre machine. Vous pourrez suivre toute la séance et faire tous les
-      exercices. Arrivez simplement dix minutes à l'avance et signalez-vous : on vous branche.
+      Le matériel comprend un petit corpus et des sorties préenregistrées. Si une API ou le réseau
+      tombe, vous pourrez donc réaliser les mêmes opérations de structuration, de contrôle et de
+      validation sans attendre une réponse du modèle. Arrivez simplement dix minutes à l'avance et
+      signalez-vous : on vous place directement sur cette voie.
     </p>
     <p>
       Nous serons également disponibles dès 8h15 le lundi matin pour régler les cas récalcitrants

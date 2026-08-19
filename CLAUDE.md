@@ -52,18 +52,25 @@ bd close <id>         # Complete work
 
 ## Build & Test
 
-_Add your build and test commands here_
-
 ```bash
-# Example:
-# npm install
-# npm test
+npm run build
+npm test
+npm run test:r
+npm run test:integration
+npm run check
 ```
 
 ## Architecture Overview
 
-_Add a brief overview of your project architecture_
+- SvelteKit 5 statique, publié dans `build/` avec `adapter-static`.
+- Pages du parcours sous `src/routes/`; données éditoriales sous `src/lib/data/`.
+- Decks Svelte sous `src/routes/diapos/`, avec composants partagés dans `src/lib/deck/`.
+- Matériel téléchargeable, scripts R et modes de secours sous `static/materiel/`.
+- `static/eiom.R` fournit l'abstraction Gemini/OpenRouter commune aux exercices.
 
 ## Conventions & Patterns
 
-_Add your project-specific conventions here_
+- Le site et les decks doivent fonctionner sans ressource externe au moment de la projection.
+- Les modèles et fournisseurs volatils sont centralisés dans `src/lib/data/config.js` et `static/eiom.R`.
+- Chaque observation conserve un identifiant stable; une conversation LLM neuve est créée par document.
+- Les données brutes restent en lecture seule; les scripts écrivent uniquement dans `sorties/`.

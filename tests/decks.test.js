@@ -6,19 +6,22 @@ const lire = (n) => readFileSync(`build/diapos/${n}/index.html`, 'utf8');
 const compterDiapos = (html) => (html.match(/class="diapo[ "]/g) || []).length;
 
 describe('decks publiés', () => {
-  it('publie un deck pour les séances 1 et 4', () => {
+  it('publie un deck pour les séances 1, 4 et 5', () => {
     expect(existsSync('build/diapos/seance-1/index.html')).toBe(true);
     expect(existsSync('build/diapos/seance-4/index.html')).toBe(true);
+    expect(existsSync('build/diapos/seance-5/index.html')).toBe(true);
   });
 
   it('rend toutes les diapos dans le HTML statique, sans JavaScript', () => {
     expect(compterDiapos(lire('seance-1'))).toBeGreaterThanOrEqual(50);
     expect(compterDiapos(lire('seance-4'))).toBeGreaterThanOrEqual(30);
+    expect(compterDiapos(lire('seance-5'))).toBeGreaterThanOrEqual(10);
   });
 
   it('colorie le code R au rendu statique', () => {
     expect(lire('seance-1')).toContain('r-fn');
     expect(lire('seance-4')).toContain('r-fn');
+    expect(lire('seance-5')).toContain('r-fn');
   });
 
   it('affiche les données de tokenisation réelles', () => {
@@ -37,7 +40,7 @@ describe('decks publiés', () => {
   it('ne charge aucune ressource externe', () => {
     const chargements = /(?:<link[^>]+href|<script[^>]+src|<img[^>]+src)=["']https?:\/\//g;
     const dansCss = /url\(\s*["']?https?:\/\//g;
-    for (const d of ['seance-1', 'seance-4']) {
+    for (const d of ['seance-1', 'seance-4', 'seance-5']) {
       const h = lire(d);
       expect(h.match(chargements), `${d} charge une ressource externe`).toBeNull();
       expect(h.match(dansCss), `${d} charge une police ou image externe en CSS`).toBeNull();
@@ -54,6 +57,6 @@ describe('decks publiés', () => {
 
   it('associe les decks aux bonnes séances', () => {
     const avecDeck = SEANCES.filter((s) => s.deck).map((s) => s.numero);
-    expect(avecDeck).toEqual([1, 4]);
+    expect(avecDeck).toEqual([1, 4, 5]);
   });
 });

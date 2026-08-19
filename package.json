@@ -1,7 +1,7 @@
 {
   "name": "eiom-ia",
   "version": "1.0.0",
-  "description": "",
+  "description": "Parcours L'intelligence artificielle et la recherche de l'EIOM 2026",
   "main": "index.js",
   "directories": {
     "doc": "docs",
@@ -11,7 +11,10 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:r": "Rscript tests/testthat.R",
+    "test:integration": "Rscript tests/integration-secours.R",
+    "check": "npm run build && npm test && npm run test:r && npm run test:integration"
   },
   "repository": {
     "type": "git",
@@ -22,8 +25,8 @@
   "bugs": {
     "url": "https://github.com/eiom-ia/eiom-ia.github.io/issues"
   },
-  "homepage": "https://github.com/eiom-ia/eiom-ia.github.io#readme",
-  "private": "true",
+  "homepage": "https://eiom-ia.github.io/",
+  "private": true,
   "devDependencies": {
     "@playwright/test": "^1.62.1",
     "@sveltejs/adapter-static": "^3.0.10",

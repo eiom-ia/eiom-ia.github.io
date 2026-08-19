@@ -9,27 +9,27 @@
   import Citation from '$lib/deck/Citation.svelte';
   import Tokeniseur from '$lib/deck/demos/Tokeniseur.svelte';
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
+  import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
   const TOTAL = 57;
 
   const c_premier = `library(ellmer)
+source("${URL_OUTILS_R}")
 
-chat <- chat_google_gemini(
-  model  = "gemini-3.5-flash",   # on epingle: jamais la valeur par defaut
+chat <- creer_chat_eiom(
   echo   = "none",
-  params = params(temperature = 0)
+  temperature = 0
 )
 
 chat$chat("Resume cet avis en trois mots.")`;
 
-  const c_systeme = `chat <- chat_google_gemini(
-  model = "gemini-3.5-flash",
+  const c_systeme = `chat <- creer_chat_eiom(
   system_prompt = paste(
     "Tu codes des avis de restaurant pour une recherche",
     "en sciences sociales. Tu ne commentes jamais,",
     "tu ne justifies jamais. Tu reponds selon le schema."
   ),
-  params = params(temperature = 0)
+  temperature = 0
 )`;
 
   const c_texte = `reponse <- chat$chat(avis)
@@ -69,28 +69,37 @@ str(resultat)
 #  $ langue   : chr "francais"
 #  $ sujets   : chr [1:2] "nourriture" "service"`;
 
-  const c_boucle = `donnees <- readRDS("ligne_rouge.rds")
-echantillon <- donnees[1:50, ]
+  const c_boucle = `donnees <- read.csv("donnees/avis_exemple.csv")
+echantillon <- head(donnees, 50)
 
 sorties <- vector("list", nrow(echantillon))
+dir.create("sorties", showWarnings = FALSE)
 
 for (i in seq_len(nrow(echantillon))) {
-  sorties[[i]] <- tryCatch(
-    chat$chat_structured(echantillon$review_text[i], type = note_avis),
-    error = function(e) NULL          # une panne n'arrete pas la boucle
-  )
-  saveRDS(sorties, "sorties/partiel.rds")   # sauvegarde progressive
-  Sys.sleep(4.5)                            # 15 RPM => 4 s minimum
+  sorties[[i]] <- tryCatch({
+    chat_i <- creer_chat_eiom(system_prompt = prompt_systeme)
+    prediction <- chat_i$chat_structured(
+      echantillon$review_text[i], type = note_avis
+    )
+    list(id = echantillon$id[i], prediction = prediction,
+         valide = prediction$note %in% 1:5, erreur = NULL)
+  }, error = function(e) {
+    list(id = echantillon$id[i], prediction = NULL,
+         valide = FALSE, erreur = conditionMessage(e))
+  })
+  jsonlite::write_json(sorties, "sorties/partiel.json",
+                       auto_unbox = TRUE, pretty = TRUE,
+                       null = "null")
+  Sys.sleep(pause)            # valeur choisie selon le quota reel
 }`;
 
-  const c_journal = `journal <- list(
-  modele      = "gemini-3.5-flash",
+  const c_journal = `journal <- c(journal_eiom(), list(
   temperature = 0,
-  schema      = "note_avis v1",
+  schema      = "note_avis-v1",
+  jeu         = "avis_exemple.csv",
   n           = nrow(echantillon),
-  horodatage  = format(Sys.time(), "%Y-%m-%dT%H:%M:%S%z"),
-  ellmer      = as.character(packageVersion("ellmer"))
-)
+  prompt_systeme = prompt_systeme
+))
 
 jsonlite::write_json(
   list(journal = journal, sorties = sorties),
@@ -101,8 +110,10 @@ jsonlite::write_json(
   const c_renviron = `# Dans la console R
 usethis::edit_r_environ()
 
-# Le fichier s'ouvre. On y ajoute UNE ligne:
+# Le fichier s'ouvre. On y ajoute UNE des deux lignes:
 GEMINI_API_KEY=votre_cle_ici
+# OU
+OPENROUTER_API_KEY=votre_cle_ici
 
 # Puis: Session > Restart R
 # Sans redemarrage, R ne verra rien.`;
@@ -197,7 +208,8 @@ verifier_installation()`;
 
 {
   "journal": {
-    "modele": "gemini-3.5-flash",
+    "fournisseur": "gemini",
+    "modele": "${FOURNISSEUR.modele}",
     "temperature": 0,
     "n": 50,
     "horodatage": "2026-08-24T12:31:07-0400"
@@ -546,9 +558,8 @@ verifier_installation()`;
         <Code titre="Ce qu'il ne faut pas faire" src={`chat <- chat_google_gemini()
 # Le defaut d'ellmer a change 3 fois en 18 mois.
 # Votre resultat de mars n'est plus reproductible en juin.`} />
-        <Code titre="Ce qu'il faut faire" src={`chat <- chat_google_gemini(
-  model = "gemini-3.5-flash"
-)
+        <Code titre="Ce qu'il faut faire" src={`chat <- creer_chat_eiom()
+# Le fournisseur et le modele reels entrent dans journal_eiom().
 # Ecrit dans le code, cite dans l'article.`} />
       </Deux>
       <Carte ton="rose" titre="Ce n'est pas du zèle">
@@ -585,9 +596,9 @@ verifier_installation()`;
       <h2 class="e">Les limites de débit</h2>
       <Deux>
         <div>
-          <Grand valeur="15" legende="requêtes par minute" ton="ciel" />
-          <p>Palier gratuit typique. Soit une pause d'environ quatre secondes entre deux appels.</p>
-          <Grand valeur="≈ 4 min" legende="pour 50 avis" />
+          <Grand valeur="variable" legende="quota par fournisseur" ton="ciel" />
+          <p>Le diagnostic vérifie l'accès réel. Le script expose une pause configurable entre les appels.</p>
+          <Grand valeur="50" legende="avis maximum pendant l'atelier" />
         </div>
         <Carte ton="ambre" titre="Ce que ça vous apprend">
           <p>
@@ -603,8 +614,8 @@ verifier_installation()`;
       <p class="surtitre e">Déontologie</p>
       <h2 class="e">Ce que devient votre texte</h2>
       <p class="lead e">
-        Au palier gratuit, les données transmises peuvent servir à améliorer les produits du
-        fournisseur. Aujourd'hui, on travaille sur des avis publics : aucune conséquence.
+        Un service gratuit peut conserver ou réutiliser les données selon son fournisseur et son
+        modèle. Aujourd'hui, on travaille sur un corpus pédagogique sans données personnelles.
       </p>
       <Deux>
         <Carte ton="rose" titre="Ce qu'il ne faut jamais y envoyer">
@@ -631,10 +642,10 @@ verifier_installation()`;
         <Code src={`library(ellmer)
 
 # Le meme code, un fournisseur different:
-chat_google_gemini(model = "gemini-3.5-flash")
+chat_google_gemini(model = "${FOURNISSEUR.modele}")
 chat_openai(model  = "gpt-4o-mini")
 chat_anthropic(model = "claude-sonnet-5")
-chat_openrouter(model = "openrouter/free")
+chat_openrouter(model = "${FOURNISSEUR_SECOURS.modele}")
 chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
         <Carte ton="ciel" titre="Pourquoi ça compte">
           <p>
@@ -681,10 +692,10 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
           <p>C'est la voie que vous garderez après la semaine.</p>
         </Carte>
         <Carte ton="vert" titre="Voie filet">
-          <p>Un environnement dans le navigateur. Aucune installation.</p>
+          <p>Corpus et réponses préenregistrées. Aucun appel au modèle.</p>
           <p>
-            Si votre machine résiste, on bascule sans discuter et vous suivez tout l'atelier. On règlera
-            l'installation à la pause.
+            Si une API ou le réseau résiste, on bascule sans discuter et vous suivez tout l'atelier. On
+            règlera l'accès à la pause.
           </p>
         </Carte>
       </Deux>
@@ -702,7 +713,8 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
 
 [ OK   ] Version de R                 4.6.1
 [ OK   ] Paquet ellmer                0.4.2
-[ OK   ] Cle Google AI Studio         trouvee (39 caracteres)
+[ OK   ] Paquet jsonlite              2.0.0
+[ OK   ] Cle du fournisseur           trouvee (39 caracteres)
 [ OK   ] Appel reel au modele         pret
 
 Tout est en place.`} />
@@ -724,7 +736,7 @@ Tout est en place.`} />
           <p>La ligne s'écrit sans guillemets et sans espace autour du signe égal.</p>
         </Carte>
         <Carte ton="violet" titre="3 · Modèle introuvable">
-          <p>404 : le nom a changé. Listez ce qui existe avec <code>models_google_gemini()</code>.</p>
+          <p>404 : le nom a changé. Utilisez le modèle annoncé sur la page Ressources.</p>
         </Carte>
       </Deux>
       <Carte ton="vert" titre="Critère de sortie du bloc">
@@ -745,10 +757,10 @@ Tout est en place.`} />
       <h2 class="e">La Ligne Rouge</h2>
       <Deux ratio="1fr 1.2fr">
         <div>
-          <Grand valeur="551" legende="avis Google" />
+          <Grand valeur="551" legende="avis dans le corpus complet" />
           <p>
-            Un casse-croûte de Montréal. Texte libre, français et anglais mêlés, fautes, ironie,
-            abréviations. Rien n'a été nettoyé pour vous plaire.
+            Un casse-croûte de Montréal. Le matériel public fournit aussi un petit corpus synthétique,
+            sans données personnelles, pour répéter l'exercice après l'école.
           </p>
         </div>
         <Carte ton="vert" titre="Pourquoi celui-là et pas un corpus propre">
@@ -955,8 +967,8 @@ resultat$note
       <Code src={c_boucle} />
       <Deux ratio="1fr 1fr 1fr">
         <Carte ton="ciel" titre="tryCatch"><p>Une panne réseau au 37ᵉ avis n'anéantit pas les 36 premiers.</p></Carte>
-        <Carte ton="ambre" titre="saveRDS"><p>Sauvegarde progressive. On peut reprendre où on s'est arrêté.</p></Carte>
-        <Carte ton="violet" titre="Sys.sleep"><p>Respecte la limite de débit. Sans elle, 429 au dixième appel.</p></Carte>
+        <Carte ton="ambre" titre="JSON progressif"><p>Chaque appel est sauvegardé avec son identifiant et son erreur éventuelle.</p></Carte>
+        <Carte ton="violet" titre="Sys.sleep"><p>Respecte la limite de débit réellement observée pour le fournisseur choisi.</p></Carte>
       </Deux>
     </Slide>
 

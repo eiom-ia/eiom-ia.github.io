@@ -35,16 +35,17 @@
       </p>
     </Encadre>
 
-    <h2>Ce sur quoi cette séance peut compter</h2>
+    <h2>Artefacts facultatifs disponibles</h2>
     <p>
-      À la fin de la séance 1, le lundi midi, chaque participant·e dispose de&nbsp;:
+      La séance reste autonome. Si son contenu le permet, elle peut toutefois reprendre les artefacts
+      produits le lundi&nbsp;:
     </p>
     <ul>
       {#each INTERFACES.produitParSeance1 as item}<li>{item}</li>{/each}
     </ul>
     <p>
-      Cette séance n'a donc pas à enseigner l'accès aux modèles : elle démarre sur des données que les
-      participant·e·s ont produites eux-mêmes.
+      Des sorties canoniques sont également fournies : aucun problème d'installation ni changement de
+      corpus ne bloque cette séance.
     </p>
 
     <h2>Ce que la séance 1 laisse volontairement intact</h2>
@@ -52,10 +53,26 @@
       {#each INTERFACES.laisseIntact as item}<li>{item}</li>{/each}
     </ul>
   {:else}
-    <Encadre ton="ciel" titre="Matériel en préparation">
+    <h2>Objectifs observables</h2>
+    <ul>
+      {#each s.objectifs ?? [] as objectif}<li>{objectif}</li>{/each}
+    </ul>
+
+    <Encadre ton="vert" titre="Livrable">
+      <p>{s.livrable}</p>
+    </Encadre>
+
+    <h2>Matériel</h2>
+    <div class="materiel">
+      {#each s.materiel ?? [] as item}
+        <a href="{base}{item.url}" download>{item.label}<span>↓</span></a>
+      {/each}
+    </div>
+
+    <Encadre ton="ciel" titre="Une voie de secours fait partie du protocole">
       <p>
-        Le plan détaillé, les diapositives et les scripts de cette séance seront publiés ici avant le
-        début de la semaine.
+        Les sorties canoniques ne sont pas une version inférieure de l'exercice. Elles permettent de
+        pratiquer la structuration, la validation et l'audit lorsque le réseau ou un fournisseur tombe.
       </p>
     </Encadre>
   {/if}
@@ -95,4 +112,22 @@
     padding-left: 16px;
     margin: 1.6em 0 2em;
   }
+  .materiel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 10px;
+    margin: 1em 0 2em;
+  }
+  .materiel a {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 14px;
+    border: var(--filet);
+    border-radius: var(--rayon);
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--paper-2);
+  }
+  .materiel a:hover { border-color: var(--accent); }
 </style>
