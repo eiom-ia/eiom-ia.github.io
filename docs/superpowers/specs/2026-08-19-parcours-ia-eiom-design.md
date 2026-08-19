@@ -244,7 +244,10 @@ SvelteKit avec `adapter-static`, toutes les routes prérendues, publié sur GitH
 
 `paths.relative = true` dans la configuration, pour que la sortie compilée fonctionne aussi en `file://` — condition d'un deck projetable sans réseau.
 
-`mdsvex` pour les pages de prose longue (guide d'installation, pages de séance), Svelte pur pour les diapos, où le contrôle fin de l'animation prime.
+Toutes les pages sont des composants Svelte. La prose longue (guide d'installation, pages de séance) passe par un
+composant `<Prose>` partagé qui porte l'échelle typographique. **`mdsvex` est écarté** : sa compatibilité avec
+Svelte 5 est un risque qu'on ne veut pas porter à la veille d'une échéance dure, et il n'apporte rien que le
+composant partagé ne fasse déjà.
 
 Coloration syntaxique du R à la compilation via Shiki, donc sans JavaScript au moment de l'exécution.
 
