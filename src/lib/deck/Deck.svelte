@@ -1,53 +1,58 @@
 <script>
-  import { creerDeck, suivant, precedent, allerA, progression, etiquette } from './navigation.js';
+  import { allerA, creerDeck, etiquette, precedent, progression, suivant } from './navigation.js';
   import './deck.css';
 
   let { total, children } = $props();
-  let deck = $state(creerDeck(total));
 
-  const ZOOMS = [1.0, 1.3, 1.5];
-  let zoom = $state(1.0);
+  // Le deck est navigable sans JavaScript: cet état ne sert qu'au confort
+  // (barre de progression, pastilles, compteur). Il ne commande jamais la
+  // visibilité d'une diapo.
+  let deck = $state(creerDeck(total));
+  let conteneur = $state(null);
+  let js = $state(false);
+
+  $effect(() => { js = true; });
+
+  function versDiapo(n) {
+    deck = allerA(deck, n);
+    conteneur?.children[deck.index]?.scrollIntoView({ block: 'start' });
+  }
 
   function auClavier(e) {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+    if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(e.key)) {
       e.preventDefault();
-      deck = suivant(deck);
-    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      versDiapo(suivant(deck).index);
+    } else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) {
       e.preventDefault();
-      deck = precedent(deck);
-    } else if (e.key === 'z' || e.key === 'Z') {
-      e.preventDefault();
-      zoom = ZOOMS[(ZOOMS.indexOf(zoom) + 1) % ZOOMS.length];
-      document.documentElement.style.zoom = String(zoom);
+      versDiapo(precedent(deck).index);
     }
   }
 
-  let debutX = 0;
-  const auToucherDebut = (e) => (debutX = e.touches[0].clientX);
-  function auToucherFin(e) {
-    const dx = e.changedTouches[0].clientX - debutX;
-    if (Math.abs(dx) > 50) deck = dx < 0 ? suivant(deck) : precedent(deck);
+  // Au défilement libre (molette, doigt), on relit la position réelle.
+  function auDefilement() {
+    if (!conteneur) return;
+    const n = Math.round(conteneur.scrollTop / conteneur.clientHeight);
+    deck = allerA(deck, n);
   }
 </script>
 
-<svelte:window onkeydown={auClavier} ontouchstart={auToucherDebut} ontouchend={auToucherFin} />
+<svelte:window onkeydown={auClavier} />
 
-<div class="deck">
-  <div class="deck-grille"></div>
-  <div class="deck-barre" style="width: {progression(deck) * 100}%"></div>
+<div class="deck" bind:this={conteneur} onscroll={auDefilement} tabindex="-1">
+  {@render children()}
+</div>
 
-  {@render children(deck.index)}
+<div class="deck-barre" style="width: {progression(deck) * 100}%"></div>
 
-  <div class="deck-pied">
-    <div class="deck-points">
-      {#each Array.from({ length: deck.total }) as _, i}
-        <button
-          class="point {i === deck.index ? 'on' : ''}"
-          aria-label="Aller à la diapo {i + 1}"
-          onclick={() => (deck = allerA(deck, i))}
-        ></button>
-      {/each}
-    </div>
-    <span>{etiquette(deck)}</span>
+<div class="deck-pied" class:sans-js={!js}>
+  <div class="deck-points">
+    {#each Array.from({ length: deck.total }) as _, i}
+      <button
+        class="point {i === deck.index ? 'on' : ''}"
+        aria-label="Aller à la diapo {i + 1}"
+        onclick={() => versDiapo(i)}
+      ></button>
+    {/each}
   </div>
+  <span>{etiquette(deck)}</span>
 </div>

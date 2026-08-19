@@ -1,7 +1,7 @@
 <script>
-  let { fond = 'papier', actif = false, children } = $props();
+  let { fond = 'papier', children } = $props();
 </script>
 
-<section class="diapo {fond === 'encre' ? 'encre' : ''} {actif ? 'active' : ''}">
+<section class="diapo {fond === 'encre' ? 'encre' : ''}">
   {@render children()}
 </section>
