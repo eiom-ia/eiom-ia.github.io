@@ -1,0 +1,15 @@
+# Secrets — ne JAMAIS versionner
+.Renviron
+.env
+*.key
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# Node / SvelteKit
+node_modules/
+.svelte-kit/
+build/
+.DS_Store
