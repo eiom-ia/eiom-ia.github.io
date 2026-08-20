@@ -19,7 +19,7 @@ test_that(".statut_paquet signale un paquet absent avec la commande d'installati
 })
 
 test_that(".statut_paquet accepte un paquet présent", {
-  expect_true(.statut_paquet("ellmer", installe = TRUE)$ok)
+  expect_true(.statut_paquet("testthat", installe = TRUE)$ok)
 })
 
 test_that(".statut_commande distingue une commande présente d'une commande absente", {
