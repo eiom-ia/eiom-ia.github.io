@@ -1,0 +1,195 @@
+<script>
+  import { base } from '$app/paths';
+
+  /**
+   * Frise défilante. Chaque entrée est placée à sa DATE RÉELLE sur une échelle
+   * linéaire: l'accélération se lit dans la densité, elle n'est pas dessinée.
+   * Aucune valeur inventée, aucun axe vertical qui ne mesurerait rien.
+   */
+  const AN0 = 1948, AN1 = 2027;
+  const LARGEUR = 6800; // px
+  const pos = (an) => ((an - AN0) / (AN1 - AN0)) * LARGEUR;
+
+  const ENTREES = [
+    { an: 1950, t: 'Le jeu de l’imitation', s: 'Turing', img: 'turing.jpg' },
+    { an: 1956, t: 'Le terme est forgé', s: 'Dartmouth', img: 'mccarthy.jpg' },
+    { an: 1958, t: 'Le perceptron', s: 'Rosenblatt', img: 'perceptron.jpg' },
+    { an: 1997, t: 'Deep Blue bat Kasparov', s: 'IBM', img: 'deepblue.jpg' },
+    { an: 2009, t: 'ImageNet', s: 'Fei-Fei Li', img: 'feifei.jpg' },
+    { an: 2012, t: 'AlexNet', s: 'Apprentissage profond' },
+    { an: 2014, t: 'Google achète DeepMind', s: '', img: 'deepmind.png', logo: true },
+    { an: 2016, t: 'AlphaGo bat Lee Sedol', s: 'Hassabis', img: 'hassabis.jpg' },
+    { an: 2017, t: 'Transformers', s: 'Attention is all you need' },
+    { an: 2018, t: 'GPT-1', s: '', img: 'openai.png', logo: true },
+    { an: 2019, t: 'GPT-2' },
+    { an: 2020, t: 'GPT-3' },
+    { an: 2021, t: 'Anthropic est fondée', s: '', img: 'anthropic.png', logo: true },
+    { an: 2022.92, t: 'ChatGPT', s: '30 novembre' },
+    { an: 2023.2, t: 'GPT-4 et Claude', s: 'mars' },
+    { an: 2024.77, t: 'Deux prix Nobel', s: 'Hinton · Hassabis', img: 'hinton.jpg' },
+    { an: 2025.42, t: 'LawZero', s: 'Bengio', img: 'bengio.jpg' }
+  ];
+
+  const DECENNIES = [1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
+
+  let piste = $state(null);
+  let hote = $state(null);
+  let js = $state(false);
+  let arrete = $state(false);
+
+  $effect(() => {
+    if (!hote || !piste) return;
+    js = true;
+    let brut = 0, dernier = 0, af = 0, actif = false;
+    const VITESSE = 125; // px par seconde
+
+    function pas(t) {
+      if (!actif) return;
+      const dt = dernier ? (t - dernier) / 1000 : 0;
+      dernier = t;
+      if (!arrete) {
+        brut += VITESSE * dt;
+        const max = piste.scrollWidth - piste.clientWidth;
+        piste.scrollLeft = Math.min(brut, max);
+        if (brut >= max) actif = false;
+      }
+      af = requestAnimationFrame(pas);
+    }
+
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting && !actif) {
+          actif = true; dernier = 0; brut = piste.scrollLeft;
+          af = requestAnimationFrame(pas);
+        } else if (!e.isIntersecting) {
+          actif = false; cancelAnimationFrame(af);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    io.observe(hote);
+    return () => { io.disconnect(); cancelAnimationFrame(af); actif = false; };
+  });
+</script>
+
+<div
+  class="frise"
+  bind:this={hote}
+  onpointerenter={() => (arrete = true)}
+  onpointerleave={() => (arrete = false)}
+>
+  <div class="piste" bind:this={piste}>
+    <div class="rail" style="width: {LARGEUR}px">
+      <div class="axe"></div>
+
+      {#each DECENNIES as d}
+        <div class="dec" style="left: {pos(d)}px"><span>{d}</span></div>
+      {/each}
+
+      {#each ENTREES as e, i}
+        <div class="ent {i % 2 ? 'bas' : 'haut'}" style="left: {pos(e.an)}px">
+          <div class="tige"></div>
+          <div class="carte">
+            {#if e.img}
+              <img
+                class:logo={e.logo}
+                src="{base}/img/histoire/{e.img}"
+                alt={e.s || e.t}
+              />
+            {/if}
+            <p class="an">{Math.floor(e.an)}</p>
+            <p class="t">{e.t}</p>
+            {#if e.s}<p class="s">{e.s}</p>{/if}
+          </div>
+        </div>
+      {/each}
+    </div>
+  </div>
+
+  {#if js}
+    <p class="aide">{arrete ? 'défilement en pause' : 'survolez pour mettre en pause'}</p>
+  {/if}
+</div>
+
+<style>
+  /* Pleine largeur: la frise sort de la colonne de lecture. */
+  /* La frise a sa propre échelle: héritée de la diapo, elle était démesurée
+   et les cartes débordaient du rail. */
+.frise {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  position: relative;
+  font-size: 0.58em;
+}
+
+  .piste {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .piste::-webkit-scrollbar { display: none; }
+
+  .rail { position: relative; height: 27em; }
+
+  .axe {
+    position: absolute; left: 0; right: 0; top: 50%;
+    height: 2px; background: var(--dk-encre);
+  }
+
+  .dec {
+    position: absolute; top: 50%; transform: translate(-50%, 0.5em);
+    font-family: var(--dk-mono); font-size: 0.66em;
+    letter-spacing: 0.14em; color: var(--dk-gris);
+  }
+  .dec::before {
+    content: ''; position: absolute; left: 50%; top: -0.75em;
+    width: 1px; height: 0.55em; background: var(--dk-gris-2);
+  }
+
+  .ent { position: absolute; top: 50%; width: 8.2em; transform: translateX(-50%); }
+  .ent .tige { position: absolute; left: 50%; width: 2px; background: var(--dk-accent); }
+  .ent.haut { transform: translate(-50%, -100%); padding-bottom: 2.4em; }
+  .ent.haut .tige { bottom: 0; height: 2.4em; }
+  .ent.bas { padding-top: 2.4em; }
+  .ent.bas .tige { top: 0; height: 2.4em; }
+
+  .ent::after {
+    content: ''; position: absolute; left: 50%; transform: translate(-50%, -50%);
+    width: 0.42em; height: 0.42em; background: var(--dk-accent);
+  }
+  .ent.haut::after { bottom: -0.21em; top: auto; transform: translate(-50%, 50%); }
+  .ent.bas::after { top: 0; }
+
+  .carte { display: flex; flex-direction: column; gap: 0.12em; }
+  .ent.haut .carte { justify-content: flex-end; }
+
+  .carte img {
+    width: 100%; height: 5.6em; object-fit: cover;
+    /* Les visages sont dans le tiers supérieur: un recadrage centré les coupait. */
+    object-position: center 28%;
+    border: 2px solid var(--dk-encre);
+    filter: grayscale(1) contrast(1.04);
+    margin-bottom: 0.35em;
+  }
+  .carte img.logo {
+    height: 2.8em; object-fit: contain; border: 0;
+    filter: none; padding: 0.5em 0; align-self: flex-start;
+  }
+
+  .carte .an {
+    font-family: var(--dk-mono); font-size: 1.15em; font-weight: 600;
+    line-height: 1; color: var(--dk-accent); margin: 0;
+  }
+  .carte .t { font-size: 0.8em; line-height: 1.25; margin: 0; }
+  .carte .s {
+    font-size: 0.66em; line-height: 1.3; color: var(--dk-gris); margin: 0;
+  }
+
+  .aide {
+    position: absolute; right: 1.6em; bottom: -1.6em;
+    font-family: var(--dk-mono); font-size: 0.58em;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--dk-gris-2); margin: 0;
+  }
+</style>

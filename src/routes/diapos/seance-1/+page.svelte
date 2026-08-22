@@ -9,7 +9,7 @@
   import Grand from '$lib/deck/Grand.svelte';
   import Citation from '$lib/deck/Citation.svelte';
   import Cite from '$lib/deck/Cite.svelte';
-  import Chronologie from '$lib/deck/demos/Chronologie.svelte';
+  import Frise from '$lib/deck/demos/Frise.svelte';
   import { REFERENCES, ORDRE_BIBLIO } from '$lib/data/references.js';
   import { CREDITS_IMAGES } from '$lib/data/credits-images.js';
   import Tokeniseur from '$lib/deck/demos/Tokeniseur.svelte';
@@ -236,11 +236,11 @@ verifier_installation()`;
     </Slide>
 
     <Slide bandeau="Une histoire de l'IA" droite="séance 1 · lun 24 août">
-      <h2 class="e">Le champ a déjà connu deux effondrements</h2>
-      <hr class="filet" />
-      <Chronologie />
+      <h2 class="e">Quarante ans de patience, puis quinze ans de vertige</h2>
+      <Frise />
       <p class="e credits">
-        Repères datés d'après <Cite k="turing1950" /> et <Cite k="mccarthy1955" />.
+        Chaque repère est placé à sa date réelle sur une échelle linéaire.
+        <Cite k="turing1950" /> <Cite k="mccarthy1955" />
       </p>
     </Slide>
 

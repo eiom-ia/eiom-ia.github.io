@@ -26,5 +26,47 @@ export const CREDITS_IMAGES = {
     "auteur": "\"null0\"",
     "page": "https://commons.wikimedia.org/wiki/File:John_McCarthy_Stanford.jpg",
     "fichier": "mccarthy.jpg"
+  },
+  "openai": {
+    "licence": "Public domain",
+    "auteur": "OpenAI",
+    "page": "https://commons.wikimedia.org/wiki/File:OpenAI_logo_2025.svg",
+    "fichier": "openai.png"
+  },
+  "anthropic": {
+    "licence": "Public domain",
+    "auteur": "Anthropic",
+    "page": "https://commons.wikimedia.org/wiki/File:Anthropic_logo.svg",
+    "fichier": "anthropic.png"
+  },
+  "deepmind": {
+    "licence": "Public domain",
+    "auteur": "DeepMind Technologies Limited (Alphabet, Inc.).",
+    "page": "https://commons.wikimedia.org/wiki/File:Google_DeepMind_logo.png",
+    "fichier": "deepmind.png"
+  },
+  "deepblue": {
+    "licence": "CC BY 2.0",
+    "auteur": "James the photographer",
+    "page": "https://commons.wikimedia.org/wiki/File:Deep_Blue.jpg",
+    "fichier": "deepblue.jpg"
+  },
+  "hinton": {
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Jay Dixit",
+    "page": "https://commons.wikimedia.org/wiki/File:Geoffrey_Hinton_at_the_2024_Nobel_Lectures.jpg",
+    "fichier": "hinton.jpg"
+  },
+  "feifei": {
+    "licence": "CC BY 2.0",
+    "auteur": "ITU Pictures",
+    "page": "https://commons.wikimedia.org/wiki/File:Fei-Fei_Li_at_AI_for_Good_2017.jpg",
+    "fichier": "feifei.jpg"
+  },
+  "hassabis": {
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alain Herzog",
+    "page": "https://commons.wikimedia.org/wiki/File:Demis_Hassabis.jpg",
+    "fichier": "hassabis.jpg"
   }
 };
