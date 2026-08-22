@@ -3,5 +3,5 @@
 </script>
 
 <section class="diapo {fond === 'encre' ? 'encre' : ''}">
-  {@render children()}
+  <div class="diapo-in">{@render children()}</div>
 </section>

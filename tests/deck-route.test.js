@@ -8,7 +8,8 @@ describe('route de démonstration du deck', () => {
 
   it('rend toutes les diapos dans le HTML statique', () => {
     const html = readFileSync('build/diapos/demo/index.html', 'utf8');
-    const nb = (html.match(/class="[^"]*\bdiapo\b/g) || []).length;
+    // class="diapo " et non class="diapo-in": le conteneur interne ne compte pas
+    const nb = (html.match(/class="diapo[ "]/g) || []).length;
     expect(nb).toBe(3);
   });
 

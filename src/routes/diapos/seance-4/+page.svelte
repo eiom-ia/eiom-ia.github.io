@@ -78,8 +78,7 @@ verifier_doi("10.1017/S0003055400000000")   # FALSE -> inventee`;
   {#snippet children()}
 
     <Slide fond="encre">
-      <p class="surtitre e">Séance 4 · jeudi 27 août · 8h45</p>
-      <h1 class="e">L'IA agentique dans le<br />flux de travail de recherche</h1>
+      <h1 class="e">L'IA agentique<br />en recherche</h1>
       <hr class="filet" />
       <p class="lead e">Parcours <em>L'intelligence artificielle (IA) et la recherche</em> — EIOM 2026</p>
       <p class="surtitre e">Laurence-Olivier M. Foisy</p>

@@ -45,33 +45,33 @@
 </div>
 
 <style>
-  .tok { display: flex; flex-direction: column; gap: 12px; }
-  .tok-nav { display: flex; align-items: center; gap: 6px; }
+  .tok { display: flex; flex-direction: column; gap: 0.43em; }
+  .tok-nav { display: flex; align-items: center; gap: 0.21em; }
   .tok-nav button {
-    width: 22px; height: 22px; border-radius: 50%;
+    width: 1.05em; height: 1.05em; border-radius: 50%;
     border: 1px solid var(--rule); background: transparent;
-    font-family: var(--police-mono); font-size: 0.62rem;
+    font-family: var(--police-mono); font-size: 0.62em;
     color: var(--ink-3); cursor: pointer;
   }
   .tok-nav button.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   .src {
     margin-left: auto; font-family: var(--police-mono);
-    font-size: 0.58rem; letter-spacing: 0.08em; color: var(--ink-3);
+    font-size: 0.58em; letter-spacing: 0.08em; color: var(--ink-3);
   }
 
-  .tok-paires { display: grid; gap: 12px; }
+  .tok-paires { display: grid; gap: 0.43em; }
   @media (min-width: 46rem) { .tok-paires { grid-template-columns: 1fr 1fr; } }
 
-  .tok-lg { border: 1px solid var(--rule); border-radius: var(--rayon); padding: 12px 14px; background: #fff; }
+  .tok-lg { border: 1px solid var(--rule); border-radius: var(--rayon); padding: 0.43em 0.50em; background: #fff; }
   .tok-tete { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
-  .lang { font-family: var(--police-mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
-  .n { font-family: var(--police-mono); font-size: 0.78rem; font-weight: 500; color: var(--accent); }
+  .lang { font-family: var(--police-mono); font-size: 0.6em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
+  .n { font-family: var(--police-mono); font-size: 0.78em; font-weight: 500; color: var(--accent); }
 
-  .jetons { display: flex; flex-wrap: wrap; gap: 3px; }
+  .jetons { display: flex; flex-wrap: wrap; gap: 0.11em; }
   .j {
     font-family: var(--police-mono);
-    font-size: clamp(0.6rem, 0.85vw, 0.76rem);
-    padding: 2px 5px;
+    font-size: 0.72em;
+    padding: 0.07em 0.18em;
     border-radius: 2px;
     background: var(--rose-clair);
     border: 1px solid rgba(159, 18, 57, 0.2);
@@ -83,5 +83,5 @@
 
   @keyframes pop { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
-  .verdict { font-size: 0.92rem; margin: 0; }
+  .verdict { font-size: 0.92em; margin: 0; }
 </style>

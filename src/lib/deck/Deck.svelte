@@ -12,6 +12,11 @@
   let conteneur = $state(null);
   let js = $state(false);
 
+  // Ajustement de la taille pour un projecteur donné. Confort seulement:
+  // sans JavaScript, --zoom garde sa valeur par défaut de 1.
+  const ZOOMS = [0.8, 0.9, 1, 1.12, 1.25];
+  let z = $state(2);
+
   $effect(() => { js = true; });
 
   function versDiapo(n) {
@@ -26,6 +31,12 @@
     } else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) {
       e.preventDefault();
       versDiapo(precedent(deck).index);
+    } else if (e.key === '+' || e.key === '=') {
+      e.preventDefault();
+      z = Math.min(z + 1, ZOOMS.length - 1);
+    } else if (e.key === '-' || e.key === '_') {
+      e.preventDefault();
+      z = Math.max(z - 1, 0);
     }
   }
 
@@ -39,7 +50,7 @@
 
 <svelte:window onkeydown={auClavier} />
 
-<div class="deck" bind:this={conteneur} onscroll={auDefilement} tabindex="-1">
+<div class="deck" style="--zoom: {ZOOMS[z]}" bind:this={conteneur} onscroll={auDefilement} tabindex="-1">
   {@render children()}
 </div>
 
@@ -56,4 +67,5 @@
     {/each}
   </div>
   <span>{etiquette(deck)}</span>
+  {#if js && ZOOMS[z] !== 1}<span class="zoom">{Math.round(ZOOMS[z] * 100)} %</span>{/if}
 </div>

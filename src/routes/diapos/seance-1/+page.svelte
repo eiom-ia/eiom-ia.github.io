@@ -131,8 +131,7 @@ verifier_installation()`;
 
     <!-- ======================= OUVERTURE ======================= -->
     <Slide fond="encre">
-      <p class="surtitre e">Séance 1 · lundi 24 août · 8h45</p>
-      <h1 class="e">Comprendre les LLM<br />et y accéder pour la recherche</h1>
+      <h1 class="e">L'IA en recherche</h1>
       <hr class="filet" />
       <p class="lead e">
         Parcours <em>L'intelligence artificielle (IA) et la recherche</em> — EIOM 2026

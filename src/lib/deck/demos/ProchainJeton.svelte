@@ -30,26 +30,26 @@
 </div>
 
 <style>
-  .pj { display: flex; flex-direction: column; gap: 10px; }
-  .pj-nav { display: flex; align-items: center; gap: 6px; }
+  .pj { display: flex; flex-direction: column; gap: 0.36em; }
+  .pj-nav { display: flex; align-items: center; gap: 0.21em; }
   .pj-nav button {
-    width: 22px; height: 22px; border-radius: 50%;
+    width: 1.05em; height: 1.05em; border-radius: 50%;
     border: 1px solid var(--rule); background: transparent;
-    font-family: var(--police-mono); font-size: 0.62rem;
+    font-family: var(--police-mono); font-size: 0.62em;
     color: var(--ink-3); cursor: pointer;
   }
   .pj-nav button.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  .src { margin-left: auto; font-family: var(--police-mono); font-size: 0.58rem; letter-spacing: 0.08em; color: var(--ink-3); }
+  .src { margin-left: auto; font-family: var(--police-mono); font-size: 0.58em; letter-spacing: 0.08em; color: var(--ink-3); }
 
-  .amorce { font-size: clamp(1rem, 1.8vw, 1.4rem); font-family: var(--police-display); margin: 0; }
+  .amorce { font-size: 0.72em; font-family: var(--police-display); margin: 0; }
   .trou { color: var(--accent); letter-spacing: 0.05em; }
 
-  .barres { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 3px; }
+  .barres { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.11em; }
   .barres li {
     display: grid;
-    grid-template-columns: 7.5rem 1fr 4rem;
+    grid-template-columns: 7.5em 1fr 4em;
     align-items: center;
-    gap: 10px;
+    gap: 0.36em;
     animation: glisse 0.35s ease both;
     animation-delay: calc(var(--k) * 45ms);
   }
@@ -57,18 +57,18 @@
 
   .jt {
     font-family: var(--police-mono);
-    font-size: clamp(0.62rem, 0.85vw, 0.78rem);
+    font-size: 0.72em;
     background: var(--paper-2);
     border: 1px solid var(--rule);
     border-radius: 2px;
-    padding: 2px 6px;
+    padding: 0.07em 0.21em;
     white-space: pre;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .barre { height: 12px; background: var(--rule-2); border-radius: 2px; overflow: hidden; }
+  .barre { height: 0.5em; background: var(--rule-2); border-radius: 2px; overflow: hidden; }
   .fill { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--ciel)); }
-  .pct { font-family: var(--police-mono); font-size: 0.68rem; text-align: right; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .pct { font-family: var(--police-mono); font-size: 0.68em; text-align: right; color: var(--ink-3); font-variant-numeric: tabular-nums; }
 
-  .note { font-size: 0.86rem; color: var(--ink-2); margin: 0; }
+  .note { font-size: 0.86em; color: var(--ink-2); margin: 0; }
 </style>
