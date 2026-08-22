@@ -14,7 +14,9 @@
     "test": "vitest run",
     "test:r": "Rscript tests/testthat.R",
     "test:integration": "Rscript tests/integration-secours.R",
-    "check": "npm run build && npm test && npm run test:r && npm run test:integration"
+    "check": "npm run build && npm test && npm run test:r && npm run test:integration",
+    "test:mise-en-page": "node outils/deborde.mjs",
+    "ajuster": "node outils/ajuster.mjs"
   },
   "repository": {
     "type": "git",

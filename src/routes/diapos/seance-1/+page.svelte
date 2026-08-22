@@ -11,7 +11,7 @@
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
-  const TOTAL = 57;
+  const TOTAL = 62;
 
   const c_premier = `library(ellmer)
 source("${URL_OUTILS_R}")
@@ -139,20 +139,176 @@ verifier_installation()`;
       <p class="surtitre e">Laurence-Olivier M. Foisy</p>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Le pacte</p>
-      <h2 class="e">Un modèle n'entre pas en recherche<br />parce qu'il impressionne.</h2>
+    <Slide d={0.74}>
+      <p class="surtitre e">Avant de commencer</p>
+      <h2 class="e">Qui vous parle</h2>
+      <hr class="filet" />
+      <Deux ratio="1fr 1fr">
+        <Carte ton="ciel" titre="Parcours">
+          <ul>
+            <li>Doctorant en science politique, Université Laval</li>
+            <li>Maîtrise en études de la paix internationale, Université Soka, Japon</li>
+            <li>Auxiliaire de recherche au Centre d'analyse des politiques publiques</li>
+          </ul>
+        </Carte>
+        <Carte ton="violet" titre="Enseignement">
+          <ul>
+            <li><strong>FAS-1001</strong> — Introduction aux mégadonnées en sciences sociales, Université de Montréal</li>
+            <li><strong>POL-2000</strong> — Méthodologie quantitative, Université Laval</li>
+            <li>Visualisation interactive avec R et Shiny, ICPSR</li>
+          </ul>
+        </Carte>
+      </Deux>
+      <Deux ratio="1fr 1fr">
+        <Carte ton="ambre" titre="Ce que je fabrique">
+          <p>
+            Des paquets R, dont <code>ces</code> sur le CRAN, pour accéder aux données de
+            l'Étude électorale canadienne. Beaucoup de code, tous les jours.
+          </p>
+        </Carte>
+        <Carte ton="vert" titre="Un détail qui me plaît">
+          <p>
+            En 2024, j'étais auxiliaire d'enseignement à l'EIOM. Cette semaine, j'y donne un
+            parcours. C'est une école où ça arrive.
+          </p>
+        </Carte>
+      </Deux>
+      <p class="e">
+        Je ne suis pas informaticien. Je suis un chercheur en sciences sociales qui utilise ces
+        outils tous les jours — et c'est de ce point de vue que je vous parlerai toute la semaine.
+      </p>
+    </Slide>
+
+    <Slide d={0.78}>
+      <p class="surtitre e">Question préalable</p>
+      <h2 class="e">C'est quoi, « l'IA » ?</h2>
       <hr class="filet" />
       <p class="lead e">
-        Il y entre quand on peut dire ce qu'il a fait, le refaire à l'identique, et montrer qu'il a eu
-        raison. C'est le seul critère de la semaine.
+        C'est un mot qui ne désigne aucune technique en particulier. Il recouvre à peu près tout ce
+        qu'un ordinateur fait et qui nous impressionne encore.
       </p>
-      <Deux>
-        <Carte ton="rose" titre="Ce qu'on ne fera pas">
-          <p>Vous montrer que l'IA est puissante. Vous le savez déjà, et ce n'est pas un résultat.</p>
+      <Deux ratio="1fr 1fr">
+        <Carte ton="ambre" titre="L'effet IA">
+          <p>
+            Dès qu'une méthode fonctionne de façon fiable, on cesse de l'appeler « IA ». La
+            reconnaissance de caractères, les filtres antipourriel, le calcul d'itinéraire, les
+            échecs : tout cela était de l'IA. Aujourd'hui, c'est « du logiciel ».
+          </p>
         </Carte>
-        <Carte ton="vert" titre="Ce qu'on fera">
-          <p>Produire une mesure, la documenter, et la rendre attaquable par un pair.</p>
+        <Carte ton="violet" titre="Un mot inventé pour convaincre">
+          <p>
+            John McCarthy forge l'expression <em>artificial intelligence</em> en 1955, dans une
+            demande de financement. Le terme était déjà, à sa naissance, un argument autant qu'une
+            définition.
+          </p>
+        </Carte>
+      </Deux>
+      <Carte ton="rose" titre="La conséquence, et elle est méthodologique">
+        <p>
+          « Nous avons utilisé l'IA » ne veut rien dire dans un article. Ce n'est pas une méthode :
+          c'est une famille de familles. Ce qui s'écrit, c'est <strong>le modèle, sa version, ses
+          paramètres et la façon dont vous l'avez validé</strong>. Tout le reste de la semaine
+          consiste à pouvoir remplir cette phrase.
+        </p>
+      </Carte>
+    </Slide>
+
+    <Slide d={0.8}>
+      <p class="surtitre e">Un peu de recul</p>
+      <h2 class="e">Soixante-dix ans, trois hivers</h2>
+      <table class="e">
+        <thead><tr><th>Année</th><th>Ce qui se passe</th></tr></thead>
+        <tbody>
+          <tr><td>1950</td><td>Turing propose le jeu de l'imitation : « les machines peuvent-elles penser ? »</td></tr>
+          <tr><td><strong>1956</strong></td><td><strong>Dartmouth. McCarthy invente l'expression « intelligence artificielle »</strong></td></tr>
+          <tr><td>1958</td><td>Le perceptron. On annonce des machines conscientes pour bientôt</td></tr>
+          <tr><td>1974–1980</td><td><em>Premier hiver.</em> Les promesses ne tiennent pas, les budgets tombent</td></tr>
+          <tr><td>1980s</td><td>Les systèmes experts. On encode le savoir en règles, à la main</td></tr>
+          <tr><td>1987–1993</td><td><em>Deuxième hiver.</em> Les règles ne passent pas à l'échelle</td></tr>
+          <tr><td>1990s</td><td>Tournant statistique. Les réseaux de neurones restent marginaux</td></tr>
+          <tr><td><strong>2012</strong></td><td><strong>AlexNet. L'apprentissage profond gagne, nettement</strong></td></tr>
+          <tr><td><strong>2017</strong></td><td><strong>Les transformers. L'architecture derrière tous les LLM d'aujourd'hui</strong></td></tr>
+          <tr><td>2022</td><td>ChatGPT. L'IA devient un objet de conversation publique</td></tr>
+        </tbody>
+      </table>
+    </Slide>
+
+    <Slide>
+      <p class="surtitre e">Ce que cette histoire vous apprend</p>
+      <h2 class="e">Trois leçons pour cette semaine</h2>
+      <Deux ratio="1fr 1fr 1fr">
+        <Carte ton="ambre" titre="Le champ avance par cycles">
+          <p>
+            Deux hivers ont suivi deux périodes d'enthousiasme démesuré. Nous sommes dans un
+            printemps. Ce n'est pas une raison d'y croire, ni de n'y pas croire : c'est une raison de
+            <strong>mesurer</strong>.
+          </p>
+        </Carte>
+        <Carte ton="ciel" titre="L'idée n'est pas neuve">
+          <p>
+            Les réseaux profonds datent des années 1980. Ce qui a changé, ce sont les données
+            disponibles et la puissance de calcul. Une différence de degré, pas de nature.
+          </p>
+        </Carte>
+        <Carte ton="violet" titre="Les percées viennent des marges">
+          <p>
+            Pendant vingt ans, ceux qui persistaient sur les réseaux de neurones étaient
+            minoritaires dans leur propre discipline. L'un d'eux enseigne à 250 km d'ici.
+          </p>
+        </Carte>
+      </Deux>
+    </Slide>
+
+    <Slide d={0.89} fond="encre">
+      <p class="surtitre e">Fait vécu · à 250 km d'ici</p>
+      <h2 class="e">Yoshua Bengio</h2>
+      <hr class="filet" />
+      <Deux ratio="1fr 1fr">
+        <Carte titre="Le parcours">
+          <ul>
+            <li>Né à Paris en 1964, formé à McGill — baccalauréat, maîtrise, doctorat</li>
+            <li>Professeur à l'Université de Montréal <strong>depuis 1993</strong></li>
+            <li>Fondateur de <strong>Mila</strong>, l'Institut québécois d'intelligence artificielle</li>
+          </ul>
+        </Carte>
+        <Carte titre="Les distinctions">
+          <ul>
+            <li><strong>Prix Turing 2018</strong>, avec Geoffrey Hinton et Yann LeCun — le « Nobel de l'informatique »</li>
+            <li>Prix Marie-Victorin 2017, prix Killam 2019</li>
+            <li>Informaticien le plus cité au monde selon l'indice h</li>
+          </ul>
+        </Carte>
+      </Deux>
+      <p class="lead e">
+        L'apprentissage profond qui fait tourner les modèles de cette semaine a été poussé, pendant
+        les vingt ans où presque personne n'y croyait, depuis un bureau de Montréal.
+      </p>
+    </Slide>
+
+    <Slide d={0.83}>
+      <p class="surtitre e">Et le retournement</p>
+      <h2 class="e">Le père de l'apprentissage profond veut une IA qui n'agit pas</h2>
+      <Deux ratio="1.1fr 1fr">
+        <div>
+          <p>
+            En janvier 2025, Bengio préside le premier <strong>Rapport international sur la sécurité
+            de l'IA</strong>. En juin de la même année, il fonde à Montréal <strong>LawZero</strong>,
+            un organisme sans but lucratif consacré à la sécurité des systèmes.
+          </p>
+          <p>
+            Son projet phare s'appelle <em>Scientist AI</em> : une IA délibérément
+            <strong>non agentique</strong>, qui comprend le monde et en fait des prédictions
+            probabilistes — sans poursuivre de but propre et sans agir de sa propre initiative.
+          </p>
+        </div>
+        <Carte ton="rose" titre="Retenez ça pour jeudi">
+          <p>
+            Jeudi matin, on fera exactement l'inverse : on donnera à des modèles la capacité d'agir.
+          </p>
+          <p>
+            Ce n'est pas une contradiction, c'est le débat vivant du domaine — et il se joue à deux
+            heures et demie de route d'ici. On y reviendra, sérieusement.
+          </p>
         </Carte>
       </Deux>
     </Slide>
@@ -200,7 +356,7 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide fond="encre">
+    <Slide d={0.98} fond="encre">
       <p class="surtitre e">À midi</p>
       <h2 class="e">Vous aurez produit ceci</h2>
       <Code src={`sorties/seance1_notes.json
@@ -368,7 +524,7 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide>
+    <Slide d={0.95}>
       <p class="surtitre e">Mécanique</p>
       <h2 class="e">Tout ce qu'il fait, c'est prédire le jeton suivant</h2>
       <ProchainJeton />
@@ -498,7 +654,7 @@ verifier_installation()`;
       <p class="lead e">Puis on installe. Personne ne sort d'ici sans environnement fonctionnel.</p>
     </Slide>
 
-    <Slide>
+    <Slide d={0.88}>
       <p class="surtitre e">La thèse</p>
       <h2 class="e">Une sortie de chatbot n'est pas une donnée</h2>
       <p class="lead e">
@@ -609,7 +765,7 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide>
+    <Slide d={0.89}>
       <p class="surtitre e">Déontologie</p>
       <h2 class="e">Ce que devient votre texte</h2>
       <p class="lead e">
@@ -655,7 +811,7 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
       </Deux>
     </Slide>
 
-    <Slide>
+    <Slide d={0.85}>
       <p class="surtitre e">Sécurité</p>
       <h2 class="e">La clé vit dans .Renviron, nulle part ailleurs</h2>
       <Code src={c_renviron} />
@@ -704,7 +860,7 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
       </p>
     </Slide>
 
-    <Slide>
+    <Slide d={0.91}>
       <p class="surtitre e">Une seule ligne</p>
       <h2 class="e">Le diagnostic</h2>
       <Code src={c_verif} />
@@ -867,7 +1023,7 @@ Tout est en place.`} />
       </Deux>
     </Slide>
 
-    <Slide>
+    <Slide d={0.98}>
       <p class="surtitre e">Le rôle système</p>
       <h2 class="e">Poser le cadre une fois, pas à chaque avis</h2>
       <Code src={c_systeme} />
@@ -881,7 +1037,7 @@ Tout est en place.`} />
       </Deux>
     </Slide>
 
-    <Slide>
+    <Slide d={0.88}>
       <p class="surtitre e">Le vrai problème</p>
       <h2 class="e">La réponse est du texte, et vous vouliez un nombre</h2>
       <Code src={c_texte} />
@@ -904,7 +1060,7 @@ Tout est en place.`} />
       </p>
     </Slide>
 
-    <Slide>
+    <Slide d={0.62}>
       <p class="surtitre e">Déclarer</p>
       <h2 class="e">Le schéma est votre opérationnalisation</h2>
       <Deux ratio="1.15fr 1fr">
@@ -960,7 +1116,7 @@ resultat$note
       </p>
     </Slide>
 
-    <Slide>
+    <Slide d={0.57}>
       <p class="surtitre e">Passer à l'échelle</p>
       <h2 class="e">La boucle, avec ses trois protections</h2>
       <Code src={c_boucle} />
@@ -992,7 +1148,7 @@ resultat$note
       </Deux>
     </Slide>
 
-    <Slide>
+    <Slide d={0.88}>
       <p class="surtitre e">Sans quoi rien n'est reproductible</p>
       <h2 class="e">Journaliser</h2>
       <Code src={c_journal} />
@@ -1039,7 +1195,7 @@ resultat$note
       </p>
     </Slide>
 
-    <Slide>
+    <Slide d={0.91}>
       <p class="surtitre e">Avant / après</p>
       <h2 class="e">Le même besoin, deux prompts</h2>
       <Deux>
@@ -1129,7 +1285,7 @@ Reponds selon le schema fourni.`} />
       </Deux>
     </Slide>
 
-    <Slide fond="encre">
+    <Slide d={0.96} fond="encre">
       <h1 class="e">Et cette mesure<br />ne vaut rien.</h1>
       <hr class="filet" />
       <p class="lead e">

@@ -23,7 +23,7 @@
      deborder, et qu'une fenetre etroite reste lisible. */
   /* Calibre pour la projection: le contenu doit remplir l'axe vertical,
      pas flotter au milieu. --zoom permet l'ajustement au clavier. */
-  font-size: calc(clamp(16px, min(2.15vw, 3.7vh), 46px) * var(--zoom, 1));
+  font-size: calc(clamp(16px, min(2.15vw, 3.7vh), 46px) * var(--zoom, 1) * var(--d, 1));
 
   height: 100dvh;
   scroll-snap-align: start;
@@ -64,28 +64,12 @@
 .diapo.encre h1, .diapo.encre h2, .diapo.encre h3 { color: var(--paper); }
 .diapo.encre p, .diapo.encre li { color: var(--paper-2); }
 
-/* Entrée échelonnée pilotée par le défilement, en CSS pur.
-   Les navigateurs sans « animation-timeline » affichent simplement le
-   contenu: aucune diapo ne peut rester invisible. */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .diapo .e {
-      animation: entree-e linear both;
-      animation-timeline: view();
-      animation-range: entry 10% cover 28%;
-    }
-    .diapo .e:nth-child(2) { animation-range: entry 12% cover 32%; }
-    .diapo .e:nth-child(3) { animation-range: entry 14% cover 36%; }
-    .diapo .e:nth-child(4) { animation-range: entry 16% cover 40%; }
-    .diapo .e:nth-child(5) { animation-range: entry 18% cover 44%; }
-    .diapo .e:nth-child(6) { animation-range: entry 20% cover 48%; }
-  }
-}
-
-@keyframes entree-e {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: none; }
-}
+/* Pas d'animation d'entrée pilotée par le défilement.
+   Testé: avec scroll-snap, un élément peut rester figé à mi-opacité quand la
+   diapo est au repos — le bas de diapo s'affichait délavé. Une diapo doit
+   toujours être entièrement lisible. La classe .e reste acceptée pour ne pas
+   invalider le balisage existant, mais elle n'a plus d'effet visuel. */
+.diapo .e { opacity: 1; }
 
 /* Chrome de navigation: purement décoratif, masqué à l'impression. */
 .deck-barre {
@@ -279,9 +263,17 @@
 
 /* Schémas */
 .diapo figure.schema { margin: 0; display: flex; flex-direction: column; gap: 8px; align-items: center; }
-.diapo figure.schema img { max-width: 100%; max-height: 56vh; object-fit: contain; }
+.diapo figure.schema img { max-width: 100%; max-height: 14em; object-fit: contain; }
 .diapo figure.schema figcaption {
   font-family: var(--police-mono); font-size: 0.58em;
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3);
 }
 .deck-pied .zoom { color: var(--accent); }
+
+/* Contraste sur fond encre: en projection, un gris moyen sur fond sombre
+   devient illisible au fond de la salle. On force le clair. */
+.diapo.encre p,
+.diapo.encre li,
+.diapo.encre .lead { color: var(--paper-2); }
+.diapo.encre .cit { color: var(--paper); }
+.diapo.encre code { background: rgba(246, 243, 236, 0.12); color: var(--paper); }

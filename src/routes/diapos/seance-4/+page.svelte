@@ -84,7 +84,7 @@ verifier_doi("10.1017/S0003055400000000")   # FALSE -> inventee`;
       <p class="surtitre e">Laurence-Olivier M. Foisy</p>
     </Slide>
 
-    <Slide>
+    <Slide d={0.98}>
       <p class="surtitre e">Où on en est</p>
       <h2 class="e">Trois jours à faire parler un modèle. Aujourd'hui, on le fait agir.</h2>
       <table class="e">
@@ -136,7 +136,7 @@ verifier_doi("10.1017/S0003055400000000")   # FALSE -> inventee`;
       <p class="lead e">Le mot est partout. Il désigne quelque chose de précis.</p>
     </Slide>
 
-    <Slide>
+    <Slide d={0.97}>
       <p class="surtitre e">Définition</p>
       <h2 class="e">Une entité mandatée pour agir</h2>
       <p class="lead e">
@@ -184,7 +184,7 @@ verifier_doi("10.1017/S0003055400000000")   # FALSE -> inventee`;
       </figure>
     </Slide>
 
-    <Slide>
+    <Slide d={0.89}>
       <p class="surtitre e">Le pont</p>
       <h2 class="e">Un agent, c'est ce qui relie les deux</h2>
       <figure class="schema e">
@@ -198,7 +198,7 @@ verifier_doi("10.1017/S0003055400000000")   # FALSE -> inventee`;
       </p>
     </Slide>
 
-    <Slide>
+    <Slide d={0.62}>
       <p class="surtitre e">En R, tout de suite</p>
       <h2 class="e">Un outil est une fonction que vous écrivez</h2>
       <Code src={c_outil} />
@@ -207,7 +207,7 @@ verifier_doi("10.1017/S0003055400000000")   # FALSE -> inventee`;
       </p>
     </Slide>
 
-    <Slide>
+    <Slide d={0.84}>
       <p class="surtitre e">Sous le capot</p>
       <h2 class="e">Ce qui se passe réellement</h2>
       <Code src={c_boucle_agent} />
@@ -298,7 +298,7 @@ verifier_doi("10.1017/S0003055400000000")   # FALSE -> inventee`;
       </Deux>
     </Slide>
 
-    <Slide>
+    <Slide d={0.89}>
       <p class="surtitre e">MCP</p>
       <h2 class="e">Model Context Protocol</h2>
       <figure class="schema e">
@@ -360,7 +360,7 @@ verifier_doi("10.1017/S0003055400000000")   # FALSE -> inventee`;
       </Deux>
     </Slide>
 
-    <Slide>
+    <Slide d={0.88}>
       <p class="surtitre e">Atelier</p>
       <h2 class="e">OpenCode, tous ensemble</h2>
       <Code src={`# 1. Installer le harnais open source
@@ -450,7 +450,7 @@ leur contenu au service indiqué ci-dessous.`} />
       </p>
     </Slide>
 
-    <Slide>
+    <Slide d={0.71}>
       <p class="surtitre e">Vérifier</p>
       <h2 class="e">Un DOI se résout ou ne se résout pas</h2>
       <Code src={c_verif_ref} />
@@ -471,7 +471,7 @@ leur contenu au service indiqué ci-dessous.`} />
       </p>
     </Slide>
 
-    <Slide>
+    <Slide d={0.98}>
       <p class="surtitre e">Garde-fou 1</p>
       <h2 class="e">Journaliser chaque action</h2>
       <Code src={c_journal_agent} />
@@ -481,7 +481,7 @@ leur contenu au service indiqué ci-dessous.`} />
       </p>
     </Slide>
 
-    <Slide>
+    <Slide d={0.91}>
       <p class="surtitre e">Garde-fou 2</p>
       <h2 class="e">Rendre les effets réversibles</h2>
       <Deux>
@@ -669,7 +669,7 @@ leur contenu au service indiqué ci-dessous.`} />
       </p>
     </Slide>
 
-    <Slide>
+    <Slide d={0.88}>
       <p class="surtitre e">Atelier · 45 minutes</p>
       <h2 class="e">Dans un bac à sable, pour votre projet</h2>
       <ol class="e">
