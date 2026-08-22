@@ -56,8 +56,6 @@
   let js = $state(false);
   let etat = $state('arret'); // 'arret' | 'joue' | 'pause' | 'fini'
 
-  let jouer = $state(() => {});
-  let basculer = $state(() => {});
 
   $effect(() => {
     if (!hote || !piste) return;
@@ -97,11 +95,15 @@
       af = requestAnimationFrame(pas);
     }
 
-    jouer = () => demarrer(etat === 'fini');
-    basculer = () => {
+    function basculer() {
       if (etat === 'joue') { etat = 'pause'; cancelAnimationFrame(af); }
       else demarrer(etat === 'fini');
-    };
+    }
+
+    // Un clic n'importe où sur la diapositive commande le défilement. Un
+    // glissement pour faire défiler la frise à la main ne déclenche pas de
+    // clic, il ne bascule donc rien.
+    diapo.addEventListener('click', basculer);
 
     let ici = false;
     function verifier() {
@@ -118,6 +120,7 @@
 
     return () => {
       deck.removeEventListener('scroll', verifier);
+      diapo.removeEventListener('click', basculer);
       clearTimeout(t0);
       cancelAnimationFrame(af);
       etat = 'arret';
@@ -156,9 +159,13 @@
   </div>
 
   {#if js}
-    <button class="cmd" onclick={basculer} aria-label="Commander le défilement">
-      {etat === 'joue' ? '❙❙ pause' : etat === 'fini' ? '↻ rejouer' : '▶ lecture'}
-    </button>
+    <p class="cmd">
+      {etat === 'joue'
+        ? 'cliquez pour mettre en pause'
+        : etat === 'fini'
+          ? 'cliquez pour rejouer'
+          : 'cliquez pour reprendre'}
+    </p>
   {/if}
 </div>
 
@@ -247,13 +254,11 @@
   }
   .carte .pap .ref { color: var(--dk-gris); white-space: nowrap; }
 
+  /* Indication seulement: la commande est le clic sur la diapositive. */
   .cmd {
-    position: absolute; right: 1.8em; bottom: -1.9em;
-    font-family: var(--dk-mono); font-size: 0.62em;
+    position: absolute; right: 1.8em; bottom: -1.7em; margin: 0;
+    font-family: var(--dk-mono); font-size: 0.58em;
     letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--dk-encre); background: var(--dk-fond);
-    border: 2px solid var(--dk-encre); border-radius: 0;
-    padding: 0.35em 0.9em; cursor: pointer;
+    color: var(--dk-gris-2); pointer-events: none;
   }
-  .cmd:hover { background: var(--dk-encre); color: var(--dk-fond); }
 </style>
