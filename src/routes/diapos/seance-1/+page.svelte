@@ -8,11 +8,13 @@
   import Etiquette from '$lib/deck/Etiquette.svelte';
   import Grand from '$lib/deck/Grand.svelte';
   import Citation from '$lib/deck/Citation.svelte';
+  import Cite from '$lib/deck/Cite.svelte';
+  import { REFERENCES, ORDRE_BIBLIO } from '$lib/data/references.js';
   import Tokeniseur from '$lib/deck/demos/Tokeniseur.svelte';
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
-  const TOTAL = 63;
+  const TOTAL = 66;
 
   const c_premier = `library(ellmer)
 source("${URL_OUTILS_R}")
@@ -188,37 +190,58 @@ verifier_installation()`;
       <p class="e">8h45 à 12h45, du 24 au 28 août.</p>
     </Slide>
 
-    <Slide bandeau="Question préalable" droite="séance 1 · lun 24 août">
-      <h2 class="e">C'est quoi, « l'IA » ?</h2>
+    <Slide bandeau="Définir l'IA" droite="séance 1 · lun 24 août">
+      <h2 class="e">Il y a plusieurs définitions de l'IA</h2>
       <hr class="filet" />
-      <p class="lead e">
-        C'est un mot qui ne désigne aucune technique en particulier. Il recouvre à peu près tout ce
-        qu'un ordinateur fait et qui nous impressionne encore.
-      </p>
-      <Deux ratio="1fr 1fr">
-        <Carte ton="ambre" titre="L'effet IA">
-          <p>
-            Dès qu'une méthode fonctionne de façon fiable, on cesse de l'appeler « IA ». La
-            reconnaissance de caractères, les filtres antipourriel, le calcul d'itinéraire, les
-            échecs : tout cela était de l'IA. Aujourd'hui, c'est « du logiciel ».
+      <ul class="defs e">
+        <li>
+          <span class="lettre">A</span>
+          <span class="q">Est-ce que ça peut décider et agir ? <Cite k="russell2020" /></span>
+        </li>
+        <li>
+          <span class="lettre">B</span>
+          <span class="q">Est-ce que ça peut passer pour un humain ? <Cite k="turing1950" /></span>
+        </li>
+        <li>
+          <span class="lettre">C</span>
+          <span class="q">Est-ce que ça décide par la statistique ? <Cite k="jordan2015" /></span>
+        </li>
+      </ul>
+    </Slide>
+
+    <Slide bandeau="Définir l'IA" droite="séance 1 · lun 24 août">
+      <h2 class="e">Il n'y a pas de consensus</h2>
+      <hr class="filet" />
+      <Deux ratio="1fr 1.3fr">
+        <Grand valeur="70+" legende="définitions recensées" />
+        <div>
+          <p class="e">
+            Le choix de la définition oriente la recherche qu'on fait ensuite.
+            <Cite k="legg2007" /> <Cite k="wang2019" />
           </p>
-        </Carte>
-        <Carte ton="violet" titre="Un mot inventé pour convaincre">
-          <p>
-            John McCarthy forge l'expression <em>artificial intelligence</em> en 1955, dans une
-            demande de financement. Le terme était déjà, à sa naissance, un argument autant qu'une
-            définition.
-          </p>
-        </Carte>
+        </div>
       </Deux>
-      <Carte ton="rose" titre="La conséquence, et elle est méthodologique">
-        <p>
-          « Nous avons utilisé l'IA » ne veut rien dire dans un article. Ce n'est pas une méthode :
-          c'est une famille de familles. Ce qui s'écrit, c'est <strong>le modèle, sa version, ses
-          paramètres et la façon dont vous l'avez validé</strong>. Tout le reste de la semaine
-          consiste à pouvoir remplir cette phrase.
-        </p>
-      </Carte>
+      <p class="lead e">Moi, je prends la définition A.</p>
+    </Slide>
+
+    <Slide fond="encre" bandeau="Définir l'IA" droite="séance 1 · lun 24 août">
+      <h2 class="e">Les LLM répondent aux trois</h2>
+      <hr class="filet" />
+      <ul class="defs e">
+        <li class="retenue">
+          <span class="lettre">A</span>
+          <span class="q">Ils décident et agissent — on le verra jeudi</span>
+        </li>
+        <li class="retenue">
+          <span class="lettre">B</span>
+          <span class="q">Jugés humains 73 % du temps <Cite k="jones2025" /></span>
+        </li>
+        <li class="retenue">
+          <span class="lettre">C</span>
+          <span class="q">Ils prédisent le prochain jeton par la statistique</span>
+        </li>
+      </ul>
+      <p class="lead e">C'est bel et bien de l'IA.</p>
     </Slide>
 
     <Slide d={0.91} bandeau="Un peu de recul" droite="séance 1 · lun 24 août">
@@ -227,7 +250,8 @@ verifier_installation()`;
         <thead><tr><th>Année</th><th>Ce qui se passe</th></tr></thead>
         <tbody>
           <tr><td>1950</td><td>Turing propose le jeu de l'imitation : « les machines peuvent-elles penser ? »</td></tr>
-          <tr><td><strong>1956</strong></td><td><strong>Dartmouth. McCarthy invente l'expression « intelligence artificielle »</strong></td></tr>
+          <tr><td><strong>1955</strong></td><td><strong>L'expression « artificial intelligence » apparaît dans la proposition de Dartmouth <Cite k="mccarthy1955" /></strong></td></tr>
+          <tr><td>1956</td><td>L'atelier de Dartmouth réunit le noyau du champ</td></tr>
           <tr><td>1958</td><td>Le perceptron. On annonce des machines conscientes pour bientôt</td></tr>
           <tr><td>1974–1980</td><td><em>Premier hiver.</em> Les promesses ne tiennent pas, les budgets tombent</td></tr>
           <tr><td>1980s</td><td>Les systèmes experts. On encode le savoir en règles, à la main</td></tr>
@@ -1267,6 +1291,22 @@ Reponds selon le schema fourni.`} />
         </div>
       </Deux>
     </Slide>
+
+    <Slide bandeau="Sources" droite="séance 1 · lun 24 août">
+      <h2 class="e">Sources</h2>
+      <hr class="filet" />
+      <ul class="biblio e">
+        {#each ORDRE_BIBLIO as k}
+          <li>
+            <span class="b-auteurs">{REFERENCES[k].auteurs}</span>,
+            <span class="b-titre">{REFERENCES[k].titre}</span>.
+            <span class="b-detail">{REFERENCES[k].detail}</span>
+          </li>
+        {/each}
+      </ul>
+      <p class="e">Bibliographie complète : <code>eiom-ia.github.io/references.bib</code></p>
+    </Slide>
+
 
   {/snippet}
 </Deck>

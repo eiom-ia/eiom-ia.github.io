@@ -14,7 +14,12 @@
    Les variables sont locales au deck: le site n'est pas touché.
    ================================================================== */
 
-.deck {
+/* Le chrome (barre, pied) est frère de .deck dans le composant: sans cette
+   liste, les variables ne l'atteignent pas et le pied devient illisible.
+   Constaté par capture sur une diapo encre. */
+.deck,
+.deck-barre,
+.deck-pied {
   --dk-fond: #f6f6f3;
   --dk-fond-2: #eeeee9;
   --dk-encre: #0c0e0f;
@@ -25,7 +30,9 @@
   --dk-aplat: #003399;
   --dk-accent-clair: #7aa5f5;
   --dk-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
 
+.deck {
   height: 100dvh;
   overflow-y: auto;
   scroll-snap-type: y mandatory;
@@ -460,3 +467,45 @@
   .deck-barre, .deck-pied { display: none; }
   .diapo { height: 100vh; break-after: page; }
 }
+
+/* ---------- Citations ---------- */
+
+.cite {
+  font-size: 0.62em;
+  letter-spacing: 0.06em;
+  color: var(--dk-accent);
+  white-space: nowrap;
+}
+.cite::before { content: '('; }
+.cite::after { content: ')'; }
+.cite.manquante { color: #b00; }
+.diapo.encre .cite { color: var(--dk-accent-clair); }
+
+.biblio { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5em; }
+.biblio li { margin: 0; font-size: 0.78em; line-height: 1.4; }
+.biblio .b-auteurs { color: var(--dk-encre); }
+.biblio .b-titre { font-style: italic; }
+.biblio .b-detail { color: var(--dk-gris); }
+.diapo.encre .biblio .b-auteurs { color: var(--dk-fond); }
+.diapo.encre .biblio .b-detail { color: var(--dk-gris-2); }
+
+/* ---------- Définitions lettrées ---------- */
+
+.defs { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.72em; }
+.defs li {
+  display: grid;
+  grid-template-columns: 1.9em 1fr;
+  gap: 0.7em;
+  align-items: baseline;
+  margin: 0;
+}
+.defs .lettre {
+  font-size: 1.5em;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--dk-gris-2);
+}
+.defs .retenue .lettre { color: var(--dk-accent); }
+.defs .q { font-size: 1.06em; line-height: 1.3; }
+.diapo.encre .defs .lettre { color: var(--dk-gris); }
+.diapo.encre .defs .retenue .lettre { color: var(--dk-accent-clair); }
