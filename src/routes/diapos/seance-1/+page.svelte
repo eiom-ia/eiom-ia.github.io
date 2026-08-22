@@ -239,6 +239,9 @@ verifier_installation()`;
       <h2 class="e">Le champ a déjà connu deux effondrements</h2>
       <hr class="filet" />
       <Chronologie />
+      <p class="e credits">
+        Repères datés d'après <Cite k="turing1950" /> et <Cite k="mccarthy1955" />.
+      </p>
     </Slide>
 
     <Slide bandeau="Ce que cette histoire vous apprend" droite="séance 1 · lun 24 août">
