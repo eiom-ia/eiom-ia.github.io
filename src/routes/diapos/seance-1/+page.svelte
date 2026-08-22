@@ -140,37 +140,15 @@ verifier_installation()`;
 
     <Slide bandeau="À propos de moi" droite="séance 1 · lun 24 août">
       <h2 class="e">À propos de moi</h2>
+      <p class="lead e">Laurence-Olivier M. Foisy</p>
       <hr class="filet" />
 
-      <table class="e">
-        <thead>
-          <tr><th>Depuis</th><th>Parcours</th><th>Établissement</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>2025</td>
-            <td>Auxiliaire de recherche, Centre d'analyse des politiques publiques</td>
-            <td>Université Laval</td>
-          </tr>
-          <tr>
-            <td>2023</td>
-            <td>Doctorat en science politique</td>
-            <td>Université Laval</td>
-          </tr>
-          <tr>
-            <td>2019</td>
-            <td>Maîtrise en études de la paix internationale</td>
-            <td>Université Soka, Japon</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <Carte ton="rose" titre="Enseignement">
-        <p>
-          <strong>FAS-1001</strong> — Introduction aux mégadonnées en sciences sociales,
-          Université de Montréal.
-        </p>
-      </Carte>
+      <ul class="cmd-liste e">
+        <li>Doctorat en science politique<span class="lieu">Université Laval</span></li>
+        <li>Maîtrise en études de la paix internationale<span class="lieu">Université Soka, Japon</span></li>
+        <li>Baccalauréat en études est-asiatiques<span class="lieu">Université de Montréal</span></li>
+        <li>FAS-1001, Introduction aux mégadonnées en sciences sociales<span class="lieu">Université de Montréal</span></li>
+      </ul>
     </Slide>
 
     <Slide bandeau="Question préalable" droite="séance 1 · lun 24 août">

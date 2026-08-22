@@ -8,8 +8,8 @@
    Contrastes calculés, pas estimés, sur le fond #f6f6f3:
      #0c0e0f  17,9:1   encre
      #5c6367   5,7:1   gris secondaire
-     #b03308   5,8:1   accent en texte
-     #ff5c1f   2,9:1   INSUFFISANT en texte — aplats uniquement
+     #003399  10,0:1   accent — bleu du drapeau, Pantone 293
+     #7aa5f5   7,9:1   accent sur aplat encre (#003399 y tombe à 1,8:1)
 
    Les variables sont locales au deck: le site n'est pas touché.
    ================================================================== */
@@ -21,9 +21,9 @@
   --dk-gris: #5c6367;
   --dk-gris-2: #8b918f;
   --dk-filet: #d5d5cf;
-  --dk-accent: #b03308;
-  --dk-aplat: #ff5c1f;
-  --dk-accent-clair: #ff7a45;
+  --dk-accent: #003399;
+  --dk-aplat: #003399;
+  --dk-accent-clair: #7aa5f5;
   --dk-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
   height: 100dvh;
@@ -196,16 +196,30 @@
 .carte-d li { padding-left: 1em; text-indent: -1em; }
 .carte-d li::before { content: '> '; color: var(--dk-accent); }
 
-.carte-d.rose { background: var(--dk-encre); color: var(--dk-fond); border-color: var(--dk-encre); }
-.carte-d.rose h4 { color: var(--dk-accent-clair); }
-.carte-d.rose li::before { color: var(--dk-accent-clair); }
+/* Aucun bloc en aplat sombre: testé en salle, ça alourdit la diapo sans
+   rien clarifier. Tous les blocs sont filaires; l'emphase passe par le
+   texte et par la position, pas par un pavé noir. */
 
-.diapo.encre .carte-d { border-color: var(--dk-fond); color: var(--dk-fond); }
-.diapo.encre .carte-d h4 { color: var(--dk-accent-clair); }
-.diapo.encre .carte-d li::before { color: var(--dk-accent-clair); }
-.diapo.encre .carte-d.rose { background: var(--dk-fond); color: var(--dk-encre); border-color: var(--dk-fond); }
-.diapo.encre .carte-d.rose h4 { color: var(--dk-accent); }
-.diapo.encre .carte-d.rose li::before { color: var(--dk-accent); }
+/* ---------- Liste en commandes de terminal ---------- */
+
+.cmd-liste { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.55em; }
+.cmd-liste li { margin: 0; padding-left: 1.5em; text-indent: -1.5em; font-size: 1em; line-height: 1.45; }
+.cmd-liste li::before {
+  content: '> ';
+  color: var(--dk-accent);
+  font-weight: 600;
+}
+/* L'établissement passe à la ligne, comme la sortie d'une commande:
+   plus lisible qu'un retour à la ligne au milieu d'un nom propre. */
+.cmd-liste .lieu {
+  display: block;
+  color: var(--dk-gris);
+  text-indent: 0;
+  margin-top: 0.08em;
+  font-size: 0.92em;
+}
+.diapo.encre .cmd-liste li::before { color: var(--dk-accent-clair); }
+.diapo.encre .cmd-liste .lieu { color: var(--dk-gris-2); }
 
 /* ---------- Étiquettes ---------- */
 
@@ -339,6 +353,9 @@
 }
 .diapo tr:last-child td { border-bottom: 0; }
 .diapo td:last-child, .diapo th:last-child { padding-right: 0; }
+/* La première colonne porte souvent une année ou un rang: on lui garantit
+   un peu d'air, sinon l'en-tête se colle à la colonne suivante. */
+.diapo th:first-child, .diapo td:first-child { padding-right: 1.6em; }
 .diapo .num-c { text-align: right; }
 .diapo.encre th { color: var(--dk-gris-2); border-top-color: var(--dk-fond); border-bottom-color: var(--dk-gris); }
 .diapo.encre td { border-bottom-color: #2a2e30; }
