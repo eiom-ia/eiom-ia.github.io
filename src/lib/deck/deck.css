@@ -514,3 +514,32 @@
 .diapo.encre .defs .lettre { color: var(--dk-gris); }
 .diapo.encre .defs .retenue .lettre { color: var(--dk-accent-clair); }
 .diapo .credits { font-size: 0.66em; color: var(--dk-gris); line-height: 1.4; }
+
+/* ---------- Horaire ---------- */
+
+.horaire { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
+.horaire li {
+  display: grid;
+  grid-template-columns: 5.2em 1fr;
+  gap: 1.1em;
+  align-items: baseline;
+  padding: 0.5em 0;
+  border-bottom: 1px solid var(--dk-filet);
+  margin: 0;
+}
+.horaire li:first-child { border-top: 2px solid var(--dk-encre); }
+.horaire li:last-child { border-bottom: 0; }
+.horaire .h {
+  font-family: var(--dk-mono);
+  font-weight: 600;
+  color: var(--dk-accent);
+  font-variant-numeric: tabular-nums;
+}
+.horaire .quoi { font-size: 1em; }
+.horaire .pause .h,
+.horaire .pause .quoi { color: var(--dk-gris); font-weight: 400; }
+.diapo.encre .horaire li { border-bottom-color: #2a2e30; }
+.diapo.encre .horaire li:first-child { border-top-color: var(--dk-fond); }
+.diapo.encre .horaire .h { color: var(--dk-accent-clair); }
+.diapo.encre .horaire .pause .h,
+.diapo.encre .horaire .pause .quoi { color: var(--dk-gris-2); }

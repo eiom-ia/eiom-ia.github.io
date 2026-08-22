@@ -16,7 +16,7 @@
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
-  const TOTAL = 65;
+  const TOTAL = 61;
 
   const c_premier = `library(ellmer)
 source("${URL_OUTILS_R}")
@@ -244,121 +244,18 @@ verifier_installation()`;
       </p>
     </Slide>
 
-    <Slide bandeau="Ce que cette histoire vous apprend" droite="séance 1 · lun 24 août">
-      <h2 class="e">Trois constats</h2>
-      <Deux ratio="1fr 1fr 1fr">
-        <Carte ton="ambre" titre="Le champ avance par cycles">
-          <p>
-            Deux hivers ont suivi deux périodes d'enthousiasme démesuré. Nous sommes dans un
-            printemps. Ce n'est pas une raison d'y croire, ni de n'y pas croire : c'est une raison de
-            <strong>mesurer</strong>.
-          </p>
-        </Carte>
-        <Carte ton="ciel" titre="L'idée n'est pas neuve">
-          <p>
-            Les réseaux profonds datent des années 1980. Ce qui a changé, ce sont les données
-            disponibles et la puissance de calcul. Une différence de degré, pas de nature.
-          </p>
-        </Carte>
-        <Carte ton="violet" titre="Les percées viennent des marges">
-          <p>
-            Les réseaux de neurones sont restés minoritaires dans la discipline pendant deux
-            décennies avant de la redéfinir.
-          </p>
-        </Carte>
-      </Deux>
-    </Slide>
-
-    <Slide fond="encre" bandeau="Yoshua Bengio" droite="séance 1 · lun 24 août">
-      <h2 class="e">Yoshua Bengio</h2>
+    <Slide bandeau="Plan de la matinée" droite="séance 1 · lun 24 août">
+      <h2 class="e">Plan de la matinée</h2>
       <hr class="filet" />
-      <Deux ratio="1fr 1fr">
-        <Carte titre="Le parcours">
-          <ul>
-            <li>Né à Paris en 1964, formé à McGill — baccalauréat, maîtrise, doctorat</li>
-            <li>Professeur à l'Université de Montréal <strong>depuis 1993</strong></li>
-            <li>Fondateur de <strong>Mila</strong>, l'Institut québécois d'intelligence artificielle</li>
-          </ul>
-        </Carte>
-        <Carte titre="Les distinctions">
-          <ul>
-            <li><strong>Prix Turing 2018</strong>, avec Geoffrey Hinton et Yann LeCun — le « Nobel de l'informatique »</li>
-            <li>Prix Marie-Victorin 2017, prix Killam 2019</li>
-            <li>Informaticien le plus cité au monde selon l'indice h</li>
-          </ul>
-        </Carte>
-      </Deux>
-      <p class="lead e">
-        Il a poursuivi les travaux sur les réseaux profonds pendant les deux décennies où le champ
-        les jugeait marginaux.
-      </p>
-    </Slide>
-
-    <Slide bandeau="Et le retournement" droite="séance 1 · lun 24 août">
-      <h2 class="e">Bengio plaide pour une IA non agentique</h2>
-      <Deux ratio="1.1fr 1fr">
-        <div>
-          <p>
-            En janvier 2025, Bengio préside le premier <strong>Rapport international sur la sécurité
-            de l'IA</strong>. En juin de la même année, il fonde à Montréal <strong>LawZero</strong>,
-            un organisme sans but lucratif consacré à la sécurité des systèmes.
-          </p>
-          <p>
-            Son projet phare s'appelle <em>Scientist AI</em> : une IA délibérément
-            <strong>non agentique</strong>, qui comprend le monde et en fait des prédictions
-            probabilistes — sans poursuivre de but propre et sans agir de sa propre initiative.
-          </p>
-        </div>
-        <Carte ton="rose" titre="À rapprocher de la séance 4">
-          <p>
-            La séance 4 porte sur l'inverse : donner à des modèles la capacité d'agir.
-          </p>
-          <p>
-            Les deux positions coexistent dans le débat actuel sur la sécurité des systèmes.
-          </p>
-        </Carte>
-      </Deux>
-    </Slide>
-
-    <Slide bandeau="La semaine" droite="séance 1 · lun 24 août">
-      <h2 class="e">Cinq matinées, un cycle de recherche</h2>
-      <table class="e">
-        <thead>
-          <tr><th>Jour</th><th>Séance</th><th>Ce qu'on en retire</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>lundi</td><td><strong>Accéder</strong></td><td>une mesure brute, produite par vous</td></tr>
-          <tr><td>mardi</td><td>Valider</td><td>la preuve que la mesure tient</td></tr>
-          <tr><td>mercredi</td><td>Mesurer</td><td>une variable d'analyse</td></tr>
-          <tr><td>jeudi</td><td><strong>Agir</strong></td><td>des agents dans votre flux de travail</td></tr>
-          <tr><td>vendredi</td><td>Intégrer</td><td>de la question à la diffusion</td></tr>
-        </tbody>
-      </table>
-      <p class="e">
-        La séance 1 produit les données que la séance 2 valide.
-      </p>
-    </Slide>
-
-    <Slide bandeau="Ce matin" droite="séance 1 · lun 24 août">
-      <h2 class="e">Quatre temps</h2>
-      <Deux ratio="1fr 1fr">
-        <div>
-          <Carte ton="violet" titre="1 · Comment ça marche">
-            <p>Ce qu'est réellement un LLM, et ce qu'il n'est pas. Environ 50 minutes.</p>
-          </Carte>
-          <Carte ton="ciel" titre="2 · Pourquoi l'API">
-            <p>Et installation guidée. Tout le monde repart en état de marche. 45 minutes.</p>
-          </Carte>
-        </div>
-        <div>
-          <Carte ton="ambre" titre="3 · Premier appel">
-            <p>Sur de vraies données, avec sortie structurée. 60 minutes.</p>
-          </Carte>
-          <Carte ton="vert" titre="4 · Prompts et clôture">
-            <p>Concevoir un prompt qui tient, et passer le relais. 25 minutes.</p>
-          </Carte>
-        </div>
-      </Deux>
+      <ul class="horaire e">
+        <li><span class="h">8 h 45</span><span class="quoi">Ouverture</span></li>
+        <li><span class="h">9 h 05</span><span class="quoi">Comment fonctionne un LLM</span></li>
+        <li class="pause"><span class="h">10 h 05</span><span class="quoi">Pause</span></li>
+        <li><span class="h">10 h 20</span><span class="quoi">Pourquoi l’API, puis installation</span></li>
+        <li><span class="h">11 h 20</span><span class="quoi">Premier appel sur de vraies données</span></li>
+        <li><span class="h">12 h 25</span><span class="quoi">Conception de prompts et clôture</span></li>
+        <li class="pause"><span class="h">12 h 45</span><span class="quoi">Fin</span></li>
+      </ul>
     </Slide>
 
     <Slide fond="encre" bandeau="À midi" droite="séance 1 · lun 24 août">
