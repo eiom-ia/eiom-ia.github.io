@@ -14,7 +14,7 @@
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
-  const TOTAL = 66;
+  const TOTAL = 65;
 
   const c_premier = `library(ellmer)
 source("${URL_OUTILS_R}")
@@ -194,7 +194,7 @@ verifier_installation()`;
       <h2 class="e">Il y a plusieurs définitions de l'IA</h2>
       <hr class="filet" />
       <ul class="defs e">
-        <li>
+        <li class="retenue">
           <span class="lettre">A</span>
           <span class="q">Est-ce que ça peut décider et agir ? <Cite k="russell2020" /></span>
         </li>
@@ -207,21 +207,11 @@ verifier_installation()`;
           <span class="q">Est-ce que ça décide par la statistique ? <Cite k="jordan2015" /></span>
         </li>
       </ul>
-    </Slide>
-
-    <Slide bandeau="Définir l'IA" droite="séance 1 · lun 24 août">
-      <h2 class="e">Il n'y a pas de consensus</h2>
-      <hr class="filet" />
-      <Deux ratio="1fr 1.3fr">
-        <Grand valeur="70+" legende="définitions recensées" />
-        <div>
-          <p class="e">
-            Le choix de la définition oriente la recherche qu'on fait ensuite.
-            <Cite k="legg2007" /> <Cite k="wang2019" />
-          </p>
-        </div>
-      </Deux>
-      <p class="lead e">Moi, je prends la définition A.</p>
+      <p class="e">
+        Aucun consensus : 70+ définitions recensées.
+        <Cite k="legg2007" /> <Cite k="wang2019" />
+      </p>
+      <p class="lead e">Moi, je prends la A.</p>
     </Slide>
 
     <Slide fond="encre" bandeau="Définir l'IA" droite="séance 1 · lun 24 août">
