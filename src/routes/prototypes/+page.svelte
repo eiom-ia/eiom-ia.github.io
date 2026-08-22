@@ -27,6 +27,14 @@
       contre: 'Un ton affirmé qui peut détonner dans une école universitaire.'
     },
     {
+      id: 'c-clair',
+      nom: 'Brutalisme de terminal — clair',
+      doctrine: 'Même doctrine que C, sur fond clair',
+      quoi: "Pas une inversion mécanique: l'orange vif ne donne que 2,85:1 en texte sur fond clair, donc il est réservé aux aplats et le texte d'accent passe à un orange brûlé. Le bloc inversé devient un aplat encre plein.",
+      pour: 'Toute la personnalité de C, mais lisible dans une salle éclairée et imprimable sans vider une cartouche.',
+      contre: "Perd l'effet de salle obscure qui fait une partie de la force de C."
+    },
+    {
       id: 'd',
       nom: 'Assertion-preuve',
       doctrine: 'Alley & Neeley, 2005 · appuyé par la recherche',

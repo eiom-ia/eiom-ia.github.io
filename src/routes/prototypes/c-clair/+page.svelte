@@ -6,7 +6,7 @@
   import { SEMAINE, CLASSIFIEUR, GENERATIF, CODE_SCHEMA, TITRE, SOUS_TITRE, CONTEXTE, AUTEUR } from '$lib/proto/contenu.js';
 </script>
 
-<svelte:head><title>Prototype C — Brutalisme de terminal</title></svelte:head>
+<svelte:head><title>Prototype C clair — Brutalisme de terminal</title></svelte:head>
 
 <ProtoDeck total={4}>
   <!-- 1 — TITRE -->
@@ -69,39 +69,34 @@
 </ProtoDeck>
 
 <style>
-  /* Isolation: base.css impose une police d'affichage et des couleurs à
-     tous les titres du site. Un prototype qui ne les redéclare pas n'est
-     pas réellement autonome — constaté à la première capture. */
+  /* ------------------------------------------------------------------
+     PROTOTYPE C CLAIR — Brutalisme de terminal, sur fond clair
+     Ce n'est pas une inversion mécanique du mode sombre. L'orange vif
+     #ff5c1f ne donne que 2,85:1 sur fond clair — insuffisant pour du
+     texte. Il est donc réservé aux aplats, et le texte d'accent passe à
+     #b03308 (5,84:1). Le gris secondaire monte de #6f7477 à #5c6367
+     (5,65:1) pour la même raison. Contrastes calculés, pas estimés.
+     ------------------------------------------------------------------ */
   .s :global(h1),
   .s :global(h2),
-  .s :global(h3) {
-    font-family: 'IBM Plex Mono', monospace;
-    color: inherit;
-  }
+  .s :global(h3) { font-family: 'IBM Plex Mono', monospace; color: inherit; }
   .s :global(p),
   .s :global(li),
   .s :global(td) { color: inherit; }
-  .s :global(a) { color: inherit; }
 
-  /* ------------------------------------------------------------------
-     PROTOTYPE C — Brutalisme de terminal
-     Monospace intégral, contraste maximal, angles vifs, aplats.
-     Aucune ombre, aucun dégradé, aucun coin arrondi. Un accent acide.
-     La structure est visible plutôt que masquée.
-     ------------------------------------------------------------------ */
   .s {
     height: 100dvh;
     scroll-snap-align: start;
-    background: #0c0e0f;
-    color: #e6e3dd;
+    background: #f6f6f3;
+    color: #0c0e0f;
     font-family: 'IBM Plex Mono', monospace;
     font-size: clamp(15px, min(1.6vw, 2.8vh), 32px);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+      linear-gradient(rgba(12, 14, 15, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(12, 14, 15, 0.045) 1px, transparent 1px);
     background-size: 2.4em 2.4em;
   }
 
@@ -109,13 +104,14 @@
     display: flex;
     justify-content: space-between;
     padding: 0.9em 1.6em;
-    border-bottom: 2px solid #e6e3dd;
+    border-bottom: 2px solid #0c0e0f;
     font-size: 0.62em;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     flex: 0 0 auto;
+    background: #f6f6f3;
   }
-  .acc { color: #ff5c1f; }
+  .acc { color: #b03308; }
 
   .corps {
     flex: 1 1 auto;
@@ -143,61 +139,65 @@
     letter-spacing: -0.03em;
   }
 
+  /* L'aplat garde l'orange vif: sur un aplat, la question de contraste
+     du texte ne se pose pas. */
   .barre { height: 0.5em; background: #ff5c1f; width: 7em; }
 
-  .sst { margin: 0; font-size: 0.86em; line-height: 1.5; color: #a8a49c; max-width: 40ch; }
+  .sst { margin: 0; font-size: 0.86em; line-height: 1.5; color: #5c6367; max-width: 40ch; }
 
   dl { margin: 0.6em 0 0; display: flex; flex-direction: column; gap: 0.25em; }
   dl div { display: grid; grid-template-columns: 6em 1fr; font-size: 0.7em; }
-  dt { color: #ff5c1f; letter-spacing: 0.1em; text-transform: uppercase; }
-  dd { margin: 0; color: #a8a49c; }
+  dt { color: #b03308; letter-spacing: 0.1em; text-transform: uppercase; }
+  dd { margin: 0; color: #5c6367; }
 
-  /* Tableau sans bordure de cellule: des filets pleine largeur, comme une
-     sortie de terminal. */
-  .tab { display: flex; flex-direction: column; border-top: 2px solid #e6e3dd; }
+  .tab { display: flex; flex-direction: column; border-top: 2px solid #0c0e0f; }
   .tr {
     display: grid;
     grid-template-columns: 8em 8em 1fr;
     gap: 1em;
     padding: 0.6em 0;
-    border-bottom: 1px solid #2a2e30;
+    border-bottom: 1px solid #d5d5cf;
     font-size: 0.84em;
   }
   .tr.entete {
     font-size: 0.6em;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #6f7477;
-    border-bottom-color: #444a4d;
+    color: #5c6367;
+    border-bottom-color: #9a9a93;
   }
-  .dim { color: #a8a49c; }
-  .fort { color: #ff5c1f; font-weight: 500; }
+  .dim { color: #5c6367; }
+  .fort { color: #b03308; font-weight: 500; }
 
   .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; }
-  .bloc { border: 2px solid #e6e3dd; padding: 1em 1.1em; }
-  .bloc.inv { background: #e6e3dd; color: #0c0e0f; border-color: #e6e3dd; }
+  .bloc { border: 2px solid #0c0e0f; padding: 1em 1.1em; background: #f6f6f3; }
+  /* Le bloc inversé devient un aplat encre: le contraste s'inverse
+     franchement plutôt que de se nuancer. */
+  .bloc.inv { background: #0c0e0f; color: #f6f6f3; }
   .tag {
     margin: 0 0 0.6em;
     font-size: 0.62em;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #ff5c1f;
+    color: #b03308;
   }
-  .bloc.inv .tag { color: #c2380a; }
+  .bloc.inv .tag { color: #ff7a45; }
   .li { margin: 0 0 0.4em; font-size: 0.78em; line-height: 1.45; }
-  .li::before { content: '> '; color: #ff5c1f; }
-  .bloc.inv .li::before { color: #c2380a; }
+  .li::before { content: '> '; color: #b03308; }
+  .bloc.inv .li::before { color: #ff7a45; }
 
-  .cmt { margin: 0; font-size: 0.68em; color: #6f7477; line-height: 1.5; }
+  .cmt { margin: 0; font-size: 0.68em; color: #5c6367; line-height: 1.5; }
 
   pre {
     margin: 0;
     font-size: 0.72em;
     line-height: 1.6;
-    border: 2px solid #ff5c1f;
+    border: 2px solid #0c0e0f;
+    border-left-width: 0.4em;
+    border-left-color: #ff5c1f;
     padding: 1em 1.2em;
     overflow-x: auto;
-    background: #121516;
+    background: #efefe9;
   }
   code { font: inherit; }
 </style>
