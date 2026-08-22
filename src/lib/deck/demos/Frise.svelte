@@ -3,15 +3,29 @@
   import { REFERENCES } from '$lib/data/references.js';
 
   /**
-   * Frise défilante. Chaque entrée est placée à sa DATE RÉELLE sur une échelle
-   * linéaire: l'accélération se lit dans la densité, elle n'est pas dessinée.
-   * Aucune valeur inventée, aucun axe vertical qui ne mesurerait rien.
+   * Frise défilante de l'histoire de l'IA.
+   *
+   * Chaque repère est placé à sa DATE RÉELLE. L'échelle compte deux segments à
+   * la MÊME graduation, séparés par une interruption déclarée: sans elle, la
+   * frise traversait 39 ans vides entre 1958 et 1997, soit une vingtaine de
+   * secondes d'écran vide. L'interruption est marquée et nommée, jamais masquée.
+   *
+   * Le défilement démarre à l'arrivée sur la diapositive et s'arrête à la fin.
    */
-  const AN0 = 1948, AN1 = 2027;
-  const LARGEUR = 8200; // px, de AN0 à AN1
-  const SAS = 460;      // px, la coupure visible avant la reprise
-  const TOTAL = LARGEUR + SAS;
-  const pos = (an) => ((an - AN0) / (AN1 - AN0)) * LARGEUR;
+  const PX_PAR_AN = 115;
+  const SEGMENTS = [
+    { de: 1948, a: 1962 },
+    { de: 1995, a: 2027 }
+  ];
+  const COUPURE = 300;
+
+  const DEB_B = (SEGMENTS[0].a - SEGMENTS[0].de) * PX_PAR_AN + COUPURE;
+  const LARGEUR = DEB_B + (SEGMENTS[1].a - SEGMENTS[1].de) * PX_PAR_AN;
+
+  const pos = (an) =>
+    an <= SEGMENTS[0].a
+      ? (an - SEGMENTS[0].de) * PX_PAR_AN
+      : DEB_B + (an - SEGMENTS[1].de) * PX_PAR_AN;
 
   const ENTREES = [
     { an: 1950, t: 'Le jeu de l’imitation', s: 'Turing', img: 'turing.jpg', p: 'turing1950' },
@@ -35,78 +49,101 @@
     { an: 2025.42, t: 'LawZero', s: 'Bengio · Montréal', img: 'bengio.jpg' }
   ];
 
-  const DECENNIES = [1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
+  const DECENNIES = [1950, 1960, 2000, 2010, 2020];
 
   let piste = $state(null);
   let hote = $state(null);
   let js = $state(false);
-  let arrete = $state(false);
+  let etat = $state('arret'); // 'arret' | 'joue' | 'pause' | 'fini'
+
+  let jouer = $state(() => {});
+  let basculer = $state(() => {});
 
   $effect(() => {
     if (!hote || !piste) return;
     js = true;
-    let brut = 0, dernier = 0, af = 0, actif = false;
-    const VITESSE = 165; // px par seconde
+
+    const deck = hote.closest('.deck');
+    const diapo = hote.closest('.diapo');
+    if (!deck || !diapo) return;
+
+    // On lit la position du deck plutôt que de s'en remettre à un observateur
+    // d'intersection: avec l'accrochage au défilement, celui-ci se déclenchait
+    // dès le chargement et la frise était déjà au milieu à l'arrivée.
+    const monIndex = [...deck.querySelectorAll('.diapo')].indexOf(diapo);
+    let dernier = 0, af = 0;
+    const VITESSE = 175; // px par seconde
 
     function pas(t) {
-      if (!actif) return;
-      const dt = dernier ? (t - dernier) / 1000 : 0;
+      if (etat !== 'joue') return;
+      const dt = dernier ? Math.min((t - dernier) / 1000, 0.1) : 0;
       dernier = t;
-      if (!arrete) {
-        // Le rail est rendu deux fois: au-delà d'une largeur, on revient au
-        // début sans que la couture soit visible.
-        brut = (brut + VITESSE * dt) % TOTAL;
-        piste.scrollLeft = brut;
+      const max = piste.scrollWidth - piste.clientWidth;
+      const suivant = piste.scrollLeft + VITESSE * dt;
+      if (suivant >= max) {
+        piste.scrollLeft = max;
+        etat = 'fini';
+        return;
       }
+      piste.scrollLeft = suivant;
       af = requestAnimationFrame(pas);
     }
 
-    // La racine est le conteneur de défilement du deck. Sans elle,
-    // l'observateur se déclenchait dès le chargement de la page et la frise
-    // était déjà au milieu quand on arrivait sur la diapositive.
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting && !actif) {
-          actif = true; dernier = 0;
-          brut = 0; piste.scrollLeft = 0;   // on repart toujours de 1950
-          af = requestAnimationFrame(pas);
-        } else if (!e.isIntersecting) {
-          actif = false; cancelAnimationFrame(af);
-        }
-      },
-      { root: hote.closest('.deck'), threshold: 0.6 }
-    );
-    io.observe(hote);
-    return () => { io.disconnect(); cancelAnimationFrame(af); actif = false; };
+    function demarrer(depuisZero) {
+      if (depuisZero) piste.scrollLeft = 0;
+      dernier = 0;
+      etat = 'joue';
+      cancelAnimationFrame(af);
+      af = requestAnimationFrame(pas);
+    }
+
+    jouer = () => demarrer(etat === 'fini');
+    basculer = () => {
+      if (etat === 'joue') { etat = 'pause'; cancelAnimationFrame(af); }
+      else demarrer(etat === 'fini');
+    };
+
+    let ici = false;
+    function verifier() {
+      const y = Math.round(deck.scrollTop / deck.clientHeight) === monIndex;
+      if (y && !ici) { ici = true; demarrer(true); }
+      else if (!y && ici) {
+        ici = false; etat = 'arret'; cancelAnimationFrame(af); piste.scrollLeft = 0;
+      }
+    }
+
+    deck.addEventListener('scroll', verifier, { passive: true });
+    verifier();
+    const t0 = setTimeout(verifier, 350); // après l'accrochage
+
+    return () => {
+      deck.removeEventListener('scroll', verifier);
+      clearTimeout(t0);
+      cancelAnimationFrame(af);
+      etat = 'arret';
+    };
   });
 </script>
 
-<div
-  class="frise"
-  bind:this={hote}
-  onpointerenter={() => (arrete = true)}
-  onpointerleave={() => (arrete = false)}
->
+<div class="frise" bind:this={hote}>
   <div class="piste" bind:this={piste}>
-    <div class="boucle" style="width: {TOTAL * 2}px">
-      {#each [0, 1] as copie}
-      <div class="rail" style="width: {TOTAL}px" aria-hidden={copie === 1}>
+    <div class="rail" style="width: {LARGEUR}px">
       <div class="axe"></div>
 
       {#each DECENNIES as d}
         <div class="dec" style="left: {pos(d)}px"><span>{d}</span></div>
       {/each}
 
+      <div class="coupure" style="left: {DEB_B - COUPURE}px; width: {COUPURE}px">
+        <span class="coupure-txt">échelle interrompue · 1962 → 1995</span>
+      </div>
+
       {#each ENTREES as e, i}
         <div class="ent {i % 2 ? 'bas' : 'haut'}" style="left: {pos(e.an)}px">
           <div class="tige"></div>
           <div class="carte">
             {#if e.img}
-              <img
-                class:logo={e.logo}
-                src="{base}/img/histoire/{e.img}"
-                alt={e.s || e.t}
-              />
+              <img class:logo={e.logo} src="{base}/img/histoire/{e.img}" alt={e.s || e.t} />
             {/if}
             <p class="an">{Math.floor(e.an)}</p>
             <p class="t">{e.t}</p>
@@ -115,49 +152,31 @@
           </div>
         </div>
       {/each}
-
-        <div class="sas" style="left: {LARGEUR}px; width: {SAS}px">
-          <span class="sas-txt">la frise reprend en 1950</span>
-        </div>
-      </div>
-      {/each}
     </div>
   </div>
 
   {#if js}
-    <p class="aide">{arrete ? 'défilement en pause' : 'survolez pour mettre en pause'}</p>
+    <button class="cmd" onclick={basculer} aria-label="Commander le défilement">
+      {etat === 'joue' ? '❙❙ pause' : etat === 'fini' ? '↻ rejouer' : '▶ lecture'}
+    </button>
   {/if}
 </div>
 
 <style>
-  /* Pleine largeur: la frise sort de la colonne de lecture. */
-  /* La frise a sa propre échelle: héritée de la diapo, elle était démesurée
-   et les cartes débordaient du rail. */
-.frise {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  position: relative;
-  font-size: 0.58em;
-}
-
-  .piste {
-    overflow-x: auto;
-    overflow-y: hidden;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
+  /* La frise a sa propre échelle: héritée de la diapo, elle était démesurée. */
+  .frise {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    position: relative;
+    font-size: 0.58em;
   }
+
+  .piste { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
   .piste::-webkit-scrollbar { display: none; }
 
-  /* Deux rails côte à côte: le second est la copie qui rend la boucle
-     invisible. En flex, la hauteur ne s'effondre pas — elle s'était
-     effondrée quand les rails étaient en position absolue. */
-  .boucle { display: flex; height: 30em; }
-  .rail { position: relative; flex: 0 0 auto; height: 100%; }
+  .rail { position: relative; height: 30em; }
 
-  .axe {
-    position: absolute; left: 0; right: 0; top: 50%;
-    height: 2px; background: var(--dk-encre);
-  }
+  .axe { position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: var(--dk-encre); }
 
   .dec {
     position: absolute; top: 50%; transform: translate(-50%, 0.5em);
@@ -167,6 +186,20 @@
   .dec::before {
     content: ''; position: absolute; left: 50%; top: -0.75em;
     width: 1px; height: 0.55em; background: var(--dk-gris-2);
+  }
+
+  /* L'interruption d'échelle doit se voir et se nommer: sans quoi la frise
+     mentirait sur les distances. */
+  .coupure {
+    position: absolute; top: 0; bottom: 0;
+    display: flex; align-items: center; justify-content: center;
+    border-left: 2px dashed var(--dk-gris-2);
+    border-right: 2px dashed var(--dk-gris-2);
+  }
+  .coupure-txt {
+    font-family: var(--dk-mono); font-size: 0.58em;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--dk-gris);
+    writing-mode: vertical-rl; text-orientation: mixed;
   }
 
   .ent { position: absolute; top: 50%; width: 8.2em; transform: translateX(-50%); }
@@ -188,7 +221,6 @@
 
   .carte img {
     width: 100%; height: 5em; object-fit: cover;
-    /* Les visages sont dans le tiers supérieur: un recadrage centré les coupait. */
     object-position: center 28%;
     border: 2px solid var(--dk-encre);
     filter: grayscale(1) contrast(1.04);
@@ -204,10 +236,7 @@
     line-height: 1; color: var(--dk-accent); margin: 0;
   }
   .carte .t { font-size: 0.8em; line-height: 1.25; margin: 0; }
-  .carte .s {
-    font-size: 0.66em; line-height: 1.3; color: var(--dk-gris); margin: 0;
-  }
-
+  .carte .s { font-size: 0.66em; line-height: 1.3; color: var(--dk-gris); margin: 0; }
   .carte .pap {
     /* Trois lignes au plus: le titre de Dartmouth débordait de sa carte. */
     display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
@@ -218,27 +247,13 @@
   }
   .carte .pap .ref { color: var(--dk-gris); white-space: nowrap; }
 
-  /* Coupure de boucle: sans elle, 2025 succédait à 1950 sans avertir. */
-  .sas {
-    position: absolute; top: 0; bottom: 0;
-    display: flex; align-items: center; justify-content: center;
-    border-left: 3px solid var(--dk-encre);
-    background: repeating-linear-gradient(
-      -45deg,
-      transparent 0 9px,
-      color-mix(in srgb, var(--dk-encre) 8%, transparent) 9px 18px
-    );
+  .cmd {
+    position: absolute; right: 1.8em; bottom: -1.9em;
+    font-family: var(--dk-mono); font-size: 0.62em;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--dk-encre); background: var(--dk-fond);
+    border: 2px solid var(--dk-encre); border-radius: 0;
+    padding: 0.35em 0.9em; cursor: pointer;
   }
-  .sas-txt {
-    font-family: var(--dk-mono); font-size: 0.66em;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--dk-gris); writing-mode: vertical-rl; text-orientation: mixed;
-  }
-
-  .aide {
-    position: absolute; right: 1.6em; bottom: -1.6em;
-    font-family: var(--dk-mono); font-size: 0.58em;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--dk-gris-2); margin: 0;
-  }
+  .cmd:hover { background: var(--dk-encre); color: var(--dk-fond); }
 </style>

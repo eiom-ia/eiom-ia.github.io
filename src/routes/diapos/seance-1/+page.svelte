@@ -236,10 +236,10 @@ verifier_installation()`;
     </Slide>
 
     <Slide bandeau="Une histoire de l'IA" droite="séance 1 · lun 24 août">
-      <h2 class="e">Repères, de 1950 à aujourd’hui</h2>
+      <h2 class="e">Histoire de l'IA</h2>
       <Frise />
       <p class="e credits">
-        Chaque repère est placé à sa date réelle sur une échelle linéaire.
+        Chaque repère est placé à sa date réelle. L'échelle est interrompue entre 1962 et 1995.
         <Cite k="turing1950" /> <Cite k="mccarthy1955" />
       </p>
     </Slide>
