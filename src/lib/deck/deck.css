@@ -97,6 +97,7 @@
 .diapo-in:has(> table) { max-width: 52em; }
 .diapo-in:has(> .bloc-code) { max-width: 50em; }
 .diapo-in:has(> figure.schema) { max-width: 52em; }
+.diapo-in:has(> .schema-chaine) { max-width: 54em; }
 .diapo-in:has(> .deux) { max-width: 50em; }
 
 /* ---------- Typographie ---------- */
@@ -359,6 +360,29 @@
 .diapo .num-c { text-align: right; }
 .diapo.encre th { color: var(--dk-gris-2); border-top-color: var(--dk-fond); border-bottom-color: var(--dk-gris); }
 .diapo.encre td { border-bottom-color: #2a2e30; }
+
+/* ---------- Schéma en chaîne ---------- */
+
+.schema-chaine { width: 100%; }
+.schema-chaine svg { width: 100%; height: auto; display: block; }
+.sc-boite { fill: none; stroke: var(--dk-encre); stroke-width: 2.5; }
+.sc-jour {
+  font-family: var(--dk-mono);
+  font-size: 15px;
+  letter-spacing: 0.16em;
+  fill: var(--dk-gris);
+}
+.sc-verbe {
+  font-family: var(--dk-mono);
+  font-size: 30px;
+  font-weight: 600;
+  fill: var(--dk-encre);
+}
+.sc-fleche { stroke: var(--dk-accent); stroke-width: 2.5; fill: none; }
+.diapo.encre .sc-boite { stroke: var(--dk-fond); }
+.diapo.encre .sc-verbe { fill: var(--dk-fond); }
+.diapo.encre .sc-jour { fill: var(--dk-gris-2); }
+.diapo.encre .sc-fleche { stroke: var(--dk-accent-clair); }
 
 /* ---------- Portrait ---------- */
 
