@@ -46,6 +46,41 @@ export const REFERENCES = {
     detail: '4ᵉ édition, Pearson',
     lien: 'https://aima.cs.berkeley.edu/'
   },
+  bengio2003: {
+    court: 'Bengio et al. 2003',
+    auteurs: 'Y. Bengio, R. Ducharme, P. Vincent, C. Jauvin',
+    titre: 'A Neural Probabilistic Language Model',
+    detail: 'Journal of Machine Learning Research, 3, 1137–1155',
+    lien: 'https://www.jmlr.org/papers/v3/bengio03a.html'
+  },
+  bahdanau2015: {
+    court: 'Bahdanau et al. 2015',
+    auteurs: 'D. Bahdanau, K. Cho, Y. Bengio',
+    titre: 'Neural Machine Translation by Jointly Learning to Align and Translate',
+    detail: 'ICLR 2015 · arXiv:1409.0473',
+    lien: 'https://arxiv.org/abs/1409.0473'
+  },
+  krizhevsky2012: {
+    court: 'Krizhevsky et al. 2012',
+    auteurs: 'A. Krizhevsky, I. Sutskever, G. E. Hinton',
+    titre: 'ImageNet Classification with Deep Convolutional Neural Networks',
+    detail: 'NIPS 2012',
+    lien: 'https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks'
+  },
+  vaswani2017: {
+    court: 'Vaswani et al. 2017',
+    auteurs: 'A. Vaswani, N. Shazeer, N. Parmar et al.',
+    titre: 'Attention Is All You Need',
+    detail: 'NeurIPS 2017 · arXiv:1706.03762',
+    lien: 'https://arxiv.org/abs/1706.03762'
+  },
+  brown2020: {
+    court: 'Brown et al. 2020',
+    auteurs: 'T. B. Brown, B. Mann, N. Ryder et al.',
+    titre: 'Language Models are Few-Shot Learners',
+    detail: 'NeurIPS 2020 · arXiv:2005.14165',
+    lien: 'https://arxiv.org/abs/2005.14165'
+  },
   jones2025: {
     court: 'Jones et Bergen 2025',
     auteurs: 'C. R. Jones, B. K. Bergen',
@@ -58,9 +93,14 @@ export const REFERENCES = {
 export const ORDRE_BIBLIO = [
   'turing1950',
   'mccarthy1955',
+  'bengio2003',
   'legg2007',
+  'krizhevsky2012',
+  'bahdanau2015',
   'jordan2015',
+  'vaswani2017',
   'wang2019',
   'russell2020',
+  'brown2020',
   'jones2025'
 ];

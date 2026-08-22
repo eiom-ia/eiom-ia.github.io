@@ -1,5 +1,6 @@
 <script>
   import { base } from '$app/paths';
+  import { REFERENCES } from '$lib/data/references.js';
 
   /**
    * Frise défilante. Chaque entrée est placée à sa DATE RÉELLE sur une échelle
@@ -7,27 +8,29 @@
    * Aucune valeur inventée, aucun axe vertical qui ne mesurerait rien.
    */
   const AN0 = 1948, AN1 = 2027;
-  const LARGEUR = 6800; // px
+  const LARGEUR = 8200; // px
   const pos = (an) => ((an - AN0) / (AN1 - AN0)) * LARGEUR;
 
   const ENTREES = [
-    { an: 1950, t: 'Le jeu de l’imitation', s: 'Turing', img: 'turing.jpg' },
-    { an: 1956, t: 'Le terme est forgé', s: 'Dartmouth', img: 'mccarthy.jpg' },
+    { an: 1950, t: 'Le jeu de l’imitation', s: 'Turing', img: 'turing.jpg', p: 'turing1950' },
+    { an: 1956, t: 'Le terme est forgé', s: 'Dartmouth', img: 'mccarthy.jpg', p: 'mccarthy1955' },
     { an: 1958, t: 'Le perceptron', s: 'Rosenblatt', img: 'perceptron.jpg' },
     { an: 1997, t: 'Deep Blue bat Kasparov', s: 'IBM', img: 'deepblue.jpg' },
+    { an: 2003, t: 'Premier modèle de langue neuronal', s: 'Bengio · Montréal', img: 'bengio.jpg', p: 'bengio2003' },
     { an: 2009, t: 'ImageNet', s: 'Fei-Fei Li', img: 'feifei.jpg' },
-    { an: 2012, t: 'AlexNet', s: 'Apprentissage profond' },
+    { an: 2012, t: 'AlexNet', s: 'Krizhevsky · Sutskever · Hinton', p: 'krizhevsky2012' },
     { an: 2014, t: 'Google achète DeepMind', s: '', img: 'deepmind.png', logo: true },
+    { an: 2015, t: 'Le mécanisme d’attention', s: 'Bahdanau · Cho · Bengio', p: 'bahdanau2015' },
     { an: 2016, t: 'AlphaGo bat Lee Sedol', s: 'Hassabis', img: 'hassabis.jpg' },
-    { an: 2017, t: 'Transformers', s: 'Attention is all you need' },
+    { an: 2017, t: 'Le transformer', s: 'Vaswani et al. · Google', p: 'vaswani2017' },
     { an: 2018, t: 'GPT-1', s: '', img: 'openai.png', logo: true },
     { an: 2019, t: 'GPT-2' },
-    { an: 2020, t: 'GPT-3' },
+    { an: 2020, t: 'GPT-3', s: '175 milliards de paramètres', p: 'brown2020' },
     { an: 2021, t: 'Anthropic est fondée', s: '', img: 'anthropic.png', logo: true },
     { an: 2022.92, t: 'ChatGPT', s: '30 novembre' },
     { an: 2023.2, t: 'GPT-4 et Claude', s: 'mars' },
     { an: 2024.77, t: 'Deux prix Nobel', s: 'Hinton · Hassabis', img: 'hinton.jpg' },
-    { an: 2025.42, t: 'LawZero', s: 'Bengio', img: 'bengio.jpg' }
+    { an: 2025.42, t: 'LawZero', s: 'Bengio · Montréal', img: 'bengio.jpg' }
   ];
 
   const DECENNIES = [1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
@@ -41,17 +44,17 @@
     if (!hote || !piste) return;
     js = true;
     let brut = 0, dernier = 0, af = 0, actif = false;
-    const VITESSE = 125; // px par seconde
+    const VITESSE = 165; // px par seconde
 
     function pas(t) {
       if (!actif) return;
       const dt = dernier ? (t - dernier) / 1000 : 0;
       dernier = t;
       if (!arrete) {
-        brut += VITESSE * dt;
-        const max = piste.scrollWidth - piste.clientWidth;
-        piste.scrollLeft = Math.min(brut, max);
-        if (brut >= max) actif = false;
+        // Le rail est rendu deux fois: au-delà d'une largeur, on revient au
+        // début sans que la couture soit visible.
+        brut = (brut + VITESSE * dt) % LARGEUR;
+        piste.scrollLeft = brut;
       }
       af = requestAnimationFrame(pas);
     }
@@ -59,7 +62,7 @@
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting && !actif) {
-          actif = true; dernier = 0; brut = piste.scrollLeft;
+          actif = true; dernier = 0; brut = piste.scrollLeft % LARGEUR;
           af = requestAnimationFrame(pas);
         } else if (!e.isIntersecting) {
           actif = false; cancelAnimationFrame(af);
@@ -79,7 +82,9 @@
   onpointerleave={() => (arrete = false)}
 >
   <div class="piste" bind:this={piste}>
-    <div class="rail" style="width: {LARGEUR}px">
+    <div class="boucle" style="width: {LARGEUR * 2}px">
+      {#each [0, 1] as copie}
+      <div class="rail" style="width: {LARGEUR}px" aria-hidden={copie === 1}>
       <div class="axe"></div>
 
       {#each DECENNIES as d}
@@ -100,8 +105,11 @@
             <p class="an">{Math.floor(e.an)}</p>
             <p class="t">{e.t}</p>
             {#if e.s}<p class="s">{e.s}</p>{/if}
+            {#if e.p}<p class="pap">{REFERENCES[e.p].titre} <span class="ref">{REFERENCES[e.p].court}</span></p>{/if}
           </div>
         </div>
+      {/each}
+      </div>
       {/each}
     </div>
   </div>
@@ -130,7 +138,11 @@
   }
   .piste::-webkit-scrollbar { display: none; }
 
-  .rail { position: relative; height: 27em; }
+  /* Deux rails côte à côte: le second est la copie qui rend la boucle
+     invisible. En flex, la hauteur ne s'effondre pas — elle s'était
+     effondrée quand les rails étaient en position absolue. */
+  .boucle { display: flex; height: 30em; }
+  .rail { position: relative; flex: 0 0 auto; height: 100%; }
 
   .axe {
     position: absolute; left: 0; right: 0; top: 50%;
@@ -165,7 +177,7 @@
   .ent.haut .carte { justify-content: flex-end; }
 
   .carte img {
-    width: 100%; height: 5.6em; object-fit: cover;
+    width: 100%; height: 5em; object-fit: cover;
     /* Les visages sont dans le tiers supérieur: un recadrage centré les coupait. */
     object-position: center 28%;
     border: 2px solid var(--dk-encre);
@@ -185,6 +197,13 @@
   .carte .s {
     font-size: 0.66em; line-height: 1.3; color: var(--dk-gris); margin: 0;
   }
+
+  .carte .pap {
+    font-size: 0.6em; line-height: 1.28; margin: 0.25em 0 0;
+    color: var(--dk-encre); border-left: 2px solid var(--dk-accent);
+    padding-left: 0.5em;
+  }
+  .carte .pap .ref { color: var(--dk-gris); white-space: nowrap; }
 
   .aide {
     position: absolute; right: 1.6em; bottom: -1.6em;

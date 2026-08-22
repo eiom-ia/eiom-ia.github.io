@@ -5,14 +5,24 @@ import { REFERENCES, ORDRE_BIBLIO } from '../src/lib/data/references.js';
 const bib = readFileSync('static/references.bib', 'utf8');
 const clesBib = [...bib.matchAll(/@\w+\{([^,]+),/g)].map((m) => m[1].trim());
 
-const decks = readdirSync('src/routes/diapos')
-  .map((d) => `src/routes/diapos/${d}/+page.svelte`)
-  .filter((f) => {
-    try { readFileSync(f); return true; } catch { return false; }
-  });
-const citees = decks.flatMap((f) =>
-  [...readFileSync(f, 'utf8').matchAll(/<Cite\s+k="([^"]+)"/g)].map((m) => m[1])
-);
+const fichiers = [
+  ...readdirSync('src/routes/diapos').map((d) => `src/routes/diapos/${d}/+page.svelte`),
+  ...readdirSync('src/lib/deck/demos')
+    .filter((f) => f.endsWith('.svelte'))
+    .map((f) => `src/lib/deck/demos/${f}`)
+].filter((f) => {
+  try { readFileSync(f); return true; } catch { return false; }
+});
+
+// Une référence peut être citée par une balise <Cite k="..."> ou portée par
+// une donnée (p: 'cle') dans un composant comme la frise.
+const citees = fichiers.flatMap((f) => {
+  const t = readFileSync(f, 'utf8');
+  return [
+    ...[...t.matchAll(/<Cite\s+k="([^"]+)"/g)].map((m) => m[1]),
+    ...[...t.matchAll(/\bp:\s*'([a-z]+\d{4})'/g)].map((m) => m[1])
+  ];
+});
 
 describe('bibliographie', () => {
   it('déclare les mêmes clés dans le .bib et dans le module', () => {

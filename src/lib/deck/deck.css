@@ -102,6 +102,7 @@
 /* La mesure de lecture vaut pour la prose. Un tableau, un bloc de code ou
    un schéma n'a pas de raison d'y être contraint: on les laisse respirer. */
 .diapo-in:has(> table) { max-width: 52em; }
+.diapo-in:has(> .biblio) { max-width: 56em; }
 .diapo-in:has(> .bloc-code) { max-width: 50em; }
 .diapo-in:has(> figure.schema) { max-width: 52em; }
 .diapo-in:has(> .semaine-bande) { max-width: 54em; }
@@ -481,8 +482,11 @@
 .cite.manquante { color: #b00; }
 .diapo.encre .cite { color: var(--dk-accent-clair); }
 
-.biblio { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5em; }
-.biblio li { margin: 0; font-size: 0.78em; line-height: 1.4; }
+.biblio {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.5em 1.6em;
+}
+.biblio li { margin: 0; font-size: 0.7em; line-height: 1.35; }
 .biblio .b-auteurs { color: var(--dk-encre); }
 .biblio .b-titre { font-style: italic; }
 .biblio .b-detail { color: var(--dk-gris); }
