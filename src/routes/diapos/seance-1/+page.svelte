@@ -138,43 +138,39 @@ verifier_installation()`;
       </p>
     </Slide>
 
-    <Slide bandeau="Avant de commencer" droite="séance 1 · lun 24 août">
-      <h2 class="e">Qui vous parle</h2>
+    <Slide bandeau="À propos de moi" droite="séance 1 · lun 24 août">
+      <h2 class="e">À propos de moi</h2>
       <hr class="filet" />
-      <Deux ratio="1fr 1fr">
-        <Carte ton="ciel" titre="Parcours">
-          <ul>
-            <li>Doctorant en science politique, Université Laval</li>
-            <li>Maîtrise en études de la paix internationale, Université Soka, Japon</li>
-            <li>Auxiliaire de recherche au Centre d'analyse des politiques publiques</li>
-          </ul>
-        </Carte>
-        <Carte ton="violet" titre="Enseignement">
-          <ul>
-            <li><strong>FAS-1001</strong> — Introduction aux mégadonnées en sciences sociales, Université de Montréal</li>
-            <li><strong>POL-2000</strong> — Méthodologie quantitative, Université Laval</li>
-            <li>Visualisation interactive avec R et Shiny, ICPSR</li>
-          </ul>
-        </Carte>
-      </Deux>
-      <Deux ratio="1fr 1fr">
-        <Carte ton="ambre" titre="Ce que je fabrique">
-          <p>
-            Des paquets R, dont <code>ces</code> sur le CRAN, pour accéder aux données de
-            l'Étude électorale canadienne. Beaucoup de code, tous les jours.
-          </p>
-        </Carte>
-        <Carte ton="vert" titre="Un détail qui me plaît">
-          <p>
-            En 2024, j'étais auxiliaire d'enseignement à l'EIOM. Cette semaine, j'y donne un
-            parcours. C'est une école où ça arrive.
-          </p>
-        </Carte>
-      </Deux>
-      <p class="e">
-        Je ne suis pas informaticien. Je suis un chercheur en sciences sociales qui utilise ces
-        outils tous les jours — et c'est de ce point de vue que je vous parlerai toute la semaine.
-      </p>
+
+      <table class="e">
+        <thead>
+          <tr><th>Depuis</th><th>Parcours</th><th>Établissement</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2025</td>
+            <td>Auxiliaire de recherche, Centre d'analyse des politiques publiques</td>
+            <td>Université Laval</td>
+          </tr>
+          <tr>
+            <td>2023</td>
+            <td>Doctorat en science politique</td>
+            <td>Université Laval</td>
+          </tr>
+          <tr>
+            <td>2019</td>
+            <td>Maîtrise en études de la paix internationale</td>
+            <td>Université Soka, Japon</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <Carte ton="rose" titre="Enseignement">
+        <p>
+          <strong>FAS-1001</strong> — Introduction aux mégadonnées en sciences sociales,
+          Université de Montréal.
+        </p>
+      </Carte>
     </Slide>
 
     <Slide bandeau="Question préalable" droite="séance 1 · lun 24 août">
