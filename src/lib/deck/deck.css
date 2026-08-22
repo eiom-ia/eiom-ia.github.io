@@ -360,6 +360,18 @@
 .diapo.encre th { color: var(--dk-gris-2); border-top-color: var(--dk-fond); border-bottom-color: var(--dk-gris); }
 .diapo.encre td { border-bottom-color: #2a2e30; }
 
+/* ---------- Portrait ---------- */
+
+/* Cadre franc, pas de cercle: le brutalisme n'a pas de coin arrondi. */
+.portrait { margin: 0; }
+.portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--dk-encre);
+}
+.diapo.encre .portrait img { border-color: var(--dk-fond); }
+
 /* ---------- Schémas ---------- */
 
 .diapo figure.schema { margin: 0; display: flex; flex-direction: column; gap: 0.4em; align-items: center; }

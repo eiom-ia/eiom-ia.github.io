@@ -1,4 +1,5 @@
 <script>
+  import { base } from '$app/paths';
   import Deck from '$lib/deck/Deck.svelte';
   import Slide from '$lib/deck/Slide.svelte';
   import Code from '$lib/deck/Code.svelte';
@@ -139,16 +140,22 @@ verifier_installation()`;
     </Slide>
 
     <Slide bandeau="À propos de moi" droite="séance 1 · lun 24 août">
-      <h2 class="e">À propos de moi</h2>
-      <p class="lead e">Laurence-Olivier M. Foisy</p>
-      <hr class="filet" />
-
-      <ul class="cmd-liste e">
-        <li>Doctorat en science politique<span class="lieu">Université Laval</span></li>
-        <li>Maîtrise en études de la paix internationale<span class="lieu">Université Soka, Japon</span></li>
-        <li>Baccalauréat en études est-asiatiques<span class="lieu">Université de Montréal</span></li>
-        <li>FAS-1001, Introduction aux mégadonnées en sciences sociales<span class="lieu">Université de Montréal</span></li>
-      </ul>
+      <Deux ratio="1.85fr 1fr">
+        <div>
+          <h2 class="e">À propos de moi</h2>
+          <p class="lead e">Laurence-Olivier M. Foisy</p>
+          <hr class="filet" />
+          <ul class="cmd-liste e">
+            <li>Enseignement du cours Introduction aux mégadonnées en sciences sociales<span class="lieu">Université de Montréal · FAS-1001</span></li>
+            <li>Doctorat en science politique<span class="lieu">Université Laval</span></li>
+            <li>Maîtrise en études de la paix internationale<span class="lieu">Université Soka, Japon</span></li>
+            <li>Baccalauréat en études est-asiatiques<span class="lieu">Université de Montréal</span></li>
+          </ul>
+        </div>
+        <figure class="portrait">
+          <img src="{base}/img/portrait-lomf.jpg" alt="Portrait de Laurence-Olivier M. Foisy" />
+        </figure>
+      </Deux>
     </Slide>
 
     <Slide bandeau="Question préalable" droite="séance 1 · lun 24 août">
