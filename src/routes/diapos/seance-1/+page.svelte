@@ -158,46 +158,34 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide bandeau="Le déroulement de la semaine" droite="séance 1 · lun 24 août">
-      <h2 class="e">Cinq matinées</h2>
+    <Slide bandeau="La semaine" droite="séance 1 · lun 24 août">
+      <h2 class="e">Cinq séances</h2>
       <hr class="filet" />
 
-      <div class="schema-chaine e">
-        <svg viewBox="0 0 1000 140" role="img"
-             aria-label="Chaîne des cinq matinées: accéder, valider, mesurer, agir, intégrer">
-          <g transform="translate(0.0, 0)">
-            <text x="85" y="22" text-anchor="middle" class="sc-jour">LUNDI</text>
-            <rect class="sc-boite" x="1.5" y="38" width="167" height="86" />
-            <text x="85" y="90" text-anchor="middle" class="sc-verbe">Accéder</text>
-          </g>
-          <path class="sc-fleche" d="M170.0 81 L204.0 81 M196.0 74 L204.0 81 L196.0 88" />
-          <g transform="translate(207.5, 0)">
-            <text x="85" y="22" text-anchor="middle" class="sc-jour">MARDI</text>
-            <rect class="sc-boite" x="1.5" y="38" width="167" height="86" />
-            <text x="85" y="90" text-anchor="middle" class="sc-verbe">Valider</text>
-          </g>
-          <path class="sc-fleche" d="M377.5 81 L411.5 81 M403.5 74 L411.5 81 L403.5 88" />
-          <g transform="translate(415.0, 0)">
-            <text x="85" y="22" text-anchor="middle" class="sc-jour">MERCREDI</text>
-            <rect class="sc-boite" x="1.5" y="38" width="167" height="86" />
-            <text x="85" y="90" text-anchor="middle" class="sc-verbe">Mesurer</text>
-          </g>
-          <path class="sc-fleche" d="M585.0 81 L619.0 81 M611.0 74 L619.0 81 L611.0 88" />
-          <g transform="translate(622.5, 0)">
-            <text x="85" y="22" text-anchor="middle" class="sc-jour">JEUDI</text>
-            <rect class="sc-boite" x="1.5" y="38" width="167" height="86" />
-            <text x="85" y="90" text-anchor="middle" class="sc-verbe">Agir</text>
-          </g>
-          <path class="sc-fleche" d="M792.5 81 L826.5 81 M818.5 74 L826.5 81 L818.5 88" />
-          <g transform="translate(830.0, 0)">
-            <text x="85" y="22" text-anchor="middle" class="sc-jour">VENDREDI</text>
-            <rect class="sc-boite" x="1.5" y="38" width="167" height="86" />
-            <text x="85" y="90" text-anchor="middle" class="sc-verbe">Intégrer</text>
-          </g>
-        </svg>
+      <div class="semaine-bande e">
+        <div class="mien">
+          <p class="sb-jour">lundi</p>
+          <p class="sb-titre">Introduction aux LLM</p>
+        </div>
+        <div class="">
+          <p class="sb-jour">mardi</p>
+          <p class="sb-titre">Validation scientifique</p>
+        </div>
+        <div class="">
+          <p class="sb-jour">mercredi</p>
+          <p class="sb-titre">Des sorties aux mesures</p>
+        </div>
+        <div class="mien">
+          <p class="sb-jour">jeudi</p>
+          <p class="sb-titre">IA agentique</p>
+        </div>
+        <div class="">
+          <p class="sb-jour">vendredi</p>
+          <p class="sb-titre">Visite et atelier</p>
+        </div>
       </div>
 
-      <p class="e">Ce qu'un matin produit, le suivant le consomme.</p>
+      <p class="e">8h45 à 12h45, du 24 au 28 août.</p>
     </Slide>
 
     <Slide bandeau="Question préalable" droite="séance 1 · lun 24 août">

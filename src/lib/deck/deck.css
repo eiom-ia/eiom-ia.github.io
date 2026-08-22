@@ -97,7 +97,7 @@
 .diapo-in:has(> table) { max-width: 52em; }
 .diapo-in:has(> .bloc-code) { max-width: 50em; }
 .diapo-in:has(> figure.schema) { max-width: 52em; }
-.diapo-in:has(> .schema-chaine) { max-width: 54em; }
+.diapo-in:has(> .semaine-bande) { max-width: 54em; }
 .diapo-in:has(> .deux) { max-width: 50em; }
 
 /* ---------- Typographie ---------- */
@@ -361,28 +361,39 @@
 .diapo.encre th { color: var(--dk-gris-2); border-top-color: var(--dk-fond); border-bottom-color: var(--dk-gris); }
 .diapo.encre td { border-bottom-color: #2a2e30; }
 
-/* ---------- Schéma en chaîne ---------- */
+/* ---------- Bande de la semaine ---------- */
 
-.schema-chaine { width: 100%; }
-.schema-chaine svg { width: 100%; height: auto; display: block; }
-.sc-boite { fill: none; stroke: var(--dk-encre); stroke-width: 2.5; }
-.sc-jour {
-  font-family: var(--dk-mono);
-  font-size: 15px;
+/* Une bande d'horaire, pas un schéma de flux: les séances se suivent dans
+   le temps, elles ne s'enchaînent pas mécaniquement. */
+.semaine-bande {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 100%;
+  border-top: 2px solid var(--dk-encre);
+}
+.semaine-bande > div {
+  padding: 0.85em 0.9em 1.1em 0;
+  border-right: 1px solid var(--dk-filet);
+}
+.semaine-bande > div:last-child { border-right: 0; }
+.semaine-bande > div + div { padding-left: 0.9em; }
+.semaine-bande .sb-jour {
+  font-size: 0.62em;
   letter-spacing: 0.16em;
-  fill: var(--dk-gris);
+  text-transform: uppercase;
+  color: var(--dk-gris);
+  margin: 0 0 0.5em;
 }
-.sc-verbe {
-  font-family: var(--dk-mono);
-  font-size: 30px;
-  font-weight: 600;
-  fill: var(--dk-encre);
+.semaine-bande .sb-titre {
+  font-size: 0.94em;
+  line-height: 1.25;
+  margin: 0;
 }
-.sc-fleche { stroke: var(--dk-accent); stroke-width: 2.5; fill: none; }
-.diapo.encre .sc-boite { stroke: var(--dk-fond); }
-.diapo.encre .sc-verbe { fill: var(--dk-fond); }
-.diapo.encre .sc-jour { fill: var(--dk-gris-2); }
-.diapo.encre .sc-fleche { stroke: var(--dk-accent-clair); }
+.semaine-bande .mien .sb-jour { color: var(--dk-accent); }
+.semaine-bande .mien .sb-titre { font-weight: 600; }
+.diapo.encre .semaine-bande { border-top-color: var(--dk-fond); }
+.diapo.encre .semaine-bande > div { border-right-color: var(--dk-gris); }
+.diapo.encre .semaine-bande .mien .sb-jour { color: var(--dk-accent-clair); }
 
 /* ---------- Portrait ---------- */
 
