@@ -9,7 +9,7 @@ await p.goto(url, { waitUntil: 'networkidle' });
 await p.waitForTimeout(700);
 for (const i of idx) {
   await p.evaluate((n) => {
-    const d = document.querySelector('.deck');
+    const d = document.querySelector('.deck, .proto-deck');
     d.scrollTo({ top: n * d.clientHeight, behavior: 'instant' });
   }, Number(i));
   await p.waitForTimeout(450);

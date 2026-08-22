@@ -11,8 +11,10 @@
 
   let { children } = $props();
   // Les decks occupent tout l'écran: pas de barre de navigation par-dessus.
-  const estDeck = $derived(page.url.pathname.startsWith('/diapos'));
+  const pleinEcran = $derived(
+    page.url.pathname.startsWith('/diapos') || /^\/prototypes\/[a-z]/.test(page.url.pathname)
+  );
 </script>
 
-{#if !estDeck}<Nav />{/if}
+{#if !pleinEcran}<Nav />{/if}
 {@render children()}

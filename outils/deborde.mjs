@@ -8,15 +8,18 @@ const p = await b.newPage({ viewport: { width: Number(w), height: Number(h) } })
 await p.goto(url, { waitUntil: 'networkidle' });
 await p.waitForTimeout(600);
 const res = await p.evaluate(() =>
-  [...document.querySelectorAll('.diapo')]
+  [...document.querySelectorAll('.diapo, .proto-deck > section')]
     .map((d, i) => {
       const cs = getComputedStyle(d);
       const utile =
         d.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
-      const inner = d.querySelector('.diapo-in');
-      const titre =
-        inner.querySelector('h1, h2')?.textContent.trim().slice(0, 46) ?? '(sans titre)';
-      return { i, debord: Math.round(inner.scrollHeight - utile), titre };
+      const inner = d.querySelector('.diapo-in') ?? d;
+      const haut =
+        inner === d
+          ? [...d.children].reduce((a, c) => a + c.getBoundingClientRect().height, 0)
+          : inner.scrollHeight;
+      const titre = d.querySelector('h1, h2')?.textContent.trim().slice(0, 46) ?? '(sans titre)';
+      return { i, debord: Math.round(haut - utile), titre };
     })
     .filter((x) => x.debord > 0)
 );
