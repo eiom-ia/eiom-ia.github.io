@@ -6,20 +6,20 @@
 import { chromium } from '@playwright/test';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const [, , source, url] = process.argv;
-const MARGE = 0.985; // on vise juste sous la limite
+const [, , source, url, w = '1366', h = '768'] = process.argv;
+const MARGE = 0.94; // marge pour absorber les retours a la ligne d'un ratio a l'autre
 
 const b = await chromium.launch();
-const p = await b.newPage({ viewport: { width: 1920, height: 1080 } });
+// On calibre a la resolution la plus contraignante: ce qui tient la
+// tient partout ailleurs.
+const p = await b.newPage({ viewport: { width: Number(w), height: Number(h) } });
 await p.goto(url, { waitUntil: 'networkidle' });
 await p.waitForTimeout(600);
 
 const mesures = await p.evaluate(() =>
   [...document.querySelectorAll('.diapo')].map((d) => {
-    const cs = getComputedStyle(d);
-    const utile = d.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
-    const inner = d.querySelector('.diapo-in');
-    return { utile, haut: inner.scrollHeight };
+    const inner = d.querySelector('.diapo-in') ?? d;
+    return { utile: inner.clientHeight, haut: inner.scrollHeight };
   })
 );
 await b.close();

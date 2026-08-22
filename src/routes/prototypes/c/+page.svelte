@@ -99,10 +99,6 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
-    background-size: 2.4em 2.4em;
   }
 
   .bandeau {

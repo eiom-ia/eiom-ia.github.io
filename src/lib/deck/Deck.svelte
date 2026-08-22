@@ -1,6 +1,10 @@
 <script>
   import { untrack } from 'svelte';
   import { allerA, creerDeck, etiquette, precedent, progression, suivant } from './navigation.js';
+  import '@fontsource/ibm-plex-mono/400.css';
+  import '@fontsource/ibm-plex-mono/500.css';
+  import '@fontsource/ibm-plex-mono/600.css';
+  import '@fontsource/ibm-plex-mono/400-italic.css';
   import './deck.css';
 
   let { total, children } = $props();

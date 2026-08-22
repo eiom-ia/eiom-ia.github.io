@@ -130,17 +130,15 @@ verifier_installation()`;
   {#snippet children()}
 
     <!-- ======================= OUVERTURE ======================= -->
-    <Slide fond="encre">
+    <Slide fond="encre" bandeau="Laurence-Olivier M. Foisy" droite="séance 1 · lun 24 août">
       <h1 class="e">L'IA en recherche</h1>
       <hr class="filet" />
       <p class="lead e">
         Parcours <em>L'intelligence artificielle (IA) et la recherche</em> — EIOM 2026
       </p>
-      <p class="surtitre e">Laurence-Olivier M. Foisy</p>
     </Slide>
 
-    <Slide d={0.74}>
-      <p class="surtitre e">Avant de commencer</p>
+    <Slide bandeau="Avant de commencer" droite="séance 1 · lun 24 août">
       <h2 class="e">Qui vous parle</h2>
       <hr class="filet" />
       <Deux ratio="1fr 1fr">
@@ -179,8 +177,7 @@ verifier_installation()`;
       </p>
     </Slide>
 
-    <Slide d={0.78}>
-      <p class="surtitre e">Question préalable</p>
+    <Slide bandeau="Question préalable" droite="séance 1 · lun 24 août">
       <h2 class="e">C'est quoi, « l'IA » ?</h2>
       <hr class="filet" />
       <p class="lead e">
@@ -213,8 +210,7 @@ verifier_installation()`;
       </Carte>
     </Slide>
 
-    <Slide d={0.8}>
-      <p class="surtitre e">Un peu de recul</p>
+    <Slide d={0.91} bandeau="Un peu de recul" droite="séance 1 · lun 24 août">
       <h2 class="e">Soixante-dix ans, trois hivers</h2>
       <table class="e">
         <thead><tr><th>Année</th><th>Ce qui se passe</th></tr></thead>
@@ -233,8 +229,7 @@ verifier_installation()`;
       </table>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Ce que cette histoire vous apprend</p>
+    <Slide bandeau="Ce que cette histoire vous apprend" droite="séance 1 · lun 24 août">
       <h2 class="e">Trois leçons pour cette semaine</h2>
       <Deux ratio="1fr 1fr 1fr">
         <Carte ton="ambre" titre="Le champ avance par cycles">
@@ -259,8 +254,7 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide d={0.89} fond="encre">
-      <p class="surtitre e">Fait vécu · à 250 km d'ici</p>
+    <Slide fond="encre" bandeau="Fait vécu · à 250 km d'ici" droite="séance 1 · lun 24 août">
       <h2 class="e">Yoshua Bengio</h2>
       <hr class="filet" />
       <Deux ratio="1fr 1fr">
@@ -285,8 +279,7 @@ verifier_installation()`;
       </p>
     </Slide>
 
-    <Slide d={0.83}>
-      <p class="surtitre e">Et le retournement</p>
+    <Slide bandeau="Et le retournement" droite="séance 1 · lun 24 août">
       <h2 class="e">Le père de l'apprentissage profond veut une IA qui n'agit pas</h2>
       <Deux ratio="1.1fr 1fr">
         <div>
@@ -313,8 +306,7 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">La semaine</p>
+    <Slide bandeau="La semaine" droite="séance 1 · lun 24 août">
       <h2 class="e">Cinq matinées, un cycle de recherche</h2>
       <table class="e">
         <thead>
@@ -333,8 +325,7 @@ verifier_installation()`;
       </p>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Ce matin</p>
+    <Slide bandeau="Ce matin" droite="séance 1 · lun 24 août">
       <h2 class="e">Quatre temps</h2>
       <Deux ratio="1fr 1fr">
         <div>
@@ -356,8 +347,7 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide d={0.98} fond="encre">
-      <p class="surtitre e">À midi</p>
+    <Slide fond="encre" bandeau="À midi" droite="séance 1 · lun 24 août">
       <h2 class="e">Vous aurez produit ceci</h2>
       <Code src={`sorties/seance1_notes.json
 
@@ -378,15 +368,13 @@ verifier_installation()`;
     </Slide>
 
     <!-- ======================= PARTIE 1 ======================= -->
-    <Slide fond="encre">
-      <p class="surtitre e">Premier temps</p>
+    <Slide fond="encre" bandeau="Premier temps" droite="séance 1 · lun 24 août">
       <h1 class="e">Comment ça<br />marche vraiment</h1>
       <hr class="filet" />
       <p class="lead e">Assez pour savoir quand se méfier.</p>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Situer</p>
+    <Slide bandeau="Situer" droite="séance 1 · lun 24 août">
       <h2 class="e">Toutes les « IA » ne sont pas la même chose</h2>
       <table class="e">
         <thead><tr><th>Famille</th><th>Principe</th><th>En recherche</th></tr></thead>
@@ -404,8 +392,7 @@ verifier_installation()`;
       </p>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Distinction fondatrice</p>
+    <Slide bandeau="Distinction fondatrice" droite="séance 1 · lun 24 août">
       <h2 class="e">Classifieur ou modèle génératif</h2>
       <Deux>
         <Carte ton="ciel" titre="Classifieur">
@@ -433,8 +420,7 @@ verifier_installation()`;
       </p>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Ingrédient 1 sur 3</p>
+    <Slide bandeau="Ingrédient 1 sur 3" droite="séance 1 · lun 24 août">
       <h2 class="e">Les données</h2>
       <Deux ratio="1fr 1.3fr">
         <div>
@@ -458,8 +444,7 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Ingrédient 2 sur 3</p>
+    <Slide bandeau="Ingrédient 2 sur 3" droite="séance 1 · lun 24 août">
       <h2 class="e">L'architecture</h2>
       <p class="lead e">
         Un transformer. Sa trouvaille tient en un mot : <strong>l'attention</strong>. À chaque position
@@ -475,8 +460,7 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Ingrédient 3 sur 3</p>
+    <Slide bandeau="Ingrédient 3 sur 3" droite="séance 1 · lun 24 août">
       <h2 class="e">L'entraînement, en trois cuissons</h2>
       <Deux ratio="1fr 1fr 1fr">
         <Carte ton="ciel" titre="1 · Pré-entraînement">
@@ -495,15 +479,13 @@ verifier_installation()`;
       </p>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Mécanique</p>
+    <Slide bandeau="Mécanique" droite="séance 1 · lun 24 août">
       <h2 class="e">Le modèle ne voit pas des mots</h2>
       <p class="e">Il voit des jetons — des fragments, ni lettres ni mots. Essayez :</p>
       <Tokeniseur />
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Conséquence concrète</p>
+    <Slide bandeau="Conséquence concrète" droite="séance 1 · lun 24 août">
       <h2 class="e">Le français coûte plus cher que l'anglais</h2>
       <Deux>
         <div>
@@ -524,14 +506,12 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide d={0.95}>
-      <p class="surtitre e">Mécanique</p>
+    <Slide bandeau="Mécanique" droite="séance 1 · lun 24 août">
       <h2 class="e">Tout ce qu'il fait, c'est prédire le jeton suivant</h2>
       <ProchainJeton />
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Le paramètre qui compte</p>
+    <Slide bandeau="Le paramètre qui compte" droite="séance 1 · lun 24 août">
       <h2 class="e">La température</h2>
       <Deux ratio="1.1fr 1fr">
         <div>
@@ -556,8 +536,7 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Ce qu'un LLM n'est pas</p>
+    <Slide bandeau="Ce qu'un LLM n'est pas" droite="séance 1 · lun 24 août">
       <h2 class="e">Ce n'est pas une base de connaissances</h2>
       <Deux>
         <Carte ton="ciel" titre="Une base de données">
@@ -573,8 +552,7 @@ verifier_installation()`;
       </Citation>
     </Slide>
 
-    <Slide fond="encre">
-      <p class="surtitre e">Reformulation</p>
+    <Slide fond="encre" bandeau="Reformulation" droite="séance 1 · lun 24 août">
       <h2 class="e">L'hallucination n'est pas un bogue</h2>
       <p class="lead e">
         C'est le fonctionnement nominal. Un modèle produit toujours la suite la plus plausible ; il
@@ -589,8 +567,7 @@ verifier_installation()`;
       </Carte>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Biais</p>
+    <Slide bandeau="Biais" droite="séance 1 · lun 24 août">
       <h2 class="e">Trois sources, trois remèdes différents</h2>
       <Deux ratio="1fr 1fr 1fr">
         <Carte ton="ambre" titre="Données">
@@ -611,8 +588,7 @@ verifier_installation()`;
       </p>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Pourquoi ça compte ici</p>
+    <Slide bandeau="Pourquoi ça compte ici" droite="séance 1 · lun 24 août">
       <h2 class="e">Un biais du modèle devient un biais de votre estimation</h2>
       <p class="lead e">
         Si le modèle code systématiquement plus sévèrement les avis rédigés en français, et que votre
@@ -626,8 +602,7 @@ verifier_installation()`;
       </Carte>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Sécurité</p>
+    <Slide bandeau="Sécurité" droite="séance 1 · lun 24 août">
       <h2 class="e">Injection de prompt indirecte</h2>
       <p class="e">
         Vos données peuvent contenir des instructions. Le modèle ne distingue pas vos consignes du
@@ -647,15 +622,13 @@ verifier_installation()`;
     </Slide>
 
     <!-- ======================= PARTIE 2 : L'API ======================= -->
-    <Slide fond="encre">
-      <p class="surtitre e">Deuxième temps</p>
+    <Slide fond="encre" bandeau="Deuxième temps" droite="séance 1 · lun 24 août">
       <h1 class="e">Pourquoi l'API,<br />et pas le clavardage</h1>
       <hr class="filet" />
       <p class="lead e">Puis on installe. Personne ne sort d'ici sans environnement fonctionnel.</p>
     </Slide>
 
-    <Slide d={0.88}>
-      <p class="surtitre e">La thèse</p>
+    <Slide bandeau="La thèse" droite="séance 1 · lun 24 août">
       <h2 class="e">Une sortie de chatbot n'est pas une donnée</h2>
       <p class="lead e">
         Ce n'est pas une question de puissance : c'est la même famille de modèles derrière les deux.
@@ -681,8 +654,7 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Six propriétés</p>
+    <Slide bandeau="Six propriétés" droite="séance 1 · lun 24 août">
       <h2 class="e">Ce que l'API rend possible</h2>
       <Deux ratio="1fr 1fr 1fr">
         <Carte ton="ciel" titre="Reproductibilité">
@@ -706,8 +678,7 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Règle non négociable</p>
+    <Slide bandeau="Règle non négociable" droite="séance 1 · lun 24 août">
       <h2 class="e">Épingler le modèle</h2>
       <Deux>
         <Code titre="Ce qu'il ne faut pas faire" src={`chat <- chat_google_gemini()
@@ -725,8 +696,7 @@ verifier_installation()`;
       </Carte>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Économie</p>
+    <Slide bandeau="Économie" droite="séance 1 · lun 24 août">
       <h2 class="e">On paie au jeton, entrée et sortie</h2>
       <Deux ratio="1fr 1.2fr">
         <div>
@@ -746,8 +716,7 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Contrainte technique</p>
+    <Slide bandeau="Contrainte technique" droite="séance 1 · lun 24 août">
       <h2 class="e">Les limites de débit</h2>
       <Deux>
         <div>
@@ -765,8 +734,7 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide d={0.89}>
-      <p class="surtitre e">Déontologie</p>
+    <Slide bandeau="Déontologie" droite="séance 1 · lun 24 août">
       <h2 class="e">Ce que devient votre texte</h2>
       <p class="lead e">
         Un service gratuit peut conserver ou réutiliser les données selon son fournisseur et son
@@ -790,8 +758,7 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Outillage</p>
+    <Slide bandeau="Outillage" droite="séance 1 · lun 24 août">
       <h2 class="e">ellmer, une interface pour vingt-trois fournisseurs</h2>
       <Deux ratio="1.1fr 1fr">
         <Code src={`library(ellmer)
@@ -811,8 +778,7 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
       </Deux>
     </Slide>
 
-    <Slide d={0.85}>
-      <p class="surtitre e">Sécurité</p>
+    <Slide bandeau="Sécurité" droite="séance 1 · lun 24 août">
       <h2 class="e">La clé vit dans .Renviron, nulle part ailleurs</h2>
       <Code src={c_renviron} />
       <Deux>
@@ -829,8 +795,7 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
     </Slide>
 
     <!-- ======================= INSTALLATION ======================= -->
-    <Slide fond="encre">
-      <p class="surtitre e">Maintenant, tous ensemble</p>
+    <Slide fond="encre" bandeau="Maintenant, tous ensemble" droite="séance 1 · lun 24 août">
       <h1 class="e">On installe</h1>
       <hr class="filet" />
       <p class="lead e">
@@ -838,8 +803,7 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
       </p>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Deux voies</p>
+    <Slide bandeau="Deux voies" droite="séance 1 · lun 24 août">
       <h2 class="e">Personne ne reste bloqué</h2>
       <Deux>
         <Carte ton="ciel" titre="Voie locale">
@@ -860,8 +824,7 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
       </p>
     </Slide>
 
-    <Slide d={0.91}>
-      <p class="surtitre e">Une seule ligne</p>
+    <Slide bandeau="Une seule ligne" droite="séance 1 · lun 24 août">
       <h2 class="e">Le diagnostic</h2>
       <Code src={c_verif} />
       <Code titre="Ce que vous devez voir" src={`== Verification de l'environnement — Parcours IA, EIOM 2026 ==
@@ -879,8 +842,7 @@ Tout est en place.`} />
       </p>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Dépannage</p>
+    <Slide bandeau="Dépannage" droite="séance 1 · lun 24 août">
       <h2 class="e">Les trois pannes, par ordre de fréquence</h2>
       <Deux ratio="1fr 1fr 1fr">
         <Carte ton="rose" titre="1 · R n'a pas redémarré">
@@ -900,15 +862,13 @@ Tout est en place.`} />
     </Slide>
 
     <!-- ======================= PARTIE 3 : PREMIER APPEL ======================= -->
-    <Slide fond="encre">
-      <p class="surtitre e">Troisième temps</p>
+    <Slide fond="encre" bandeau="Troisième temps" droite="séance 1 · lun 24 août">
       <h1 class="e">Premier appel,<br />sur de vraies données</h1>
       <hr class="filet" />
       <p class="lead e">De la réponse en texte libre à la variable exploitable.</p>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Le corpus de la semaine</p>
+    <Slide bandeau="Le corpus de la semaine" droite="séance 1 · lun 24 août">
       <h2 class="e">La Ligne Rouge</h2>
       <Deux ratio="1fr 1.2fr">
         <div>
@@ -931,8 +891,7 @@ Tout est en place.`} />
       </Deux>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Regarder avant de modéliser</p>
+    <Slide bandeau="Regarder avant de modéliser" droite="séance 1 · lun 24 août">
       <h2 class="e">La distribution est écrasée</h2>
       <Deux ratio="1fr 1.1fr">
         <table>
@@ -964,8 +923,7 @@ Tout est en place.`} />
       </p>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Avis réel · noté 5 étoiles</p>
+    <Slide bandeau="Avis réel · noté 5 étoiles" droite="séance 1 · lun 24 août">
       <Citation source="La Ligne Rouge, corpus de la semaine">
         Excellents gyros. Bien sûr, le service est raide, c'est fermé pour on ne sait pas quoi, mais on
         s'en fout. On n'est pas à Saint-Lambert, pas besoin de courbettes. Amenez votre monnaie papier.
@@ -979,8 +937,7 @@ Tout est en place.`} />
       </Carte>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Avis réel · noté 3 étoiles</p>
+    <Slide bandeau="Avis réel · noté 3 étoiles" droite="séance 1 · lun 24 août">
       <Citation source="La Ligne Rouge, corpus de la semaine">
         Bon snack, service rapide, le personnel est sympa. Les frites sont bonnes et le pita aussi.
         Seuls points négatifs : la propreté des locaux et la qualité de la viande.
@@ -993,8 +950,7 @@ Tout est en place.`} />
       </Carte>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Avis réel · noté 1 étoile</p>
+    <Slide bandeau="Avis réel · noté 1 étoile" droite="séance 1 · lun 24 août">
       <Citation source="La Ligne Rouge, corpus de la semaine">
         Pourquoi fermer, sans le mentionner sur Google, alors qu'il a toujours été possible de commander
         à emporter ? #PetitCoeurBrisé
@@ -1012,8 +968,7 @@ Tout est en place.`} />
       </Carte>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Anatomie</p>
+    <Slide bandeau="Anatomie" droite="séance 1 · lun 24 août">
       <h2 class="e">Un appel, ligne par ligne</h2>
       <Code src={c_premier} />
       <Deux ratio="1fr 1fr 1fr">
@@ -1023,8 +978,7 @@ Tout est en place.`} />
       </Deux>
     </Slide>
 
-    <Slide d={0.98}>
-      <p class="surtitre e">Le rôle système</p>
+    <Slide bandeau="Le rôle système" droite="séance 1 · lun 24 août">
       <h2 class="e">Poser le cadre une fois, pas à chaque avis</h2>
       <Code src={c_systeme} />
       <Deux>
@@ -1037,8 +991,7 @@ Tout est en place.`} />
       </Deux>
     </Slide>
 
-    <Slide d={0.88}>
-      <p class="surtitre e">Le vrai problème</p>
+    <Slide bandeau="Le vrai problème" droite="séance 1 · lun 24 août">
       <h2 class="e">La réponse est du texte, et vous vouliez un nombre</h2>
       <Code src={c_texte} />
       <Carte ton="rose" titre="L'impasse">
@@ -1050,8 +1003,7 @@ Tout est en place.`} />
       </Carte>
     </Slide>
 
-    <Slide fond="encre">
-      <p class="surtitre e">Le geste central de la matinée</p>
+    <Slide fond="encre" bandeau="Le geste central de la matinée" droite="séance 1 · lun 24 août">
       <h1 class="e">La sortie structurée</h1>
       <hr class="filet" />
       <p class="lead e">
@@ -1060,8 +1012,7 @@ Tout est en place.`} />
       </p>
     </Slide>
 
-    <Slide d={0.62}>
-      <p class="surtitre e">Déclarer</p>
+    <Slide d={0.84} bandeau="Déclarer" droite="séance 1 · lun 24 août">
       <h2 class="e">Le schéma est votre opérationnalisation</h2>
       <Deux ratio="1.15fr 1fr">
         <Code src={c_schema} />
@@ -1082,8 +1033,7 @@ Tout est en place.`} />
       </Deux>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Appeler</p>
+    <Slide bandeau="Appeler" droite="séance 1 · lun 24 août">
       <h2 class="e">Et on récupère une liste R, directement</h2>
       <Code src={c_structure} />
       <p class="e">
@@ -1092,8 +1042,7 @@ Tout est en place.`} />
       </p>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Avertissement</p>
+    <Slide bandeau="Avertissement" droite="séance 1 · lun 24 août">
       <h2 class="e">Un schéma contraint la forme, pas la validité</h2>
       <Deux ratio="1fr 1.1fr">
         <Code titre="Observé sur un modèle gratuit, en préparant ce cours" src={`# Schema demande: entier, note de 1 a 5
@@ -1116,8 +1065,7 @@ resultat$note
       </p>
     </Slide>
 
-    <Slide d={0.57}>
-      <p class="surtitre e">Passer à l'échelle</p>
+    <Slide d={0.79} bandeau="Passer à l'échelle" droite="séance 1 · lun 24 août">
       <h2 class="e">La boucle, avec ses trois protections</h2>
       <Code src={c_boucle} />
       <Deux ratio="1fr 1fr 1fr">
@@ -1127,8 +1075,7 @@ resultat$note
       </Deux>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Méthode</p>
+    <Slide bandeau="Méthode" droite="séance 1 · lun 24 août">
       <h2 class="e">Toujours tester sur cinq avant de lancer sur cinq cents</h2>
       <Deux>
         <Carte ton="vert" titre="La discipline">
@@ -1148,8 +1095,7 @@ resultat$note
       </Deux>
     </Slide>
 
-    <Slide d={0.88}>
-      <p class="surtitre e">Sans quoi rien n'est reproductible</p>
+    <Slide bandeau="Sans quoi rien n'est reproductible" droite="séance 1 · lun 24 août">
       <h2 class="e">Journaliser</h2>
       <Code src={c_journal} />
       <Carte ton="ciel" titre="La question à laquelle ce fichier répond">
@@ -1161,15 +1107,13 @@ resultat$note
     </Slide>
 
     <!-- ======================= PARTIE 4 : PROMPTS ET CLÔTURE ======================= -->
-    <Slide fond="encre">
-      <p class="surtitre e">Quatrième temps</p>
+    <Slide fond="encre" bandeau="Quatrième temps" droite="séance 1 · lun 24 août">
       <h1 class="e">Concevoir un prompt<br />qui tient</h1>
       <hr class="filet" />
       <p class="lead e">Et passer le relais.</p>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">La formule</p>
+    <Slide bandeau="La formule" droite="séance 1 · lun 24 août">
       <h2 class="e">Rôle → Tâche → Contraintes → Format</h2>
       <Deux>
         <Carte ton="vert" titre="Quatre règles">
@@ -1195,8 +1139,7 @@ resultat$note
       </p>
     </Slide>
 
-    <Slide d={0.91}>
-      <p class="surtitre e">Avant / après</p>
+    <Slide bandeau="Avant / après" droite="séance 1 · lun 24 août">
       <h2 class="e">Le même besoin, deux prompts</h2>
       <Deux>
         <div>
@@ -1224,8 +1167,7 @@ Reponds selon le schema fourni.`} />
       </Deux>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Un conseil qui surprend</p>
+    <Slide bandeau="Un conseil qui surprend" droite="séance 1 · lun 24 août">
       <h2 class="e">Écrire le prompt en anglais fonctionne souvent mieux</h2>
       <Deux ratio="1.1fr 1fr">
         <div>
@@ -1247,8 +1189,7 @@ Reponds selon le schema fourni.`} />
       </Deux>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Atelier</p>
+    <Slide bandeau="Atelier" droite="séance 1 · lun 24 août">
       <h2 class="e">À vous, vingt minutes</h2>
       <ol class="e">
         <li>Chargez le corpus et regardez cinq avis à l'œil.</li>
@@ -1265,8 +1206,7 @@ Reponds selon le schema fourni.`} />
       </Carte>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Bilan</p>
+    <Slide bandeau="Bilan" droite="séance 1 · lun 24 août">
       <h2 class="e">Ce que vous avez construit ce matin</h2>
       <Deux ratio="1fr 1fr">
         <Carte ton="ciel" titre="Un dispositif">
@@ -1285,7 +1225,7 @@ Reponds selon le schema fourni.`} />
       </Deux>
     </Slide>
 
-    <Slide d={0.96} fond="encre">
+    <Slide fond="encre" droite="séance 1 · lun 24 août">
       <h1 class="e">Et cette mesure<br />ne vaut rien.</h1>
       <hr class="filet" />
       <p class="lead e">
@@ -1302,8 +1242,7 @@ Reponds selon le schema fourni.`} />
       </Carte>
     </Slide>
 
-    <Slide>
-      <p class="surtitre e">Séance 1 · fin</p>
+    <Slide bandeau="Séance 1 · fin" droite="séance 1 · lun 24 août">
       <h2 class="e">Merci</h2>
       <hr class="filet" />
       <Deux>

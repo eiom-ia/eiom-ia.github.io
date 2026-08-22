@@ -25,9 +25,15 @@ describe('échelle des diapos', () => {
     expect(remsTypo, `tailles en rem trouvées: ${remsTypo.join(' | ')}`).toHaveLength(0);
   });
 
-  it('borne la colonne de contenu pour éviter les lignes trop longues', () => {
+  // La mesure de lecture se juge en caractères, pas en em. En monospace,
+  // un caractère fait environ 0,6 em de sa propre taille, et le corps de
+  // texte vaut 0,88 em de la base: une colonne de 40 em donne donc environ
+  // 76 caractères, soit la limite haute de la plage confortable.
+  it('borne la colonne de contenu à une mesure de lecture tenable', () => {
     const col = css.match(/\.diapo-in \{[\s\S]*?max-width: ([\d.]+)em/);
     expect(col).not.toBeNull();
-    expect(Number(col[1])).toBeLessThanOrEqual(36);
+    const em = Number(col[1]);
+    const caracteres = em / (0.6 * 0.88);
+    expect(caracteres, `${Math.round(caracteres)} caractères par ligne`).toBeLessThanOrEqual(80);
   });
 });
