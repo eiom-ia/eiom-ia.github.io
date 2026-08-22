@@ -8,7 +8,9 @@
    * Aucune valeur inventée, aucun axe vertical qui ne mesurerait rien.
    */
   const AN0 = 1948, AN1 = 2027;
-  const LARGEUR = 8200; // px
+  const LARGEUR = 8200; // px, de AN0 à AN1
+  const SAS = 460;      // px, la coupure visible avant la reprise
+  const TOTAL = LARGEUR + SAS;
   const pos = (an) => ((an - AN0) / (AN1 - AN0)) * LARGEUR;
 
   const ENTREES = [
@@ -53,22 +55,26 @@
       if (!arrete) {
         // Le rail est rendu deux fois: au-delà d'une largeur, on revient au
         // début sans que la couture soit visible.
-        brut = (brut + VITESSE * dt) % LARGEUR;
+        brut = (brut + VITESSE * dt) % TOTAL;
         piste.scrollLeft = brut;
       }
       af = requestAnimationFrame(pas);
     }
 
+    // La racine est le conteneur de défilement du deck. Sans elle,
+    // l'observateur se déclenchait dès le chargement de la page et la frise
+    // était déjà au milieu quand on arrivait sur la diapositive.
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting && !actif) {
-          actif = true; dernier = 0; brut = piste.scrollLeft % LARGEUR;
+          actif = true; dernier = 0;
+          brut = 0; piste.scrollLeft = 0;   // on repart toujours de 1950
           af = requestAnimationFrame(pas);
         } else if (!e.isIntersecting) {
           actif = false; cancelAnimationFrame(af);
         }
       },
-      { threshold: 0.5 }
+      { root: hote.closest('.deck'), threshold: 0.6 }
     );
     io.observe(hote);
     return () => { io.disconnect(); cancelAnimationFrame(af); actif = false; };
@@ -82,9 +88,9 @@
   onpointerleave={() => (arrete = false)}
 >
   <div class="piste" bind:this={piste}>
-    <div class="boucle" style="width: {LARGEUR * 2}px">
+    <div class="boucle" style="width: {TOTAL * 2}px">
       {#each [0, 1] as copie}
-      <div class="rail" style="width: {LARGEUR}px" aria-hidden={copie === 1}>
+      <div class="rail" style="width: {TOTAL}px" aria-hidden={copie === 1}>
       <div class="axe"></div>
 
       {#each DECENNIES as d}
@@ -109,6 +115,10 @@
           </div>
         </div>
       {/each}
+
+        <div class="sas" style="left: {LARGEUR}px; width: {SAS}px">
+          <span class="sas-txt">la frise reprend en 1950</span>
+        </div>
       </div>
       {/each}
     </div>
@@ -199,11 +209,31 @@
   }
 
   .carte .pap {
+    /* Trois lignes au plus: le titre de Dartmouth débordait de sa carte. */
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+    overflow: hidden;
     font-size: 0.6em; line-height: 1.28; margin: 0.25em 0 0;
     color: var(--dk-encre); border-left: 2px solid var(--dk-accent);
     padding-left: 0.5em;
   }
   .carte .pap .ref { color: var(--dk-gris); white-space: nowrap; }
+
+  /* Coupure de boucle: sans elle, 2025 succédait à 1950 sans avertir. */
+  .sas {
+    position: absolute; top: 0; bottom: 0;
+    display: flex; align-items: center; justify-content: center;
+    border-left: 3px solid var(--dk-encre);
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent 0 9px,
+      color-mix(in srgb, var(--dk-encre) 8%, transparent) 9px 18px
+    );
+  }
+  .sas-txt {
+    font-family: var(--dk-mono); font-size: 0.66em;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--dk-gris); writing-mode: vertical-rl; text-orientation: mixed;
+  }
 
   .aide {
     position: absolute; right: 1.6em; bottom: -1.6em;
