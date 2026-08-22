@@ -9,7 +9,9 @@
   import Grand from '$lib/deck/Grand.svelte';
   import Citation from '$lib/deck/Citation.svelte';
   import Cite from '$lib/deck/Cite.svelte';
+  import Chronologie from '$lib/deck/demos/Chronologie.svelte';
   import { REFERENCES, ORDRE_BIBLIO } from '$lib/data/references.js';
+  import { CREDITS_IMAGES } from '$lib/data/credits-images.js';
   import Tokeniseur from '$lib/deck/demos/Tokeniseur.svelte';
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
@@ -211,7 +213,6 @@ verifier_installation()`;
         Aucun consensus : 70+ définitions recensées.
         <Cite k="legg2007" /> <Cite k="wang2019" />
       </p>
-      <p class="lead e">Moi, je prends la A.</p>
     </Slide>
 
     <Slide fond="encre" bandeau="Définir l'IA" droite="séance 1 · lun 24 août">
@@ -224,7 +225,7 @@ verifier_installation()`;
         </li>
         <li class="retenue">
           <span class="lettre">B</span>
-          <span class="q">Jugés humains 73 % du temps <Cite k="jones2025" /></span>
+          <span class="q">Ils passent pour des humains <Cite k="jones2025" /></span>
         </li>
         <li class="retenue">
           <span class="lettre">C</span>
@@ -234,24 +235,10 @@ verifier_installation()`;
       <p class="lead e">C'est bel et bien de l'IA.</p>
     </Slide>
 
-    <Slide d={0.91} bandeau="Un peu de recul" droite="séance 1 · lun 24 août">
-      <h2 class="e">Soixante-dix ans, trois hivers</h2>
-      <table class="e">
-        <thead><tr><th>Année</th><th>Ce qui se passe</th></tr></thead>
-        <tbody>
-          <tr><td>1950</td><td>Turing propose le jeu de l'imitation : « les machines peuvent-elles penser ? »</td></tr>
-          <tr><td><strong>1955</strong></td><td><strong>L'expression « artificial intelligence » apparaît dans la proposition de Dartmouth <Cite k="mccarthy1955" /></strong></td></tr>
-          <tr><td>1956</td><td>L'atelier de Dartmouth réunit le noyau du champ</td></tr>
-          <tr><td>1958</td><td>Le perceptron. On annonce des machines conscientes pour bientôt</td></tr>
-          <tr><td>1974–1980</td><td><em>Premier hiver.</em> Les promesses ne tiennent pas, les budgets tombent</td></tr>
-          <tr><td>1980s</td><td>Les systèmes experts. On encode le savoir en règles, à la main</td></tr>
-          <tr><td>1987–1993</td><td><em>Deuxième hiver.</em> Les règles ne passent pas à l'échelle</td></tr>
-          <tr><td>1990s</td><td>Tournant statistique. Les réseaux de neurones restent marginaux</td></tr>
-          <tr><td><strong>2012</strong></td><td><strong>AlexNet. L'apprentissage profond gagne, nettement</strong></td></tr>
-          <tr><td><strong>2017</strong></td><td><strong>Les transformers. L'architecture derrière tous les LLM d'aujourd'hui</strong></td></tr>
-          <tr><td>2022</td><td>ChatGPT. L'IA devient un objet de conversation publique</td></tr>
-        </tbody>
-      </table>
+    <Slide bandeau="Une histoire de l'IA" droite="séance 1 · lun 24 août">
+      <h2 class="e">Le champ a déjà connu deux effondrements</h2>
+      <hr class="filet" />
+      <Chronologie />
     </Slide>
 
     <Slide bandeau="Ce que cette histoire vous apprend" droite="séance 1 · lun 24 août">
@@ -1295,6 +1282,10 @@ Reponds selon le schema fourni.`} />
         {/each}
       </ul>
       <p class="e">Bibliographie complète : <code>eiom-ia.github.io/references.bib</code></p>
+      <p class="e credits">
+        Images d'archives, Wikimedia Commons :
+        {#each Object.values(CREDITS_IMAGES) as c, i}{i > 0 ? ' · ' : ''}{c.auteur} ({c.licence}){/each}
+      </p>
     </Slide>
 
 
