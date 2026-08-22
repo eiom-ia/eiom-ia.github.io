@@ -236,7 +236,7 @@ verifier_installation()`;
     </Slide>
 
     <Slide bandeau="Une histoire de l'IA" droite="séance 1 · lun 24 août">
-      <h2 class="e">Quarante ans de patience, puis quinze ans de vertige</h2>
+      <h2 class="e">Repères, de 1950 à aujourd’hui</h2>
       <Frise />
       <p class="e credits">
         Chaque repère est placé à sa date réelle sur une échelle linéaire.
@@ -245,7 +245,7 @@ verifier_installation()`;
     </Slide>
 
     <Slide bandeau="Ce que cette histoire vous apprend" droite="séance 1 · lun 24 août">
-      <h2 class="e">Trois leçons pour cette semaine</h2>
+      <h2 class="e">Trois constats</h2>
       <Deux ratio="1fr 1fr 1fr">
         <Carte ton="ambre" titre="Le champ avance par cycles">
           <p>
@@ -262,14 +262,14 @@ verifier_installation()`;
         </Carte>
         <Carte ton="violet" titre="Les percées viennent des marges">
           <p>
-            Pendant vingt ans, ceux qui persistaient sur les réseaux de neurones étaient
-            minoritaires dans leur propre discipline. L'un d'eux enseigne à 250 km d'ici.
+            Les réseaux de neurones sont restés minoritaires dans la discipline pendant deux
+            décennies avant de la redéfinir.
           </p>
         </Carte>
       </Deux>
     </Slide>
 
-    <Slide fond="encre" bandeau="Fait vécu · à 250 km d'ici" droite="séance 1 · lun 24 août">
+    <Slide fond="encre" bandeau="Yoshua Bengio" droite="séance 1 · lun 24 août">
       <h2 class="e">Yoshua Bengio</h2>
       <hr class="filet" />
       <Deux ratio="1fr 1fr">
@@ -289,13 +289,13 @@ verifier_installation()`;
         </Carte>
       </Deux>
       <p class="lead e">
-        L'apprentissage profond qui fait tourner les modèles de cette semaine a été poussé, pendant
-        les vingt ans où presque personne n'y croyait, depuis un bureau de Montréal.
+        Il a poursuivi les travaux sur les réseaux profonds pendant les deux décennies où le champ
+        les jugeait marginaux.
       </p>
     </Slide>
 
     <Slide bandeau="Et le retournement" droite="séance 1 · lun 24 août">
-      <h2 class="e">Le père de l'apprentissage profond veut une IA qui n'agit pas</h2>
+      <h2 class="e">Bengio plaide pour une IA non agentique</h2>
       <Deux ratio="1.1fr 1fr">
         <div>
           <p>
@@ -309,13 +309,12 @@ verifier_installation()`;
             probabilistes — sans poursuivre de but propre et sans agir de sa propre initiative.
           </p>
         </div>
-        <Carte ton="rose" titre="Retenez ça pour jeudi">
+        <Carte ton="rose" titre="À rapprocher de la séance 4">
           <p>
-            Jeudi matin, on fera exactement l'inverse : on donnera à des modèles la capacité d'agir.
+            La séance 4 porte sur l'inverse : donner à des modèles la capacité d'agir.
           </p>
           <p>
-            Ce n'est pas une contradiction, c'est le débat vivant du domaine — et il se joue à deux
-            heures et demie de route d'ici. On y reviendra, sérieusement.
+            Les deux positions coexistent dans le débat actuel sur la sécurité des systèmes.
           </p>
         </Carte>
       </Deux>
@@ -336,7 +335,7 @@ verifier_installation()`;
         </tbody>
       </table>
       <p class="e">
-        Aujourd'hui produit ce que mardi validera. Si ce matin échoue, toute la semaine boite.
+        La séance 1 produit les données que la séance 2 valide.
       </p>
     </Slide>
 
@@ -384,10 +383,9 @@ verifier_installation()`;
 
     <!-- ======================= PARTIE 1 ======================= -->
     <Slide fond="encre" bandeau="Premier temps" droite="séance 1 · lun 24 août">
-      <h1 class="e">Comment ça<br />marche vraiment</h1>
+      <h1 class="e">Comment fonctionne un LLM</h1>
       <hr class="filet" />
-      <p class="lead e">Assez pour savoir quand se méfier.</p>
-    </Slide>
+          </Slide>
 
     <Slide bandeau="Situer" droite="séance 1 · lun 24 août">
       <h2 class="e">Toutes les « IA » ne sont pas la même chose</h2>
@@ -476,7 +474,7 @@ verifier_installation()`;
     </Slide>
 
     <Slide bandeau="Ingrédient 3 sur 3" droite="séance 1 · lun 24 août">
-      <h2 class="e">L'entraînement, en trois cuissons</h2>
+      <h2 class="e">L’entraînement, en trois phases</h2>
       <Deux ratio="1fr 1fr 1fr">
         <Carte ton="ciel" titre="1 · Pré-entraînement">
           <p>Prédire le mot suivant, des milliards de fois. Le modèle apprend la langue — et tout ce qui vient avec.</p>
@@ -489,7 +487,7 @@ verifier_installation()`;
         </Carte>
       </Deux>
       <p class="e">
-        La troisième cuisson optimise l'<em>approbation humaine</em>. Retenez-le : c'est la racine de la
+        La troisième phase optimise l'<em>approbation humaine</em>, qui est à la racine de la
         complaisance des modèles, et un biais qui vous concerne directement.
       </p>
     </Slide>
@@ -609,7 +607,7 @@ verifier_installation()`;
         Si le modèle code systématiquement plus sévèrement les avis rédigés en français, et que votre
         corpus est bilingue, vous ne mesurez plus la satisfaction : vous mesurez la langue.
       </p>
-      <Carte ton="vert" titre="La parade, et c'est tout le propos de mardi">
+      <Carte ton="vert" titre="La parade, traitée en séance 2">
         <p>
           Ne jamais publier une mesure produite par un modèle sans l'avoir comparée à une référence
           humaine sur un sous-échantillon. Notre corpus d'aujourd'hui contient cette référence.
@@ -640,7 +638,7 @@ verifier_installation()`;
     <Slide fond="encre" bandeau="Deuxième temps" droite="séance 1 · lun 24 août">
       <h1 class="e">Pourquoi l'API,<br />et pas le clavardage</h1>
       <hr class="filet" />
-      <p class="lead e">Puis on installe. Personne ne sort d'ici sans environnement fonctionnel.</p>
+      <p class="lead e">Puis installation guidée, avec vérification pour chaque poste.</p>
     </Slide>
 
     <Slide bandeau="La thèse" droite="séance 1 · lun 24 août">
@@ -794,7 +792,7 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
     </Slide>
 
     <Slide bandeau="Sécurité" droite="séance 1 · lun 24 août">
-      <h2 class="e">La clé vit dans .Renviron, nulle part ailleurs</h2>
+      <h2 class="e">La clé se dépose dans .Renviron</h2>
       <Code src={c_renviron} />
       <Deux>
         <Carte ton="rose" titre="Jamais">
@@ -819,7 +817,7 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
     </Slide>
 
     <Slide bandeau="Deux voies" droite="séance 1 · lun 24 août">
-      <h2 class="e">Personne ne reste bloqué</h2>
+      <h2 class="e">Deux voies d’installation</h2>
       <Deux>
         <Carte ton="ciel" titre="Voie locale">
           <p>R, RStudio ou Positron, <code>ellmer</code>, clé dans <code>.Renviron</code>.</p>
@@ -1091,7 +1089,7 @@ resultat$note
     </Slide>
 
     <Slide bandeau="Méthode" droite="séance 1 · lun 24 août">
-      <h2 class="e">Toujours tester sur cinq avant de lancer sur cinq cents</h2>
+      <h2 class="e">Tester sur cinq documents avant de lancer sur cinq cents</h2>
       <Deux>
         <Carte ton="vert" titre="La discipline">
           <ul>
@@ -1125,7 +1123,7 @@ resultat$note
     <Slide fond="encre" bandeau="Quatrième temps" droite="séance 1 · lun 24 août">
       <h1 class="e">Concevoir un prompt<br />qui tient</h1>
       <hr class="filet" />
-      <p class="lead e">Et passer le relais.</p>
+      <p class="lead e">Puis passage de relais à la séance 2.</p>
     </Slide>
 
     <Slide bandeau="La formule" droite="séance 1 · lun 24 août">
@@ -1241,7 +1239,7 @@ Reponds selon le schema fourni.`} />
     </Slide>
 
     <Slide fond="encre" droite="séance 1 · lun 24 août">
-      <h1 class="e">Et cette mesure<br />ne vaut rien.</h1>
+      <h1 class="e">La mesure n’est pas encore validée</h1>
       <hr class="filet" />
       <p class="lead e">
         Pas encore. Vous n'avez aucune idée si ces cinquante notes sont bonnes. Vous ne savez pas si le

@@ -84,7 +84,7 @@ verifier_doi("10.1017/S0003055400000000")   # FALSE -> inventee`;
     </Slide>
 
     <Slide bandeau="Où on en est" droite="séance 4 · jeu 27 août">
-      <h2 class="e">Trois jours à faire parler un modèle. Aujourd'hui, on le fait agir.</h2>
+      <h2 class="e">Des sorties textuelles aux actions</h2>
       <table class="e">
         <thead><tr><th>Jour</th><th>Ce qu'on a construit</th></tr></thead>
         <tbody>
@@ -129,8 +129,7 @@ verifier_doi("10.1017/S0003055400000000")   # FALSE -> inventee`;
     <Slide fond="encre" bandeau="Premier temps" droite="séance 4 · jeu 27 août">
       <h1 class="e">Qu'est-ce qu'un agent</h1>
       <hr class="filet" />
-      <p class="lead e">Le mot est partout. Il désigne quelque chose de précis.</p>
-    </Slide>
+          </Slide>
 
     <Slide bandeau="Définition" droite="séance 4 · jeu 27 août">
       <h2 class="e">Une entité mandatée pour agir</h2>
@@ -156,7 +155,7 @@ verifier_doi("10.1017/S0003055400000000")   # FALSE -> inventee`;
     </Slide>
 
     <Slide bandeau="Techniquement" droite="séance 4 · jeu 27 août">
-      <h2 class="e">Quatre pièces, et c'est tout</h2>
+      <h2 class="e">Quatre composantes</h2>
       <Deux ratio="1fr 1fr 1fr 1fr">
         <Carte ton="ciel" titre="Un LLM"><p>Il décide quoi faire ensuite.</p></Carte>
         <Carte ton="violet" titre="Des outils"><p>Des fonctions qu'il peut demander d'exécuter.</p></Carte>
@@ -178,7 +177,7 @@ verifier_doi("10.1017/S0003055400000000")   # FALSE -> inventee`;
     </Slide>
 
     <Slide bandeau="Le pont" droite="séance 4 · jeu 27 août">
-      <h2 class="e">Un agent, c'est ce qui relie les deux</h2>
+      <h2 class="e">L’agent relie le modèle et la machine</h2>
       <figure class="schema e">
         <img src="{base}/img/claude_code_pont_local_cloud_fr.svg" alt="Un agent local exécute des commandes sur votre machine" />
         <figcaption>Le logiciel local reçoit les décisions et exécute</figcaption>
@@ -218,7 +217,7 @@ verifier_doi("10.1017/S0003055400000000")   # FALSE -> inventee`;
     </Slide>
 
     <Slide bandeau="Ressource rare" droite="séance 4 · jeu 27 août">
-      <h2 class="e">Le contexte se gère comme un budget</h2>
+      <h2 class="e">Le contexte est une ressource limitée</h2>
       <Deux ratio="1fr 1.1fr">
         <div>
           <p>
@@ -297,7 +296,7 @@ verifier_doi("10.1017/S0003055400000000")   # FALSE -> inventee`;
     </Slide>
 
     <Slide bandeau="En recherche" droite="séance 4 · jeu 27 août">
-      <h2 class="e">Les serveurs qui changent quelque chose</h2>
+      <h2 class="e">Serveurs MCP utiles en recherche</h2>
       <Deux ratio="1fr 1fr 1fr">
         <Carte ton="ciel" titre="Zotero">
           <p>Votre bibliothèque devient interrogeable. L'agent cite ce que vous avez vraiment lu.</p>
@@ -555,7 +554,7 @@ leur contenu au service indiqué ci-dessous.`} />
     <Slide fond="encre" bandeau="Quatrième temps" droite="séance 4 · jeu 27 août">
       <h1 class="e">Dans le cycle<br />de la recherche</h1>
       <hr class="filet" />
-      <p class="lead e">Quatre usages qui tiennent la route, et leurs conditions.</p>
+      <p class="lead e">Quatre usages et leurs conditions.</p>
     </Slide>
 
     <Slide bandeau="Usage 1" droite="séance 4 · jeu 27 août">
@@ -655,7 +654,7 @@ leur contenu au service indiqué ci-dessous.`} />
     </Slide>
 
     <Slide fond="encre" bandeau="Pour finir" droite="séance 4 · jeu 27 août">
-      <h2 class="e">Le critère, encore une fois</h2>
+      <h2 class="e">Le critère de vérifiabilité</h2>
       <p class="lead e">
         Un agent est utile en recherche exactement dans la mesure où ce qu'il fait peut être contesté
         par quelqu'un d'autre. Journal, périmètre, tests, vérification externe : ce ne sont pas des
