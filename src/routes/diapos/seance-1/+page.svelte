@@ -239,7 +239,7 @@ verifier_installation()`;
       <h2 class="e">Histoire de l'IA</h2>
       <Frise />
       <p class="e credits">
-        Chaque repère est placé à sa date réelle. L'échelle est interrompue entre 1962 et 1995.
+        Chaque repère est placé à sa date réelle. Les années 1962 à 1995 sont resserrées.
         <Cite k="turing1950" /> <Cite k="mccarthy1955" />
       </p>
     </Slide>

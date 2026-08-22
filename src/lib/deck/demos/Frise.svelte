@@ -138,7 +138,7 @@
       {/each}
 
       <div class="coupure" style="left: {DEB_B - COUPURE}px; width: {COUPURE}px">
-        <span class="coupure-txt">échelle interrompue · 1962 → 1995</span>
+        <span class="coupure-txt">1962 — 1995</span>
       </div>
 
       {#each ENTREES as e, i}
@@ -195,8 +195,9 @@
     width: 1px; height: 0.55em; background: var(--dk-gris-2);
   }
 
-  /* L'interruption d'échelle doit se voir et se nommer: sans quoi la frise
-     mentirait sur les distances. */
+  /* La rupture doit se voir: sans elle, la frise comprimerait 33 ans en
+     silence et fausserait les distances. Elle affiche les années sautées
+     plutôt qu'une étiquette technique. */
   .coupure {
     position: absolute; top: 0; bottom: 0;
     display: flex; align-items: center; justify-content: center;
