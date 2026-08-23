@@ -18,9 +18,9 @@
   const CHAMPS = [
     { l: 'modèle', v: MODELE },
     { l: 'température', v: '0' },
-    { l: 'prompt', v: 'versionné dans le dépôt' },
-    { l: 'corpus traité', v: '551 avis, en boucle' },
-    { l: 'journal', v: 'journal_eiom()' },
+    { l: 'prompt', v: 'enregistré dans un script' },
+    { l: 'données', v: 'sauvegardées et accessibles' },
+    { l: 'log', v: 'un fichier par exécution' },
     { l: 'coût', v: 'au jeton, par appel' }
   ];
 </script>

@@ -23,7 +23,7 @@
   import Generation from '$lib/deck/demos/Generation.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS } from '$lib/data/config.js';
 
-  const TOTAL = 43;
+  const TOTAL = 41;
 
   const c_capitale = `library(ellmer)
 
@@ -81,7 +81,9 @@ OPENROUTER_API_KEY=votre_cle_ici
       <h1 class="e">L'IA en recherche</h1>
       <hr class="filet" />
       <p class="lead e">
-        Parcours <em>L'intelligence artificielle (IA) et la recherche</em> — EIOM 2026
+        Parcours <em>L'intelligence artificielle et la recherche</em>
+      </p>
+      <p class="lead e">EIOM 2026
       </p>
     </Slide>
 
@@ -93,7 +95,7 @@ OPENROUTER_API_KEY=votre_cle_ici
           <hr class="filet" />
           <ul class="cmd-liste e">
             <li>Enseignement du cours Introduction aux mégadonnées en sciences sociales<span class="lieu">Université de Montréal · FAS-1001</span></li>
-            <li>Doctorat en science politique<span class="lieu">Université Laval</span></li>
+            <li>Doctorat en science politique, en cours<span class="lieu">Université Laval</span></li>
             <li>Maîtrise en études de la paix internationale<span class="lieu">Université Soka, Japon</span></li>
             <li>Baccalauréat en études est-asiatiques<span class="lieu">Université de Montréal</span></li>
           </ul>
@@ -131,7 +133,6 @@ OPENROUTER_API_KEY=votre_cle_ici
         </div>
       </div>
 
-      <p class="e">8h45 à 12h45, du 24 au 28 août.</p>
     </Slide>
 
     <Slide bandeau="Plan de la session" droite="séance 1 · lun 24 août">
@@ -139,14 +140,14 @@ OPENROUTER_API_KEY=votre_cle_ici
       <hr class="filet" />
       <ul class="cmd-liste e">
         <li>Comment fonctionne un LLM</li>
-        <li>Pourquoi l’API, puis installation</li>
+        <li>Pourquoi l’API</li>
         <li>Premier appel sur de vraies données</li>
-        <li>Conception de prompts et clôture</li>
+        <li>Conception de prompts</li>
       </ul>
     </Slide>
 
     <Slide fond="encre" bandeau="Définir l'IA" droite="séance 1 · lun 24 août">
-      <h1 class="e">Qu’est-ce que l’IA</h1>
+      <h1 class="e">Qu’est-ce que l’IA !</h1>
       <hr class="filet" />
     </Slide>
 
@@ -156,15 +157,15 @@ OPENROUTER_API_KEY=votre_cle_ici
       <ul class="defs e">
         <li class="retenue">
           <span class="lettre">A</span>
-          <span class="q">Est-ce que ça peut décider et agir ? <Cite k="russell2020" /></span>
+          <span class="q">Est-ce que le système peut décider et agir ? <Cite k="russell2020" /></span>
         </li>
         <li>
           <span class="lettre">B</span>
-          <span class="q">Est-ce que ça peut passer pour un humain ? <Cite k="turing1950" /></span>
+          <span class="q">Est-ce que le système peut passer pour un humain ? <Cite k="turing1950" /></span>
         </li>
         <li>
           <span class="lettre">C</span>
-          <span class="q">Est-ce que ça décide par la statistique ? <Cite k="jordan2015" /></span>
+          <span class="q">Est-ce que le système décide par la logique ? <Cite k="jordan2015" /></span>
         </li>
       </ul>
       <p class="e">
@@ -174,12 +175,12 @@ OPENROUTER_API_KEY=votre_cle_ici
     </Slide>
 
     <Slide fond="encre" bandeau="Définir l'IA" droite="séance 1 · lun 24 août">
-      <h2 class="e">Les LLM répondent aux trois</h2>
+      <h2 class="e">Les grands modèles de langue répondent aux trois</h2>
       <hr class="filet" />
       <ul class="defs e">
         <li class="retenue">
           <span class="lettre">A</span>
-          <span class="q">Ils décident et agissent — on le verra jeudi</span>
+          <span class="q">Ils décident et agissent</span>
         </li>
         <li class="retenue">
           <span class="lettre">B</span>
@@ -190,7 +191,6 @@ OPENROUTER_API_KEY=votre_cle_ici
           <span class="q">Ils prédisent le prochain jeton par la statistique</span>
         </li>
       </ul>
-      <p class="lead e">C'est bel et bien de l'IA.</p>
     </Slide>
 
     <Slide bandeau="Situer les familles" droite="séance 1 · lun 24 août">
@@ -201,30 +201,9 @@ OPENROUTER_API_KEY=votre_cle_ici
       </p>
     </Slide>
 
-    <Slide bandeau="Distinction fondatrice" droite="séance 1 · lun 24 août">
-      <h2 class="e">Classifieur ou modèle génératif</h2>
-      <hr class="filet" />
-      <table class="compare e">
-        <thead>
-          <tr><th></th><th class="a">Classifieur</th><th class="b">Génératif</th></tr>
-        </thead>
-        <tbody>
-          <tr><td class="crit">Annotations</td><td>les vôtres</td><td class="val-b">aucune</td></tr>
-          <tr><td class="crit">Sortie</td><td>contrainte</td><td class="val-b">texte libre</td></tr>
-          <tr><td class="crit">Reproductibilité</td><td>exacte</td><td class="val-b">fragile</td></tr>
-          <tr><td class="crit">Coût</td><td>à l’entraînement</td><td class="val-b">par document</td></tr>
-          <tr><td class="crit">Portée</td><td>une tâche</td><td class="val-b">toutes</td></tr>
-        </tbody>
-      </table>
-    </Slide>
-
     <Slide bandeau="Une histoire de l'IA" droite="séance 1 · lun 24 août">
       <h2 class="e">Histoire de l'IA</h2>
       <Frise />
-      <p class="e credits">
-        Chaque repère est placé à sa date réelle. Les années 1962 à 1995 sont resserrées.
-        <Cite k="turing1950" /> <Cite k="mccarthy1955" />
-      </p>
     </Slide>
 
     <Slide fond="encre" bandeau="Les modèles de langage" droite="séance 1 · lun 24 août">
@@ -233,7 +212,7 @@ OPENROUTER_API_KEY=votre_cle_ici
     </Slide>
 
     <Slide bandeau="Les données d’entraînement" droite="séance 1 · lun 24 août">
-      <h2 class="e">Ce que le modèle a lu</h2>
+      <h2 class="e">Les données d'entraînement</h2>
       <hr class="filet" />
       <ul class="barres e">
         <li class="majeur"><span class="src">CommonCrawl</span><span class="piste-b"><span class="rempli" style="width: 100%"></span></span><span class="pct">67 %</span></li>
@@ -304,9 +283,8 @@ OPENROUTER_API_KEY=votre_cle_ici
     </Slide>
 
     <Slide fond="encre" bandeau="Reformulation" droite="séance 1 · lun 24 août">
-      <h2 class="e">L'hallucination n'est pas un bogue</h2>
+      <h2 class="e">L'hallucination n'est pas un bug</h2>
       <Hallucination />
-      <p class="e">Aucun prompt ne corrige ça. On le contient par un dispositif.</p>
       <p class="e credits">
         Sortie contrainte · vérification externe · validation sur vérité terrain — le programme de la
         semaine.
@@ -371,9 +349,8 @@ OPENROUTER_API_KEY=votre_cle_ici
     </Slide>
 
     <Slide fond="encre" bandeau="Deuxième temps" droite="séance 1 · lun 24 août">
-      <h1 class="e">Pourquoi l'API,<br />et pas le clavardage</h1>
+      <h1 class="e">Pourquoi ne pas utiliser le chat classique<br />mais l'API ?</h1>
       <hr class="filet" />
-      <p class="lead e">Puis installation guidée, avec vérification pour chaque poste.</p>
     </Slide>
 
     <Slide bandeau="Situer la chose" droite="séance 1 · lun 24 août">
@@ -425,15 +402,7 @@ OPENROUTER_API_KEY=votre_cle_ici
     <Slide bandeau="Le corpus de la semaine" droite="séance 1 · lun 24 août">
       <h2 class="e">La Ligne Rouge</h2>
       <MurAvis />
-      <p class="e">
-        Français et anglais mêlés. Chaque avis arrive avec l'étoile laissée par son auteur : la
-        <strong>vérité terrain</strong> est déjà dans la donnée.
-      </p>
     </Slide>
-
-
-
-
 
     <Slide bandeau="L'ancienne façon" droite="séance 1 · lun 24 août">
       <h2 class="e">Avant : compter des mots dans une liste</h2>
@@ -468,10 +437,6 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
     <Slide bandeau="Le plus petit appel possible" droite="séance 1 · lun 24 août">
       <h2 class="e">Poser une question, obtenir du texte</h2>
       <Code src={c_capitale} />
-      <p class="e">
-        Trois lignes, et la réponse est du <strong>texte libre</strong> — utile pour lire, inutilisable
-        pour remplir une colonne.
-      </p>
     </Slide>
 
     <Slide d={0.86} bandeau="La boucle" droite="séance 1 · lun 24 août">
@@ -485,12 +450,6 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
       <Deux>
         <Carte ton="rose" titre="Jamais">
           <p>Jamais dans un script. Jamais dans un dépôt Git. Jamais dans une capture d'écran de diapositive.</p>
-        </Carte>
-        <Carte ton="ambre" titre="Note pour ellmer 0.4">
-          <p>
-            L'argument <code>api_key</code> est <strong>déprécié</strong>. On passe par la variable
-            d'environnement, ou par <code>credentials</code> pour les cas particuliers.
-          </p>
         </Carte>
       </Deux>
     </Slide>
@@ -516,7 +475,7 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
     </Slide>
 
     <Slide fond="encre" bandeau="Quatrième temps" droite="séance 1 · lun 24 août">
-      <h1 class="e">Concevoir un prompt<br />qui tient</h1>
+      <h1 class="e">Concevoir un prompt</h1>
       <hr class="filet" />
       <p class="lead e">Puis passage de relais à la séance 2.</p>
     </Slide>
@@ -597,25 +556,6 @@ Reponds selon le schema fourni.`} />
       </Deux>
     </Slide>
 
-    <Slide bandeau="Bilan" droite="séance 1 · lun 24 août">
-      <h2 class="e">Ce que vous avez construit ce matin</h2>
-      <Deux ratio="1fr 1fr">
-        <Carte ton="ciel" titre="Un dispositif">
-          <ul>
-            <li>Un environnement reproductible</li>
-            <li>Un modèle épinglé</li>
-            <li>Un schéma qui déclare vos variables</li>
-            <li>Une boucle qui résiste aux pannes</li>
-            <li>Un journal daté</li>
-          </ul>
-        </Carte>
-        <Carte ton="ambre" titre="Et une mesure">
-          <p>Une note prédite pour cinquante avis.</p>
-          <p>Produite par vous, sur des données réelles, en un peu plus de deux heures.</p>
-        </Carte>
-      </Deux>
-    </Slide>
-
     <Slide fond="encre" droite="séance 1 · lun 24 août">
       <h1 class="e">La mesure n’est pas encore validée</h1>
       <hr class="filet" />
@@ -634,18 +574,7 @@ Reponds selon le schema fourni.`} />
     </Slide>
 
     <Slide bandeau="Séance 1 · fin" droite="séance 1 · lun 24 août">
-      <h2 class="e">Merci</h2>
-      <hr class="filet" />
-      <Deux>
-        <div>
-          <p>Tout le matériel, les scripts et ce deck :</p>
-          <p><strong>eiom-ia.github.io</strong></p>
-        </div>
-        <div>
-          <p>Une question, aujourd'hui ou plus tard :</p>
-          <p><strong>mail@mfoisy.com</strong></p>
-        </div>
-      </Deux>
+      <h1 class="e">Merci</h1>
     </Slide>
 
     <Slide d={0.93} bandeau="Sources" droite="séance 1 · lun 24 août">

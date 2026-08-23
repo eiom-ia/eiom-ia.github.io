@@ -211,7 +211,7 @@
 <div class="clf" bind:this={hote}>
   <div class="clf-tete">
     <span class="pas-t">
-      {#if initial}Un classeur de textes, et rien d'autre
+      {#if initial}Un classeur de textes
       {:else if creation}Créer la colonne qui va recevoir les données
       {:else if terminal}La colonne est remplie, ligne par ligne
       {:else}{phase?.t}{/if}

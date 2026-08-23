@@ -75,3 +75,52 @@ BUDGET — 180 MINUTES
 RÉSERVE: le deuxième bloc est trop chargé. 37 diapos en 55 minutes de parole,
 soit 1,5 min par diapo, devant un public qui installe des logiciels en direct.
 Voir la note de coupe proposée — décision de Laurence-Olivier, non appliquée.
+
+
+cd laurenceomfoisy.github.io/asset
+
+Here is the list of all modifications I want you to make to each slide. Use beads to track them and do it one by one
+
+Slide 1: Remove (IA) from the title, and put EIOM 2026 on a different line. Add the logo of the school on slide too (you can find at eiom.ca)
+Slide 2: Make the Doctorat en science politique En cours since I'm not done
+Slide 3: Don't put the 8h45 à 12h45, du 24 au 28 aout
+Slide 4: Change the bullet point Pourquoi l'API by removing "puis l'installation" and remove "cloture" from the last bullet point.
+Slide 5: Add an exclamation mark
+Slide 6: In each of the A B C, write Est-ce que le système peut décider et agir? Est-ce que le système peut passer pour un humain ? and Est-ce que le système décide par la logique ?
+Slide 7: Write "Les grands modèles de langues" instead of LLM on that slide and Remove " - On le verra jeudi", Remove "C'est bel et bien de l'IA"
+Slide 8: Keep as is
+Slide 9: Remove it
+Slide 10: Remove the text at the bottom of the timeline "Chaque repère est placé blablabla"
+Slide 11: Keep as is
+Slide 12: Change the title to "Les données d'entrainement"
+Slide 13: Keep as is
+Slide 14: Add an animation where each of the token phases to its numeric value (vector) and then phases back to its textual representation. 
+Slide 15: This slide is too textual I would like it more visual.
+Slide 16: This slide is too textual I would like it more visual.
+Slide 17: write bug in english not the french word. Also, remove "Aucun prompt ne corrige ça. On le contient par un dispositif."
+Slide 18: Keep as is
+Slide 19: I don't like style of that slide it's not the best way to display biases in the model. We should think of a better way to display that.
+Slide 20: I don't like style of that slide it's not the best way to display biases in the model. We should think of a better way to display that.
+Slide 21: I don't like style of that slide it's not the best way to display biases in the model. We should think of a better way to display that. 
+Slide 22: Add a 15 minute timer on that slide that I can start by clicking on it.
+Slide 23: Here change the title to: Pourquoi ne pas utiliser le chat classique mais l'API ? and remove the subtitle
+Slide 24: Here I don't want this slide to be about the R script I want to explain to people where the model reside and when you chat it sends a system prompt to the server with your prompt and the server sends back the answer. It keeps the context of your previous messages and in some case it keeps the context of previous chats so that affects the answer you get. You want to be chatting with the model and sending replicable blank messages to the server. You want to be able to control the context of your chat and not have it affected by previous chats. Put that in the slide visually not in text.
+Slide 25: Thiss slide is too textual I would like it more visual.
+Slide 26: Here I want you to change some text: "Versionné dans le dépot" should be "Enregistré dans un script", corpus traité should be written "Données sauvegardées et accessibles", journal should be log even in french and I don't understand why you wrote a function journal_eiom()
+Slide 27: Keep as is
+Slide 28: Remove the text at the bottom.
+Slide 29: Remove the text "Un classeur de texte et rien d'autre" just write "Un classeur de texte"
+Slide 30: Remove the text "Un classeur de texte et rien d'autre" just write "Un classeur de texte"
+Slide 31: Here I want you to display better what the ellmer package is. Put the logo of the package, make the slide prettier and more welcoming.
+Slide 32: Remove the all the subtitle "trois lignes, et la réponse... "
+Slide 33: Keep as is
+Slide 34: remove the "Note pour ELLMER 0.4" box and its content
+Slide 35: Here redo this slide altogether. The message I want to pass is that first you do your run on a small subsample and then you laucun the whole run.
+Slide 36: Change the title to "Concevoir un prompt" and remove the subtitle
+Slide 37: I like the content of the slide it's just too textual I would like it more visual.
+Slide 38: I like the content of the slide it's just too textual I would like it more visual.
+Slide 39: Remove this slide I already wrote that it's better to prompt in english. Replace it by a slide that says : The best way to make a prompt is to ask the AI to write the prompt for you. 
+Slide 40: Remove this slide, I think it's useless.
+Slide 41: Here make it more a transition for tomorrow and make it more like : Comment valider un modèle ? Quels scores utiliser ? Est-ce que la précision est toujours bonne ?  Demain et mercredi Antoine va vous montrer comment valider un modèle et quels scores utiliser. 
+Slide 42: Enlève tout le texte. Garde juste le Merci
+Slide 43: Remove the "Bibliographie complète" text. Just put the whole bibliography in the slide. make it scrollable if necessary
