@@ -254,7 +254,7 @@ OPENROUTER_API_KEY=votre_cle_ici
 
     <Slide bandeau="Mécanique" droite="séance 1 · lun 24 août">
       <h2 class="e">Le modèle ne voit pas des mots</h2>
-      <p class="e">Il voit des jetons — des fragments, ni lettres ni mots. Essayez :</p>
+      <p class="e">La phrase qu'il vient d'écrire, telle qu'il l'a vue :</p>
       <Tokeniseur />
       <p class="e credits">
         Le surcoût vaut pour toutes les langues éloignées de l'anglais, et la qualité y baisse

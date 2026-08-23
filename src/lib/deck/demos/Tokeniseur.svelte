@@ -1,87 +1,114 @@
 <script>
-  import paires from './jetons.json';
+  import d from './jetons.json';
 
-  // Sans JavaScript, la première paire reste affichée: la démonstration
-  // fonctionne quand même, elle ne devient simplement pas parcourable.
-  let i = $state(0);
-  const p = $derived(paires[i]);
+  /**
+   * La phrase que le modèle vient de produire, découpée en jetons — les mêmes
+   * fragments qu'on a vus sortir un par un à la diapositive précédente.
+   *
+   * L'encodage n'est pas supposé: cl100k_base reproduit exactement la suite de
+   * jetons émise par gpt-3.5-turbo-instruct, ce qui a été vérifié avant
+   * d'écrire ce fichier.
+   *
+   * L'équivalent anglais est là pour le coût: même contenu, moins de jetons.
+   */
 </script>
 
 <div class="tok">
-  <div class="tok-nav">
-    {#each paires as _, n}
-      <button class:on={n === i} onclick={() => (i = n)} aria-label="Exemple {n + 1}">
-        {n + 1}
-      </button>
-    {/each}
-    <span class="src">encodage o200k_base · comptes réels</span>
+  <div class="tok-tete">
+    <span class="src">encodage {d.encodage} · comptes réels</span>
   </div>
 
-  <div class="tok-paires">
-    <div class="tok-lg">
-      <div class="tok-tete">
-        <span class="lang">Français</span>
-        <span class="n">{p.fr.n} jetons</span>
-      </div>
-      <div class="jetons">
-        {#each p.fr.jetons as j, k}<span class="j" style="--k: {k}">{j}</span>{/each}
-      </div>
+  <div class="tok-lg">
+    <div class="lg-t">
+      <span class="lang">Français</span>
+      <span class="n fort">{d.fr.n} jetons</span>
     </div>
+    <div class="jetons">
+      {#each d.fr.jetons as j}<span class="j">{j.replace(' ', '␣')}</span>{/each}
+    </div>
+  </div>
 
-    <div class="tok-lg">
-      <div class="tok-tete">
-        <span class="lang">Anglais</span>
-        <span class="n">{p.en.n} jetons</span>
-      </div>
-      <div class="jetons">
-        {#each p.en.jetons as j, k}<span class="j en" style="--k: {k}">{j}</span>{/each}
-      </div>
+  <div class="tok-lg">
+    <div class="lg-t">
+      <span class="lang">Anglais</span>
+      <span class="n">{d.en.n} jetons</span>
+    </div>
+    <div class="jetons">
+      {#each d.en.jetons as j}<span class="j en">{j.replace(' ', '␣')}</span>{/each}
     </div>
   </div>
 
   <p class="verdict">
-    Même contenu, <strong>+{p.surcout} %</strong> de jetons en français.
+    Même contenu, <strong>+{d.surcout} %</strong> de jetons en français.
   </p>
 </div>
 
 <style>
-  .tok { display: flex; flex-direction: column; gap: 0.43em; }
-  .tok-nav { display: flex; align-items: center; gap: 0.21em; }
-  .tok-nav button {
-    width: 1.05em; height: 1.05em; border-radius: 50%;
-    border: 1px solid var(--rule); background: transparent;
-    font-family: var(--police-mono); font-size: 0.62em;
-    color: var(--ink-3); cursor: pointer;
+  .tok {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55em;
   }
-  .tok-nav button.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .tok-tete {
+    display: flex;
+    justify-content: flex-end;
+    border-bottom: 2px solid var(--dk-encre);
+    padding-bottom: 0.25em;
+  }
   .src {
-    margin-left: auto; font-family: var(--police-mono);
-    font-size: 0.58em; letter-spacing: 0.08em; color: var(--ink-3);
+    font-size: 0.62em;
+    color: var(--dk-gris);
   }
 
-  .tok-paires { display: grid; gap: 0.43em; }
-  @media (min-width: 46rem) { .tok-paires { grid-template-columns: 1fr 1fr; } }
+  .tok-lg {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+  }
+  .lg-t {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .lang {
+    font-size: 0.6em;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dk-gris);
+  }
+  .n {
+    font-size: 0.68em;
+    color: var(--dk-gris);
+    font-variant-numeric: tabular-nums;
+  }
+  .n.fort {
+    color: var(--dk-accent);
+    font-weight: 600;
+  }
 
-  .tok-lg { border: 1px solid var(--rule); border-radius: var(--rayon); padding: 0.43em 0.50em; background: #fff; }
-  .tok-tete { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
-  .lang { font-family: var(--police-mono); font-size: 0.6em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
-  .n { font-family: var(--police-mono); font-size: 0.78em; font-weight: 500; color: var(--accent); }
-
-  .jetons { display: flex; flex-wrap: wrap; gap: 0.11em; }
+  .jetons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2em;
+  }
+  /* Chaque jeton est une boîte: la frontière est le sujet de la diapositive.
+     L'espace initial est rendu visible — il fait partie du jeton. */
   .j {
-    font-family: var(--police-mono);
-    font-size: 0.72em;
-    padding: 0.07em 0.18em;
-    border-radius: 2px;
-    background: var(--rose-clair);
-    border: 1px solid rgba(159, 18, 57, 0.2);
+    font-size: 0.68em;
+    padding: 0.12em 0.35em;
+    border: 1px solid var(--dk-accent);
+    color: var(--dk-accent);
     white-space: pre;
-    animation: pop 0.3s ease both;
-    animation-delay: calc(var(--k) * 22ms);
   }
-  .j.en { background: var(--ciel-clair); border-color: rgba(0, 119, 182, 0.2); }
+  .j.en {
+    border-color: var(--dk-gris-2);
+    color: var(--dk-gris);
+  }
 
-  @keyframes pop { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
-
-  .verdict { font-size: 0.92em; margin: 0; }
+  .verdict {
+    margin: 0;
+    font-size: 0.72em;
+    color: var(--dk-encre);
+  }
 </style>
