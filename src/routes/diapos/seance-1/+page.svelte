@@ -14,6 +14,7 @@
   import Attention from '$lib/deck/demos/Attention.svelte';
   import Pipeline from '$lib/deck/demos/Pipeline.svelte';
   import Api from '$lib/deck/demos/Api.svelte';
+  import Hallucination from '$lib/deck/demos/Hallucination.svelte';
   import { REFERENCES, ORDRE_BIBLIO } from '$lib/data/references.js';
   import { CREDITS_IMAGES } from '$lib/data/credits-images.js';
   import Tokeniseur from '$lib/deck/demos/Tokeniseur.svelte';
@@ -399,17 +400,12 @@ verifier_installation()`;
 
     <Slide fond="encre" bandeau="Reformulation" droite="séance 1 · lun 24 août">
       <h2 class="e">L'hallucination n'est pas un bogue</h2>
-      <p class="lead e">
-        C'est le fonctionnement nominal. Un modèle produit toujours la suite la plus plausible ; il
-        n'existe aucun moment où il « vérifie ». Quand la suite plausible est vraie, on appelle ça une
-        réponse. Quand elle est fausse, on appelle ça une hallucination. Le mécanisme est identique.
+      <Hallucination />
+      <p class="e">Aucun prompt ne corrige ça. On le contient par un dispositif.</p>
+      <p class="e credits">
+        Sortie contrainte · vérification externe · validation sur vérité terrain — le programme de la
+        semaine.
       </p>
-      <Carte ton="ciel" titre="Ce que ça change pour vous">
-        <p>
-          On ne corrige pas ce défaut par un meilleur prompt. On le contient par un dispositif : sortie
-          contrainte, vérification externe, validation sur vérité terrain. C'est le programme de la semaine.
-        </p>
-      </Carte>
     </Slide>
 
     <Slide fond="encre" bandeau="Les biais" droite="séance 1 · lun 24 août">
