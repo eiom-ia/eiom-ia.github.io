@@ -1,0 +1,29 @@
+{
+  "fichier": "avis_exemple.csv",
+  "total": 12,
+  "colonnes": [
+    "id",
+    "review_text",
+    "review_rating"
+  ],
+  "lignes": [
+    {
+      "id": "avis-001",
+      "texte": "Excellent repas, service rapide et portions généreuses.",
+      "note": 5,
+      "sentiment": "positif"
+    },
+    {
+      "id": "avis-002",
+      "texte": "Très bon sandwich, mais la salle était un peu sale.",
+      "note": 4,
+      "sentiment": "positif"
+    },
+    {
+      "id": "avis-003",
+      "texte": "Correct sans plus. Les frites étaient tièdes et le prix raisonnable.",
+      "note": 3,
+      "sentiment": "neutre"
+    }
+  ]
+}

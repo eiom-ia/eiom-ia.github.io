@@ -14,6 +14,7 @@
   import Attention from '$lib/deck/demos/Attention.svelte';
   import Pipeline from '$lib/deck/demos/Pipeline.svelte';
   import Api from '$lib/deck/demos/Api.svelte';
+  import Classifieur from '$lib/deck/demos/Classifieur.svelte';
   import Hallucination from '$lib/deck/demos/Hallucination.svelte';
   import { REFERENCES, ORDRE_BIBLIO } from '$lib/data/references.js';
   import { CREDITS_IMAGES } from '$lib/data/credits-images.js';
@@ -21,7 +22,7 @@
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
-  const TOTAL = 64;
+  const TOTAL = 65;
 
   const c_premier = `library(ellmer)
 source("${URL_OUTILS_R}")
@@ -704,6 +705,14 @@ verifier_installation()`;
           modèle. <strong>C'est vous qui devez trancher, et l'écrire.</strong>
         </p>
       </Carte>
+    </Slide>
+
+    <Slide bandeau="Le geste, au ralenti" droite="séance 1 · lun 24 août">
+      <h2 class="e">Classifier une colonne, ligne par ligne</h2>
+      <Classifieur />
+      <p class="e credits">
+        Schéma du mécanisme · corpus <code>avis_exemple.csv</code> de la semaine.
+      </p>
     </Slide>
 
     <Slide bandeau="Anatomie" droite="séance 1 · lun 24 août">
