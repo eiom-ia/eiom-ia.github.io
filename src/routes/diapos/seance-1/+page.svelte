@@ -710,9 +710,6 @@ verifier_installation()`;
     <Slide bandeau="Le geste, au ralenti" droite="séance 1 · lun 24 août">
       <h2 class="e">Classifier une colonne, ligne par ligne</h2>
       <Classifieur />
-      <p class="e credits">
-        Schéma du mécanisme · corpus <code>avis_exemple.csv</code> de la semaine.
-      </p>
     </Slide>
 
     <Slide bandeau="Anatomie" droite="séance 1 · lun 24 août">

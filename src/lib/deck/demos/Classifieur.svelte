@@ -12,6 +12,9 @@
    * Sous le circuit, la ligne de R qui fait exactement l'opération en cours.
    * Le geste et son code, côte à côte, au même instant.
    *
+   * Rien ne se joue tout seul: un clic sur la diapositive avance d'un temps.
+   * C'est un support de cours, la cadence appartient à la personne qui parle.
+   *
    * Les lignes viennent de classifieur.json, engendré depuis le vrai
    * avis_exemple.csv. Un test échoue si les deux divergent.
    *
@@ -21,15 +24,16 @@
   const L = donnees.lignes;
 
   const PHASES = [
-    { id: 'lire', ms: 950, t: 'Lire la cellule' },
-    { id: 'prompt', ms: 1350, t: 'Coller le texte dans un prompt' },
-    { id: 'appel', ms: 1250, t: "Envoyer à l'API" },
-    { id: 'json', ms: 1350, t: 'Recevoir la réponse, en JSON' },
-    { id: 'parse', ms: 1450, t: 'Extraire la valeur du JSON' },
-    { id: 'ecrire', ms: 1150, t: 'Écrire la valeur dans la cellule' }
+    { id: 'lire', t: 'Lire la cellule' },
+    { id: 'prompt', t: 'Coller le texte dans un prompt' },
+    { id: 'appel', t: "Envoyer à l'API" },
+    { id: 'json', t: 'Recevoir la réponse, en JSON' },
+    { id: 'parse', t: 'Extraire la valeur du JSON' },
+    { id: 'ecrire', t: 'Écrire la valeur dans la cellule' }
   ];
-  const MS_CREER = 2100;
-  const TOTAL = 1 + L.length * PHASES.length + 1;
+  // Deux temps avant la boucle: le classeur tel quel, puis la colonne créée.
+  // Un temps terminal après la dernière écriture.
+  const TOTAL = 2 + L.length * PHASES.length + 1;
 
   let hote = $state(null);
   let puce = $state(null);
@@ -40,21 +44,19 @@
   let quaiRep = $state(null);
 
   let js = $state(false);
-  let e = $state(TOTAL - 1);
-  let etat = $state('arret');
+  let e = $state(TOTAL - 1); // sans JS: tableau terminé, puce masquée
   let pos = $state(null);
   let saut = $state(false);
-  let colVue = $state(true); // sans JS, la colonne est déjà là
-  // Compteur de passages: sans lui, revenir sur la diapo ne rejoue pas la
-  // création de la colonne, puisque e valait déjà 0 et que rien ne change.
-  let cycle = $state(0);
 
-  const creation = $derived(e === 0);
+  const initial = $derived(e === 0);
+  const creation = $derived(e === 1);
   const terminal = $derived(e === TOTAL - 1);
-  const iLigne = $derived(creation || terminal ? -1 : Math.floor((e - 1) / PHASES.length));
-  const phase = $derived(creation || terminal ? null : PHASES[(e - 1) % PHASES.length]);
+  const enCours = $derived(e >= 2 && e < TOTAL - 1);
+  const iLigne = $derived(enCours ? Math.floor((e - 2) / PHASES.length) : -1);
+  const phase = $derived(enCours ? PHASES[(e - 2) % PHASES.length] : null);
   const ligne = $derived(iLigne >= 0 && iLigne < L.length ? L[iLigne] : null);
-  const remplie = (i) => e >= i * PHASES.length + PHASES.length + 1;
+  const remplie = (i) => e >= 2 + i * PHASES.length + PHASES.length;
+  const colVue = $derived(e >= 1);
 
   const jsonTexte = (l) => `{"sentiment": "${l.sentiment}"}`;
 
@@ -73,6 +75,7 @@
   const valeur = $derived(phase?.id === 'parse' || phase?.id === 'ecrire');
 
   const CODE = {
+    initial: 'donnees <- read.csv("donnees/avis_exemple.csv")',
     creation: 'donnees$sentiment <- NA_character_',
     lire: 'texte <- donnees$review_text[i]',
     prompt: 'prompt <- paste(consigne, texte)',
@@ -82,13 +85,15 @@
     terminal: 'for (i in seq_len(nrow(donnees))) { ... }'
   };
   const codeR = $derived(
-    creation
-      ? CODE.creation
-      : terminal
-        ? CODE.terminal
-        : phase?.id === 'json'
-          ? `reponse\n#> ${jsonTexte(ligne)}`
-          : (CODE[phase?.id] ?? '')
+    initial
+      ? CODE.initial
+      : creation
+        ? CODE.creation
+        : terminal
+          ? CODE.terminal
+          : phase?.id === 'json'
+            ? `reponse\n#> ${jsonTexte(ligne)}`
+            : (CODE[phase?.id] ?? '')
   );
 
   const quai = () => {
@@ -119,20 +124,7 @@
   $effect(() => {
     if (!js) return;
     e;
-    requestAnimationFrame(() => placer(phase?.id === 'lire' || creation));
-  });
-
-  // La colonne se crée sous les yeux: un instant sans elle, puis elle entre.
-  $effect(() => {
-    if (!js) return;
-    cycle;
-    if (e !== 0) {
-      colVue = true;
-      return;
-    }
-    colVue = false;
-    const t = setTimeout(() => (colVue = true), 520);
-    return () => clearTimeout(t);
+    requestAnimationFrame(() => placer(phase?.id === 'lire' || !phase));
   });
 
   $effect(() => {
@@ -145,51 +137,29 @@
     if (!deck || !diapo) return;
 
     const monIndex = [...deck.querySelectorAll('.diapo')].indexOf(diapo);
-    let minuteur = 0;
-    const duree = (n) => (n === 0 ? MS_CREER : PHASES[(n - 1) % PHASES.length].ms);
 
-    function pas() {
-      if (etat !== 'joue') return;
-      if (e >= TOTAL - 1) {
-        etat = 'fini';
-        return;
-      }
-      e += 1;
-      minuteur = setTimeout(pas, duree(e));
+    // Un clic avance d'un temps. Aucune minuterie: la personne qui enseigne
+    // parle pendant chaque étape, elle ne court pas après une animation.
+    // Arrivé au bout, un clic de plus reprend au début.
+    function avancer() {
+      e = e >= TOTAL - 1 ? 0 : e + 1;
     }
 
-    function demarrer(depuisZero) {
-      if (depuisZero) {
-        e = 0;
-        cycle += 1;
-      }
-      etat = 'joue';
-      clearTimeout(minuteur);
-      minuteur = setTimeout(pas, duree(e));
-    }
-
-    function basculer() {
-      if (etat === 'joue') {
-        etat = 'pause';
-        clearTimeout(minuteur);
-      } else demarrer(etat === 'fini');
-    }
-
-    diapo.addEventListener('click', basculer);
+    diapo.addEventListener('click', avancer);
 
     const ro = new ResizeObserver(() => placer(true));
     ro.observe(hote);
 
+    // On repart du classeur nu à chaque arrivée sur la diapositive, et on
+    // remet à zéro en partant: revenir dessus ne doit pas reprendre au milieu.
     let ici = false;
     function verifier() {
       const y = Math.round(deck.scrollTop / deck.clientHeight) === monIndex;
       if (y && !ici) {
         ici = true;
-        demarrer(true);
+        e = 0;
       } else if (!y && ici) {
         ici = false;
-        etat = 'arret';
-        clearTimeout(minuteur);
         e = 0;
       }
     }
@@ -200,10 +170,9 @@
 
     return () => {
       deck.removeEventListener('scroll', verifier);
-      diapo.removeEventListener('click', basculer);
+      diapo.removeEventListener('click', avancer);
       ro.disconnect();
       clearTimeout(t0);
-      clearTimeout(minuteur);
     };
   });
 </script>
@@ -211,11 +180,15 @@
 <div class="clf" bind:this={hote}>
   <div class="clf-tete">
     <span class="pas-t">
-      {#if creation}Créer la colonne qui va recevoir les données
+      {#if initial}Un classeur de textes, et rien d'autre
+      {:else if creation}Créer la colonne qui va recevoir les données
       {:else if terminal}La colonne est remplie, ligne par ligne
       {:else}{phase?.t}{/if}
     </span>
-    <span class="src">{donnees.fichier} · {donnees.total} lignes</span>
+    <span class="src">
+      {donnees.fichier} · {donnees.total} lignes
+      {#if js}<span class="pas-n">{e + 1} / {TOTAL}</span>{/if}
+    </span>
   </div>
 
   <table class="clf-t">
@@ -285,6 +258,12 @@
   <figure class="code-r">
     <pre><code>{@html surlignerR(codeR)}</code></pre>
   </figure>
+
+  {#if js}
+    <p class="cmd">
+      {terminal ? 'cliquez pour reprendre au début' : 'cliquez pour avancer d’un temps'}
+    </p>
+  {/if}
 
   <span
     class="puce"
@@ -493,6 +472,18 @@
     font-size: 0.62em;
     line-height: 1.55;
     white-space: pre-wrap;
+  }
+
+  .pas-n {
+    color: var(--dk-accent);
+    font-variant-numeric: tabular-nums;
+    margin-left: 0.6em;
+  }
+  .cmd {
+    margin: 0;
+    font-size: 0.6em;
+    letter-spacing: 0.08em;
+    color: var(--dk-gris-2);
   }
 
   .puce {
