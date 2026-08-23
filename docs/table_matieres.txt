@@ -1,0 +1,29 @@
+1. Je m'introduit
+1.1 J'introduit le plan de la semaine
+2. J'introduit c'est quoi l'IA
+2.1 Les définitions 
+2.2 Les types d'IA
+3. C'est quoi l'histoire de l'IA en gros.
+3.1 Le développement récent et pourquoi on connait un boom aujourd'hui
+4. J'introduit l'IA générative et plus particulièrement les modèles de langage
+4.1 Je parles des données d'entrainement et de l'intuition derrière les modèles de langage
+4.2 Je montre la slide "Les modèles ne voient pas des mots"
+4.3 La slide Tout ce qu'il fait c'est prédire le jeton suivant
+4.4 Je parles des paramètres comme la température et le top-k
+4.5 La slide ce n'est pas une base de connaissances, il n'y a aucun faits dans le modèle
+4.6 Je parles des hallucinations et c'est quoi les hallucinations
+5. Je parles des biais de l'IA
+5.1 Dans les données
+5.2 Dans le balisage
+5.3 Dans le modèle
+6. Comment utiliser l'IA en science? À travers l'API
+6.1 Je montre comment utiliser l'API pour générer du texte
+6.2 API = reproductibilité, on connait le modèle, on connait le prompt, on connait les paramètres
+6.3 Comment ça fonctionne un API? C'est où? C'est quoi?
+6.4 Comment on fait pour savoir le prix ?
+7. Je montre comment classifier des données avec l'API en R (ne pas utiliser ellmer nécessairement)
+7.1 Je montre un classeur avec des données textuelles et une animation de crée une colonne avec le code, ensuite passe une cellule dans l'API avec un prompt et ensuite récupère la réponse et la met dans la colonne. Je montre comment ça fonctionne avec un exemple de classification de texte.
+7.2 Je montre les Clé d'API et comment les utiliser dans R. Où les stocker. Où se les procurer. C'est quoi les services qui offrent des API? Je parle de OpenAI, Anthropic, Google, Microsoft, etc.
+7.3 Je parles de JSON pour structurer la sortie de l'API et comment ça fonctionne. Je montre un exemple de JSON.
+7.4 Je parles de for loop et de l'intuition derrière
+8. Je parles de prompt engineering et comment ça fonctionne. Je montre des exemples de prompt engineering.
