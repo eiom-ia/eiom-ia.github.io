@@ -3,6 +3,12 @@
  * Licences vérifiées à la source; toute image ajoutée doit l'être ici.
  */
 export const CREDITS_IMAGES = {
+  "google-maps": {
+    "licence": "Public domain (marque déposée de Google — usage nominatif)",
+    "auteur": "Google Inc.",
+    "page": "https://commons.wikimedia.org/wiki/File:Google_Maps_icon_(2026).svg",
+    "fichier": "google-maps.png"
+  },
   "turing": {
     "licence": "Public domain",
     "auteur": "Elliott &amp; Fry",
@@ -70,3 +76,14 @@ export const CREDITS_IMAGES = {
     "fichier": "hassabis.jpg"
   }
 };
+
+/**
+ * Photo du restaurant. Aucune image sous licence n'existe pour La Ligne Rouge:
+ * ni Wikimedia Commons ni Openverse n'en ont, et emprunter la photo d'un autre
+ * casse-croûte serait une fausse représentation sur une diapositive qui ne
+ * montre par ailleurs que des données réelles.
+ *
+ * Pour l'ajouter: déposer le fichier dans static/img/ et remplacer null par
+ * { fichier, auteur, licence }. La diapositive s'en passe tant que c'est null.
+ */
+export const PHOTO_RESTAURANT = null;

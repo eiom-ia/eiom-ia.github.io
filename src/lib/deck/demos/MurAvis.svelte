@@ -1,5 +1,7 @@
 <script>
+  import { base } from '$app/paths';
   import avis from './avis-reels.json';
+  import { PHOTO_RESTAURANT } from '$lib/data/credits-images.js';
 
   /**
    * Le corpus, montré au lieu d'être décrit: six vrais avis Google, dans leur
@@ -14,6 +16,19 @@
   const etoiles = (n) => '★'.repeat(n) + '☆'.repeat(5 - n);
 </script>
 
+<div class="mur-tete">
+  <span class="prov">
+    <img src="{base}/img/google-maps.png" alt="" />
+    Google Maps · {avis.total} avis
+  </span>
+  {#if PHOTO_RESTAURANT}
+    <figure class="photo">
+      <img src="{base}/img/{PHOTO_RESTAURANT.fichier}" alt="Le restaurant La Ligne Rouge" />
+      <figcaption>{PHOTO_RESTAURANT.auteur} · {PHOTO_RESTAURANT.licence}</figcaption>
+    </figure>
+  {/if}
+</div>
+
 <div class="mur">
   {#each avis.avis as a}
     <figure class="av" class:haut={a.note >= 4} class:bas={a.note <= 2}>
@@ -27,6 +42,43 @@
 </div>
 
 <style>
+  /* La provenance des avis, montrée plutôt qu'écrite: le logo dit d'où vient
+     la donnée en un coup d'œil. Marque déposée, usage nominatif. */
+  .mur-tete {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1em;
+    margin-bottom: 0.5em;
+  }
+  .prov {
+    display: flex;
+    align-items: center;
+    gap: 0.45em;
+    font-size: 0.66em;
+    color: var(--dk-gris);
+  }
+  .prov img {
+    width: 1.5em;
+    height: 1.5em;
+    display: block;
+  }
+  .photo {
+    margin: 0;
+    max-width: 34%;
+  }
+  .photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 2px solid var(--dk-encre);
+  }
+  .photo figcaption {
+    font-size: 0.5em;
+    color: var(--dk-gris-2);
+    margin-top: 0.2em;
+  }
+
   .mur {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
