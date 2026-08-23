@@ -18,6 +18,20 @@ describe('decks publiés', () => {
     expect(compterDiapos(lire('seance-5'))).toBeGreaterThanOrEqual(10);
   });
 
+  // Le compteur et les pastilles viennent d'une constante TOTAL écrite à la
+  // main dans chaque route. Elle dérive en silence dès qu'on ajoute ou retire
+  // une diapo, et le public voit « 28 / 63 » sur un deck qui en compte 65.
+  // Une pastille est rendue par diapo annoncée: on les compte.
+  it('annonce autant de diapos qu\'il en rend', () => {
+    for (const n of ['seance-1', 'seance-4', 'seance-5']) {
+      const html = lire(n);
+      const rendues = compterDiapos(html);
+      const annoncees = (html.match(/aria-label="Aller à la diapo /g) || []).length;
+      expect(annoncees, `${n}: TOTAL annonce ${annoncees} diapos, le deck en rend ${rendues}`)
+        .toBe(rendues);
+    }
+  });
+
   it('colorie le code R au rendu statique', () => {
     expect(lire('seance-1')).toContain('r-fn');
     expect(lire('seance-4')).toContain('r-fn');

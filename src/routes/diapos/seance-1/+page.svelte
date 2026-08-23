@@ -13,13 +13,14 @@
   import Arbre from '$lib/deck/demos/Arbre.svelte';
   import Attention from '$lib/deck/demos/Attention.svelte';
   import Pipeline from '$lib/deck/demos/Pipeline.svelte';
+  import Api from '$lib/deck/demos/Api.svelte';
   import { REFERENCES, ORDRE_BIBLIO } from '$lib/data/references.js';
   import { CREDITS_IMAGES } from '$lib/data/credits-images.js';
   import Tokeniseur from '$lib/deck/demos/Tokeniseur.svelte';
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
-  const TOTAL = 63;
+  const TOTAL = 65;
 
   const c_premier = `library(ellmer)
 source("${URL_OUTILS_R}")
@@ -288,27 +289,12 @@ verifier_installation()`;
     </Slide>
 
     <Slide fond="encre" bandeau="Pourquoi maintenant" droite="séance 1 · lun 24 août">
-      <h1 class="e">Trois ingrédients</h1>
+      <h1 class="e">Deux ingrédients</h1>
       <hr class="filet" />
-      <p class="lead e">Les données, l’architecture, l’entraînement.</p>
+      <p class="lead e">L’architecture, puis l’entraînement.</p>
     </Slide>
 
-    <Slide bandeau="Ingrédient 1 sur 3" droite="séance 1 · lun 24 août">
-      <h2 class="e">Les données</h2>
-      <hr class="filet" />
-      <ul class="barres e">
-        <li class="majeur"><span class="src">CommonCrawl</span><span class="piste-b"><span class="rempli" style="width: 100%"></span></span><span class="pct">67 %</span></li>
-        <li><span class="src">C4</span><span class="piste-b"><span class="rempli" style="width: 22.4%"></span></span><span class="pct">15 %</span></li>
-        <li><span class="src">GitHub</span><span class="piste-b"><span class="rempli" style="width: 6.7%"></span></span><span class="pct">4,5 %</span></li>
-        <li><span class="src">Wikipédia</span><span class="piste-b"><span class="rempli" style="width: 6.7%"></span></span><span class="pct">4,5 %</span></li>
-        <li><span class="src">Livres</span><span class="piste-b"><span class="rempli" style="width: 6.7%"></span></span><span class="pct">4,5 %</span></li>
-        <li><span class="src">ArXiv</span><span class="piste-b"><span class="rempli" style="width: 3.7%"></span></span><span class="pct">2,5 %</span></li>
-        <li><span class="src">StackExchange</span><span class="piste-b"><span class="rempli" style="width: 3%"></span></span><span class="pct">2 %</span></li>
-      </ul>
-      <p class="e credits">Corpus d’entraînement de LLaMA <Cite k="touvron2023" />.</p>
-    </Slide>
-
-    <Slide bandeau="Ingrédient 2 sur 3" droite="séance 1 · lun 24 août">
+    <Slide bandeau="Pourquoi maintenant" droite="séance 1 · lun 24 août">
       <h2 class="e">L’architecture</h2>
       <Attention />
       <p class="e credits">
@@ -316,7 +302,7 @@ verifier_installation()`;
       </p>
     </Slide>
 
-    <Slide bandeau="Ingrédient 3 sur 3" droite="séance 1 · lun 24 août">
+    <Slide bandeau="Pourquoi maintenant" droite="séance 1 · lun 24 août">
       <h2 class="e">L’entraînement, en trois phases</h2>
       <Deux ratio="1fr 1fr 1fr">
         <Carte ton="ciel" titre="1 · Pré-entraînement">
@@ -338,6 +324,21 @@ verifier_installation()`;
     <Slide fond="encre" bandeau="Les modèles de langage" droite="séance 1 · lun 24 août">
       <h1 class="e">Comment fonctionne<br />un modèle de langage</h1>
       <hr class="filet" />
+    </Slide>
+
+    <Slide bandeau="Les données d’entraînement" droite="séance 1 · lun 24 août">
+      <h2 class="e">Ce que le modèle a lu</h2>
+      <hr class="filet" />
+      <ul class="barres e">
+        <li class="majeur"><span class="src">CommonCrawl</span><span class="piste-b"><span class="rempli" style="width: 100%"></span></span><span class="pct">67 %</span></li>
+        <li><span class="src">C4</span><span class="piste-b"><span class="rempli" style="width: 22.4%"></span></span><span class="pct">15 %</span></li>
+        <li><span class="src">GitHub</span><span class="piste-b"><span class="rempli" style="width: 6.7%"></span></span><span class="pct">4,5 %</span></li>
+        <li><span class="src">Wikipédia</span><span class="piste-b"><span class="rempli" style="width: 6.7%"></span></span><span class="pct">4,5 %</span></li>
+        <li><span class="src">Livres</span><span class="piste-b"><span class="rempli" style="width: 6.7%"></span></span><span class="pct">4,5 %</span></li>
+        <li><span class="src">ArXiv</span><span class="piste-b"><span class="rempli" style="width: 3.7%"></span></span><span class="pct">2,5 %</span></li>
+        <li><span class="src">StackExchange</span><span class="piste-b"><span class="rempli" style="width: 3%"></span></span><span class="pct">2 %</span></li>
+      </ul>
+      <p class="e credits">Corpus d’entraînement de LLaMA <Cite k="touvron2023" />.</p>
     </Slide>
 
     <Slide bandeau="Mécanique" droite="séance 1 · lun 24 août">
@@ -486,10 +487,32 @@ verifier_installation()`;
       </Carte>
     </Slide>
 
+    <Slide fond="encre" bandeau="Pause" droite="séance 1 · lun 24 août">
+      <h1 class="e">Pause</h1>
+      <hr class="filet" />
+      <div class="grand e">
+        <span class="v">15</span>
+        <span class="l">minutes</span>
+      </div>
+      <p class="lead e">Pendant la pause, allez chercher votre clé.</p>
+      <ul class="cmd-liste e">
+        <li>aistudio.google.com/apikey<span class="lieu">un compte Google suffit · aucune carte de crédit</span></li>
+      </ul>
+    </Slide>
+
     <Slide fond="encre" bandeau="Deuxième temps" droite="séance 1 · lun 24 août">
       <h1 class="e">Pourquoi l'API,<br />et pas le clavardage</h1>
       <hr class="filet" />
       <p class="lead e">Puis installation guidée, avec vérification pour chaque poste.</p>
+    </Slide>
+
+    <Slide bandeau="Situer la chose" droite="séance 1 · lun 24 août">
+      <h2 class="e">Où vit le modèle, et ce qui voyage</h2>
+      <Api />
+      <p class="e">
+        Le modèle ne s'installe pas sur votre poste. Votre script lui envoie du texte&nbsp;; il en
+        renvoie. Un API, c'est ce point d'entrée&nbsp;: une adresse à qui on écrit, et qui répond.
+      </p>
     </Slide>
 
     <Slide bandeau="La thèse" droite="séance 1 · lun 24 août">
