@@ -55,7 +55,9 @@
         ? `${ligne.jetons.length} mots`
         : phase?.id === 'apparier'
           ? (Object.keys(ligne.trouves).length
-              ? Object.entries(ligne.trouves).map(([m, p]) => `${m} → ${p}`).join(' · ')
+              ? Object.entries(ligne.trouves)
+                  .map(([m, t]) => `${m} ← ${t.via}`)
+                  .join(' · ')
               : 'aucun mot trouvé')
           : phase?.id === 'compter'
             ? `${ligne.pos} pos · ${ligne.neg} nég`
@@ -228,14 +230,25 @@
       <span class="st-d jetons">
         {#if ligne && (phase?.id === 'apparier' || phase?.id === 'compter')}
           {#each ligne.jetons as m}
-            <span class="jt" class:pos={ligne.trouves[m] === 'pos'} class:neg={ligne.trouves[m] === 'neg'}
-              >{m}</span
+            <span
+              class="jt"
+              class:pos={ligne.trouves[m]?.p === 'pos'}
+              class:neg={ligne.trouves[m]?.p === 'neg'}>{m}</span
             >
           {/each}
         {:else}
           chaque mot, comparé à une liste — {donnees.part_jokers} % des entrées sont des jokers
         {/if}
       </span>
+      {#if ligne && (phase?.id === 'apparier' || phase?.id === 'compter')}
+        <span class="via">
+          {#each Object.entries(ligne.trouves) as [m, t]}
+            <span class="v1">{m} ← <b>{t.via}</b></span>
+          {:else}
+            <span class="v1">aucune entrée ne correspond — le dictionnaire est anglais</span>
+          {/each}
+        </span>
+      {/if}
       <span class="quai" bind:this={quaiA}></span>
     </div>
     <span class="fl">▸</span>
@@ -285,6 +298,18 @@
     color: var(--dk-accent);
     font-weight: 600;
     padding: 0 0.2em;
+  }
+  .via {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.1em 0.7em;
+    font-size: 0.52em;
+    color: var(--dk-gris);
+    margin-top: 0.1em;
+  }
+  .via b {
+    color: var(--dk-accent);
+    font-weight: 600;
   }
   .cible .val.nul {
     color: var(--dk-gris-2);

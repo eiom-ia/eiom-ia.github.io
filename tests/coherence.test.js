@@ -82,12 +82,17 @@ describe('avis réels extraits du corpus La Ligne Rouge', () => {
       } else {
         expect(l.score, `ligne ${l.id}`).toBeCloseTo((l.pos - l.neg) / total, 2);
       }
-      // Chaque mot déclaré trouvé doit exister parmi les jetons de l'avis.
-      for (const mot of Object.keys(l.trouves)) {
+      // Chaque mot déclaré trouvé doit exister parmi les jetons de l'avis, et
+      // l'entrée de dictionnaire annoncée doit réellement l'attraper — joker
+      // compris. C'est ce qui empêche d'affirmer « poutine ← pout* » sans que
+      // ce soit vrai.
+      for (const [mot, t] of Object.entries(l.trouves)) {
         expect(l.jetons, `ligne ${l.id}: « ${mot} » absent des jetons`).toContain(mot);
+        const motif = new RegExp('^' + t.via.replace(/\*/g, '.*') + '$', 'i');
+        expect(motif.test(mot), `ligne ${l.id}: « ${t.via} » n'attrape pas « ${mot} »`).toBe(true);
       }
-      const pos = Object.values(l.trouves).filter((v) => v === 'pos').length;
-      const neg = Object.values(l.trouves).filter((v) => v === 'neg').length;
+      const pos = Object.values(l.trouves).filter((v) => v.p === 'pos').length;
+      const neg = Object.values(l.trouves).filter((v) => v.p === 'neg').length;
       expect(pos, `ligne ${l.id}: comptes positifs`).toBe(l.pos);
       expect(neg, `ligne ${l.id}: comptes négatifs`).toBe(l.neg);
     }

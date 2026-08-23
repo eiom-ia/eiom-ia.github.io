@@ -21,7 +21,10 @@
         "viande"
       ],
       "trouves": {
-        "poutine": "neg"
+        "poutine": {
+          "p": "neg",
+          "via": "pout*"
+        }
       },
       "pos": 0,
       "neg": 1,
@@ -46,9 +49,18 @@
         "portion"
       ],
       "trouves": {
-        "poutine": "neg",
-        "awful": "neg",
-        "thanks": "pos"
+        "poutine": {
+          "p": "neg",
+          "via": "pout*"
+        },
+        "awful": {
+          "p": "neg",
+          "via": "awful*"
+        },
+        "thanks": {
+          "p": "pos",
+          "via": "thanks"
+        }
       },
       "pos": 1,
       "neg": 2,
@@ -75,5 +87,6 @@
       "neg": 0,
       "score": null
     }
-  ]
+  ],
+  "note_poutine": "Aucune entrée « poutine » dans LSD2015. Le joker « pout* », posé pour le verbe anglais to pout (bouder), l'attrape."
 }
