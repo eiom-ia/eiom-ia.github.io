@@ -13,6 +13,7 @@
   import Arbre from '$lib/deck/demos/Arbre.svelte';
   import Pipeline from '$lib/deck/demos/Pipeline.svelte';
   import Api from '$lib/deck/demos/Api.svelte';
+  import Fiches from '$lib/deck/demos/Fiches.svelte';
   import Classifieur from '$lib/deck/demos/Classifieur.svelte';
   import Hallucination from '$lib/deck/demos/Hallucination.svelte';
   import { REFERENCES, ORDRE_BIBLIO } from '$lib/data/references.js';
@@ -473,28 +474,9 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide bandeau="Six propriétés" droite="séance 1 · lun 24 août">
+    <Slide bandeau="La fiche de méthode" droite="séance 1 · lun 24 août">
       <h2 class="e">Ce que l'API rend possible</h2>
-      <Deux ratio="1fr 1fr 1fr">
-        <Carte ton="ciel" titre="Reproductibilité">
-          <p>Un tiers relance votre script et obtient le même dispositif.</p>
-        </Carte>
-        <Carte ton="ciel" titre="Systématicité">
-          <p>Le corpus entier reçoit exactement le même traitement.</p>
-        </Carte>
-        <Carte ton="ciel" titre="Transparence">
-          <p>Le prompt est dans le dépôt. Un pair peut le critiquer.</p>
-        </Carte>
-        <Carte ton="ambre" titre="Contrôle">
-          <p>Température, jetons, schéma de sortie : vous décidez.</p>
-        </Carte>
-        <Carte ton="ambre" titre="Journalisation">
-          <p>Chaque appel laisse une trace horodatée.</p>
-        </Carte>
-        <Carte ton="ambre" titre="Coût mesurable">
-          <p>Vous savez ce que coûte votre chapitre 4.</p>
-        </Carte>
-      </Deux>
+      <Fiches />
     </Slide>
 
     <Slide bandeau="Règle non négociable" droite="séance 1 · lun 24 août">
