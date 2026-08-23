@@ -1,8 +1,8 @@
 {
   "modele": "gpt-3.5-turbo-instruct",
-  "entree": "Décris l'hiver à Montréal en une phrase courte.",
-  "gabarit": "Décris l'hiver à Montréal en une phrase courte.\n",
-  "sortie": "L'hiver à Montréal est froid et enneigé.",
+  "entree": "Décris l'hiver à Québec en une phrase courte.",
+  "gabarit": "Décris l'hiver à Québec en une phrase courte.\n",
+  "sortie": "L'hiver à Québec est froid et enneigé.",
   "etapes": [
     {
       "i": 0,
@@ -10,23 +10,23 @@
       "candidats": [
         {
           "t": "L",
-          "p": 31.33
+          "p": 35.31
         },
         {
           "t": "\n",
-          "p": 15.64
+          "p": 12.49
+        },
+        {
+          "t": "Un",
+          "p": 9.73
         },
         {
           "t": "F",
-          "p": 14.14
+          "p": 8.85
         },
         {
           "t": "\"",
-          "p": 8.98
-        },
-        {
-          "t": "\"F",
-          "p": 4.9
+          "p": 7.35
         }
       ]
     },
@@ -36,15 +36,15 @@
       "candidats": [
         {
           "t": "'h",
-          "p": 99.14
-        },
-        {
-          "t": "'H",
-          "p": 0.44
+          "p": 99.32
         },
         {
           "t": "'",
-          "p": 0.32
+          "p": 0.36
+        },
+        {
+          "t": "'H",
+          "p": 0.21
         }
       ]
     },
@@ -64,142 +64,128 @@
       "candidats": [
         {
           "t": " à",
-          "p": 99.65
+          "p": 99.85
         },
         {
-          "t": " mon",
-          "p": 0.23
-        }
-      ]
-    },
-    {
-      "i": 4,
-      "choisi": " Mon",
-      "candidats": [
-        {
-          "t": " Mon",
-          "p": 99.99
-        }
-      ]
-    },
-    {
-      "i": 5,
-      "choisi": "tréal",
-      "candidats": [
-        {
-          "t": "tréal",
-          "p": 99.96
-        }
-      ]
-    },
-    {
-      "i": 6,
-      "choisi": " est",
-      "candidats": [
-        {
-          "t": " est",
-          "p": 74.34
-        },
-        {
-          "t": ",",
-          "p": 16.55
-        },
-        {
-          "t": " :",
-          "p": 6.3
-        },
-        {
-          "t": " c",
-          "p": 1.46
-        },
-        {
-          "t": ":",
-          "p": 0.98
-        }
-      ]
-    },
-    {
-      "i": 7,
-      "choisi": " f",
-      "candidats": [
-        {
-          "t": " f",
-          "p": 81.08
-        },
-        {
-          "t": " long",
-          "p": 14.23
-        },
-        {
-          "t": " gl",
-          "p": 2.85
-        },
-        {
-          "t": " un",
-          "p": 0.36
-        },
-        {
-          "t": " rude",
-          "p": 0.19
-        }
-      ]
-    },
-    {
-      "i": 8,
-      "choisi": "roid",
-      "candidats": [
-        {
-          "t": "roid",
-          "p": 99.96
-        }
-      ]
-    },
-    {
-      "i": 9,
-      "choisi": " et",
-      "candidats": [
-        {
-          "t": " et",
-          "p": 65.97
-        },
-        {
-          "t": ",",
-          "p": 32.74
-        },
-        {
-          "t": " mais",
-          "p": 0.78
-        },
-        {
-          "t": " avec",
-          "p": 0.5
-        }
-      ]
-    },
-    {
-      "i": 10,
-      "choisi": " en",
-      "candidats": [
-        {
-          "t": " en",
-          "p": 98.74
-        },
-        {
-          "t": " ne",
-          "p": 0.99
-        },
-        {
-          "t": " blanc",
-          "p": 0.1
-        },
-        {
-          "t": " cou",
+          "t": " qué",
           "p": 0.07
         }
       ]
     },
     {
-      "i": 11,
+      "i": 4,
+      "choisi": " Québec",
+      "candidats": [
+        {
+          "t": " Québec",
+          "p": 99.92
+        }
+      ]
+    },
+    {
+      "i": 5,
+      "choisi": " est",
+      "candidats": [
+        {
+          "t": " est",
+          "p": 68.51
+        },
+        {
+          "t": ",",
+          "p": 18.24
+        },
+        {
+          "t": " :",
+          "p": 9.63
+        },
+        {
+          "t": ":",
+          "p": 1.65
+        },
+        {
+          "t": " c",
+          "p": 1.59
+        }
+      ]
+    },
+    {
+      "i": 6,
+      "choisi": " f",
+      "candidats": [
+        {
+          "t": " f",
+          "p": 90.97
+        },
+        {
+          "t": " gl",
+          "p": 2.73
+        },
+        {
+          "t": " long",
+          "p": 2.7
+        },
+        {
+          "t": " un",
+          "p": 1.1
+        },
+        {
+          "t": " blanc",
+          "p": 0.83
+        }
+      ]
+    },
+    {
+      "i": 7,
+      "choisi": "roid",
+      "candidats": [
+        {
+          "t": "roid",
+          "p": 99.95
+        }
+      ]
+    },
+    {
+      "i": 8,
+      "choisi": " et",
+      "candidats": [
+        {
+          "t": " et",
+          "p": 64.71
+        },
+        {
+          "t": ",",
+          "p": 34.45
+        },
+        {
+          "t": " mais",
+          "p": 0.52
+        },
+        {
+          "t": " avec",
+          "p": 0.32
+        }
+      ]
+    },
+    {
+      "i": 9,
+      "choisi": " en",
+      "candidats": [
+        {
+          "t": " en",
+          "p": 99.18
+        },
+        {
+          "t": " ne",
+          "p": 0.51
+        },
+        {
+          "t": " blanc",
+          "p": 0.17
+        }
+      ]
+    },
+    {
+      "i": 10,
       "choisi": "ne",
       "candidats": [
         {
@@ -209,7 +195,7 @@
       ]
     },
     {
-      "i": 12,
+      "i": 11,
       "choisi": "ig",
       "candidats": [
         {
@@ -219,7 +205,7 @@
       ]
     },
     {
-      "i": 13,
+      "i": 12,
       "choisi": "é",
       "candidats": [
         {
@@ -229,28 +215,28 @@
       ]
     },
     {
-      "i": 14,
+      "i": 13,
       "choisi": ".",
       "candidats": [
         {
           "t": ".",
-          "p": 76.23
+          "p": 67.51
         },
         {
           "t": ",",
-          "p": 16.85
+          "p": 26.42
         },
         {
           "t": " mais",
-          "p": 3.54
+          "p": 3.51
         },
         {
           "t": " avec",
-          "p": 1.8
+          "p": 1.62
         },
         {
           "t": ".\n",
-          "p": 1.52
+          "p": 0.88
         }
       ]
     }

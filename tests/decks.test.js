@@ -51,7 +51,7 @@ describe('decks publiés', () => {
   it('affiche la génération mesurée jeton par jeton', () => {
     const h = lire('seance-1');
     expect(h).toContain('gpt-3.5-turbo-instruct');
-    expect(h).toContain("Décris l'hiver à Montréal");
+    expect(h).toContain("Décris l'hiver à Québec");
     expect(h).toContain('ENTRÉE');
     expect(h).toContain('SORTIE');
   });
