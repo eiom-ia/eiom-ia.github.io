@@ -1,0 +1,252 @@
+<script>
+  import donnees from './generation.json';
+
+  /**
+   * La génération, déroulée au ralenti: on part d'une amorce, et à chaque
+   * temps on montre d'abord la distribution réelle sur le jeton suivant,
+   * puis le jeton retenu qui vient s'ajouter à la phrase.
+   *
+   * Deux temps par jeton, parce que c'est le choix qu'on veut voir, pas
+   * seulement son résultat.
+   *
+   * Toutes les probabilités sont mesurées: gpt-3.5-turbo-instruct, logprobs
+   * réels, top 5, temperature 0. Un appel par jeton, le préfixe complet
+   * renvoyé à chaque fois — donc de l'autorégressif, pas une approximation.
+   */
+  const E = donnees.etapes;
+  const TOTAL = 1 + E.length * 2; // amorce, puis choisir/poser par jeton
+
+  let hote = $state(null);
+  let js = $state(false);
+  let e = $state(0);
+
+  const iEtape = $derived(e === 0 ? -1 : Math.floor((e - 1) / 2));
+  const montreChoix = $derived(e > 0); // la distribution est affichée
+  const pose = $derived(e > 0 && (e - 1) % 2 === 1); // le jeton est ajouté
+  const etape = $derived(iEtape >= 0 && iEtape < E.length ? E[iEtape] : null);
+
+  // Le texte visible: l'amorce, plus tous les jetons déjà posés.
+  const jetonsPoses = $derived(
+    e === 0 ? 0 : Math.floor((e - 1) / 2) + (pose ? 1 : 0)
+  );
+  const texte = $derived(donnees.amorce + E.slice(0, jetonsPoses).map((x) => x.choisi).join(''));
+
+  const lisible = (t) =>
+    t === '<|endoftext|>' ? '⟨fin⟩' : t.replace(/\n/g, '⏎').replace(/^ /, '␣');
+
+  $effect(() => {
+    if (!hote) return;
+    js = true;
+    e = 0;
+
+    const deck = hote.closest('.deck');
+    const diapo = hote.closest('.diapo');
+    if (!deck || !diapo) return;
+    const monIndex = [...deck.querySelectorAll('.diapo')].indexOf(diapo);
+
+    function avancer() {
+      e = e >= TOTAL - 1 ? 0 : e + 1;
+    }
+    diapo.addEventListener('click', avancer);
+
+    const AVANT = ['ArrowRight', 'ArrowDown', 'PageDown', ' '];
+    const ARRIERE = ['ArrowLeft', 'ArrowUp', 'PageUp'];
+    function auClavier(ev) {
+      if (Math.round(deck.scrollTop / deck.clientHeight) !== monIndex) return;
+      if (AVANT.includes(ev.key) && e < TOTAL - 1) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        e += 1;
+      } else if (ARRIERE.includes(ev.key) && e > 0) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        e -= 1;
+      }
+    }
+    window.addEventListener('keydown', auClavier, true);
+
+    let ici = false;
+    function verifier() {
+      const y = Math.round(deck.scrollTop / deck.clientHeight) === monIndex;
+      if (y && !ici) {
+        ici = true;
+        e = 0;
+      } else if (!y && ici) {
+        ici = false;
+        e = 0;
+      }
+    }
+    deck.addEventListener('scroll', verifier, { passive: true });
+    verifier();
+    const t0 = setTimeout(verifier, 350);
+
+    return () => {
+      deck.removeEventListener('scroll', verifier);
+      diapo.removeEventListener('click', avancer);
+      window.removeEventListener('keydown', auClavier, true);
+      clearTimeout(t0);
+    };
+  });
+</script>
+
+<div class="gen" bind:this={hote}>
+  <div class="gen-tete">
+    <span class="lab">AMORCE, PUIS CE QUE LE MODÈLE AJOUTE</span>
+    <span class="src">
+      {donnees.modele} · logprobs réels
+      {#if js}<span class="pas-n">{e + 1} / {TOTAL}</span>{/if}
+    </span>
+  </div>
+
+  <p class="phrase">
+    <span class="amorce">{donnees.amorce}</span><span class="ajout"
+      >{texte.slice(donnees.amorce.length)}</span
+    >{#if js && !pose}<span class="curseur"></span>{/if}
+  </p>
+
+  {#if etape && montreChoix}
+    <ul class="cand">
+      {#each etape.candidats as c}
+        {@const gagnant = c.t === etape.choisi}
+        <li class:gagnant class:retenu={gagnant && pose}>
+          <span class="jt">{lisible(c.t)}</span>
+          <span class="piste"><span class="rempli" style="width: {c.p}%"></span></span>
+          <span class="pc">{c.p.toFixed(1)} %</span>
+        </li>
+      {/each}
+    </ul>
+    <p class="note">
+      {#if pose}
+        Le jeton le plus probable est retenu, puis tout recommence — avec lui en plus dans l'entrée.
+      {:else}
+        Cinq candidats, et leur probabilité réelle. Rien d'autre ne se passe.
+      {/if}
+    </p>
+  {:else}
+    <p class="note">Le modèle ne connaît que ce texte. Il doit produire le jeton suivant.</p>
+  {/if}
+</div>
+
+<style>
+  .gen {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+  }
+
+  .gen-tete {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1em;
+    border-bottom: 2px solid var(--dk-encre);
+    padding-bottom: 0.28em;
+  }
+  .lab {
+    font-size: 0.62em;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+    color: var(--dk-gris);
+  }
+  .src {
+    font-size: 0.62em;
+    color: var(--dk-gris);
+    white-space: nowrap;
+  }
+  .pas-n {
+    color: var(--dk-accent);
+    font-variant-numeric: tabular-nums;
+    margin-left: 0.6em;
+  }
+
+  .phrase {
+    margin: 0;
+    font-size: 0.86em;
+    line-height: 1.5;
+    min-height: 2.6em;
+  }
+  .amorce {
+    color: var(--dk-gris);
+  }
+  /* Ce que le modèle a produit se distingue de ce qu'on lui a donné. */
+  .ajout {
+    color: var(--dk-accent);
+    font-weight: 600;
+  }
+  .curseur {
+    display: inline-block;
+    width: 0.5em;
+    height: 1.05em;
+    background: var(--dk-accent);
+    vertical-align: text-bottom;
+    margin-left: 0.08em;
+  }
+
+  .cand {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.22em;
+  }
+  .cand li {
+    display: grid;
+    grid-template-columns: 9em 1fr 4.2em;
+    gap: 0.7em;
+    align-items: center;
+    font-size: 0.68em;
+  }
+  .jt {
+    text-align: right;
+    color: var(--dk-gris);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .piste {
+    height: 1.05em;
+    background: var(--dk-fond-2);
+    border: 1px solid var(--dk-filet);
+  }
+  .rempli {
+    display: block;
+    height: 100%;
+    background: var(--dk-gris-2);
+    transition: width 0.35s ease-out;
+  }
+  .pc {
+    text-align: right;
+    color: var(--dk-gris);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cand li.gagnant .jt {
+    color: var(--dk-encre);
+    font-weight: 600;
+  }
+  .cand li.gagnant .rempli {
+    background: var(--dk-accent);
+  }
+  .cand li.gagnant .pc {
+    color: var(--dk-accent);
+    font-weight: 600;
+  }
+  /* Une fois posé, le gagnant est encadré: on voit ce qui vient de partir
+     dans la phrase. */
+  .cand li.retenu .piste {
+    border-color: var(--dk-accent);
+  }
+  .cand li.retenu .jt::before {
+    content: '▸ ';
+    color: var(--dk-accent);
+  }
+
+  .note {
+    margin: 0;
+    font-size: 0.64em;
+    color: var(--dk-gris);
+    min-height: 2.2em;
+  }
+</style>

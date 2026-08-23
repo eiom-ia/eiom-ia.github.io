@@ -42,10 +42,16 @@ describe('decks publiés', () => {
     expect(lire('seance-5')).toContain('r-fn');
   });
 
+  // Les deux démonstrations chiffrées de la séance reposent sur des mesures
+  // réelles. On vérifie qu'elles sont bien rendues, pas juste importées.
   it('affiche les données de tokenisation réelles', () => {
+    expect(lire('seance-1')).toContain('14 jetons');
+  });
+
+  it('affiche la génération mesurée jeton par jeton', () => {
     const h = lire('seance-1');
-    expect(h).toContain('14 jetons');
-    expect(h).toContain('69.25');
+    expect(h).toContain('gpt-3.5-turbo-instruct');
+    expect(h).toContain('Avis de restaurant');
   });
 
   // On vise les CHARGEMENTS de ressources, pas les URL citées dans du code

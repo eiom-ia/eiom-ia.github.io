@@ -20,7 +20,7 @@
   import { REFERENCES, ORDRE_BIBLIO } from '$lib/data/references.js';
   import { CREDITS_IMAGES } from '$lib/data/credits-images.js';
   import Tokeniseur from '$lib/deck/demos/Tokeniseur.svelte';
-  import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
+  import Generation from '$lib/deck/demos/Generation.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS } from '$lib/data/config.js';
 
   const TOTAL = 43;
@@ -249,7 +249,7 @@ OPENROUTER_API_KEY=votre_cle_ici
 
     <Slide bandeau="Mécanique" droite="séance 1 · lun 24 août">
       <h2 class="e">Tout ce qu'il fait, c'est prédire le jeton suivant</h2>
-      <ProchainJeton />
+      <Generation />
     </Slide>
 
     <Slide bandeau="Mécanique" droite="séance 1 · lun 24 août">

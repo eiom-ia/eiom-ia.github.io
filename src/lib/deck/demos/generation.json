@@ -1,0 +1,266 @@
+{
+  "modele": "gpt-3.5-turbo-instruct",
+  "amorce": "Avis de restaurant : « Le service était",
+  "texte": " impeccable, le personnel était très attentionné et sympathique",
+  "etapes": [
+    {
+      "i": 0,
+      "prefixe": "",
+      "choisi": " impeccable",
+      "candidats": [
+        {
+          "t": " impeccable",
+          "p": 18.11
+        },
+        {
+          "t": " très",
+          "p": 14.25
+        },
+        {
+          "t": " excellent",
+          "p": 8.04
+        },
+        {
+          "t": " parfait",
+          "p": 7.79
+        },
+        {
+          "t": " vraiment",
+          "p": 3.21
+        }
+      ]
+    },
+    {
+      "i": 1,
+      "prefixe": " impeccable",
+      "choisi": ",",
+      "candidats": [
+        {
+          "t": ",",
+          "p": 39.29
+        },
+        {
+          "t": " et",
+          "p": 25.1
+        },
+        {
+          "t": ".",
+          "p": 13.79
+        },
+        {
+          "t": " »\n\n",
+          "p": 5.26
+        },
+        {
+          "t": " !",
+          "p": 5.21
+        }
+      ]
+    },
+    {
+      "i": 2,
+      "prefixe": " impeccable,",
+      "choisi": " le",
+      "candidats": [
+        {
+          "t": " le",
+          "p": 52.7
+        },
+        {
+          "t": " les",
+          "p": 24.8
+        },
+        {
+          "t": " très",
+          "p": 9.42
+        },
+        {
+          "t": " notre",
+          "p": 4.41
+        },
+        {
+          "t": " avec",
+          "p": 3.17
+        }
+      ]
+    },
+    {
+      "i": 3,
+      "prefixe": " impeccable, le",
+      "choisi": " personnel",
+      "candidats": [
+        {
+          "t": " personnel",
+          "p": 92.22
+        },
+        {
+          "t": " serve",
+          "p": 7.42
+        },
+        {
+          "t": " cadre",
+          "p": 0.14
+        },
+        {
+          "t": " décor",
+          "p": 0.13
+        }
+      ]
+    },
+    {
+      "i": 4,
+      "prefixe": " impeccable, le personnel",
+      "choisi": " était",
+      "candidats": [
+        {
+          "t": " était",
+          "p": 88.39
+        },
+        {
+          "t": " très",
+          "p": 9.6
+        },
+        {
+          "t": " attent",
+          "p": 0.48
+        },
+        {
+          "t": " attention",
+          "p": 0.47
+        },
+        {
+          "t": " est",
+          "p": 0.2
+        }
+      ]
+    },
+    {
+      "i": 5,
+      "prefixe": " impeccable, le personnel était",
+      "choisi": " très",
+      "candidats": [
+        {
+          "t": " très",
+          "p": 87.47
+        },
+        {
+          "t": " attent",
+          "p": 4.72
+        },
+        {
+          "t": " attention",
+          "p": 2.34
+        },
+        {
+          "t": " sour",
+          "p": 1.1
+        },
+        {
+          "t": " sympath",
+          "p": 0.84
+        }
+      ]
+    },
+    {
+      "i": 6,
+      "prefixe": " impeccable, le personnel était très",
+      "choisi": " attention",
+      "candidats": [
+        {
+          "t": " attention",
+          "p": 31.94
+        },
+        {
+          "t": " attent",
+          "p": 27.94
+        },
+        {
+          "t": " aim",
+          "p": 10.97
+        },
+        {
+          "t": " acc",
+          "p": 9.45
+        },
+        {
+          "t": " sympath",
+          "p": 6.01
+        }
+      ]
+    },
+    {
+      "i": 7,
+      "prefixe": " impeccable, le personnel était très attention",
+      "choisi": "né",
+      "candidats": [
+        {
+          "t": "né",
+          "p": 99.98
+        }
+      ]
+    },
+    {
+      "i": 8,
+      "prefixe": " impeccable, le personnel était très attentionné",
+      "choisi": " et",
+      "candidats": [
+        {
+          "t": " et",
+          "p": 99.34
+        },
+        {
+          "t": ".",
+          "p": 0.32
+        },
+        {
+          "t": " tout",
+          "p": 0.14
+        },
+        {
+          "t": ",",
+          "p": 0.07
+        }
+      ]
+    },
+    {
+      "i": 9,
+      "prefixe": " impeccable, le personnel était très attentionné et",
+      "choisi": " sympath",
+      "candidats": [
+        {
+          "t": " sympath",
+          "p": 31.44
+        },
+        {
+          "t": " professionnel",
+          "p": 10.82
+        },
+        {
+          "t": " sour",
+          "p": 10.55
+        },
+        {
+          "t": " cour",
+          "p": 8.94
+        },
+        {
+          "t": " ch",
+          "p": 6.48
+        }
+      ]
+    },
+    {
+      "i": 10,
+      "prefixe": " impeccable, le personnel était très attentionné et sympath",
+      "choisi": "ique",
+      "candidats": [
+        {
+          "t": "ique",
+          "p": 99.98
+        }
+      ]
+    }
+  ],
+  "mesure": "logprobs réels, top 5, temperature 0, 23 août 2026",
+  "methode": "un appel par jeton, max_tokens=1, le préfixe complet à chaque fois"
+}
