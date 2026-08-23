@@ -10,13 +10,14 @@
   import Citation from '$lib/deck/Citation.svelte';
   import Cite from '$lib/deck/Cite.svelte';
   import Frise from '$lib/deck/demos/Frise.svelte';
+  import Arbre from '$lib/deck/demos/Arbre.svelte';
   import { REFERENCES, ORDRE_BIBLIO } from '$lib/data/references.js';
   import { CREDITS_IMAGES } from '$lib/data/credits-images.js';
   import Tokeniseur from '$lib/deck/demos/Tokeniseur.svelte';
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
-  const TOTAL = 61;
+  const TOTAL = 60;
 
   const c_premier = `library(ellmer)
 source("${URL_OUTILS_R}")
@@ -244,38 +245,15 @@ verifier_installation()`;
       </p>
     </Slide>
 
-    <Slide bandeau="Plan de la matinée" droite="séance 1 · lun 24 août">
-      <h2 class="e">Plan de la matinée</h2>
+    <Slide bandeau="Plan de la session" droite="séance 1 · lun 24 août">
+      <h2 class="e">Plan de la session</h2>
       <hr class="filet" />
-      <ul class="horaire e">
-        <li><span class="h">8 h 45</span><span class="quoi">Ouverture</span></li>
-        <li><span class="h">9 h 05</span><span class="quoi">Comment fonctionne un LLM</span></li>
-        <li class="pause"><span class="h">10 h 05</span><span class="quoi">Pause</span></li>
-        <li><span class="h">10 h 20</span><span class="quoi">Pourquoi l’API, puis installation</span></li>
-        <li><span class="h">11 h 20</span><span class="quoi">Premier appel sur de vraies données</span></li>
-        <li><span class="h">12 h 25</span><span class="quoi">Conception de prompts et clôture</span></li>
-        <li class="pause"><span class="h">12 h 45</span><span class="quoi">Fin</span></li>
+      <ul class="cmd-liste e">
+        <li>Comment fonctionne un LLM</li>
+        <li>Pourquoi l’API, puis installation</li>
+        <li>Premier appel sur de vraies données</li>
+        <li>Conception de prompts et clôture</li>
       </ul>
-    </Slide>
-
-    <Slide fond="encre" bandeau="À midi" droite="séance 1 · lun 24 août">
-      <h2 class="e">Vous aurez produit ceci</h2>
-      <Code src={`sorties/seance1_notes.json
-
-{
-  "journal": {
-    "fournisseur": "gemini",
-    "modele": "${FOURNISSEUR.modele}",
-    "temperature": 0,
-    "n": 50,
-    "horodatage": "2026-08-24T12:31:07-0400"
-  },
-  "sorties": [ { "note": 4, "sentiment": "positif", ... } ]
-}`} />
-      <p class="e">
-        Un fichier. Daté, paramétré, reproductible. C'est le livrable de la matinée — pas une
-        impression, pas une démonstration.
-      </p>
     </Slide>
 
     <!-- ======================= PARTIE 1 ======================= -->
@@ -284,21 +262,11 @@ verifier_installation()`;
       <hr class="filet" />
           </Slide>
 
-    <Slide bandeau="Situer" droite="séance 1 · lun 24 août">
-      <h2 class="e">Toutes les « IA » ne sont pas la même chose</h2>
-      <table class="e">
-        <thead><tr><th>Famille</th><th>Principe</th><th>En recherche</th></tr></thead>
-        <tbody>
-          <tr><td>Systèmes à règles</td><td>Un humain écrit les règles</td><td>Dictionnaires de sentiment</td></tr>
-          <tr><td>Apprentissage supervisé</td><td>Apprend d'exemples annotés</td><td>Classifieurs, régressions</td></tr>
-          <tr><td>Réseaux profonds</td><td>Représentations apprises</td><td>Plongements lexicaux</td></tr>
-          <tr><td>Transformers</td><td>Mécanisme d'attention</td><td>BERT et sa descendance</td></tr>
-          <tr><td><strong>LLM génératifs</strong></td><td>Prédisent le prochain jeton</td><td><strong>Notre objet cette semaine</strong></td></tr>
-        </tbody>
-      </table>
-      <p class="e">
-        Un LLM n'est pas toujours le bon outil. Un classifieur entraîné coûte moins cher, tourne plus
-        vite et se valide mieux — Antoine y revient demain.
+    <Slide bandeau="Situer les familles" droite="séance 1 · lun 24 août">
+      <h2 class="e">Le mot « IA » recouvre des familles distinctes</h2>
+      <Arbre />
+      <p class="e credits">
+        Schéma original, inspiré de l’arbre évolutif des LLM de <Cite k="yang2023" />.
       </p>
     </Slide>
 

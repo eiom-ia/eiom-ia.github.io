@@ -70,7 +70,7 @@
     // dès le chargement et la frise était déjà au milieu à l'arrivée.
     const monIndex = [...deck.querySelectorAll('.diapo')].indexOf(diapo);
     let dernier = 0, af = 0;
-    const VITESSE = 175; // px par seconde
+    const VITESSE = 105; // px par seconde
 
     function pas(t) {
       if (etat !== 'joue') return;

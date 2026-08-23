@@ -81,6 +81,13 @@ export const REFERENCES = {
     detail: 'NeurIPS 2020 · arXiv:2005.14165',
     lien: 'https://arxiv.org/abs/2005.14165'
   },
+  yang2023: {
+    court: 'Yang et al. 2023',
+    auteurs: 'J. Yang, H. Jin, R. Tang et al.',
+    titre: 'Harnessing the Power of LLMs in Practice: A Survey on ChatGPT and Beyond',
+    detail: 'arXiv:2304.13712 · arbre évolutif des LLM',
+    lien: 'https://arxiv.org/abs/2304.13712'
+  },
   jones2025: {
     court: 'Jones et Bergen 2025',
     auteurs: 'C. R. Jones, B. K. Bergen',
@@ -102,5 +109,6 @@ export const ORDRE_BIBLIO = [
   'wang2019',
   'russell2020',
   'brown2020',
+  'yang2023',
   'jones2025'
 ];

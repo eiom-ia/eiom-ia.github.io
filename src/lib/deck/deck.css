@@ -106,6 +106,7 @@
 .diapo-in:has(> .bloc-code) { max-width: 50em; }
 .diapo-in:has(> figure.schema) { max-width: 52em; }
 .diapo-in:has(> .semaine-bande) { max-width: 54em; }
+.diapo-in:has(> .arbre) { max-width: 56em; }
 .diapo-in:has(> .deux) { max-width: 50em; }
 
 /* ---------- Typographie ---------- */
