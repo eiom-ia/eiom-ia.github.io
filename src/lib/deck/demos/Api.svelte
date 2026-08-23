@@ -210,9 +210,14 @@
     }
   }
 
+  /* Sans animation, le paquet de réponse resterait garé à l'extrémité droite
+     de sa flèche — ce qui se lit comme un déplacement vers la droite, soit
+     l'inverse du sens réel. Les flèches et leurs pointes portent déjà le sens:
+     on retire les paquets plutôt que de les figer à contresens. */
   @media (prefers-reduced-motion: reduce) {
     :global(.api .paq) {
       animation: none;
+      opacity: 0;
     }
   }
 </style>
