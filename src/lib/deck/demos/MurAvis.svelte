@@ -17,16 +17,22 @@
 </script>
 
 <div class="mur-tete">
-  <span class="prov">
-    <img src="{base}/img/google-maps.png" alt="" />
-    Google Maps · {avis.total} avis
-  </span>
   {#if PHOTO_RESTAURANT}
     <figure class="photo">
-      <img src="{base}/img/{PHOTO_RESTAURANT.fichier}" alt="Le restaurant La Ligne Rouge" />
-      <figcaption>{PHOTO_RESTAURANT.auteur} · {PHOTO_RESTAURANT.licence}</figcaption>
+      <img src="{base}/img/{PHOTO_RESTAURANT.fichier}" alt="La devanture du restaurant La Ligne Rouge" />
     </figure>
   {/if}
+  <div class="prov-col">
+    <span class="prov">
+      <img src="{base}/img/google-maps.png" alt="" />
+      Google Maps
+    </span>
+    <span class="gros">{avis.total}</span>
+    <span class="lab">avis récoltés</span>
+    {#if PHOTO_RESTAURANT}
+      <span class="credit">{PHOTO_RESTAURANT.auteur}</span>
+    {/if}
+  </div>
 </div>
 
 <div class="mur">
@@ -44,12 +50,34 @@
 <style>
   /* La provenance des avis, montrée plutôt qu'écrite: le logo dit d'où vient
      la donnée en un coup d'œil. Marque déposée, usage nominatif. */
+  /* La photo en colonne plutôt qu'en bandeau: à pleine largeur elle mangeait
+     la hauteur des avis, qui sont le sujet de la diapositive. */
   .mur-tete {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    display: grid;
+    grid-template-columns: 1.75fr 1fr;
     gap: 1em;
-    margin-bottom: 0.5em;
+    align-items: stretch;
+    margin-bottom: 0.6em;
+  }
+  .prov-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.1em;
+  }
+  .gros {
+    font-size: 1.9em;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--dk-accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .lab {
+    font-size: 0.6em;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dk-gris);
   }
   .prov {
     display: flex;
@@ -63,20 +91,24 @@
     height: 1.5em;
     display: block;
   }
+  /* L'image est large: elle tient mieux en bandeau qu'en vignette, et elle
+     ancre la diapositive sans voler la place aux avis. */
   .photo {
     margin: 0;
-    max-width: 34%;
   }
+  /* Le fichier est déjà recadré sur la bande utile: on l'affiche entier
+     plutôt que de le rogner une seconde fois en CSS, ce qui coupait les
+     enseignes. */
   .photo img {
     display: block;
     width: 100%;
     height: auto;
     border: 2px solid var(--dk-encre);
   }
-  .photo figcaption {
-    font-size: 0.5em;
+  .credit {
+    font-size: 0.52em;
     color: var(--dk-gris-2);
-    margin-top: 0.2em;
+    margin-top: 0.35em;
   }
 
   .mur {

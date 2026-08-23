@@ -426,8 +426,8 @@ OPENROUTER_API_KEY=votre_cle_ici
       <h2 class="e">La Ligne Rouge</h2>
       <MurAvis />
       <p class="e">
-        551 avis Google d'un casse-croûte de Montréal, en français et en anglais. Chacun arrive avec
-        l'étoile laissée par son auteur : la <strong>vérité terrain</strong> est déjà dans la donnée.
+        Français et anglais mêlés. Chaque avis arrive avec l'étoile laissée par son auteur : la
+        <strong>vérité terrain</strong> est déjà dans la donnée.
       </p>
     </Slide>
 

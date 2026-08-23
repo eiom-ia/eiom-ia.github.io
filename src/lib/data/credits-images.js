@@ -86,4 +86,9 @@ export const CREDITS_IMAGES = {
  * Pour l'ajouter: déposer le fichier dans static/img/ et remplacer null par
  * { fichier, auteur, licence }. La diapositive s'en passe tant que c'est null.
  */
-export const PHOTO_RESTAURANT = null;
+export const PHOTO_RESTAURANT = {
+  fichier: 'ligne-rouge.jpg',
+  auteur: 'Fiche Pages Jaunes du restaurant',
+  licence: 'reproduit en contexte pédagogique',
+  page: 'https://www.yellowpages.ca/'
+};
