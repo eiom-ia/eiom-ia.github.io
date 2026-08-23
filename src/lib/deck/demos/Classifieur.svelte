@@ -259,12 +259,6 @@
     <pre><code>{@html surlignerR(codeR)}</code></pre>
   </figure>
 
-  {#if js}
-    <p class="cmd">
-      {terminal ? 'cliquez pour reprendre au début' : 'cliquez pour avancer d’un temps'}
-    </p>
-  {/if}
-
   <span
     class="puce"
     class:vis={js && !!phase}
@@ -479,13 +473,6 @@
     font-variant-numeric: tabular-nums;
     margin-left: 0.6em;
   }
-  .cmd {
-    margin: 0;
-    font-size: 0.6em;
-    letter-spacing: 0.08em;
-    color: var(--dk-gris-2);
-  }
-
   .puce {
     position: absolute;
     left: 0;
