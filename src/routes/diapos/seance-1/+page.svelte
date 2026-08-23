@@ -22,7 +22,7 @@
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
-  const TOTAL = 61;
+  const TOTAL = 58;
 
   const c_premier = `library(ellmer)
 source("${URL_OUTILS_R}")
@@ -477,62 +477,6 @@ verifier_installation()`;
     <Slide bandeau="La fiche de méthode" droite="séance 1 · lun 24 août">
       <h2 class="e">Ce que l'API rend possible</h2>
       <Fiches />
-    </Slide>
-
-    <Slide bandeau="Règle non négociable" droite="séance 1 · lun 24 août">
-      <h2 class="e">Épingler le modèle</h2>
-      <Deux>
-        <Code titre="Ce qu'il ne faut pas faire" src={`chat <- chat_google_gemini()
-# Le defaut d'ellmer a change 3 fois en 18 mois.
-# Votre resultat de mars n'est plus reproductible en juin.`} />
-        <Code titre="Ce qu'il faut faire" src={`chat <- creer_chat_eiom()
-# Le fournisseur et le modele reels entrent dans journal_eiom().
-# Ecrit dans le code, cite dans l'article.`} />
-      </Deux>
-      <Carte ton="rose" titre="Ce n'est pas du zèle">
-        <p>
-          Un modèle est un instrument de mesure. Publier sans nommer sa version revient à publier une
-          température sans dire si le thermomètre était en Celsius.
-        </p>
-      </Carte>
-    </Slide>
-
-    <Slide bandeau="Économie" droite="séance 1 · lun 24 août">
-      <h2 class="e">On paie au jeton, entrée et sortie</h2>
-      <Deux ratio="1fr 1.2fr">
-        <div>
-          <Grand valeur="551" legende="avis dans le corpus" />
-          <p>Un appel par avis, prompt d'environ 250 jetons, réponse d'environ 60.</p>
-        </div>
-        <Carte ton="ciel" titre="L'ordre de grandeur qui compte">
-          <p>
-            Sur un modèle Flash, un corpus de cette taille se traite pour une fraction de dollar. Sur un
-            modèle de pointe, comptez cent fois plus.
-          </p>
-          <p>
-            La vraie question n'est jamais « est-ce cher », mais « combien de fois vais-je devoir le
-            relancer ». Un schéma mal conçu se paie en réexécutions.
-          </p>
-        </Carte>
-      </Deux>
-    </Slide>
-
-    <Slide bandeau="Contrainte technique" droite="séance 1 · lun 24 août">
-      <h2 class="e">Les limites de débit</h2>
-      <Deux>
-        <div>
-          <Grand valeur="variable" legende="quota par fournisseur" ton="ciel" />
-          <p>Le diagnostic vérifie l'accès réel. Le script expose une pause configurable entre les appels.</p>
-          <Grand valeur="50" legende="avis maximum pendant l'atelier" />
-        </div>
-        <Carte ton="ambre" titre="Ce que ça vous apprend">
-          <p>
-            Un corpus de 10 000 documents ne se traite pas dans l'après-midi au palier gratuit. Il faut
-            soit payer, soit paralléliser dans les limites, soit exécuter un modèle localement.
-          </p>
-          <p>Cette dernière piste, c'est la séance 3.</p>
-        </Carte>
-      </Deux>
     </Slide>
 
     <Slide fond="encre" bandeau="Troisième temps" droite="séance 1 · lun 24 août">
