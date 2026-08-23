@@ -1,132 +1,256 @@
 {
   "modele": "gpt-3.5-turbo-instruct",
-  "entree": "Traduis en anglais : « Le chat dort sur le canapé. »",
-  "gabarit": "Traduis en anglais : « Le chat dort sur le canapé. »\nTraduction :",
-  "sortie": "\"The cat is sleeping on the couch.\"",
+  "entree": "Décris l'hiver à Montréal en une phrase courte.",
+  "gabarit": "Décris l'hiver à Montréal en une phrase courte.\n",
+  "sortie": "L'hiver à Montréal est froid et enneigé.",
   "etapes": [
     {
       "i": 0,
-      "choisi": " \"",
+      "choisi": "L",
       "candidats": [
         {
-          "t": " \"",
-          "p": 49.87
-        },
-        {
-          "t": " The",
-          "p": 36.34
+          "t": "L",
+          "p": 31.33
         },
         {
           "t": "\n",
-          "p": 8.2
+          "p": 15.64
         },
         {
-          "t": "\n\n",
-          "p": 3.11
+          "t": "F",
+          "p": 14.14
         },
         {
-          "t": " \n",
-          "p": 0.72
+          "t": "\"",
+          "p": 8.98
+        },
+        {
+          "t": "\"F",
+          "p": 4.9
         }
       ]
     },
     {
       "i": 1,
-      "choisi": "The",
+      "choisi": "'h",
       "candidats": [
         {
-          "t": "The",
-          "p": 99.76
+          "t": "'h",
+          "p": 99.14
         },
         {
-          "t": " The",
-          "p": 0.19
+          "t": "'H",
+          "p": 0.44
+        },
+        {
+          "t": "'",
+          "p": 0.32
         }
       ]
     },
     {
       "i": 2,
-      "choisi": " cat",
+      "choisi": "iver",
       "candidats": [
         {
-          "t": " cat",
-          "p": 99.96
+          "t": "iver",
+          "p": 99.99
         }
       ]
     },
     {
       "i": 3,
-      "choisi": " is",
+      "choisi": " à",
       "candidats": [
         {
-          "t": " is",
-          "p": 95.99
+          "t": " à",
+          "p": 99.65
         },
         {
-          "t": " sleeps",
-          "p": 3.96
+          "t": " mon",
+          "p": 0.23
         }
       ]
     },
     {
       "i": 4,
-      "choisi": " sleeping",
+      "choisi": " Mon",
       "candidats": [
         {
-          "t": " sleeping",
-          "p": 99.3
-        },
-        {
-          "t": " asleep",
-          "p": 0.66
+          "t": " Mon",
+          "p": 99.99
         }
       ]
     },
     {
       "i": 5,
-      "choisi": " on",
+      "choisi": "tréal",
       "candidats": [
         {
-          "t": " on",
-          "p": 99.97
+          "t": "tréal",
+          "p": 99.96
         }
       ]
     },
     {
       "i": 6,
-      "choisi": " the",
+      "choisi": " est",
       "candidats": [
         {
-          "t": " the",
-          "p": 99.93
+          "t": " est",
+          "p": 74.34
+        },
+        {
+          "t": ",",
+          "p": 16.55
+        },
+        {
+          "t": " :",
+          "p": 6.3
+        },
+        {
+          "t": " c",
+          "p": 1.46
+        },
+        {
+          "t": ":",
+          "p": 0.98
         }
       ]
     },
     {
       "i": 7,
-      "choisi": " couch",
+      "choisi": " f",
       "candidats": [
         {
-          "t": " couch",
-          "p": 86.33
+          "t": " f",
+          "p": 81.08
         },
         {
-          "t": " sofa",
-          "p": 13.66
+          "t": " long",
+          "p": 14.23
+        },
+        {
+          "t": " gl",
+          "p": 2.85
+        },
+        {
+          "t": " un",
+          "p": 0.36
+        },
+        {
+          "t": " rude",
+          "p": 0.19
         }
       ]
     },
     {
       "i": 8,
-      "choisi": ".\"",
+      "choisi": "roid",
       "candidats": [
         {
-          "t": ".\"",
-          "p": 99.41
+          "t": "roid",
+          "p": 99.96
+        }
+      ]
+    },
+    {
+      "i": 9,
+      "choisi": " et",
+      "candidats": [
+        {
+          "t": " et",
+          "p": 65.97
         },
         {
-          "t": ".\"\n",
-          "p": 0.54
+          "t": ",",
+          "p": 32.74
+        },
+        {
+          "t": " mais",
+          "p": 0.78
+        },
+        {
+          "t": " avec",
+          "p": 0.5
+        }
+      ]
+    },
+    {
+      "i": 10,
+      "choisi": " en",
+      "candidats": [
+        {
+          "t": " en",
+          "p": 98.74
+        },
+        {
+          "t": " ne",
+          "p": 0.99
+        },
+        {
+          "t": " blanc",
+          "p": 0.1
+        },
+        {
+          "t": " cou",
+          "p": 0.07
+        }
+      ]
+    },
+    {
+      "i": 11,
+      "choisi": "ne",
+      "candidats": [
+        {
+          "t": "ne",
+          "p": 99.99
+        }
+      ]
+    },
+    {
+      "i": 12,
+      "choisi": "ig",
+      "candidats": [
+        {
+          "t": "ig",
+          "p": 99.99
+        }
+      ]
+    },
+    {
+      "i": 13,
+      "choisi": "é",
+      "candidats": [
+        {
+          "t": "é",
+          "p": 100.0
+        }
+      ]
+    },
+    {
+      "i": 14,
+      "choisi": ".",
+      "candidats": [
+        {
+          "t": ".",
+          "p": 76.23
+        },
+        {
+          "t": ",",
+          "p": 16.85
+        },
+        {
+          "t": " mais",
+          "p": 3.54
+        },
+        {
+          "t": " avec",
+          "p": 1.8
+        },
+        {
+          "t": ".\n",
+          "p": 1.52
         }
       ]
     }

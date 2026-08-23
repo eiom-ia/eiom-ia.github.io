@@ -9,29 +9,26 @@
    * La traduction est choisie exprès: on voit que la sortie dépend
    * entièrement de l'entrée, sans avoir à le dire.
    *
-   * Deux temps par jeton, parce que c'est le choix qu'on veut voir, pas
-   * seulement son résultat.
+   * Un temps par jeton: la distribution réelle s'affiche, le candidat retenu
+   * est marqué, et il apparaît au même instant dans la sortie. Deux temps par
+   * jeton doublaient les clics sans rien montrer de plus.
    *
    * Toutes les probabilités sont mesurées: gpt-3.5-turbo-instruct, logprobs
    * réels, top 5, temperature 0. Un appel par jeton, le préfixe complet
    * renvoyé à chaque fois — donc de l'autorégressif, pas une approximation.
    */
   const E = donnees.etapes;
-  const TOTAL = 1 + E.length * 2; // amorce, puis choisir/poser par jeton
+  const TOTAL = 1 + E.length; // l'entrée seule, puis un temps par jeton
 
   let hote = $state(null);
   let js = $state(false);
   let e = $state(0);
 
-  const iEtape = $derived(e === 0 ? -1 : Math.floor((e - 1) / 2));
-  const montreChoix = $derived(e > 0); // la distribution est affichée
-  const pose = $derived(e > 0 && (e - 1) % 2 === 1); // le jeton est ajouté
+  const iEtape = $derived(e - 1);
+  const montreChoix = $derived(e > 0);
+  const pose = $derived(e > 0);
   const etape = $derived(iEtape >= 0 && iEtape < E.length ? E[iEtape] : null);
-
-  // Le texte visible: l'amorce, plus tous les jetons déjà posés.
-  const jetonsPoses = $derived(
-    e === 0 ? 0 : Math.floor((e - 1) / 2) + (pose ? 1 : 0)
-  );
+  const jetonsPoses = $derived(e);
   const texte = $derived(E.slice(0, jetonsPoses).map((x) => x.choisi).join(''));
 
   const lisible = (t) =>
@@ -111,7 +108,7 @@
   <div class="bloc sortie">
     <span class="bl-n">SORTIE</span>
     <p class="txt">
-      <span class="ajout">{texte}</span>{#if js && !pose}<span class="curseur"></span>{/if}
+      <span class="ajout">{texte}</span>{#if js}<span class="curseur"></span>{/if}
     </p>
   </div>
 
@@ -127,10 +124,10 @@
       {/each}
     </ul>
     <p class="note">
-      {#if pose}
-        Le jeton le plus probable est retenu, puis tout recommence — avec lui en plus dans l'entrée.
+      {#if etape.candidats[0].p >= 99.5}
+        Aucun choix ici : le jeton n'est qu'un morceau du mot précédent.
       {:else}
-        Cinq candidats, et leur probabilité réelle. Rien d'autre ne se passe.
+        Le plus probable est retenu, puis tout recommence — avec lui en plus dans l'entrée.
       {/if}
     </p>
   {:else}
