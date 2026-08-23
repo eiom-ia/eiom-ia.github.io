@@ -21,7 +21,7 @@
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
-  const TOTAL = 62;
+  const TOTAL = 61;
 
   const c_premier = `library(ellmer)
 source("${URL_OUTILS_R}")
@@ -417,20 +417,6 @@ verifier_installation()`;
           <p>En comparant plusieurs modèles sur la même tâche et le même corpus.</p>
         </Carte>
       </Deux>
-    </Slide>
-
-    <Slide bandeau="Pourquoi ça compte ici" droite="séance 1 · lun 24 août">
-      <h2 class="e">Un biais du modèle devient un biais de votre estimation</h2>
-      <p class="lead e">
-        Si le modèle code systématiquement plus sévèrement les avis rédigés en français, et que votre
-        corpus est bilingue, vous ne mesurez plus la satisfaction : vous mesurez la langue.
-      </p>
-      <Carte ton="vert" titre="La parade, traitée en séance 2">
-        <p>
-          Ne jamais publier une mesure produite par un modèle sans l'avoir comparée à une référence
-          humaine sur un sous-échantillon. Notre corpus d'aujourd'hui contient cette référence.
-        </p>
-      </Carte>
     </Slide>
 
     <Slide fond="encre" bandeau="Pause" droite="séance 1 · lun 24 août">
