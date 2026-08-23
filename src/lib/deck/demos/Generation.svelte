@@ -2,9 +2,12 @@
   import donnees from './generation.json';
 
   /**
-   * La génération, déroulée au ralenti: on part d'une amorce, et à chaque
-   * temps on montre d'abord la distribution réelle sur le jeton suivant,
-   * puis le jeton retenu qui vient s'ajouter à la phrase.
+   * Un texte en entrée, un texte en sortie, et entre les deux la mécanique
+   * qui les relie. L'entrée est posée en bloc, elle ne bouge plus; la sortie
+   * se construit un jeton à la fois, sous les yeux.
+   *
+   * La traduction est choisie exprès: on voit que la sortie dépend
+   * entièrement de l'entrée, sans avoir à le dire.
    *
    * Deux temps par jeton, parce que c'est le choix qu'on veut voir, pas
    * seulement son résultat.
@@ -29,7 +32,7 @@
   const jetonsPoses = $derived(
     e === 0 ? 0 : Math.floor((e - 1) / 2) + (pose ? 1 : 0)
   );
-  const texte = $derived(donnees.amorce + E.slice(0, jetonsPoses).map((x) => x.choisi).join(''));
+  const texte = $derived(E.slice(0, jetonsPoses).map((x) => x.choisi).join(''));
 
   const lisible = (t) =>
     t === '<|endoftext|>' ? '⟨fin⟩' : t.replace(/\n/g, '⏎').replace(/^ /, '␣');
@@ -91,18 +94,26 @@
 
 <div class="gen" bind:this={hote}>
   <div class="gen-tete">
-    <span class="lab">AMORCE, PUIS CE QUE LE MODÈLE AJOUTE</span>
+    <span class="lab">UN TEXTE EN ENTRÉE, UN TEXTE EN SORTIE</span>
     <span class="src">
       {donnees.modele} · logprobs réels
       {#if js}<span class="pas-n">{e + 1} / {TOTAL}</span>{/if}
     </span>
   </div>
 
-  <p class="phrase">
-    <span class="amorce">{donnees.amorce}</span><span class="ajout"
-      >{texte.slice(donnees.amorce.length)}</span
-    >{#if js && !pose}<span class="curseur"></span>{/if}
-  </p>
+  <div class="bloc">
+    <span class="bl-n">ENTRÉE</span>
+    <p class="txt">{donnees.entree}</p>
+  </div>
+
+  <div class="fleche">↓</div>
+
+  <div class="bloc sortie">
+    <span class="bl-n">SORTIE</span>
+    <p class="txt">
+      <span class="ajout">{texte}</span>{#if js && !pose}<span class="curseur"></span>{/if}
+    </p>
+  </div>
 
   {#if etape && montreChoix}
     <ul class="cand">
@@ -160,14 +171,34 @@
     margin-left: 0.6em;
   }
 
-  .phrase {
-    margin: 0;
-    font-size: 0.86em;
-    line-height: 1.5;
-    min-height: 2.6em;
+  .bloc {
+    border: 2px solid var(--dk-filet);
+    padding: 0.45em 0.7em 0.55em;
   }
-  .amorce {
+  .bloc.sortie {
+    border-color: var(--dk-accent);
+  }
+  .bl-n {
+    display: block;
+    font-size: 0.56em;
+    letter-spacing: 0.16em;
+    font-weight: 600;
     color: var(--dk-gris);
+  }
+  .bloc.sortie .bl-n {
+    color: var(--dk-accent);
+  }
+  .bloc .txt {
+    margin: 0.15em 0 0;
+    font-size: 0.8em;
+    line-height: 1.45;
+    min-height: 1.5em;
+  }
+  .fleche {
+    text-align: center;
+    color: var(--dk-gris-2);
+    font-size: 0.8em;
+    line-height: 1;
   }
   /* Ce que le modèle a produit se distingue de ce qu'on lui a donné. */
   .ajout {
