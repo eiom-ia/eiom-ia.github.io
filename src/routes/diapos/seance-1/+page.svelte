@@ -11,7 +11,6 @@
   import Cite from '$lib/deck/Cite.svelte';
   import Frise from '$lib/deck/demos/Frise.svelte';
   import Arbre from '$lib/deck/demos/Arbre.svelte';
-  import Attention from '$lib/deck/demos/Attention.svelte';
   import Pipeline from '$lib/deck/demos/Pipeline.svelte';
   import Api from '$lib/deck/demos/Api.svelte';
   import Classifieur from '$lib/deck/demos/Classifieur.svelte';
@@ -22,7 +21,7 @@
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
-  const TOTAL = 65;
+  const TOTAL = 62;
 
   const c_premier = `library(ellmer)
 source("${URL_OUTILS_R}")
@@ -287,39 +286,6 @@ verifier_installation()`;
       <p class="e credits">
         Chaque repère est placé à sa date réelle. Les années 1962 à 1995 sont resserrées.
         <Cite k="turing1950" /> <Cite k="mccarthy1955" />
-      </p>
-    </Slide>
-
-    <Slide fond="encre" bandeau="Pourquoi maintenant" droite="séance 1 · lun 24 août">
-      <h1 class="e">Deux ingrédients</h1>
-      <hr class="filet" />
-      <p class="lead e">L’architecture, puis l’entraînement.</p>
-    </Slide>
-
-    <Slide bandeau="Pourquoi maintenant" droite="séance 1 · lun 24 août">
-      <h2 class="e">L’architecture</h2>
-      <Attention />
-      <p class="e credits">
-        Schéma de principe du mécanisme d’attention <Cite k="bahdanau2015" /> <Cite k="vaswani2017" />.
-      </p>
-    </Slide>
-
-    <Slide bandeau="Pourquoi maintenant" droite="séance 1 · lun 24 août">
-      <h2 class="e">L’entraînement, en trois phases</h2>
-      <Deux ratio="1fr 1fr 1fr">
-        <Carte ton="ciel" titre="1 · Pré-entraînement">
-          <p>Prédire le mot suivant, des milliards de fois. Le modèle apprend la langue — et tout ce qui vient avec.</p>
-        </Carte>
-        <Carte ton="violet" titre="2 · Ajustement supervisé">
-          <p>Des humains écrivent des réponses exemplaires. Le modèle apprend à être utile plutôt que simplement plausible.</p>
-        </Carte>
-        <Carte ton="ambre" titre="3 · Retours humains">
-          <p>Des humains classent des réponses. Le modèle apprend ce qui plaît — ce qui n'est pas la même chose que ce qui est vrai.</p>
-        </Carte>
-      </Deux>
-      <p class="e">
-        La troisième phase optimise l'<em>approbation humaine</em>, qui est à la racine de la
-        complaisance des modèles, et un biais qui vous concerne directement.
       </p>
     </Slide>
 

@@ -107,7 +107,6 @@
 .diapo-in:has(> figure.schema) { max-width: 52em; }
 .diapo-in:has(> .semaine-bande) { max-width: 54em; }
 .diapo-in:has(> .arbre) { max-width: 56em; }
-.diapo-in:has(> .att) { max-width: 52em; }
 .diapo-in:has(> .pl) { max-width: 50em; }
 .diapo-in:has(> .api) { max-width: 54em; }
 .diapo-in:has(> .clf) { max-width: 58em; }
