@@ -342,6 +342,11 @@ verifier_installation()`;
     </Slide>
 
     <Slide bandeau="Mécanique" droite="séance 1 · lun 24 août">
+      <h2 class="e">Tout ce qu'il fait, c'est prédire le jeton suivant</h2>
+      <ProchainJeton />
+    </Slide>
+
+    <Slide bandeau="Mécanique" droite="séance 1 · lun 24 août">
       <h2 class="e">Le modèle ne voit pas des mots</h2>
       <p class="e">Il voit des jetons — des fragments, ni lettres ni mots. Essayez :</p>
       <Tokeniseur />
@@ -349,11 +354,6 @@ verifier_installation()`;
         Le surcoût vaut pour toutes les langues éloignées de l'anglais, et la qualité y baisse
         aussi <Cite k="ahia2023" />.
       </p>
-    </Slide>
-
-    <Slide bandeau="Mécanique" droite="séance 1 · lun 24 août">
-      <h2 class="e">Tout ce qu'il fait, c'est prédire le jeton suivant</h2>
-      <ProchainJeton />
     </Slide>
 
     <Slide bandeau="Le paramètre qui compte" droite="séance 1 · lun 24 août">

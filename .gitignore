@@ -18,3 +18,6 @@ build/
 .dolt/
 *.db
 .beads-credential-key
+
+# worktrees créés par les sessions d'agent
+.claude/worktrees/
