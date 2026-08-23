@@ -12,13 +12,14 @@
   import Frise from '$lib/deck/demos/Frise.svelte';
   import Arbre from '$lib/deck/demos/Arbre.svelte';
   import Transformer from '$lib/deck/demos/Transformer.svelte';
+  import Pipeline from '$lib/deck/demos/Pipeline.svelte';
   import { REFERENCES, ORDRE_BIBLIO } from '$lib/data/references.js';
   import { CREDITS_IMAGES } from '$lib/data/credits-images.js';
   import Tokeniseur from '$lib/deck/demos/Tokeniseur.svelte';
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
-  const TOTAL = 62;
+  const TOTAL = 64;
 
   const c_premier = `library(ellmer)
 source("${URL_OUTILS_R}")
@@ -475,25 +476,43 @@ Tout est en place.`} />
       <hr class="filet" />
     </Slide>
 
-    <Slide bandeau="Biais" droite="séance 1 · lun 24 août">
-      <h2 class="e">Trois sources, trois remèdes différents</h2>
-      <Deux ratio="1fr 1fr 1fr">
-        <Carte ton="ambre" titre="Données">
-          <p>Surreprésentations, contenus historiques, stéréotypes du web.</p>
-          <p><em>Se mesure par comparaison à une référence.</em></p>
+    <Slide bandeau="Biais · 1 sur 3" droite="séance 1 · lun 24 août">
+      <h2 class="e">Dans les données</h2>
+      <Pipeline etape="corpus" />
+      <Deux>
+        <Carte titre="Ce qui entre">
+          <p>Deux tiers du corpus sont un balayage du web <Cite k="touvron2023" />.</p>
         </Carte>
-        <Carte ton="violet" titre="Algorithme">
-          <p>Architecture, fonction d'optimisation, tokenisation elle-même.</p>
-          <p><em>Se mesure entre modèles.</em></p>
-        </Carte>
-        <Carte ton="rose" titre="Humain">
-          <p>Consignes d'annotation, biais de confirmation, préférences des annotateurs.</p>
-          <p><em>Se mesure par accord inter-codeurs.</em></p>
+        <Carte titre="Comment on le mesure">
+          <p>En comparant les sorties du modèle à une référence externe.</p>
         </Carte>
       </Deux>
-      <p class="e">
-        Les trois se cumulent et ne se corrigent pas de la même manière. <Etiquette ton="ciel">Mesure : séance 2</Etiquette>
-      </p>
+    </Slide>
+
+    <Slide bandeau="Biais · 2 sur 3" droite="séance 1 · lun 24 août">
+      <h2 class="e">Dans le balisage</h2>
+      <Pipeline etape="balisage" />
+      <Deux>
+        <Carte titre="Ce qui entre">
+          <p>Des humains rédigent des réponses exemplaires, puis en classent d’autres. Le modèle apprend ce qui plaît.</p>
+        </Carte>
+        <Carte titre="Comment on le mesure">
+          <p>Par l’accord entre codeurs, sur un sous-échantillon annoté deux fois.</p>
+        </Carte>
+      </Deux>
+    </Slide>
+
+    <Slide bandeau="Biais · 3 sur 3" droite="séance 1 · lun 24 août">
+      <h2 class="e">Dans le modèle</h2>
+      <Pipeline etape="entrainement" />
+      <Deux>
+        <Carte titre="Ce qui entre">
+          <p>L’optimisation retient la régularité majoritaire. La tokenisation elle-même découpe inégalement les langues.</p>
+        </Carte>
+        <Carte titre="Comment on le mesure">
+          <p>En comparant plusieurs modèles sur la même tâche et le même corpus.</p>
+        </Carte>
+      </Deux>
     </Slide>
 
     <Slide bandeau="Pourquoi ça compte ici" droite="séance 1 · lun 24 août">
