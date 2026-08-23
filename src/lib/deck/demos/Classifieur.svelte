@@ -1,14 +1,16 @@
 <script>
   import donnees from './classifieur.json';
+  import { surlignerR } from '../surligner.js';
 
   /**
-   * Le geste de la semaine, animé pour de vrai: une puce unique fait le tour
-   * du circuit. Elle se détache de la cellule de texte, descend dans le quai
-   * du PROMPT, glisse jusqu'à l'API, arrive à RÉPONSE où son contenu DEVIENT
-   * la valeur classée, puis remonte se poser dans la colonne sentiment.
+   * Le geste de la semaine, animé: une puce unique fait le tour du circuit.
+   * Elle se détache de la cellule, se pose dans le quai du PROMPT, glisse
+   * jusqu'à l'API, revient à RÉPONSE sous forme de JSON, s'y réduit à la
+   * seule valeur — c'est l'analyse du JSON —, puis remonte se poser dans la
+   * colonne sentiment.
    *
-   * Un seul objet en mouvement, et sa transformation visible au passage de
-   * l'API: c'est ça qu'on veut faire comprendre, pas une suite d'états.
+   * Sous le circuit, la ligne de R qui fait exactement l'opération en cours.
+   * Le geste et son code, côte à côte, au même instant.
    *
    * Les lignes viennent de classifieur.json, engendré depuis le vrai
    * avis_exemple.csv. Un test échoue si les deux divergent.
@@ -19,16 +21,14 @@
   const L = donnees.lignes;
 
   const PHASES = [
-    { id: 'lire', ms: 1000, t: 'Lire la cellule' },
-    { id: 'prompt', ms: 1500, t: 'Coller le texte dans un prompt' },
-    { id: 'appel', ms: 1400, t: "Envoyer à l'API" },
-    { id: 'json', ms: 1500, t: 'Recevoir la réponse, en JSON' },
-    { id: 'ecrire', ms: 1300, t: 'Écrire la valeur dans la cellule' }
+    { id: 'lire', ms: 950, t: 'Lire la cellule' },
+    { id: 'prompt', ms: 1350, t: 'Coller le texte dans un prompt' },
+    { id: 'appel', ms: 1250, t: "Envoyer à l'API" },
+    { id: 'json', ms: 1350, t: 'Recevoir la réponse, en JSON' },
+    { id: 'parse', ms: 1450, t: 'Extraire la valeur du JSON' },
+    { id: 'ecrire', ms: 1150, t: 'Écrire la valeur dans la cellule' }
   ];
-  const MS_CREER = 1900;
-  // Un temps terminal après la dernière écriture: sans lui, la valeur de la
-  // dernière ligne n'est jamais considérée comme posée, et le rendu statique
-  // montre un tableau incomplet.
+  const MS_CREER = 2100;
   const TOTAL = 1 + L.length * PHASES.length + 1;
 
   let hote = $state(null);
@@ -40,44 +40,68 @@
   let quaiRep = $state(null);
 
   let js = $state(false);
-  let e = $state(TOTAL - 1); // sans JS: tableau terminé, puce masquée
+  let e = $state(TOTAL - 1);
   let etat = $state('arret');
-  let pos = $state(null); // {x, y} en pixels du conteneur
-  let saut = $state(false); // vrai quand on se replace sans transition
+  let pos = $state(null);
+  let saut = $state(false);
+  let colVue = $state(true); // sans JS, la colonne est déjà là
+  // Compteur de passages: sans lui, revenir sur la diapo ne rejoue pas la
+  // création de la colonne, puisque e valait déjà 0 et que rien ne change.
+  let cycle = $state(0);
 
   const creation = $derived(e === 0);
   const terminal = $derived(e === TOTAL - 1);
   const iLigne = $derived(creation || terminal ? -1 : Math.floor((e - 1) / PHASES.length));
   const phase = $derived(creation || terminal ? null : PHASES[(e - 1) % PHASES.length]);
   const ligne = $derived(iLigne >= 0 && iLigne < L.length ? L[iLigne] : null);
-
-  // Une cellule reste remplie à partir du temps qui suit son ÉCRIRE.
   const remplie = (i) => e >= i * PHASES.length + PHASES.length + 1;
 
-  // Ce que la puce transporte: le texte tant qu'on monte vers l'API, la
-  // valeur classée une fois la réponse reçue.
+  const jsonTexte = (l) => `{"sentiment": "${l.sentiment}"}`;
+
+  // Ce que la puce transporte à chaque temps. Le passage du JSON complet à la
+  // seule valeur EST l'analyse: on la voit se produire, on ne l'annonce pas.
   const charge = $derived(
     !ligne
       ? ''
-      : phase?.id === 'json' || phase?.id === 'ecrire'
-        ? ligne.sentiment
-        : ligne.texte
+      : phase?.id === 'json'
+        ? jsonTexte(ligne)
+        : phase?.id === 'parse' || phase?.id === 'ecrire'
+          ? ligne.sentiment
+          : ligne.texte
   );
-  const valeur = $derived(phase?.id === 'json' || phase?.id === 'ecrire');
+  const brut = $derived(phase?.id === 'json');
+  const valeur = $derived(phase?.id === 'parse' || phase?.id === 'ecrire');
+
+  const CODE = {
+    creation: 'donnees$sentiment <- NA_character_',
+    lire: 'texte <- donnees$review_text[i]',
+    prompt: 'prompt <- paste(consigne, texte)',
+    appel: 'reponse <- chat$chat(prompt)',
+    parse: 'valeur <- jsonlite::fromJSON(reponse)$sentiment',
+    ecrire: 'donnees$sentiment[i] <- valeur',
+    terminal: 'for (i in seq_len(nrow(donnees))) { ... }'
+  };
+  const codeR = $derived(
+    creation
+      ? CODE.creation
+      : terminal
+        ? CODE.terminal
+        : phase?.id === 'json'
+          ? `reponse\n#> ${jsonTexte(ligne)}`
+          : (CODE[phase?.id] ?? '')
+  );
 
   const quai = () => {
     if (!phase) return null;
     if (phase.id === 'lire') return cellulesTexte[iLigne];
     if (phase.id === 'prompt') return quaiPrompt;
     if (phase.id === 'appel') return quaiApi;
-    if (phase.id === 'json') return quaiRep;
+    if (phase.id === 'json' || phase.id === 'parse') return quaiRep;
     return cellulesCible[iLigne];
   };
 
-  // On mesure à chaque changement de phase, jamais une seule fois au montage:
-  // ajuster.mjs peut écrire un facteur d'échelle sur la diapo et le zoom du
-  // deck change à l'exécution. Des coordonnées mises en cache seraient justes
-  // à la capture et fausses au projecteur.
+  // Mesuré à chaque temps, jamais mis en cache: ajuster.mjs peut écrire un
+  // facteur d'échelle sur la diapo et le zoom du deck change à l'exécution.
   function placer(sansTransition = false) {
     const cible = quai();
     if (!hote || !puce || !cible) return;
@@ -92,13 +116,23 @@
     if (sansTransition) requestAnimationFrame(() => (saut = false));
   }
 
-  // La phase « lire » est une apparition, pas un déplacement: on s'y pose
-  // sans transition, sinon la puce vient en glissant depuis la position
-  // précédente, ce qui raconte un trajet qui n'existe pas.
   $effect(() => {
     if (!js) return;
     e;
     requestAnimationFrame(() => placer(phase?.id === 'lire' || creation));
+  });
+
+  // La colonne se crée sous les yeux: un instant sans elle, puis elle entre.
+  $effect(() => {
+    if (!js) return;
+    cycle;
+    if (e !== 0) {
+      colVue = true;
+      return;
+    }
+    colVue = false;
+    const t = setTimeout(() => (colVue = true), 520);
+    return () => clearTimeout(t);
   });
 
   $effect(() => {
@@ -112,7 +146,6 @@
 
     const monIndex = [...deck.querySelectorAll('.diapo')].indexOf(diapo);
     let minuteur = 0;
-
     const duree = (n) => (n === 0 ? MS_CREER : PHASES[(n - 1) % PHASES.length].ms);
 
     function pas() {
@@ -126,7 +159,10 @@
     }
 
     function demarrer(depuisZero) {
-      if (depuisZero) e = 0;
+      if (depuisZero) {
+        e = 0;
+        cycle += 1;
+      }
       etat = 'joue';
       clearTimeout(minuteur);
       minuteur = setTimeout(pas, duree(e));
@@ -141,8 +177,6 @@
 
     diapo.addEventListener('click', basculer);
 
-    // Le zoom du deck et un redimensionnement invalident les rectangles
-    // mesurés: on se replace sans transition plutôt que de dériver.
     const ro = new ResizeObserver(() => placer(true));
     ro.observe(hote);
 
@@ -188,7 +222,10 @@
     <thead>
       <tr>
         {#each donnees.colonnes as c}<th>{c}</th>{/each}
-        <th class="neuve">sentiment</th>
+        <th class="neuve"
+          ><span class="entrant" class:vue={colVue}>sentiment</span
+          ><span class="soulign" class:vue={colVue}></span></th
+        >
       </tr>
     </thead>
     <tbody>
@@ -198,7 +235,11 @@
           <td class="txt"><span bind:this={cellulesTexte[i]} class="cellule">{l.texte}</span></td>
           <td class="num">{l.note}</td>
           <td class="cible">
-            <span bind:this={cellulesCible[i]} class="cellule cible-in">
+            <span
+              bind:this={cellulesCible[i]}
+              class="cellule cible-in entrant"
+              class:vue={colVue}
+            >
               {#if remplie(i)}<span class="val">{l.sentiment}</span>{/if}
             </span>
           </td>
@@ -226,17 +267,30 @@
       <span class="quai" bind:this={quaiApi}></span>
     </div>
     <span class="fl">▸</span>
-    <div class="st" class:on={phase?.id === 'json'}>
+    <div class="st" class:on={phase?.id === 'json' || phase?.id === 'parse'}>
       <span class="st-n">RÉPONSE</span>
-      <span class="st-d">&#123; "sentiment": … &#125;</span>
+      <span class="st-d">
+        {#if ligne && (phase?.id === 'json' || phase?.id === 'parse')}
+          &#123; "sentiment": <span class="extrait" class:tire={phase?.id === 'parse'}
+            >"{ligne.sentiment}"</span
+          > &#125;
+        {:else}
+          &#123; "sentiment": … &#125;
+        {/if}
+      </span>
       <span class="quai" bind:this={quaiRep}></span>
     </div>
   </div>
+
+  <figure class="code-r">
+    <pre><code>{@html surlignerR(codeR)}</code></pre>
+  </figure>
 
   <span
     class="puce"
     class:vis={js && !!phase}
     class:saut
+    class:brut
     class:val={valeur}
     bind:this={puce}
     style={pos ? `transform: translate(${pos.x}px, ${pos.y}px)` : ''}
@@ -251,7 +305,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.6em;
+    gap: 0.55em;
   }
 
   .clf-tete {
@@ -260,15 +314,15 @@
     align-items: baseline;
     gap: 1em;
     border-bottom: 2px solid var(--dk-encre);
-    padding-bottom: 0.3em;
+    padding-bottom: 0.28em;
   }
   .pas-t {
-    font-size: 0.84em;
+    font-size: 0.82em;
     font-weight: 600;
     color: var(--dk-accent);
   }
   .src {
-    font-size: 0.66em;
+    font-size: 0.64em;
     color: var(--dk-gris);
     white-space: nowrap;
   }
@@ -276,23 +330,23 @@
   .clf-t {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.66em;
+    font-size: 0.64em;
     table-layout: fixed;
   }
   .clf-t th {
+    position: relative;
     text-align: left;
     font-weight: 600;
     color: var(--dk-gris);
     border-bottom: 2px solid var(--dk-filet);
-    padding: 0.25em 0.5em;
+    padding: 0.22em 0.5em;
     white-space: nowrap;
   }
   .clf-t th.neuve {
     color: var(--dk-accent);
-    border-bottom-color: var(--dk-accent);
   }
   .clf-t td {
-    padding: 0.28em 0.5em;
+    padding: 0.26em 0.5em;
     border-bottom: 1px solid var(--dk-filet);
   }
   .clf-t th:nth-child(1),
@@ -313,6 +367,33 @@
     width: 26%;
   }
 
+  /* La colonne entre en scène: elle glisse depuis la droite et son filet se
+     trace. La largeur, elle, reste réservée — un tableau qui se réagence
+     déplacerait les quais sous la puce. */
+  .entrant {
+    opacity: 0;
+    transform: translateX(0.9em);
+    transition:
+      opacity 0.42s ease-out,
+      transform 0.42s ease-out;
+  }
+  .entrant.vue {
+    opacity: 1;
+    transform: none;
+  }
+  .soulign {
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 2px;
+    width: 0;
+    background: var(--dk-accent);
+    transition: width 0.5s ease-out;
+  }
+  .soulign.vue {
+    width: 100%;
+  }
+
   .cellule {
     display: block;
     overflow: hidden;
@@ -329,8 +410,6 @@
   .clf-t tr.active td {
     background: var(--dk-fond-2);
   }
-  /* La cellule se vide visuellement pendant que sa puce voyage: on voit que
-     c'est bien SON contenu qui est parti. */
   .clf-t tr.active td.txt .cellule {
     opacity: 0.25;
   }
@@ -346,22 +425,22 @@
   .stations {
     display: flex;
     align-items: stretch;
-    gap: 0.5em;
+    gap: 0.45em;
   }
   .st {
     flex: 1;
     border: 2px solid var(--dk-filet);
-    padding: 0.4em 0.6em 0.5em;
+    padding: 0.35em 0.55em 0.45em;
     display: flex;
     flex-direction: column;
-    gap: 0.15em;
+    gap: 0.12em;
     min-width: 0;
   }
   .st.on {
     border-color: var(--dk-accent);
   }
   .st-n {
-    font-size: 0.6em;
+    font-size: 0.58em;
     letter-spacing: 0.14em;
     font-weight: 600;
     color: var(--dk-gris);
@@ -370,15 +449,24 @@
     color: var(--dk-accent);
   }
   .st-d {
-    font-size: 0.58em;
+    font-size: 0.56em;
     color: var(--dk-gris-2);
     line-height: 1.3;
-    min-height: 2.4em;
+    min-height: 2.3em;
   }
-  /* Le quai: la place exacte où la puce vient se poser. */
+  /* La valeur qu'on va extraire s'allume dans le JSON pendant l'analyse. */
+  .extrait {
+    transition: all 0.3s;
+  }
+  .extrait.tire {
+    color: var(--dk-fond);
+    background: var(--dk-accent);
+    font-weight: 600;
+    padding: 0 0.2em;
+  }
   .quai {
     display: block;
-    height: 1.7em;
+    height: 1.6em;
     border: 1px dashed var(--dk-filet);
   }
   .st.on .quai {
@@ -387,7 +475,24 @@
   .fl {
     align-self: center;
     color: var(--dk-gris-2);
-    font-size: 0.8em;
+    font-size: 0.75em;
+  }
+
+  .code-r {
+    margin: 0;
+    border-left: 3px solid var(--dk-accent);
+    background: var(--dk-fond-2);
+    padding: 0.4em 0.7em;
+    min-height: 3.1em;
+  }
+  .code-r pre {
+    margin: 0;
+  }
+  .code-r code {
+    font-family: var(--dk-mono);
+    font-size: 0.62em;
+    line-height: 1.55;
+    white-space: pre-wrap;
   }
 
   .puce {
@@ -398,35 +503,40 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 0.62em;
-    padding: 0.3em 0.6em;
+    font-size: 0.6em;
+    padding: 0.28em 0.55em;
     border: 2px solid var(--dk-accent);
     background: var(--dk-fond);
     color: var(--dk-accent);
     opacity: 0;
     pointer-events: none;
     transition:
-      transform 0.62s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
       opacity 0.25s linear;
   }
   .puce.vis {
     opacity: 1;
   }
-  /* Un replacement après zoom ou redimensionnement ne doit pas se lire comme
-     un trajet: on coupe la transition le temps du saut. */
   .puce.saut {
     transition: none;
+  }
+  .puce.brut {
+    max-width: 26%;
   }
   .puce.val {
     background: var(--dk-accent);
     color: var(--dk-fond);
     font-weight: 600;
-    max-width: 22%;
+    max-width: 20%;
   }
 
   @media (prefers-reduced-motion: reduce) {
     .puce {
       transition: opacity 0.2s linear;
+    }
+    .entrant,
+    .soulign {
+      transition: none;
     }
   }
 </style>
