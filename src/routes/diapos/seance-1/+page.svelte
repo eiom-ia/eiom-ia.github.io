@@ -21,28 +21,41 @@
   import { CREDITS_IMAGES } from '$lib/data/credits-images.js';
   import Tokeniseur from '$lib/deck/demos/Tokeniseur.svelte';
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
-  import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
+  import { FOURNISSEUR, FOURNISSEUR_SECOURS } from '$lib/data/config.js';
 
   const TOTAL = 43;
 
-  const c_premier = `library(ellmer)
-source("${URL_OUTILS_R}")
+  const c_capitale = `library(ellmer)
 
-chat <- creer_chat_eiom(
-  echo   = "none",
-  temperature = 0
+chat <- chat_openrouter(
+  model = "google/gemini-3.5-flash-lite",
+  echo  = "none"
 )
 
-chat$chat("Resume cet avis en trois mots.")`;
+chat$chat("Quelle est la capitale de la France ?")
+#> La capitale de la France est **Paris**.`;
 
-  const c_systeme = `chat <- creer_chat_eiom(
-  system_prompt = paste(
-    "Tu codes des avis de restaurant pour une recherche",
-    "en sciences sociales. Tu ne commentes jamais,",
-    "tu ne justifies jamais. Tu reponds selon le schema."
-  ),
-  temperature = 0
-)`;
+  const c_boucle = `library(ellmer)
+library(jsonlite)
+
+pays      <- c("France", "Japon", "Bresil")
+capitales <- character(length(pays))
+
+for (i in seq_along(pays)) {
+  prompt <- paste0(
+    "Quelle est la capitale de ", pays[i], " ? ",
+    'Reponds uniquement par {"capitale": "..."}'
+  )
+  chat <- chat_openrouter(model = "google/gemini-3.5-flash-lite", echo = "none")
+  reponse <- chat$chat(prompt)
+  capitales[i] <- fromJSON(reponse)$capitale
+}
+
+data.frame(pays, capitales)
+#>     pays capitales
+#> 1 France     Paris
+#> 2  Japon     Tokyo
+#> 3 Bresil  Brasilia`;
 
   const c_renviron = `# Dans la console R
 usethis::edit_r_environ()
@@ -432,39 +445,16 @@ OPENROUTER_API_KEY=votre_cle_ici
       <Classifieur />
     </Slide>
 
-    <Slide bandeau="Anatomie" droite="séance 1 · lun 24 août">
-      <h2 class="e">Un appel, ligne par ligne</h2>
-      <Code src={c_premier} />
-      <Deux ratio="1fr 1fr 1fr">
-        <Carte ton="ciel" titre="model"><p>Épinglé. Cité dans l'article.</p></Carte>
-        <Carte ton="ciel" titre="temperature"><p>Zéro pour une tâche de mesure.</p></Carte>
-        <Carte ton="ciel" titre="echo"><p>« none » : on ne veut pas 500 réponses à l'écran.</p></Carte>
-      </Deux>
-    </Slide>
-
-    <Slide bandeau="Le rôle système" droite="séance 1 · lun 24 août">
-      <h2 class="e">Poser le cadre une fois, pas à chaque avis</h2>
-      <Code src={c_systeme} />
-      <Deux>
-        <Carte ton="vert" titre="Ce qu'on y met">
-          <p>Le rôle, le domaine, les interdits de forme. Ce qui vaut pour <em>tous</em> les documents.</p>
-        </Carte>
-        <Carte ton="ambre" titre="Ce qu'on n'y met pas">
-          <p>Le document à analyser. Il change à chaque appel : il va dans le message utilisateur.</p>
-        </Carte>
-      </Deux>
-    </Slide>
-
     <Slide bandeau="Outillage" droite="séance 1 · lun 24 août">
       <h2 class="e">ellmer, une interface pour vingt-trois fournisseurs</h2>
       <Deux ratio="1.1fr 1fr">
         <Code src={`library(ellmer)
 
 # Le meme code, un fournisseur different:
+chat_openrouter(model = "${FOURNISSEUR_SECOURS.modele}")
 chat_google_gemini(model = "${FOURNISSEUR.modele}")
 chat_openai(model  = "gpt-4o-mini")
 chat_anthropic(model = "claude-sonnet-5")
-chat_openrouter(model = "${FOURNISSEUR_SECOURS.modele}")
 chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
         <Carte ton="ciel" titre="Pourquoi ça compte">
           <p>
@@ -473,6 +463,20 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
           </p>
         </Carte>
       </Deux>
+    </Slide>
+
+    <Slide bandeau="Le plus petit appel possible" droite="séance 1 · lun 24 août">
+      <h2 class="e">Poser une question, obtenir du texte</h2>
+      <Code src={c_capitale} />
+      <p class="e">
+        Trois lignes, et la réponse est du <strong>texte libre</strong> — utile pour lire, inutilisable
+        pour remplir une colonne.
+      </p>
+    </Slide>
+
+    <Slide d={0.86} bandeau="La boucle" droite="séance 1 · lun 24 août">
+      <h2 class="e">Le même geste, sur un vecteur</h2>
+      <Code src={c_boucle} />
     </Slide>
 
     <Slide bandeau="Sécurité" droite="séance 1 · lun 24 août">
