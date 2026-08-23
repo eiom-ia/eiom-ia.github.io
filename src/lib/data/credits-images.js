@@ -3,6 +3,12 @@
  * Licences vérifiées à la source; toute image ajoutée doit l'être ici.
  */
 export const CREDITS_IMAGES = {
+  "eiom": {
+    "licence": "Logo de l'École d'été, reproduit avec la permission implicite du cadre du cours",
+    "auteur": "École d'été sur les méthodes computationnelles",
+    "page": "https://eiom.ca/",
+    "fichier": "eiom.png"
+  },
   "google-maps": {
     "licence": "Public domain (marque déposée de Google — usage nominatif)",
     "auteur": "Google Inc.",

@@ -258,6 +258,9 @@
 .etiq::after { content: ' ]'; }
 .diapo.encre .etiq { color: var(--dk-accent-clair); }
 
+.logo-ecole { margin: 0; display: flex; align-items: center; justify-content: flex-end; }
+.logo-ecole img { display: block; width: 100%; max-width: 9em; height: auto; }
+
 /* ---------- Grand chiffre ---------- */
 
 .grand { display: flex; flex-direction: column; gap: 0.1em; }

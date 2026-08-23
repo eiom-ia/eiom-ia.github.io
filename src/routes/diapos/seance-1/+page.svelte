@@ -12,6 +12,7 @@
   import Arbre from '$lib/deck/demos/Arbre.svelte';
   import Pipeline from '$lib/deck/demos/Pipeline.svelte';
   import Api from '$lib/deck/demos/Api.svelte';
+  import Minuterie from '$lib/deck/demos/Minuterie.svelte';
   import Dictionnaire from '$lib/deck/demos/Dictionnaire.svelte';
   import MurAvis from '$lib/deck/demos/MurAvis.svelte';
   import Fiches from '$lib/deck/demos/Fiches.svelte';
@@ -78,13 +79,17 @@ OPENROUTER_API_KEY=votre_cle_ici
   {#snippet children()}
 
     <Slide fond="encre" bandeau="Laurence-Olivier M. Foisy" droite="séance 1 · lun 24 août">
-      <h1 class="e">L'IA en recherche</h1>
-      <hr class="filet" />
-      <p class="lead e">
-        Parcours <em>L'intelligence artificielle et la recherche</em>
-      </p>
-      <p class="lead e">EIOM 2026
-      </p>
+      <Deux ratio="2.4fr 1fr">
+        <div>
+          <h1 class="e">L'IA en recherche</h1>
+          <hr class="filet" />
+          <p class="lead e">Parcours <em>L'intelligence artificielle et la recherche</em></p>
+          <p class="lead e">EIOM 2026</p>
+        </div>
+        <figure class="logo-ecole">
+          <img src="{base}/img/eiom.png" alt="École d'été sur les méthodes computationnelles" />
+        </figure>
+      </Deux>
     </Slide>
 
     <Slide bandeau="À propos de moi" droite="séance 1 · lun 24 août">
@@ -338,10 +343,7 @@ OPENROUTER_API_KEY=votre_cle_ici
     <Slide fond="encre" bandeau="Pause" droite="séance 1 · lun 24 août">
       <h1 class="e">Pause</h1>
       <hr class="filet" />
-      <div class="grand e">
-        <span class="v">15</span>
-        <span class="l">minutes</span>
-      </div>
+      <Minuterie minutes={15} />
       <p class="lead e">Pendant la pause, allez chercher votre clé.</p>
       <ul class="cmd-liste e">
         <li>aistudio.google.com/apikey<span class="lieu">un compte Google suffit · aucune carte de crédit</span></li>
