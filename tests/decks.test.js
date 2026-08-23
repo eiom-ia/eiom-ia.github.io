@@ -48,10 +48,6 @@ describe('decks publiés', () => {
     expect(h).toContain('69.25');
   });
 
-  it('cite la distribution réelle du corpus', () => {
-    expect(lire('seance-1')).toContain('384');
-  });
-
   // On vise les CHARGEMENTS de ressources, pas les URL citées dans du code
   // affiché à l'écran: un exemple qui montre une requête vers Crossref n'est
   // pas une dépendance réseau du deck.

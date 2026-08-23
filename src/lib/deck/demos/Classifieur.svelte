@@ -15,6 +15,10 @@
    * Rien ne se joue tout seul: un clic sur la diapositive avance d'un temps.
    * C'est un support de cours, la cadence appartient à la personne qui parle.
    *
+   * La touche « diapositive suivante » avance aussi l'animation, pour qu'un
+   * télécommande de conférencier suffise. Une fois l'animation terminée, la
+   * touche reprend son rôle normal et fait passer à la diapositive suivante.
+   *
    * Les lignes viennent de classifieur.json, engendré depuis le vrai
    * avis_exemple.csv. Un test échoue si les deux divergent.
    *
@@ -147,6 +151,31 @@
 
     diapo.addEventListener('click', avancer);
 
+    // Une télécommande de conférencier n'envoie que « suivant » / « précédent ».
+    // Tant que l'animation n'est pas terminée, on capte ces touches avant le
+    // deck et on avance d'un temps; une fois au bout, on les laisse passer et
+    // la présentation continue normalement. En capture sur window: le deck
+    // écoute en phase de bouillonnement, donc stopPropagation le neutralise.
+    const AVANT = ['ArrowRight', 'ArrowDown', 'PageDown', ' '];
+    const ARRIERE = ['ArrowLeft', 'ArrowUp', 'PageUp'];
+
+    function auClavier(ev) {
+      const surCetteDiapo = Math.round(deck.scrollTop / deck.clientHeight) === monIndex;
+      if (!surCetteDiapo) return;
+
+      if (AVANT.includes(ev.key) && e < TOTAL - 1) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        e += 1;
+      } else if (ARRIERE.includes(ev.key) && e > 0) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        e -= 1;
+      }
+    }
+
+    window.addEventListener('keydown', auClavier, true);
+
     const ro = new ResizeObserver(() => placer(true));
     ro.observe(hote);
 
@@ -171,6 +200,7 @@
     return () => {
       deck.removeEventListener('scroll', verifier);
       diapo.removeEventListener('click', avancer);
+      window.removeEventListener('keydown', auClavier, true);
       ro.disconnect();
       clearTimeout(t0);
     };

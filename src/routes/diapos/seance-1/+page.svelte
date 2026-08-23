@@ -6,7 +6,6 @@
   import Carte from '$lib/deck/Carte.svelte';
   import Deux from '$lib/deck/Deux.svelte';
   import Etiquette from '$lib/deck/Etiquette.svelte';
-  import Grand from '$lib/deck/Grand.svelte';
   import Citation from '$lib/deck/Citation.svelte';
   import Cite from '$lib/deck/Cite.svelte';
   import Frise from '$lib/deck/demos/Frise.svelte';
@@ -23,7 +22,7 @@
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
-  const TOTAL = 46;
+  const TOTAL = 42;
 
   const c_premier = `library(ellmer)
 source("${URL_OUTILS_R}")
@@ -418,82 +417,9 @@ OPENROUTER_API_KEY=votre_cle_ici
       </p>
     </Slide>
 
-    <Slide bandeau="Regarder avant de modéliser" droite="séance 1 · lun 24 août">
-      <h2 class="e">La distribution est écrasée</h2>
-      <Deux ratio="1fr 1.1fr">
-        <table>
-          <thead><tr><th>Note</th><th class="num-c">n</th><th class="num-c">Part</th></tr></thead>
-          <tbody>
-            <tr><td>5 étoiles</td><td class="num-c">384</td><td class="num-c">70 %</td></tr>
-            <tr><td>4 étoiles</td><td class="num-c">81</td><td class="num-c">15 %</td></tr>
-            <tr><td>3 étoiles</td><td class="num-c">29</td><td class="num-c">5 %</td></tr>
-            <tr><td>2 étoiles</td><td class="num-c">16</td><td class="num-c">3 %</td></tr>
-            <tr><td>1 étoile</td><td class="num-c">41</td><td class="num-c">7 %</td></tr>
-          </tbody>
-        </table>
-        <Carte ton="rose" titre="Le piège, et il est majeur">
-          <p>
-            Un modèle qui répondrait <strong>« 5 »</strong> à tous les avis, sans jamais les lire,
-            obtiendrait <strong>70 % d'exactitude</strong>.
-          </p>
-          <p>
-            Vous pourriez l'écrire dans un article. Ce serait vrai. Et ce serait vide de sens.
-          </p>
-          <p>
-            <Etiquette ton="ciel">C'est exactement le sujet de mardi</Etiquette>
-          </p>
-        </Carte>
-      </Deux>
-      <p class="e">
-        Retenez le geste : <strong>regarder la distribution de sa variable cible avant de lancer quoi
-        que ce soit.</strong> Ce n'est pas propre au LLM, c'est de la méthode élémentaire.
-      </p>
-    </Slide>
 
-    <Slide bandeau="Avis réel · noté 5 étoiles" droite="séance 1 · lun 24 août">
-      <Citation source="La Ligne Rouge, corpus de la semaine">
-        Excellents gyros. Bien sûr, le service est raide, c'est fermé pour on ne sait pas quoi, mais on
-        s'en fout. On n'est pas à Saint-Lambert, pas besoin de courbettes. Amenez votre monnaie papier.
-      </Citation>
-      <Carte ton="ambre" titre="Ce qui rend cet avis difficile">
-        <p>
-          Trois éléments explicitement négatifs — service raide, fermetures imprévisibles, argent
-          comptant obligatoire — et pourtant cinq étoiles. Le sentiment de surface et la note ne
-          coïncident pas.
-        </p>
-      </Carte>
-    </Slide>
 
-    <Slide bandeau="Avis réel · noté 3 étoiles" droite="séance 1 · lun 24 août">
-      <Citation source="La Ligne Rouge, corpus de la semaine">
-        Bon snack, service rapide, le personnel est sympa. Les frites sont bonnes et le pita aussi.
-        Seuls points négatifs : la propreté des locaux et la qualité de la viande.
-      </Citation>
-      <Carte ton="ciel" titre="Le cas facile">
-        <p>
-          Structure claire, positif puis négatif, vocabulaire explicite. Tous les outils réussissent
-          celui-ci — y compris un dictionnaire des années 1990. Ce n'est pas là qu'un LLM se justifie.
-        </p>
-      </Carte>
-    </Slide>
 
-    <Slide bandeau="Avis réel · noté 1 étoile" droite="séance 1 · lun 24 août">
-      <Citation source="La Ligne Rouge, corpus de la semaine">
-        Pourquoi fermer, sans le mentionner sur Google, alors qu'il a toujours été possible de commander
-        à emporter ? #PetitCoeurBrisé
-      </Citation>
-      <Carte ton="rose" titre="Le cas qui décide de la valeur de votre mesure">
-        <p>
-          Une étoile — mais aucun jugement sur la nourriture, aucun mot négatif sur le restaurant, et un
-          mot-clic <em>affectueux</em>. C'est un reproche de déception amoureuse, pas une critique
-          culinaire.
-        </p>
-        <p>
-          Que doit prédire votre modèle ici ? La réponse dépend de votre question de recherche, pas du
-          modèle. <strong>C'est vous qui devez trancher, et l'écrire.</strong>
-        </p>
-      </Carte>
-    </Slide>
 
     <Slide bandeau="Le geste, au ralenti" droite="séance 1 · lun 24 août">
       <h2 class="e">Classifier une colonne, ligne par ligne</h2>
