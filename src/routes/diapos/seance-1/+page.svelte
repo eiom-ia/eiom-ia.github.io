@@ -11,6 +11,7 @@
   import Cite from '$lib/deck/Cite.svelte';
   import Frise from '$lib/deck/demos/Frise.svelte';
   import Arbre from '$lib/deck/demos/Arbre.svelte';
+  import Transformer from '$lib/deck/demos/Transformer.svelte';
   import { REFERENCES, ORDRE_BIBLIO } from '$lib/data/references.js';
   import { CREDITS_IMAGES } from '$lib/data/credits-images.js';
   import Tokeniseur from '$lib/deck/demos/Tokeniseur.svelte';
@@ -303,19 +304,11 @@ verifier_installation()`;
     </Slide>
 
     <Slide bandeau="Ingrédient 2 sur 3" droite="séance 1 · lun 24 août">
-      <h2 class="e">L'architecture</h2>
-      <p class="lead e">
-        Un transformer. Sa trouvaille tient en un mot : <strong>l'attention</strong>. À chaque position
-        du texte, le modèle pondère toutes les autres positions pour décider lesquelles comptent.
+      <h2 class="e">L’architecture</h2>
+      <Transformer />
+      <p class="e credits">
+        Bloc transformer à décodeur seul, d’après <Cite k="vaswani2017" />.
       </p>
-      <Deux>
-        <Carte ton="violet" titre="Ce que ça permet">
-          <p>Le pronom « il », douze phrases plus loin, peut être relié à son antécédent. Les modèles antérieurs perdaient le fil.</p>
-        </Carte>
-        <Carte ton="ambre" titre="Ce que ça coûte">
-          <p>Le coût croît avec le carré de la longueur du texte. D'où la fenêtre de contexte, et son prix.</p>
-        </Carte>
-      </Deux>
     </Slide>
 
     <Slide bandeau="Ingrédient 3 sur 3" droite="séance 1 · lun 24 août">
