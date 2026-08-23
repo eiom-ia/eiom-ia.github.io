@@ -12,6 +12,7 @@
   import Arbre from '$lib/deck/demos/Arbre.svelte';
   import Pipeline from '$lib/deck/demos/Pipeline.svelte';
   import Api from '$lib/deck/demos/Api.svelte';
+  import Dictionnaire from '$lib/deck/demos/Dictionnaire.svelte';
   import MurAvis from '$lib/deck/demos/MurAvis.svelte';
   import Fiches from '$lib/deck/demos/Fiches.svelte';
   import Classifieur from '$lib/deck/demos/Classifieur.svelte';
@@ -22,7 +23,7 @@
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
-  const TOTAL = 42;
+  const TOTAL = 43;
 
   const c_premier = `library(ellmer)
 source("${URL_OUTILS_R}")
@@ -421,7 +422,12 @@ OPENROUTER_API_KEY=votre_cle_ici
 
 
 
-    <Slide bandeau="Le geste, au ralenti" droite="séance 1 · lun 24 août">
+    <Slide bandeau="L'ancienne façon" droite="séance 1 · lun 24 août">
+      <h2 class="e">Avant : compter des mots dans une liste</h2>
+      <Dictionnaire />
+    </Slide>
+
+    <Slide bandeau="La nouvelle façon" droite="séance 1 · lun 24 août">
       <h2 class="e">Classifier une colonne, ligne par ligne</h2>
       <Classifieur />
     </Slide>

@@ -7,7 +7,7 @@
    * Elle se détache de la cellule, se pose dans le quai du PROMPT, glisse
    * jusqu'à l'API, revient à RÉPONSE sous forme de JSON, s'y réduit à la
    * seule valeur — c'est l'analyse du JSON —, puis remonte se poser dans la
-   * colonne sentiment.
+   * colonne score.
    *
    * Sous le circuit, la ligne de R qui fait exactement l'opération en cours.
    * Le geste et son code, côte à côte, au même instant.
@@ -62,7 +62,8 @@
   const remplie = (i) => e >= 2 + i * PHASES.length + PHASES.length;
   const colVue = $derived(e >= 1);
 
-  const jsonTexte = (l) => `{"sentiment": "${l.sentiment}"}`;
+  const aff = (s) => (s > 0 ? '+' : '') + s.toFixed(2);
+  const jsonTexte = (l) => `{"score": ${l.score.toFixed(2)}}`;
 
   // Ce que la puce transporte à chaque temps. Le passage du JSON complet à la
   // seule valeur EST l'analyse: on la voit se produire, on ne l'annonce pas.
@@ -72,7 +73,7 @@
       : phase?.id === 'json'
         ? jsonTexte(ligne)
         : phase?.id === 'parse' || phase?.id === 'ecrire'
-          ? ligne.sentiment
+          ? aff(ligne.score)
           : ligne.texte
   );
   const brut = $derived(phase?.id === 'json');
@@ -80,12 +81,12 @@
 
   const CODE = {
     initial: 'donnees <- readRDS("donnees/ligne_rouge_cleaned.rds")',
-    creation: 'donnees$sentiment <- NA_character_',
+    creation: 'donnees$score <- NA_real_',
     lire: 'texte <- donnees$review_text[i]',
     prompt: 'prompt <- paste(consigne, texte)',
     appel: 'reponse <- chat$chat(prompt)',
-    parse: 'valeur <- jsonlite::fromJSON(reponse)$sentiment',
-    ecrire: 'donnees$sentiment[i] <- valeur',
+    parse: 'valeur <- jsonlite::fromJSON(reponse)$score',
+    ecrire: 'donnees$score[i] <- valeur',
     terminal: 'for (i in seq_len(nrow(donnees))) { ... }'
   };
   const codeR = $derived(
@@ -226,7 +227,7 @@
       <tr>
         {#each donnees.colonnes as c}<th>{c}</th>{/each}
         <th class="neuve"
-          ><span class="entrant" class:vue={colVue}>sentiment</span
+          ><span class="entrant" class:vue={colVue}>score</span
           ><span class="soulign" class:vue={colVue}></span></th
         >
       </tr>
@@ -243,7 +244,7 @@
               class="cellule cible-in entrant"
               class:vue={colVue}
             >
-              {#if remplie(i)}<span class="val">{l.sentiment}</span>{/if}
+              {#if remplie(i)}<span class="val">{aff(l.score)}</span>{/if}
             </span>
           </td>
         </tr>
@@ -260,13 +261,13 @@
   <div class="stations">
     <div class="st" class:on={phase?.id === 'prompt'}>
       <span class="st-n">PROMPT</span>
-      <span class="st-d">Classe le sentiment. Réponds selon le schéma.</span>
+      <span class="st-d">Score de −1.00 à +1.00. Réponds selon le schéma.</span>
       <span class="quai" bind:this={quaiPrompt}></span>
     </div>
     <span class="fl">▸</span>
     <div class="st" class:on={phase?.id === 'appel'}>
       <span class="st-n">API</span>
-      <span class="st-d">gpt-4o-mini · temperature 0</span>
+      <span class="st-d">{donnees.modele} · temperature 0</span>
       <span class="quai" bind:this={quaiApi}></span>
     </div>
     <span class="fl">▸</span>
@@ -274,11 +275,11 @@
       <span class="st-n">RÉPONSE</span>
       <span class="st-d">
         {#if ligne && (phase?.id === 'json' || phase?.id === 'parse')}
-          &#123; "sentiment": <span class="extrait" class:tire={phase?.id === 'parse'}
-            >"{ligne.sentiment}"</span
+          &#123; "score": <span class="extrait" class:tire={phase?.id === 'parse'}
+            >{ligne.score.toFixed(2)}</span
           > &#125;
         {:else}
-          &#123; "sentiment": … &#125;
+          &#123; "score": … &#125;
         {/if}
       </span>
       <span class="quai" bind:this={quaiRep}></span>
@@ -301,250 +302,3 @@
     {charge}
   </span>
 </div>
-
-<style>
-  .clf {
-    position: relative;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.55em;
-  }
-
-  .clf-tete {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1em;
-    border-bottom: 2px solid var(--dk-encre);
-    padding-bottom: 0.28em;
-  }
-  .pas-t {
-    font-size: 0.82em;
-    font-weight: 600;
-    color: var(--dk-accent);
-  }
-  .src {
-    font-size: 0.64em;
-    color: var(--dk-gris);
-    white-space: nowrap;
-  }
-
-  .clf-t {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.64em;
-    table-layout: fixed;
-  }
-  .clf-t th {
-    position: relative;
-    text-align: left;
-    font-weight: 600;
-    color: var(--dk-gris);
-    border-bottom: 2px solid var(--dk-filet);
-    padding: 0.22em 0.5em;
-    white-space: nowrap;
-  }
-  .clf-t th.neuve {
-    color: var(--dk-accent);
-  }
-  .clf-t td {
-    padding: 0.26em 0.5em;
-    border-bottom: 1px solid var(--dk-filet);
-  }
-  .clf-t th:nth-child(1),
-  .clf-t td:nth-child(1) {
-    width: 12%;
-  }
-  .clf-t th:nth-child(2),
-  .clf-t td:nth-child(2) {
-    width: 42%;
-  }
-  .clf-t th:nth-child(3),
-  .clf-t td:nth-child(3) {
-    width: 20%;
-    text-align: center;
-  }
-  .clf-t th:nth-child(4),
-  .clf-t td:nth-child(4) {
-    width: 26%;
-  }
-
-  /* La colonne entre en scène: elle glisse depuis la droite et son filet se
-     trace. La largeur, elle, reste réservée — un tableau qui se réagence
-     déplacerait les quais sous la puce. */
-  .entrant {
-    opacity: 0;
-    transform: translateX(0.9em);
-    transition:
-      opacity 0.42s ease-out,
-      transform 0.42s ease-out;
-  }
-  .entrant.vue {
-    opacity: 1;
-    transform: none;
-  }
-  .soulign {
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    height: 2px;
-    width: 0;
-    background: var(--dk-accent);
-    transition: width 0.5s ease-out;
-  }
-  .soulign.vue {
-    width: 100%;
-  }
-
-  .cellule {
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .cible-in {
-    min-height: 1.3em;
-  }
-  .clf-t td.mono,
-  .clf-t td.num {
-    color: var(--dk-gris);
-  }
-  .clf-t tr.active td {
-    background: var(--dk-fond-2);
-  }
-  .clf-t tr.active td.txt .cellule {
-    opacity: 0.25;
-  }
-  .clf-t tr.reste td {
-    color: var(--dk-gris-2);
-    border-bottom: none;
-  }
-  .cible .val {
-    color: var(--dk-accent);
-    font-weight: 600;
-  }
-
-  .stations {
-    display: flex;
-    align-items: stretch;
-    gap: 0.45em;
-  }
-  .st {
-    flex: 1;
-    border: 2px solid var(--dk-filet);
-    padding: 0.35em 0.55em 0.45em;
-    display: flex;
-    flex-direction: column;
-    gap: 0.12em;
-    min-width: 0;
-  }
-  .st.on {
-    border-color: var(--dk-accent);
-  }
-  .st-n {
-    font-size: 0.58em;
-    letter-spacing: 0.14em;
-    font-weight: 600;
-    color: var(--dk-gris);
-  }
-  .st.on .st-n {
-    color: var(--dk-accent);
-  }
-  .st-d {
-    font-size: 0.56em;
-    color: var(--dk-gris-2);
-    line-height: 1.3;
-    min-height: 2.3em;
-  }
-  /* La valeur qu'on va extraire s'allume dans le JSON pendant l'analyse. */
-  .extrait {
-    transition: all 0.3s;
-  }
-  .extrait.tire {
-    color: var(--dk-fond);
-    background: var(--dk-accent);
-    font-weight: 600;
-    padding: 0 0.2em;
-  }
-  .quai {
-    display: block;
-    height: 1.6em;
-    border: 1px dashed var(--dk-filet);
-  }
-  .st.on .quai {
-    border-color: var(--dk-accent);
-  }
-  .fl {
-    align-self: center;
-    color: var(--dk-gris-2);
-    font-size: 0.75em;
-  }
-
-  .code-r {
-    margin: 0;
-    border-left: 3px solid var(--dk-accent);
-    background: var(--dk-fond-2);
-    padding: 0.4em 0.7em;
-    min-height: 3.1em;
-  }
-  .code-r pre {
-    margin: 0;
-  }
-  .code-r code {
-    font-family: var(--dk-mono);
-    font-size: 0.62em;
-    line-height: 1.55;
-    white-space: pre-wrap;
-  }
-
-  .pas-n {
-    color: var(--dk-accent);
-    font-variant-numeric: tabular-nums;
-    margin-left: 0.6em;
-  }
-  .puce {
-    position: absolute;
-    left: 0;
-    top: 0;
-    max-width: 30%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 0.6em;
-    padding: 0.28em 0.55em;
-    border: 2px solid var(--dk-accent);
-    background: var(--dk-fond);
-    color: var(--dk-accent);
-    opacity: 0;
-    pointer-events: none;
-    transition:
-      transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-      opacity 0.25s linear;
-  }
-  .puce.vis {
-    opacity: 1;
-  }
-  .puce.saut {
-    transition: none;
-  }
-  .puce.brut {
-    max-width: 26%;
-  }
-  .puce.val {
-    background: var(--dk-accent);
-    color: var(--dk-fond);
-    font-weight: 600;
-    max-width: 20%;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .puce {
-      transition: opacity 0.2s linear;
-    }
-    .entrant,
-    .soulign {
-      transition: none;
-    }
-  }
-</style>

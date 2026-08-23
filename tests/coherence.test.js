@@ -63,12 +63,33 @@ describe('avis réels extraits du corpus La Ligne Rouge', () => {
     }
   });
 
-  it("n'invente pas de valeur hors de l'énumération enseignée", () => {
-    const permises = ['negatif', 'neutre', 'positif'];
+  it('garde tous les scores dans la plage annoncée, de -1 à +1', () => {
     for (const l of anim.lignes) {
-      expect(permises, `ligne ${l.id}: « ${l.sentiment} » hors du type_enum du deck`).toContain(
-        l.sentiment
-      );
+      expect(l.score, `ligne ${l.id}`).toBeGreaterThanOrEqual(-1);
+      expect(l.score, `ligne ${l.id}`).toBeLessThanOrEqual(1);
+    }
+  });
+
+  // Le score du dictionnaire n'est pas une opinion: il se recalcule depuis les
+  // comptes. S'il cesse de correspondre, c'est qu'une valeur a été retouchée à
+  // la main quelque part.
+  it('recalcule exactement le score de Lexicoder depuis ses comptes', () => {
+    const lex = JSON.parse(readFileSync('src/lib/deck/demos/lexicoder.json', 'utf8'));
+    for (const l of lex.lignes) {
+      const total = l.pos + l.neg;
+      if (total === 0) {
+        expect(l.score, `ligne ${l.id}: aucun mot trouvé, le score doit être indéfini`).toBeNull();
+      } else {
+        expect(l.score, `ligne ${l.id}`).toBeCloseTo((l.pos - l.neg) / total, 2);
+      }
+      // Chaque mot déclaré trouvé doit exister parmi les jetons de l'avis.
+      for (const mot of Object.keys(l.trouves)) {
+        expect(l.jetons, `ligne ${l.id}: « ${mot} » absent des jetons`).toContain(mot);
+      }
+      const pos = Object.values(l.trouves).filter((v) => v === 'pos').length;
+      const neg = Object.values(l.trouves).filter((v) => v === 'neg').length;
+      expect(pos, `ligne ${l.id}: comptes positifs`).toBe(l.pos);
+      expect(neg, `ligne ${l.id}: comptes négatifs`).toBe(l.neg);
     }
   });
 
