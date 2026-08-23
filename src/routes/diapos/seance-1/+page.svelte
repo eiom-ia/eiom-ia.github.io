@@ -11,7 +11,7 @@
   import Cite from '$lib/deck/Cite.svelte';
   import Frise from '$lib/deck/demos/Frise.svelte';
   import Arbre from '$lib/deck/demos/Arbre.svelte';
-  import Transformer from '$lib/deck/demos/Transformer.svelte';
+  import Attention from '$lib/deck/demos/Attention.svelte';
   import Pipeline from '$lib/deck/demos/Pipeline.svelte';
   import { REFERENCES, ORDRE_BIBLIO } from '$lib/data/references.js';
   import { CREDITS_IMAGES } from '$lib/data/credits-images.js';
@@ -19,7 +19,7 @@
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
-  const TOTAL = 64;
+  const TOTAL = 63;
 
   const c_premier = `library(ellmer)
 source("${URL_OUTILS_R}")
@@ -205,49 +205,6 @@ verifier_installation()`;
       </ul>
     </Slide>
 
-    <Slide fond="encre" bandeau="Avant de commencer" droite="séance 1 · lun 24 août">
-      <h1 class="e">Vérification éclair</h1>
-      <hr class="filet" />
-      <p class="lead e">Cinq minutes, pour que les pannes remontent maintenant.</p>
-    </Slide>
-
-    <Slide bandeau="Une seule ligne" droite="séance 1 · lun 24 août">
-      <h2 class="e">Le diagnostic</h2>
-      <Code src={c_verif} />
-      <Code titre="Ce que vous devez voir" src={`== Verification de l'environnement — Parcours IA, EIOM 2026 ==
-
-[ OK   ] Version de R                 4.6.1
-[ OK   ] Paquet ellmer                0.4.2
-[ OK   ] Paquet jsonlite              2.0.0
-[ OK   ] Cle du fournisseur           trouvee (39 caracteres)
-[ OK   ] Appel reel au modele         pret
-
-Tout est en place.`} />
-      <p class="e">
-        Le rapport ne montre jamais votre clé, seulement sa longueur. Vous pouvez le coller dans un
-        courriel sans risque.
-      </p>
-    </Slide>
-
-    <Slide bandeau="Dépannage" droite="séance 1 · lun 24 août">
-      <h2 class="e">Les trois pannes, par ordre de fréquence</h2>
-      <Deux ratio="1fr 1fr 1fr">
-        <Carte ton="rose" titre="1 · R n'a pas redémarré">
-          <p><code>.Renviron</code> n'est lu qu'au démarrage. Session, puis Restart R.</p>
-          <p><strong>Neuf cas sur dix.</strong></p>
-        </Carte>
-        <Carte ton="ambre" titre="2 · Guillemets dans la clé">
-          <p>La ligne s'écrit sans guillemets et sans espace autour du signe égal.</p>
-        </Carte>
-        <Carte ton="violet" titre="3 · Modèle introuvable">
-          <p>404 : le nom a changé. Utilisez le modèle annoncé sur la page Ressources.</p>
-        </Carte>
-      </Deux>
-      <Carte ton="vert" titre="Critère de sortie du bloc">
-        <p>On ne passe au troisième temps que lorsque toute la salle affiche quatre lignes vertes — ou est branchée sur la voie filet.</p>
-      </Carte>
-    </Slide>
-
     <Slide fond="encre" bandeau="Définir l'IA" droite="séance 1 · lun 24 août">
       <h1 class="e">Qu’est-ce que l’IA</h1>
       <hr class="filet" />
@@ -353,9 +310,9 @@ Tout est en place.`} />
 
     <Slide bandeau="Ingrédient 2 sur 3" droite="séance 1 · lun 24 août">
       <h2 class="e">L’architecture</h2>
-      <Transformer />
+      <Attention />
       <p class="e credits">
-        Bloc transformer à décodeur seul, d’après <Cite k="vaswani2017" />.
+        Schéma de principe du mécanisme d’attention <Cite k="bahdanau2015" /> <Cite k="vaswani2017" />.
       </p>
     </Slide>
 
@@ -828,6 +785,43 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
           </p>
         </Carte>
       </Deux>
+    </Slide>
+
+    <Slide bandeau="Une seule ligne" droite="séance 1 · lun 24 août">
+      <h2 class="e">Le diagnostic</h2>
+      <Code src={c_verif} />
+      <Code titre="Ce que vous devez voir" src={`== Verification de l'environnement — Parcours IA, EIOM 2026 ==
+
+[ OK   ] Version de R                 4.6.1
+[ OK   ] Paquet ellmer                0.4.2
+[ OK   ] Paquet jsonlite              2.0.0
+[ OK   ] Cle du fournisseur           trouvee (39 caracteres)
+[ OK   ] Appel reel au modele         pret
+
+Tout est en place.`} />
+      <p class="e">
+        Le rapport ne montre jamais votre clé, seulement sa longueur. Vous pouvez le coller dans un
+        courriel sans risque.
+      </p>
+    </Slide>
+
+    <Slide bandeau="Dépannage" droite="séance 1 · lun 24 août">
+      <h2 class="e">Les trois pannes, par ordre de fréquence</h2>
+      <Deux ratio="1fr 1fr 1fr">
+        <Carte ton="rose" titre="1 · R n'a pas redémarré">
+          <p><code>.Renviron</code> n'est lu qu'au démarrage. Session, puis Restart R.</p>
+          <p><strong>Neuf cas sur dix.</strong></p>
+        </Carte>
+        <Carte ton="ambre" titre="2 · Guillemets dans la clé">
+          <p>La ligne s'écrit sans guillemets et sans espace autour du signe égal.</p>
+        </Carte>
+        <Carte ton="violet" titre="3 · Modèle introuvable">
+          <p>404 : le nom a changé. Utilisez le modèle annoncé sur la page Ressources.</p>
+        </Carte>
+      </Deux>
+      <Carte ton="vert" titre="Critère de sortie du bloc">
+        <p>On ne passe au troisième temps que lorsque toute la salle affiche quatre lignes vertes — ou est branchée sur la voie filet.</p>
+      </Carte>
     </Slide>
 
     <Slide bandeau="Deux voies" droite="séance 1 · lun 24 août">
