@@ -2,47 +2,104 @@
   import donnees from './classifieur.json';
 
   /**
-   * Le geste de la semaine, déroulé au ralenti: on ajoute une colonne, puis
-   * pour chaque ligne on lit la cellule, on la glisse dans un prompt, on
-   * appelle l'API, on reçoit du JSON, on en extrait un champ, on l'écrit
-   * dans la colonne.
+   * Le geste de la semaine, animé pour de vrai: une puce unique fait le tour
+   * du circuit. Elle se détache de la cellule de texte, descend dans le quai
+   * du PROMPT, glisse jusqu'à l'API, arrive à RÉPONSE où son contenu DEVIENT
+   * la valeur classée, puis remonte se poser dans la colonne sentiment.
+   *
+   * Un seul objet en mouvement, et sa transformation visible au passage de
+   * l'API: c'est ça qu'on veut faire comprendre, pas une suite d'états.
    *
    * Les lignes viennent de classifieur.json, engendré depuis le vrai
-   * avis_exemple.csv — le fichier que les participants ouvriront à l'atelier.
-   * Un test échoue si les deux divergent.
+   * avis_exemple.csv. Un test échoue si les deux divergent.
    *
-   * C'est un schéma du mécanisme: le JSON montré est de la forme qu'impose
-   * le schéma enseigné, il n'est pas la sortie mesurée d'un appel réel.
+   * Le JSON montré a la forme qu'impose le schéma enseigné; ce n'est pas la
+   * sortie mesurée d'un appel réel.
    */
   const L = donnees.lignes;
 
-  // Une phase par étape, avec sa durée. La création de la colonne n'arrive
-  // qu'une fois; les cinq autres tournent pour chaque ligne.
   const PHASES = [
-    { id: 'lire', t: 'LIRE', ms: 1500 },
-    { id: 'prompt', t: 'PROMPT', ms: 2100 },
-    { id: 'appel', t: 'APPEL', ms: 1500 },
-    { id: 'json', t: 'JSON', ms: 1800 },
-    { id: 'ecrire', t: 'ÉCRIRE', ms: 1300 }
+    { id: 'lire', ms: 1000, t: 'Lire la cellule' },
+    { id: 'prompt', ms: 1500, t: 'Coller le texte dans un prompt' },
+    { id: 'appel', ms: 1400, t: "Envoyer à l'API" },
+    { id: 'json', ms: 1500, t: 'Recevoir la réponse, en JSON' },
+    { id: 'ecrire', ms: 1300, t: 'Écrire la valeur dans la cellule' }
   ];
-  const MS_CREER = 2000;
-  const TOTAL = 1 + L.length * PHASES.length;
+  const MS_CREER = 1900;
+  // Un temps terminal après la dernière écriture: sans lui, la valeur de la
+  // dernière ligne n'est jamais considérée comme posée, et le rendu statique
+  // montre un tableau incomplet.
+  const TOTAL = 1 + L.length * PHASES.length + 1;
 
   let hote = $state(null);
+  let puce = $state(null);
+  let cellulesTexte = $state([]);
+  let cellulesCible = $state([]);
+  let quaiPrompt = $state(null);
+  let quaiApi = $state(null);
+  let quaiRep = $state(null);
+
   let js = $state(false);
-  let e = $state(TOTAL - 1); // sans JS, on montre le tableau terminé
-  let etat = $state('arret'); // 'arret' | 'joue' | 'pause' | 'fini'
+  let e = $state(TOTAL - 1); // sans JS: tableau terminé, puce masquée
+  let etat = $state('arret');
+  let pos = $state(null); // {x, y} en pixels du conteneur
+  let saut = $state(false); // vrai quand on se replace sans transition
 
   const creation = $derived(e === 0);
-  const iLigne = $derived(creation ? -1 : Math.floor((e - 1) / PHASES.length));
-  const phase = $derived(creation ? null : PHASES[(e - 1) % PHASES.length]);
+  const terminal = $derived(e === TOTAL - 1);
+  const iLigne = $derived(creation || terminal ? -1 : Math.floor((e - 1) / PHASES.length));
+  const phase = $derived(creation || terminal ? null : PHASES[(e - 1) % PHASES.length]);
   const ligne = $derived(iLigne >= 0 && iLigne < L.length ? L[iLigne] : null);
 
-  const remplie = (i) =>
-    e >= 1 + i * PHASES.length + PHASES.length; // écrite une fois la phase ÉCRIRE passée
+  // Une cellule reste remplie à partir du temps qui suit son ÉCRIRE.
+  const remplie = (i) => e >= i * PHASES.length + PHASES.length + 1;
 
-  const promptTexte = (t) =>
-    `Classe le sentiment de cet avis.\nRéponds uniquement selon le schéma.\n\n« ${t} »`;
+  // Ce que la puce transporte: le texte tant qu'on monte vers l'API, la
+  // valeur classée une fois la réponse reçue.
+  const charge = $derived(
+    !ligne
+      ? ''
+      : phase?.id === 'json' || phase?.id === 'ecrire'
+        ? ligne.sentiment
+        : ligne.texte
+  );
+  const valeur = $derived(phase?.id === 'json' || phase?.id === 'ecrire');
+
+  const quai = () => {
+    if (!phase) return null;
+    if (phase.id === 'lire') return cellulesTexte[iLigne];
+    if (phase.id === 'prompt') return quaiPrompt;
+    if (phase.id === 'appel') return quaiApi;
+    if (phase.id === 'json') return quaiRep;
+    return cellulesCible[iLigne];
+  };
+
+  // On mesure à chaque changement de phase, jamais une seule fois au montage:
+  // ajuster.mjs peut écrire un facteur d'échelle sur la diapo et le zoom du
+  // deck change à l'exécution. Des coordonnées mises en cache seraient justes
+  // à la capture et fausses au projecteur.
+  function placer(sansTransition = false) {
+    const cible = quai();
+    if (!hote || !puce || !cible) return;
+    const h = hote.getBoundingClientRect();
+    const c = cible.getBoundingClientRect();
+    const p = puce.getBoundingClientRect();
+    saut = sansTransition;
+    pos = {
+      x: c.left - h.left + c.width / 2 - p.width / 2,
+      y: c.top - h.top + c.height / 2 - p.height / 2
+    };
+    if (sansTransition) requestAnimationFrame(() => (saut = false));
+  }
+
+  // La phase « lire » est une apparition, pas un déplacement: on s'y pose
+  // sans transition, sinon la puce vient en glissant depuis la position
+  // précédente, ce qui raconte un trajet qui n'existe pas.
+  $effect(() => {
+    if (!js) return;
+    e;
+    requestAnimationFrame(() => placer(phase?.id === 'lire' || creation));
+  });
 
   $effect(() => {
     if (!hote) return;
@@ -53,15 +110,10 @@
     const diapo = hote.closest('.diapo');
     if (!deck || !diapo) return;
 
-    // Même mécanique que la frise: on lit la position du deck plutôt que de
-    // se fier à un observateur d'intersection, qui se déclenche au chargement
-    // et laisse l'animation à moitié jouée à l'arrivée.
     const monIndex = [...deck.querySelectorAll('.diapo')].indexOf(diapo);
     let minuteur = 0;
 
-    function duree(n) {
-      return n === 0 ? MS_CREER : PHASES[(n - 1) % PHASES.length].ms;
-    }
+    const duree = (n) => (n === 0 ? MS_CREER : PHASES[(n - 1) % PHASES.length].ms);
 
     function pas() {
       if (etat !== 'joue') return;
@@ -89,6 +141,11 @@
 
     diapo.addEventListener('click', basculer);
 
+    // Le zoom du deck et un redimensionnement invalident les rectangles
+    // mesurés: on se replace sans transition plutôt que de dériver.
+    const ro = new ResizeObserver(() => placer(true));
+    ro.observe(hote);
+
     let ici = false;
     function verifier() {
       const y = Math.round(deck.scrollTop / deck.clientHeight) === monIndex;
@@ -110,6 +167,7 @@
     return () => {
       deck.removeEventListener('scroll', verifier);
       diapo.removeEventListener('click', basculer);
+      ro.disconnect();
       clearTimeout(t0);
       clearTimeout(minuteur);
     };
@@ -120,11 +178,8 @@
   <div class="clf-tete">
     <span class="pas-t">
       {#if creation}Créer la colonne qui va recevoir les données
-      {:else if phase?.id === 'lire'}Lire la cellule
-      {:else if phase?.id === 'prompt'}Coller le texte dans un prompt
-      {:else if phase?.id === 'appel'}Envoyer à l'API
-      {:else if phase?.id === 'json'}Recevoir la réponse, en JSON
-      {:else}Écrire la valeur dans la cellule{/if}
+      {:else if terminal}La colonne est remplie, ligne par ligne
+      {:else}{phase?.t}{/if}
     </span>
     <span class="src">{donnees.fichier} · {donnees.total} lignes</span>
   </div>
@@ -133,21 +188,19 @@
     <thead>
       <tr>
         {#each donnees.colonnes as c}<th>{c}</th>{/each}
-        <th class="neuve" class:apparait={e >= 0}>sentiment</th>
+        <th class="neuve">sentiment</th>
       </tr>
     </thead>
     <tbody>
       {#each L as l, i}
         <tr class:active={i === iLigne}>
           <td class="mono">{l.id}</td>
-          <td class="txt" class:lu={i === iLigne && phase}>{l.texte}</td>
+          <td class="txt"><span bind:this={cellulesTexte[i]} class="cellule">{l.texte}</span></td>
           <td class="num">{l.note}</td>
           <td class="cible">
-            {#if remplie(i)}<span class="val">{l.sentiment}</span>
-            {:else if i === iLigne && phase?.id === 'ecrire'}<span class="val entre"
-                >{l.sentiment}</span
-              >
-            {:else if i === iLigne}<span class="attente">·····</span>{/if}
+            <span bind:this={cellulesCible[i]} class="cellule cible-in">
+              {#if remplie(i)}<span class="val">{l.sentiment}</span>{/if}
+            </span>
           </td>
         </tr>
       {/each}
@@ -160,47 +213,45 @@
     </tbody>
   </table>
 
-  <div class="chaine" class:pale={creation}>
-    {#each PHASES as p, k}
-      <span class="et" class:on={!creation && phase?.id === p.id}>{p.t}</span>
-      {#if k < PHASES.length - 1}<span class="fl">▸</span>{/if}
-    {/each}
+  <div class="stations">
+    <div class="st" class:on={phase?.id === 'prompt'}>
+      <span class="st-n">PROMPT</span>
+      <span class="st-d">Classe le sentiment. Réponds selon le schéma.</span>
+      <span class="quai" bind:this={quaiPrompt}></span>
+    </div>
+    <span class="fl">▸</span>
+    <div class="st" class:on={phase?.id === 'appel'}>
+      <span class="st-n">API</span>
+      <span class="st-d">gpt-4o-mini · temperature 0</span>
+      <span class="quai" bind:this={quaiApi}></span>
+    </div>
+    <span class="fl">▸</span>
+    <div class="st" class:on={phase?.id === 'json'}>
+      <span class="st-n">RÉPONSE</span>
+      <span class="st-d">&#123; "sentiment": … &#125;</span>
+      <span class="quai" bind:this={quaiRep}></span>
+    </div>
   </div>
 
-  <div class="boite">
-    {#if creation}
-      <p class="vide">une colonne vide, prête à recevoir une valeur par ligne</p>
-    {:else if phase?.id === 'lire'}
-      <p class="cel">« {ligne.texte} »</p>
-    {:else if phase?.id === 'prompt'}
-      <pre class="src-b">{promptTexte(ligne.texte)}</pre>
-    {:else if phase?.id === 'appel'}
-      <pre class="src-b">POST https://api.openai.com/v1/chat/completions
-     model: gpt-4o-mini
-     temperature: 0</pre>
-    {:else if phase?.id === 'json'}
-      <pre class="src-b">&#123; "sentiment": "{ligne.sentiment}" &#125;</pre>
-    {:else}
-      <pre class="src-b">reponse$sentiment  →  "{ligne.sentiment}"</pre>
-    {/if}
-  </div>
-
-  {#if js}
-    <p class="cmd">
-      {#if etat === 'joue'}lecture en cours — cliquez pour mettre en pause
-      {:else if etat === 'pause'}en pause — cliquez pour reprendre
-      {:else if etat === 'fini'}terminé — cliquez pour rejouer
-      {:else}cliquez pour lancer{/if}
-    </p>
-  {/if}
+  <span
+    class="puce"
+    class:vis={js && !!phase}
+    class:saut
+    class:val={valeur}
+    bind:this={puce}
+    style={pos ? `transform: translate(${pos.x}px, ${pos.y}px)` : ''}
+  >
+    {charge}
+  </span>
 </div>
 
 <style>
   .clf {
+    position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.7em;
+    gap: 0.6em;
   }
 
   .clf-tete {
@@ -209,15 +260,15 @@
     align-items: baseline;
     gap: 1em;
     border-bottom: 2px solid var(--dk-encre);
-    padding-bottom: 0.35em;
+    padding-bottom: 0.3em;
   }
   .pas-t {
-    font-size: 0.86em;
+    font-size: 0.84em;
     font-weight: 600;
     color: var(--dk-accent);
   }
   .src {
-    font-size: 0.68em;
+    font-size: 0.66em;
     color: var(--dk-gris);
     white-space: nowrap;
   }
@@ -225,7 +276,7 @@
   .clf-t {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.7em;
+    font-size: 0.66em;
     table-layout: fixed;
   }
   .clf-t th {
@@ -233,21 +284,17 @@
     font-weight: 600;
     color: var(--dk-gris);
     border-bottom: 2px solid var(--dk-filet);
-    padding: 0.3em 0.5em;
-    font-size: 0.92em;
+    padding: 0.25em 0.5em;
+    white-space: nowrap;
   }
   .clf-t th.neuve {
     color: var(--dk-accent);
     border-bottom-color: var(--dk-accent);
   }
   .clf-t td {
-    padding: 0.32em 0.5em;
+    padding: 0.28em 0.5em;
     border-bottom: 1px solid var(--dk-filet);
-    vertical-align: top;
   }
-  /* « review_rating » fait treize caractères: une colonne trop étroite le
-     laissait chevaucher l'entête voisine. Les largeurs sont fixées, pas
-     laissées au calcul automatique du tableau. */
   .clf-t th:nth-child(1),
   .clf-t td:nth-child(1) {
     width: 12%;
@@ -265,96 +312,121 @@
   .clf-t td:nth-child(4) {
     width: 26%;
   }
-  .clf-t th {
-    white-space: nowrap;
-  }
 
-  .clf-t td.txt {
+  .cellule {
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: var(--dk-encre);
+  }
+  .cible-in {
+    min-height: 1.3em;
   }
   .clf-t td.mono,
   .clf-t td.num {
     color: var(--dk-gris);
   }
-
   .clf-t tr.active td {
     background: var(--dk-fond-2);
   }
-  .clf-t tr.active td.txt.lu {
-    color: var(--dk-accent);
-    font-weight: 600;
+  /* La cellule se vide visuellement pendant que sa puce voyage: on voit que
+     c'est bien SON contenu qui est parti. */
+  .clf-t tr.active td.txt .cellule {
+    opacity: 0.25;
   }
   .clf-t tr.reste td {
     color: var(--dk-gris-2);
     border-bottom: none;
   }
-
   .cible .val {
     color: var(--dk-accent);
     font-weight: 600;
   }
-  .cible .attente {
+
+  .stations {
+    display: flex;
+    align-items: stretch;
+    gap: 0.5em;
+  }
+  .st {
+    flex: 1;
+    border: 2px solid var(--dk-filet);
+    padding: 0.4em 0.6em 0.5em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+    min-width: 0;
+  }
+  .st.on {
+    border-color: var(--dk-accent);
+  }
+  .st-n {
+    font-size: 0.6em;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+    color: var(--dk-gris);
+  }
+  .st.on .st-n {
+    color: var(--dk-accent);
+  }
+  .st-d {
+    font-size: 0.58em;
     color: var(--dk-gris-2);
-    letter-spacing: 0.1em;
+    line-height: 1.3;
+    min-height: 2.4em;
+  }
+  /* Le quai: la place exacte où la puce vient se poser. */
+  .quai {
+    display: block;
+    height: 1.7em;
+    border: 1px dashed var(--dk-filet);
+  }
+  .st.on .quai {
+    border-color: var(--dk-accent);
+  }
+  .fl {
+    align-self: center;
+    color: var(--dk-gris-2);
+    font-size: 0.8em;
   }
 
-  .chaine {
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
-    font-size: 0.66em;
-    letter-spacing: 0.1em;
-    color: var(--dk-gris-2);
-    flex-wrap: wrap;
+  .puce {
+    position: absolute;
+    left: 0;
+    top: 0;
+    max-width: 30%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.62em;
+    padding: 0.3em 0.6em;
+    border: 2px solid var(--dk-accent);
+    background: var(--dk-fond);
+    color: var(--dk-accent);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform 0.62s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.25s linear;
   }
-  .chaine.pale {
-    opacity: 0.45;
+  .puce.vis {
+    opacity: 1;
   }
-  .chaine .et {
-    border: 2px solid var(--dk-filet);
-    padding: 0.18em 0.6em;
+  /* Un replacement après zoom ou redimensionnement ne doit pas se lire comme
+     un trajet: on coupe la transition le temps du saut. */
+  .puce.saut {
+    transition: none;
   }
-  .chaine .et.on {
-    border-color: var(--dk-accent);
+  .puce.val {
     background: var(--dk-accent);
     color: var(--dk-fond);
     font-weight: 600;
-  }
-  .chaine .fl {
-    color: var(--dk-gris-2);
+    max-width: 22%;
   }
 
-  .boite {
-    border: 2px solid var(--dk-filet);
-    padding: 0.6em 0.8em;
-    min-height: 5.4em;
-    display: flex;
-    align-items: center;
-  }
-  .boite .src-b,
-  .boite .cel,
-  .boite .vide {
-    margin: 0;
-    font-family: var(--dk-mono);
-    font-size: 0.72em;
-    line-height: 1.5;
-    white-space: pre-wrap;
-    color: var(--dk-encre);
-  }
-  .boite .vide {
-    color: var(--dk-gris);
-  }
-  .boite .cel {
-    color: var(--dk-accent);
-  }
-
-  .cmd {
-    margin: 0;
-    font-size: 0.62em;
-    letter-spacing: 0.08em;
-    color: var(--dk-gris-2);
+  @media (prefers-reduced-motion: reduce) {
+    .puce {
+      transition: opacity 0.2s linear;
+    }
   }
 </style>
