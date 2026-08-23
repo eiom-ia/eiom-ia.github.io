@@ -272,54 +272,34 @@ verifier_installation()`;
 
     <Slide bandeau="Distinction fondatrice" droite="séance 1 · lun 24 août">
       <h2 class="e">Classifieur ou modèle génératif</h2>
-      <Deux>
-        <Carte ton="ciel" titre="Classifieur">
-          <p>Entraîné sur vos données annotées, pour une tâche.</p>
-          <ul>
-            <li>Sortie contrainte par construction</li>
-            <li>Reproductible au bit près</li>
-            <li>Rapide et gratuit une fois entraîné</li>
-            <li>Exige des annotations humaines</li>
-          </ul>
-        </Carte>
-        <Carte ton="ambre" titre="Modèle génératif">
-          <p>Généraliste, utilisable sans entraînement.</p>
-          <ul>
-            <li>Sortie en texte libre à contraindre</li>
-            <li>Reproductibilité fragile</li>
-            <li>Coût par appel</li>
-            <li>Aucune annotation requise pour démarrer</li>
-          </ul>
-        </Carte>
-      </Deux>
-      <p class="e">
-        La bonne question n'est pas « lequel est meilleur » mais « lequel est justifiable pour cette
-        tâche-ci ».
-      </p>
+      <hr class="filet" />
+      <table class="compare e">
+        <thead>
+          <tr><th></th><th class="a">Classifieur</th><th class="b">Génératif</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="crit">Annotations</td><td>les vôtres</td><td class="val-b">aucune</td></tr>
+          <tr><td class="crit">Sortie</td><td>contrainte</td><td class="val-b">texte libre</td></tr>
+          <tr><td class="crit">Reproductibilité</td><td>exacte</td><td class="val-b">fragile</td></tr>
+          <tr><td class="crit">Coût</td><td>à l’entraînement</td><td class="val-b">par document</td></tr>
+          <tr><td class="crit">Portée</td><td>une tâche</td><td class="val-b">toutes</td></tr>
+        </tbody>
+      </table>
     </Slide>
 
     <Slide bandeau="Ingrédient 1 sur 3" droite="séance 1 · lun 24 août">
       <h2 class="e">Les données</h2>
-      <Deux ratio="1fr 1.3fr">
-        <div>
-          <p>Ce sur quoi un modèle ouvert typique a été entraîné. Retenez les proportions, pas les chiffres.</p>
-          <Carte ton="rose" titre="Ce que ça implique">
-            <p>Deux tiers du corpus sont un balayage du web. Ce qui est surreprésenté sur le web l'est dans le modèle.</p>
-          </Carte>
-        </div>
-        <table>
-          <thead><tr><th>Source</th><th class="num-c">Part</th><th class="num-c">Taille</th></tr></thead>
-          <tbody>
-            <tr><td>CommonCrawl</td><td class="num-c">67,0 %</td><td class="num-c">3,3 To</td></tr>
-            <tr><td>C4</td><td class="num-c">15,0 %</td><td class="num-c">783 Go</td></tr>
-            <tr><td>GitHub</td><td class="num-c">4,5 %</td><td class="num-c">328 Go</td></tr>
-            <tr><td>Wikipédia</td><td class="num-c">4,5 %</td><td class="num-c">83 Go</td></tr>
-            <tr><td>Livres</td><td class="num-c">4,5 %</td><td class="num-c">85 Go</td></tr>
-            <tr><td>ArXiv</td><td class="num-c">2,5 %</td><td class="num-c">92 Go</td></tr>
-            <tr><td>StackExchange</td><td class="num-c">2,0 %</td><td class="num-c">78 Go</td></tr>
-          </tbody>
-        </table>
-      </Deux>
+      <hr class="filet" />
+      <ul class="barres e">
+        <li class="majeur"><span class="src">CommonCrawl</span><span class="piste-b"><span class="rempli" style="width: 100%"></span></span><span class="pct">67 %</span></li>
+        <li><span class="src">C4</span><span class="piste-b"><span class="rempli" style="width: 22.4%"></span></span><span class="pct">15 %</span></li>
+        <li><span class="src">GitHub</span><span class="piste-b"><span class="rempli" style="width: 6.7%"></span></span><span class="pct">4,5 %</span></li>
+        <li><span class="src">Wikipédia</span><span class="piste-b"><span class="rempli" style="width: 6.7%"></span></span><span class="pct">4,5 %</span></li>
+        <li><span class="src">Livres</span><span class="piste-b"><span class="rempli" style="width: 6.7%"></span></span><span class="pct">4,5 %</span></li>
+        <li><span class="src">ArXiv</span><span class="piste-b"><span class="rempli" style="width: 3.7%"></span></span><span class="pct">2,5 %</span></li>
+        <li><span class="src">StackExchange</span><span class="piste-b"><span class="rempli" style="width: 3%"></span></span><span class="pct">2 %</span></li>
+      </ul>
+      <p class="e credits">Corpus d’entraînement de LLaMA <Cite k="touvron2023" />.</p>
     </Slide>
 
     <Slide bandeau="Ingrédient 2 sur 3" droite="séance 1 · lun 24 août">

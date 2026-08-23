@@ -81,6 +81,13 @@ export const REFERENCES = {
     detail: 'NeurIPS 2020 · arXiv:2005.14165',
     lien: 'https://arxiv.org/abs/2005.14165'
   },
+  touvron2023: {
+    court: 'Touvron et al. 2023',
+    auteurs: 'H. Touvron, T. Lavril, G. Izacard et al.',
+    titre: 'LLaMA: Open and Efficient Foundation Language Models',
+    detail: 'arXiv:2302.13971 · composition du corpus, tableau 1',
+    lien: 'https://arxiv.org/abs/2302.13971'
+  },
   yang2023: {
     court: 'Yang et al. 2023',
     auteurs: 'J. Yang, H. Jin, R. Tang et al.',
@@ -106,6 +113,7 @@ export const ORDRE_BIBLIO = [
   'bahdanau2015',
   'jordan2015',
   'vaswani2017',
+  'touvron2023',
   'wang2019',
   'russell2020',
   'brown2020',

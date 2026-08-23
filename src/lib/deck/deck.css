@@ -107,6 +107,8 @@
 .diapo-in:has(> figure.schema) { max-width: 52em; }
 .diapo-in:has(> .semaine-bande) { max-width: 54em; }
 .diapo-in:has(> .arbre) { max-width: 56em; }
+.diapo-in:has(> .barres) { max-width: 44em; }
+.diapo-in:has(> .compare) { max-width: 44em; }
 .diapo-in:has(> .deux) { max-width: 50em; }
 
 /* ---------- Typographie ---------- */
@@ -544,3 +546,37 @@
 .diapo.encre .horaire .h { color: var(--dk-accent-clair); }
 .diapo.encre .horaire .pause .h,
 .diapo.encre .horaire .pause .quoi { color: var(--dk-gris-2); }
+
+/* ---------- Barres de proportion ---------- */
+
+.barres { display: flex; flex-direction: column; gap: 0.42em; width: 100%; }
+.barres li { display: grid; grid-template-columns: 9em 1fr 3.4em; gap: 0.9em; align-items: center; margin: 0; }
+.barres { list-style: none; padding: 0; margin: 0; }
+.barres .src { font-size: 0.9em; }
+.barres .piste-b { height: 1.5em; background: var(--dk-fond-2); }
+.barres .rempli { display: block; height: 100%; background: var(--dk-encre); }
+.barres li.majeur .rempli { background: var(--dk-accent); }
+.barres li.majeur .src { font-weight: 600; color: var(--dk-accent); }
+.barres .pct {
+  font-family: var(--dk-mono); font-size: 0.86em; text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.diapo.encre .barres .piste-b { background: #22282a; }
+.diapo.encre .barres .rempli { background: var(--dk-fond); }
+.diapo.encre .barres li.majeur .rempli { background: var(--dk-accent-clair); }
+
+/* ---------- Grille de comparaison ---------- */
+
+.compare { width: 100%; border-collapse: collapse; }
+.compare th, .compare td { padding: 0.55em 0.9em 0.55em 0; text-align: left; }
+.compare thead th {
+  font-family: var(--dk-mono); font-size: 0.72em; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  border-bottom: 2px solid var(--dk-encre);
+}
+.compare thead th.a { color: var(--dk-encre); }
+.compare thead th.b { color: var(--dk-accent); }
+.compare tbody td { border-bottom: 1px solid var(--dk-filet); font-size: 0.94em; }
+.compare tbody tr:last-child td { border-bottom: 0; }
+.compare .crit { color: var(--dk-gris); font-size: 0.86em; }
+.compare .val-b { color: var(--dk-accent); }
