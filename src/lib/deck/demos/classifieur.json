@@ -1,27 +1,28 @@
 {
-  "fichier": "avis_exemple.csv",
-  "total": 12,
+  "source": "ligne_rouge_cleaned.rds · 551 avis Google · La Ligne Rouge, Montréal",
+  "fichier": "ligne_rouge_cleaned.rds",
+  "total": 551,
   "colonnes": [
-    "id",
+    "ligne",
     "review_text",
     "review_rating"
   ],
   "lignes": [
     {
-      "id": "avis-001",
-      "texte": "Excellent repas, service rapide et portions généreuses.",
+      "id": "7",
+      "texte": "Très bon la poutine viande!",
       "note": 5,
       "sentiment": "positif"
     },
     {
-      "id": "avis-002",
-      "texte": "Très bon sandwich, mais la salle était un peu sale.",
-      "note": 4,
-      "sentiment": "positif"
+      "id": "442",
+      "texte": "The poutine is awful....thanks god it was a small portion.",
+      "note": 2,
+      "sentiment": "negatif"
     },
     {
-      "id": "avis-003",
-      "texte": "Correct sans plus. Les frites étaient tièdes et le prix raisonnable.",
+      "id": "259",
+      "texte": "Bonne nourriture. Mais le staff n'est pas toujours accueillant.",
       "note": 3,
       "sentiment": "neutre"
     }

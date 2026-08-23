@@ -75,7 +75,7 @@
   const valeur = $derived(phase?.id === 'parse' || phase?.id === 'ecrire');
 
   const CODE = {
-    initial: 'donnees <- read.csv("donnees/avis_exemple.csv")',
+    initial: 'donnees <- readRDS("donnees/ligne_rouge_cleaned.rds")',
     creation: 'donnees$sentiment <- NA_character_',
     lire: 'texte <- donnees$review_text[i]',
     prompt: 'prompt <- paste(consigne, texte)',

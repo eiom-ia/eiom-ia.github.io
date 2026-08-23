@@ -109,6 +109,7 @@
 .diapo-in:has(> .arbre) { max-width: 56em; }
 .diapo-in:has(> .pl) { max-width: 50em; }
 .diapo-in:has(> .api) { max-width: 54em; }
+.diapo-in:has(> .mur) { max-width: 56em; }
 .diapo-in:has(> .fi) { max-width: 52em; }
 .diapo-in:has(> .clf) { max-width: 58em; }
 .diapo-in:has(> .hal) { max-width: 56em; }

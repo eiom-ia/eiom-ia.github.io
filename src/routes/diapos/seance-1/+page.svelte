@@ -13,6 +13,7 @@
   import Arbre from '$lib/deck/demos/Arbre.svelte';
   import Pipeline from '$lib/deck/demos/Pipeline.svelte';
   import Api from '$lib/deck/demos/Api.svelte';
+  import MurAvis from '$lib/deck/demos/MurAvis.svelte';
   import Fiches from '$lib/deck/demos/Fiches.svelte';
   import Classifieur from '$lib/deck/demos/Classifieur.svelte';
   import Hallucination from '$lib/deck/demos/Hallucination.svelte';
@@ -410,25 +411,11 @@ OPENROUTER_API_KEY=votre_cle_ici
 
     <Slide bandeau="Le corpus de la semaine" droite="séance 1 · lun 24 août">
       <h2 class="e">La Ligne Rouge</h2>
-      <Deux ratio="1fr 1.2fr">
-        <div>
-          <Grand valeur="551" legende="avis dans le corpus complet" />
-          <p>
-            Un casse-croûte de Montréal. Le matériel public fournit aussi un petit corpus synthétique,
-            sans données personnelles, pour répéter l'exercice après l'école.
-          </p>
-        </div>
-        <Carte ton="vert" titre="Pourquoi celui-là et pas un corpus propre">
-          <p>
-            Parce qu'il porte sa <strong>vérité terrain</strong> : chaque avis vient avec la note en
-            étoiles laissée par son auteur.
-          </p>
-          <p>
-            Vous produirez ce matin une note prédite. Demain, Antoine la confrontera à la vraie. Sans
-            cette colonne, la validation coûterait des semaines d'annotation.
-          </p>
-        </Carte>
-      </Deux>
+      <MurAvis />
+      <p class="e">
+        551 avis Google d'un casse-croûte de Montréal, en français et en anglais. Chacun arrive avec
+        l'étoile laissée par son auteur : la <strong>vérité terrain</strong> est déjà dans la donnée.
+      </p>
     </Slide>
 
     <Slide bandeau="Regarder avant de modéliser" droite="séance 1 · lun 24 août">

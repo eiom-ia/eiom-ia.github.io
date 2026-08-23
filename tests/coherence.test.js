@@ -26,42 +26,57 @@ describe('cohérence entre config.js et verifier.R', () => {
   });
 });
 
-// L'animation de classification affiche un extrait du vrai corpus. Si le CSV
-// change et que le JSON ne suit pas, la diapo montre au public un fichier qui
-// ne ressemble plus à celui qu'il ouvrira à l'atelier.
-describe('cohérence entre classifieur.json et avis_exemple.csv', () => {
-  const csv = readFileSync('static/materiel/donnees/avis_exemple.csv', 'utf8');
-  const donnees = JSON.parse(readFileSync('src/lib/deck/demos/classifieur.json', 'utf8'));
+// Les avis affichés viennent de ligne_rouge_cleaned.rds, qui n'est PAS dans ce
+// dépôt: il contient des noms d'auteurs et le dépôt est public. On ne peut donc
+// pas comparer mot pour mot en intégration continue. Ce qu'on peut vérifier, et
+// qui compte davantage: qu'aucune donnée personnelle n'a fui, et qu'aucune
+// valeur affichée ne sort de ce que le deck enseigne.
+describe('avis réels extraits du corpus La Ligne Rouge', () => {
+  const anim = JSON.parse(readFileSync('src/lib/deck/demos/classifieur.json', 'utf8'));
+  const mur = JSON.parse(readFileSync('src/lib/deck/demos/avis-reels.json', 'utf8'));
 
-  // Analyse minimale: les champs cités sont entre guillemets s'ils contiennent
-  // une virgule, ce qui est le cas des textes d'avis.
-  const lignes = csv
-    .trim()
-    .split('\n')
-    .slice(1)
-    .map((l) => {
-      const champs = l.match(/(".*?"|[^,]+)/g).map((c) => c.replace(/^"|"$/g, ''));
-      return { id: champs[0], texte: champs[1], note: Number(champs[2]) };
-    });
-
-  it('compte le même nombre total de lignes', () => {
-    expect(donnees.total).toBe(lignes.length);
+  it('annonce la même taille de corpus des deux côtés, et celle du deck', () => {
+    expect(anim.total).toBe(551);
+    expect(mur.total).toBe(551);
+    expect(Object.values(mur.repartition).reduce((a, b) => a + b, 0)).toBe(551);
   });
 
-  it('reprend mot pour mot les lignes affichées', () => {
-    donnees.lignes.forEach((affichee, i) => {
-      expect(affichee.id).toBe(lignes[i].id);
-      expect(affichee.texte).toBe(lignes[i].texte);
-      expect(affichee.note).toBe(lignes[i].note);
-    });
+  it('ne laisse fuir aucune donnée personnelle dans un dépôt public', () => {
+    const interdits = ['author', 'auteur', 'name', 'nom', 'author_title', 'reviews_count'];
+    for (const [nom, f] of [
+      ['classifieur.json', anim],
+      ['avis-reels.json', mur]
+    ]) {
+      const cles = new Set();
+      JSON.stringify(f, (k, v) => (cles.add(k.toLowerCase()), v));
+      for (const i of interdits) {
+        expect([...cles], `${nom}: champ « ${i} » présent`).not.toContain(i);
+      }
+    }
+  });
+
+  it("n'affiche que des notes réelles, de 1 à 5", () => {
+    for (const a of [...anim.lignes, ...mur.avis]) {
+      expect(a.note).toBeGreaterThanOrEqual(1);
+      expect(a.note).toBeLessThanOrEqual(5);
+      expect(Number.isInteger(a.note)).toBe(true);
+    }
   });
 
   it("n'invente pas de valeur hors de l'énumération enseignée", () => {
     const permises = ['negatif', 'neutre', 'positif'];
-    for (const l of donnees.lignes) {
-      expect(permises, `${l.id}: « ${l.sentiment} » hors du type_enum du deck`).toContain(
+    for (const l of anim.lignes) {
+      expect(permises, `ligne ${l.id}: « ${l.sentiment} » hors du type_enum du deck`).toContain(
         l.sentiment
       );
     }
+  });
+
+  it('conserve la langue d’origine, sans traduire', () => {
+    for (const a of mur.avis) {
+      expect(['fr', 'en'], `« ${a.texte.slice(0, 30)} »`).toContain(a.langue);
+    }
+    expect(mur.avis.some((a) => a.langue === 'fr')).toBe(true);
+    expect(mur.avis.some((a) => a.langue === 'en')).toBe(true);
   });
 });
