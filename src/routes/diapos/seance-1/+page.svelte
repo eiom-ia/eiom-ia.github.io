@@ -22,7 +22,7 @@
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
-  const TOTAL = 58;
+  const TOTAL = 46;
 
   const c_premier = `library(ellmer)
 source("${URL_OUTILS_R}")
@@ -43,81 +43,6 @@ chat$chat("Resume cet avis en trois mots.")`;
   temperature = 0
 )`;
 
-  const c_texte = `reponse <- chat$chat(avis)
-
-reponse
-# [1] "Je dirais environ 4 etoiles sur 5, car le
-#      client apprecie la nourriture mais deplore
-#      le service..."
-
-# Et maintenant? Une expression reguliere?
-as.numeric(gsub("\\\\D", "", reponse))   # 45 . Bravo.`;
-
-  const c_schema = `note_avis <- type_object(
-  note = type_integer(
-    "Note de 1 a 5 etoiles inferee du texte"
-  ),
-  sentiment = type_enum(
-    c("negatif", "neutre", "positif"),   # les valeurs D'ABORD
-    "Tonalite generale"
-  ),
-  langue = type_enum(
-    c("francais", "anglais", "autre"),
-    "Langue dominante de l'avis"
-  ),
-  sujets = type_array(
-    type_string(),
-    "Sujets evoques: nourriture, service, prix, proprete"
-  )
-)`;
-
-  const c_structure = `resultat <- chat$chat_structured(avis, type = note_avis)
-
-str(resultat)
-# List of 4
-#  $ note     : int 4
-#  $ sentiment: chr "positif"
-#  $ langue   : chr "francais"
-#  $ sujets   : chr [1:2] "nourriture" "service"`;
-
-  const c_boucle = `donnees <- read.csv("donnees/avis_exemple.csv")
-echantillon <- head(donnees, 50)
-
-sorties <- vector("list", nrow(echantillon))
-dir.create("sorties", showWarnings = FALSE)
-
-for (i in seq_len(nrow(echantillon))) {
-  sorties[[i]] <- tryCatch({
-    chat_i <- creer_chat_eiom(system_prompt = prompt_systeme)
-    prediction <- chat_i$chat_structured(
-      echantillon$review_text[i], type = note_avis
-    )
-    list(id = echantillon$id[i], prediction = prediction,
-         valide = prediction$note %in% 1:5, erreur = NULL)
-  }, error = function(e) {
-    list(id = echantillon$id[i], prediction = NULL,
-         valide = FALSE, erreur = conditionMessage(e))
-  })
-  jsonlite::write_json(sorties, "sorties/partiel.json",
-                       auto_unbox = TRUE, pretty = TRUE,
-                       null = "null")
-  Sys.sleep(pause)            # valeur choisie selon le quota reel
-}`;
-
-  const c_journal = `journal <- c(journal_eiom(), list(
-  temperature = 0,
-  schema      = "note_avis-v1",
-  jeu         = "avis_exemple.csv",
-  n           = nrow(echantillon),
-  prompt_systeme = prompt_systeme
-))
-
-jsonlite::write_json(
-  list(journal = journal, sorties = sorties),
-  "sorties/seance1_notes.json",
-  auto_unbox = TRUE, pretty = TRUE
-)`;
-
   const c_renviron = `# Dans la console R
 usethis::edit_r_environ()
 
@@ -129,8 +54,6 @@ OPENROUTER_API_KEY=votre_cle_ici
 # Puis: Session > Restart R
 # Sans redemarrage, R ne verra rien.`;
 
-  const c_verif = `source("https://eiom-ia.github.io/verifier.R")
-verifier_installation()`;
 </script>
 
 <svelte:head>
@@ -613,30 +536,6 @@ verifier_installation()`;
       </Deux>
     </Slide>
 
-    <Slide bandeau="Déontologie" droite="séance 1 · lun 24 août">
-      <h2 class="e">Ce que devient votre texte</h2>
-      <p class="lead e">
-        Un service gratuit peut conserver ou réutiliser les données selon son fournisseur et son
-        modèle. Aujourd'hui, on travaille sur un corpus pédagogique sans données personnelles.
-      </p>
-      <Deux>
-        <Carte ton="rose" titre="Ce qu'il ne faut jamais y envoyer">
-          <ul>
-            <li>Verbatims d'entrevues non anonymisés</li>
-            <li>Données sous certificat d'éthique restrictif</li>
-            <li>Dossiers cliniques, judiciaires, scolaires</li>
-            <li>Tout ce que votre comité d'éthique n'a pas vu</li>
-          </ul>
-        </Carte>
-        <Carte ton="vert" titre="La sortie de secours">
-          <p>
-            Un modèle open weights, exécuté sur votre machine, ne transmet rien à personne. Antoine
-            montre mercredi ce que ça coûte en performance — et ce que ça fait gagner.
-          </p>
-        </Carte>
-      </Deux>
-    </Slide>
-
     <Slide bandeau="Outillage" droite="séance 1 · lun 24 août">
       <h2 class="e">ellmer, une interface pour vingt-trois fournisseurs</h2>
       <Deux ratio="1.1fr 1fr">
@@ -673,148 +572,6 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
       </Deux>
     </Slide>
 
-    <Slide bandeau="Une seule ligne" droite="séance 1 · lun 24 août">
-      <h2 class="e">Le diagnostic</h2>
-      <Code src={c_verif} />
-      <Code titre="Ce que vous devez voir" src={`== Verification de l'environnement — Parcours IA, EIOM 2026 ==
-
-[ OK   ] Version de R                 4.6.1
-[ OK   ] Paquet ellmer                0.4.2
-[ OK   ] Paquet jsonlite              2.0.0
-[ OK   ] Cle du fournisseur           trouvee (39 caracteres)
-[ OK   ] Appel reel au modele         pret
-
-Tout est en place.`} />
-      <p class="e">
-        Le rapport ne montre jamais votre clé, seulement sa longueur. Vous pouvez le coller dans un
-        courriel sans risque.
-      </p>
-    </Slide>
-
-    <Slide bandeau="Dépannage" droite="séance 1 · lun 24 août">
-      <h2 class="e">Les trois pannes, par ordre de fréquence</h2>
-      <Deux ratio="1fr 1fr 1fr">
-        <Carte ton="rose" titre="1 · R n'a pas redémarré">
-          <p><code>.Renviron</code> n'est lu qu'au démarrage. Session, puis Restart R.</p>
-          <p><strong>Neuf cas sur dix.</strong></p>
-        </Carte>
-        <Carte ton="ambre" titre="2 · Guillemets dans la clé">
-          <p>La ligne s'écrit sans guillemets et sans espace autour du signe égal.</p>
-        </Carte>
-        <Carte ton="violet" titre="3 · Modèle introuvable">
-          <p>404 : le nom a changé. Utilisez le modèle annoncé sur la page Ressources.</p>
-        </Carte>
-      </Deux>
-      <Carte ton="vert" titre="Critère de sortie du bloc">
-        <p>On ne passe au troisième temps que lorsque toute la salle affiche quatre lignes vertes — ou est branchée sur la voie filet.</p>
-      </Carte>
-    </Slide>
-
-    <Slide bandeau="Deux voies" droite="séance 1 · lun 24 août">
-      <h2 class="e">Deux voies d’installation</h2>
-      <Deux>
-        <Carte ton="ciel" titre="Voie locale">
-          <p>R, RStudio ou Positron, <code>ellmer</code>, clé dans <code>.Renviron</code>.</p>
-          <p>C'est la voie que vous garderez après la semaine.</p>
-        </Carte>
-        <Carte ton="vert" titre="Voie filet">
-          <p>Corpus et réponses préenregistrées. Aucun appel au modèle.</p>
-          <p>
-            Si une API ou le réseau résiste, on bascule sans discuter et vous suivez tout l'atelier. On
-            règlera l'accès à la pause.
-          </p>
-        </Carte>
-      </Deux>
-      <p class="e">
-        Une installation qui résiste n'est pas un problème de compétence. C'est la réalité banale de
-        l'informatique de recherche.
-      </p>
-    </Slide>
-
-    <Slide bandeau="Le vrai problème" droite="séance 1 · lun 24 août">
-      <h2 class="e">La réponse est du texte, et vous vouliez un nombre</h2>
-      <Code src={c_texte} />
-      <Carte ton="rose" titre="L'impasse">
-        <p>
-          Chaque nouvelle formulation du modèle casse votre expression régulière. Vous passeriez la
-          semaine à réparer un analyseur syntaxique au lieu de faire de la recherche. C'est exactement
-          ce que faisait le code de l'an dernier — et c'est ce qu'on abandonne aujourd'hui.
-        </p>
-      </Carte>
-    </Slide>
-
-    <Slide fond="encre" bandeau="Le geste central de la matinée" droite="séance 1 · lun 24 août">
-      <h1 class="e">La sortie structurée</h1>
-      <hr class="filet" />
-      <p class="lead e">
-        On cesse de demander poliment un format dans le prompt. On l'impose par un schéma que le
-        fournisseur fait respecter au décodage.
-      </p>
-    </Slide>
-
-    <Slide d={0.84} bandeau="Déclarer" droite="séance 1 · lun 24 août">
-      <h2 class="e">Le schéma est votre opérationnalisation</h2>
-      <Deux ratio="1.15fr 1fr">
-        <Code src={c_schema} />
-        <div>
-          <Carte ton="violet" titre="Ce que vous êtes en train de faire">
-            <p>
-              Écrire ce schéma, c'est déclarer vos variables, leurs types et leurs modalités. C'est un
-              acte de <strong>mesure</strong>, pas de programmation.
-            </p>
-          </Carte>
-          <Carte ton="ambre" titre="Piège de syntaxe">
-            <p>
-              Dans <code>type_enum()</code>, les <strong>valeurs viennent en premier</strong>, la
-              description ensuite. L'ordre inverse produit une erreur obscure.
-            </p>
-          </Carte>
-        </div>
-      </Deux>
-    </Slide>
-
-    <Slide bandeau="Appeler" droite="séance 1 · lun 24 août">
-      <h2 class="e">Et on récupère une liste R, directement</h2>
-      <Code src={c_structure} />
-      <p class="e">
-        Aucune expression régulière. Aucun analyseur syntaxique. Les types sont garantis :
-        <code>note</code> est un entier, <code>sentiment</code> est l'une des trois modalités déclarées.
-      </p>
-    </Slide>
-
-    <Slide bandeau="Avertissement" droite="séance 1 · lun 24 août">
-      <h2 class="e">Un schéma contraint la forme, pas la validité</h2>
-      <Deux ratio="1fr 1.1fr">
-        <Code titre="Observé sur un modèle gratuit, en préparant ce cours" src={`# Schema demande: entier, note de 1 a 5
-resultat$note
-# [1] 0`} />
-        <Carte ton="rose" titre="Ce que ça démontre">
-          <p>
-            Le modèle a respecté le type — un entier — et violé l'échelle. Le schéma a fait son travail ;
-            il ne fait pas le vôtre.
-          </p>
-          <p>
-            <strong>Vérifiez toujours vos bornes après coup.</strong> Un simple
-            <code>table(resultat$note)</code> aurait montré l'anomalie.
-          </p>
-        </Carte>
-      </Deux>
-      <p class="e">
-        C'est le résumé de la semaine en une diapositive : les outils vous protègent de la forme, jamais
-        du fond. Le fond, c'est vous.
-      </p>
-    </Slide>
-
-    <Slide d={0.79} bandeau="Passer à l'échelle" droite="séance 1 · lun 24 août">
-      <h2 class="e">La boucle, avec ses trois protections</h2>
-      <Code src={c_boucle} />
-      <Deux ratio="1fr 1fr 1fr">
-        <Carte ton="ciel" titre="tryCatch"><p>Une panne réseau au 37ᵉ avis n'anéantit pas les 36 premiers.</p></Carte>
-        <Carte ton="ambre" titre="JSON progressif"><p>Chaque appel est sauvegardé avec son identifiant et son erreur éventuelle.</p></Carte>
-        <Carte ton="violet" titre="Sys.sleep"><p>Respecte la limite de débit réellement observée pour le fournisseur choisi.</p></Carte>
-      </Deux>
-    </Slide>
-
     <Slide bandeau="Méthode" droite="séance 1 · lun 24 août">
       <h2 class="e">Tester sur cinq documents avant de lancer sur cinq cents</h2>
       <Deux>
@@ -833,34 +590,6 @@ resultat$note
           </p>
         </Carte>
       </Deux>
-    </Slide>
-
-    <Slide bandeau="Sans quoi rien n'est reproductible" droite="séance 1 · lun 24 août">
-      <h2 class="e">Journaliser</h2>
-      <Code src={c_journal} />
-      <Carte ton="ciel" titre="La question à laquelle ce fichier répond">
-        <p>
-          « Quel modèle, quels paramètres, quel schéma, quand, sur combien de documents? » Si vous ne
-          pouvez pas répondre six mois plus tard, votre résultat n'existe pas.
-        </p>
-      </Carte>
-    </Slide>
-
-    <Slide bandeau="Atelier" droite="séance 1 · lun 24 août">
-      <h2 class="e">À vous, vingt minutes</h2>
-      <ol class="e">
-        <li>Chargez le corpus et regardez cinq avis à l'œil.</li>
-        <li>Écrivez votre schéma. Ajoutez une variable qui vous intéresse, vous.</li>
-        <li>Testez sur cinq avis difficiles. Lisez les sorties.</li>
-        <li>Lancez sur cinquante, avec les trois protections.</li>
-        <li>Écrivez le journal et sauvegardez le JSON.</li>
-      </ol>
-      <Carte ton="vert" titre="Le seul critère de réussite">
-        <p>
-          Un fichier <code>sorties/seance1_notes.json</code> existe sur votre machine, et vous pouvez
-          dire quel modèle l'a produit et quand.
-        </p>
-      </Carte>
     </Slide>
 
     <Slide fond="encre" bandeau="Quatrième temps" droite="séance 1 · lun 24 août">

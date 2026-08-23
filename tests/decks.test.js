@@ -12,10 +12,14 @@ describe('decks publiés', () => {
     expect(existsSync('build/diapos/seance-5/index.html')).toBe(true);
   });
 
-  it('rend toutes les diapos dans le HTML statique, sans JavaScript', () => {
-    expect(compterDiapos(lire('seance-1'))).toBeGreaterThanOrEqual(50);
-    expect(compterDiapos(lire('seance-4'))).toBeGreaterThanOrEqual(30);
-    expect(compterDiapos(lire('seance-5'))).toBeGreaterThanOrEqual(10);
+  // Ce test répond à « le rendu statique produit-il bien des diapos ». Le
+  // compte exact est vérifié plus bas, contre le total annoncé par le deck:
+  // un seuil chiffré ici ne ferait qu'échouer chaque fois qu'on retire une
+  // diapositive, sans rien dire de plus.
+  it('rend les diapos dans le HTML statique, sans JavaScript', () => {
+    for (const n of ['seance-1', 'seance-4', 'seance-5']) {
+      expect(compterDiapos(lire(n)), `${n}: aucune diapo au rendu statique`).toBeGreaterThan(1);
+    }
   });
 
   // Le compteur et les pastilles viennent d'une constante TOTAL écrite à la
