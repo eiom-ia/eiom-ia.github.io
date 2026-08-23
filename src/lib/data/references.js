@@ -81,6 +81,13 @@ export const REFERENCES = {
     detail: 'NeurIPS 2020 · arXiv:2005.14165',
     lien: 'https://arxiv.org/abs/2005.14165'
   },
+  ahia2023: {
+    court: 'Ahia et al. 2023',
+    auteurs: 'O. Ahia, S. Kumar, H. Gonen et al.',
+    titre: 'Do All Languages Cost the Same? Tokenization in the Era of Commercial Language Models',
+    detail: 'EMNLP 2023, p. 9904-9923 · surcoût de tokenisation et qualité moindre',
+    lien: 'https://aclanthology.org/2023.emnlp-main.614/'
+  },
   touvron2023: {
     court: 'Touvron et al. 2023',
     auteurs: 'H. Touvron, T. Lavril, G. Izacard et al.',
@@ -113,6 +120,7 @@ export const ORDRE_BIBLIO = [
   'bahdanau2015',
   'jordan2015',
   'vaswani2017',
+  'ahia2023',
   'touvron2023',
   'wang2019',
   'russell2020',

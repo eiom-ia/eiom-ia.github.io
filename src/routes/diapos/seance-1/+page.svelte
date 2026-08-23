@@ -20,7 +20,7 @@
   import ProchainJeton from '$lib/deck/demos/ProchainJeton.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS, URL_OUTILS_R } from '$lib/data/config.js';
 
-  const TOTAL = 65;
+  const TOTAL = 64;
 
   const c_premier = `library(ellmer)
 source("${URL_OUTILS_R}")
@@ -345,27 +345,10 @@ verifier_installation()`;
       <h2 class="e">Le modèle ne voit pas des mots</h2>
       <p class="e">Il voit des jetons — des fragments, ni lettres ni mots. Essayez :</p>
       <Tokeniseur />
-    </Slide>
-
-    <Slide bandeau="Conséquence concrète" droite="séance 1 · lun 24 août">
-      <h2 class="e">Le français coûte plus cher que l'anglais</h2>
-      <Deux>
-        <div>
-          <p>
-            Les tokeniseurs sont ajustés sur des corpus majoritairement anglophones. Le même contenu,
-            en français, se découpe en davantage de jetons.
-          </p>
-          <Deux>
-            <Grand valeur="+7 à 30 %" legende="jetons en plus, mesuré" />
-            <Grand valeur="3 sur 3" legende="exemples défavorables au FR" ton="ciel" />
-          </Deux>
-        </div>
-        <Carte ton="ambre" titre="Pourquoi ça vous concerne">
-          <p>Budget d'appels plus élevé à corpus égal.</p>
-          <p>Fenêtre de contexte remplie plus vite.</p>
-          <p>Et, plus sournois : les langues sous-représentées dans le tokeniseur sont aussi celles où le modèle est le moins bon.</p>
-        </Carte>
-      </Deux>
+      <p class="e credits">
+        Le surcoût vaut pour toutes les langues éloignées de l'anglais, et la qualité y baisse
+        aussi <Cite k="ahia2023" />.
+      </p>
     </Slide>
 
     <Slide bandeau="Mécanique" droite="séance 1 · lun 24 août">
@@ -1133,7 +1116,7 @@ Reponds selon le schema fourni.`} />
       </Deux>
     </Slide>
 
-    <Slide bandeau="Sources" droite="séance 1 · lun 24 août">
+    <Slide d={0.93} bandeau="Sources" droite="séance 1 · lun 24 août">
       <h2 class="e">Sources</h2>
       <hr class="filet" />
       <ul class="biblio e">
