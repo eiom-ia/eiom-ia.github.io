@@ -117,8 +117,7 @@
 .diapo-in:has(> .mod) { max-width: 56em; }
 .diapo-in:has(> .arn) { max-width: 54em; }
 .diapo-in:has(> .mes) { max-width: 54em; }
-.diapo-in:has(> .lik) { max-width: 56em; }
-.diapo-in .lik + .lik { margin-top: 1.4em; }
+.diapo-in:has(> .qs-num) { max-width: 52em; }
 .diapo-in:has(> .ctr) { max-width: 56em; }
 .diapo-in:has(> .don) { max-width: 56em; }
 .diapo-in:has(> .pds) { max-width: 54em; }
@@ -309,6 +308,12 @@
 .ell-pts li::before { content: '· '; color: var(--dk-accent); font-weight: 600; }
 .ell-cmd { margin: 0.4em 0 0; font-size: 0.66em; color: var(--dk-accent); border: 2px solid var(--dk-accent); padding: 0.25em 0.6em; align-self: flex-start; }
 .diapo-in:has(> .ell) { max-width: 54em; }
+
+/* Deux questions posées à la salle, numérotées et rien d'autre. */
+.qs-num { list-style: none; padding: 0; margin: 0; counter-reset: q; display: flex; flex-direction: column; gap: 0.75em; }
+.qs-num li { counter-increment: q; display: grid; grid-template-columns: 1.6em 1fr; gap: 0.7em; align-items: baseline; font-size: 1.35em; line-height: 1.3; }
+.qs-num li::before { content: counter(q); color: var(--dk-accent); font-weight: 600; }
+.diapo.encre .qs-num li::before { color: var(--dk-accent-clair); }
 
 /* ---------- Grand chiffre ---------- */
 
