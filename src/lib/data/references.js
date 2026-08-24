@@ -81,19 +81,19 @@ export const REFERENCES = {
     detail: 'NeurIPS 2020 · arXiv:2005.14165',
     lien: 'https://arxiv.org/abs/2005.14165'
   },
+  nvidia2024: {
+    court: 'NVIDIA 2024',
+    auteurs: 'NVIDIA',
+    titre: "NVIDIA Ethernet Networking Accelerates World's Largest AI Supercomputer, Built by xAI",
+    detail: 'nvidianews.nvidia.com · Colossus, Memphis : 100 000 GPU Hopper, bâti en 122 jours',
+    lien: 'https://nvidianews.nvidia.com/news/spectrum-x-ethernet-networking-xai-colossus'
+  },
   li2023: {
     court: 'Li et al. 2023',
     auteurs: 'P. Li, J. Yang, M. A. Islam, S. Ren',
     titre: 'Making AI Less "Thirsty": Uncovering and Addressing the Secret Water Footprint of AI Models',
     detail: "arXiv:2304.03271 · 700 000 litres évaporés pour l'entraînement de GPT-3",
     lien: 'https://arxiv.org/abs/2304.03271'
-  },
-  meta2024: {
-    court: 'Meta Engineering 2024',
-    auteurs: 'Meta Engineering',
-    titre: "Building Meta's GenAI Infrastructure",
-    detail: 'engineering.fb.com · deux grappes de 24 576 GPU NVIDIA H100',
-    lien: 'https://engineering.fb.com/2024/03/12/data-center-engineering/building-metas-genai-infrastructure/'
   },
   chiang2024: {
     court: 'Chiang et al. 2024',
@@ -141,8 +141,8 @@ export const ORDRE_BIBLIO = [
   'bahdanau2015',
   'jordan2015',
   'vaswani2017',
+  'nvidia2024',
   'li2023',
-  'meta2024',
   'chiang2024',
   'ahia2023',
   'touvron2023',

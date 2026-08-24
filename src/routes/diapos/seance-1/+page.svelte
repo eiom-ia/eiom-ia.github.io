@@ -323,8 +323,8 @@ OPENROUTER_API_KEY=votre_cle_ici
       <h2 class="e">L'adresse est un bâtiment</h2>
       <Centre />
       <p class="e credits">
-        Nombre de GPU <Cite k="meta2024" />, puissance par puce d'après la fiche technique NVIDIA du
-        H100 SXM, consommation d'un ménage d'après Hydro-Québec, eau <Cite k="li2023" />.
+        Colossus <Cite k="nvidia2024" />, puissance du H100 SXM d'après NVIDIA, ménage québécois
+        d'après Hydro-Québec, eau <Cite k="li2023" />.
       </p>
     </Slide>
 

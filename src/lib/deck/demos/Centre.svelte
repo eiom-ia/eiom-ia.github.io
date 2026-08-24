@@ -12,7 +12,7 @@
    * Rien n'est estimé: chaque nombre affiché est soit relevé à la source,
    * soit calculé depuis deux nombres relevés à la source.
    */
-  const GPU = 24576;
+  const GPU = 100000;
   const WATT = 700;
   const MW = Math.round(((GPU * WATT) / 1e6) * 10) / 10;
   const GWH = (MW * 1000 * 8760) / 1e6;
@@ -23,15 +23,16 @@
 </script>
 
 <div class="ctr">
-  <figure class="photo">
-    <img src="{base}/img/centre-donnees.jpg" alt="Une rangée de baies de serveurs dans un centre de données" />
-  </figure>
+  <div class="haut">
+    <figure class="photo">
+      <img src="{base}/img/centre-donnees.jpg" alt="Une rangée de baies de serveurs dans un centre de données" />
+    </figure>
 
-  <div class="calcul">
+    <div class="calcul">
     <div class="etape">
       <span class="v">{esp(GPU)}</span>
-      <span class="l">GPU H100 dans une seule grappe</span>
-      <span class="s">Meta, deux grappes de cette taille</span>
+      <span class="l">GPU Hopper dans une seule grappe</span>
+      <span class="s">Colossus, Memphis — bâti en 122 jours</span>
     </div>
     <span class="op">×</span>
     <div class="etape">
@@ -45,13 +46,14 @@
       <span class="l">rien que pour les puces</span>
       <span class="s">sans le refroidissement ni le reste</span>
     </div>
+    </div>
   </div>
 
   <div class="compar">
     <span class="ct">CE QUE ÇA REPRÉSENTE SUR UNE ANNÉE</span>
     <p class="phrase">
-      <strong>{esp(FOYERS)} foyers québécois.</strong> Une seule grappe, pour un seul modèle, et
-      seulement ses processeurs.
+      <strong>{esp(FOYERS)} foyers québécois.</strong> Une seule grappe, et seulement ses
+      processeurs — ni le refroidissement, ni le reste du bâtiment.
     </p>
   </div>
 
@@ -73,6 +75,16 @@
   }
   /* La photo d'abord: le mot « bâtiment » du titre devient une image avant
      que les chiffres n'arrivent. */
+  /* La photo tient une colonne à gauche plutôt qu'un bandeau pleine largeur:
+     en bandeau elle écrasait la diapositive et se lisait comme une image
+     d'illustration. Duotone papier/encre pour qu'elle appartienne à la
+     palette au lieu de la contredire. */
+  .haut {
+    display: grid;
+    grid-template-columns: 0.58fr 1fr;
+    gap: 1.1em;
+    align-items: center;
+  }
   .photo {
     margin: 0;
   }
@@ -80,17 +92,14 @@
     display: block;
     width: 100%;
     height: auto;
-    max-height: 7.4em;
-    object-fit: cover;
-    object-position: center 42%;
     border: 2px solid var(--dk-encre);
   }
 
   /* Le calcul est posé à plat: on voit d'où sort le chiffre final. */
   .calcul {
     display: flex;
-    align-items: center;
-    gap: 0.9em;
+    flex-direction: column;
+    gap: 0.3em;
   }
   .etape {
     flex: 1;
@@ -105,7 +114,7 @@
     border-left-color: var(--dk-accent);
   }
   .v {
-    font-size: 1.7em;
+    font-size: 1.5em;
     font-weight: 600;
     line-height: 1.05;
     letter-spacing: -0.04em;
@@ -126,9 +135,9 @@
     margin-top: 0.1em;
   }
   .op {
-    font-size: 1.1em;
+    font-size: 0.8em;
     color: var(--dk-gris-2);
-    align-self: center;
+    padding-left: 0.7em;
   }
 
   .compar,
