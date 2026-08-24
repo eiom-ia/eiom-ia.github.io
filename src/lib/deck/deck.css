@@ -111,6 +111,10 @@
 .diapo-in:has(> .api) { max-width: 54em; }
 .diapo-in:has(> .ctx) { max-width: 56em; }
 .diapo-in:has(> .bia) { max-width: 58em; }
+.diapo-in:has(> .temp) { max-width: 54em; }
+.diapo-in:has(> .con) { max-width: 54em; }
+.diapo-in:has(> .ana) { max-width: 52em; }
+.diapo-in:has(> .compare-p) { max-width: 54em; }
 .diapo-in:has(> .ech) { max-width: 50em; }
 .diapo-in:has(> .gen) { max-width: 54em; }
 .diapo-in:has(> .mur) { max-width: 56em; }
@@ -273,6 +277,15 @@
    plutôt que de la réduire jusqu'à l'illisible. */
 .biblio-boite { overflow-y: auto; max-height: 62vh; border: 2px solid var(--dk-filet); padding: 0.6em 0.9em; }
 .diapo-in:has(> .biblio-boite) { max-width: 58em; }
+
+/* Deux prompts côte à côte: la longueur même des blocs est l'argument. */
+.compare-p { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.1em; }
+.compare-p .p { border: 2px solid var(--dk-filet); padding: 0.6em 0.8em 0.7em; display: flex; flex-direction: column; gap: 0.3em; }
+.compare-p .p.solide { border-color: var(--dk-accent); }
+.compare-p .et { font-size: 0.58em; letter-spacing: 0.16em; font-weight: 600; color: var(--dk-gris); }
+.compare-p .p.solide .et { color: var(--dk-accent); }
+.compare-p .txt { margin: 0; font-size: 0.68em; line-height: 1.45; color: var(--dk-encre); }
+.compare-p .pourquoi { margin: 0.2em 0 0; font-size: 0.58em; color: var(--dk-gris); }
 
 /* ---------- Grand chiffre ---------- */
 

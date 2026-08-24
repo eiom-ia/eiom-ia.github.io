@@ -11,6 +11,9 @@
   import Frise from '$lib/deck/demos/Frise.svelte';
   import Arbre from '$lib/deck/demos/Arbre.svelte';
   import Api from '$lib/deck/demos/Api.svelte';
+  import Anatomie from '$lib/deck/demos/Anatomie.svelte';
+  import Connaissances from '$lib/deck/demos/Connaissances.svelte';
+  import Temperature from '$lib/deck/demos/Temperature.svelte';
   import Biais from '$lib/deck/demos/Biais.svelte';
   import Echantillon from '$lib/deck/demos/Echantillon.svelte';
   import Contexte from '$lib/deck/demos/Contexte.svelte';
@@ -250,39 +253,12 @@ OPENROUTER_API_KEY=votre_cle_ici
 
     <Slide bandeau="Le paramètre qui compte" droite="séance 1 · lun 24 août">
       <h2 class="e">La température</h2>
-      <Deux ratio="1.1fr 1fr">
-        <div>
-          <p>Elle règle la façon de piger dans la distribution des jetons possibles.</p>
-          <table>
-            <thead><tr><th>Valeur</th><th>Comportement</th><th>Usage</th></tr></thead>
-            <tbody>
-              <tr><td>0</td><td>Prend toujours le plus probable</td><td><strong>Codage, mesure</strong></td></tr>
-              <tr><td>0,7</td><td>Varie raisonnablement</td><td>Rédaction assistée</td></tr>
-              <tr><td>1,5</td><td>Prend des risques</td><td>Exploration créative</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <Carte ton="rose" titre="Le piège à ne pas répéter">
-          <p>
-            Température zéro rend les sorties <em>plus stables</em>. Elle ne les rend pas
-            <strong>déterministes</strong> : le calcul en virgule flottante sur GPU et le routage entre
-            serveurs introduisent de la variation résiduelle.
-          </p>
-          <p>Écrire « résultats déterministes car température = 0 » dans un article, c'est se tromper.</p>
-        </Carte>
-      </Deux>
+      <Temperature />
     </Slide>
 
     <Slide bandeau="Ce qu'un LLM n'est pas" droite="séance 1 · lun 24 août">
       <h2 class="e">Ce n'est pas une base de connaissances</h2>
-      <Deux>
-        <Carte ton="ciel" titre="Une base de données">
-          <p>Stocke des faits. Les restitue à l'identique. Dit « je n'ai pas » quand elle n'a pas.</p>
-        </Carte>
-        <Carte ton="rose" titre="Un LLM">
-          <p>Stocke des régularités statistiques dans des poids figés. Reconstitue quelque chose de plausible. Ne sait pas qu'il ne sait pas.</p>
-        </Carte>
-      </Deux>
+      <Connaissances />
       <Citation source="Le principe à retenir">
         Une référence bibliographique produite par un modèle est une <em>hypothèse de référence</em>
         jusqu'à ce que vous l'ayez vérifiée dans un catalogue.
@@ -419,56 +395,30 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
 
     <Slide bandeau="La formule" droite="séance 1 · lun 24 août">
       <h2 class="e">Rôle → Tâche → Contraintes → Format</h2>
-      <Deux>
-        <Carte ton="vert" titre="Quatre règles">
-          <ul>
-            <li>Dire clairement la tâche</li>
-            <li>Définir le format de sortie</li>
-            <li>Donner le contexte utile, et lui seul</li>
-            <li>Montrer un exemple si la tâche est subtile</li>
-          </ul>
-        </Carte>
-        <Carte ton="rose" titre="Quatre fautes">
-          <ul>
-            <li>Prompt vague</li>
-            <li>Plusieurs tâches à la fois</li>
-            <li>Format implicite</li>
-            <li>Consignes contradictoires</li>
-          </ul>
-        </Carte>
-      </Deux>
+      <Anatomie />
       <p class="e">
-        Avec la sortie structurée, la troisième règle se règle toute seule : le schéma <em>est</em> le
-        format. Un souci de moins.
+        Avec la sortie structurée, le format se règle tout seul : le schéma <em>est</em> le format.
       </p>
     </Slide>
 
     <Slide bandeau="Avant / après" droite="séance 1 · lun 24 août">
       <h2 class="e">Le même besoin, deux prompts</h2>
-      <Deux>
-        <div>
-          <Code titre="Faible" src={`Analyse ce texte et dis-moi ce que tu en penses.`} />
-          <Carte ton="rose" titre="Pourquoi">
-            <p>Tâche floue, aucun critère, aucun format. La sortie sera différente à chaque appel : impossible à agréger.</p>
-          </Carte>
+      <div class="compare-p e">
+        <div class="p faible">
+          <span class="et">FAIBLE</span>
+          <p class="txt">Analyse ce texte et dis-moi ce que tu en penses.</p>
+          <p class="pourquoi">Aucun critère, aucun format. La sortie change à chaque appel.</p>
         </div>
-        <div>
-          <Code titre="Solide" src={`Tu codes des avis de restaurant pour une
-recherche en sciences sociales.
-
-Attribue la note en etoiles que l'auteur a
-le plus vraisemblablement laissee.
-
-Fonde-toi sur le jugement global, pas sur le
-nombre de mots positifs. Un avis peut etre
-critique et genereux a la fois.
-
-Reponds selon le schema fourni.`} />
-          <Carte ton="vert" titre="Pourquoi">
-            <p>Rôle, tâche, critère de décision explicite sur le cas difficile, format délégué au schéma.</p>
-          </Carte>
+        <div class="p solide">
+          <span class="et">SOLIDE</span>
+          <p class="txt">
+            Tu codes des avis de restaurant pour une recherche en sciences sociales. Attribue la note
+            en étoiles que l'auteur a le plus vraisemblablement laissée. Fonde-toi sur le jugement
+            global, pas sur le nombre de mots positifs. Réponds selon le schéma fourni.
+          </p>
+          <p class="pourquoi">Rôle, tâche, critère de décision, format. Les quatre y sont.</p>
         </div>
-      </Deux>
+      </div>
     </Slide>
 
     <Slide bandeau="Un conseil qui surprend" droite="séance 1 · lun 24 août">
