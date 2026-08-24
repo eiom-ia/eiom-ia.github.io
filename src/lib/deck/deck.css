@@ -287,6 +287,19 @@
 .compare-p .txt { margin: 0; font-size: 0.68em; line-height: 1.45; color: var(--dk-encre); }
 .compare-p .pourquoi { margin: 0.2em 0 0; font-size: 0.58em; color: var(--dk-gris); }
 
+/* Présentation d'un paquet: le logo porte l'identité, le texte reste court. */
+.ell { display: grid; grid-template-columns: auto 1fr; gap: 1.4em; align-items: center; margin-bottom: 0.7em; }
+.ell-logo { margin: 0; }
+.ell-logo img { display: block; width: 100%; max-width: 7em; height: auto; }
+.ell-txt { display: flex; flex-direction: column; gap: 0.15em; }
+.ell-txt h2 { margin: 0; }
+.ell-sous { margin: 0 0 0.3em; font-size: 0.8em; color: var(--dk-gris); }
+.ell-pts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.15em; }
+.ell-pts li { font-size: 0.68em; color: var(--dk-encre); padding-left: 1em; text-indent: -1em; }
+.ell-pts li::before { content: '· '; color: var(--dk-accent); font-weight: 600; }
+.ell-cmd { margin: 0.4em 0 0; font-size: 0.66em; color: var(--dk-accent); border: 2px solid var(--dk-accent); padding: 0.25em 0.6em; align-self: flex-start; }
+.diapo-in:has(> .ell) { max-width: 54em; }
+
 /* ---------- Grand chiffre ---------- */
 
 .grand { display: flex; flex-direction: column; gap: 0.1em; }

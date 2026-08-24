@@ -343,23 +343,29 @@ OPENROUTER_API_KEY=votre_cle_ici
     </Slide>
 
     <Slide bandeau="Outillage" droite="séance 1 · lun 24 août">
-      <h2 class="e">ellmer, une interface pour vingt-trois fournisseurs</h2>
-      <Deux ratio="1.1fr 1fr">
-        <Code src={`library(ellmer)
-
-# Le meme code, un fournisseur different:
-chat_openrouter(model = "${FOURNISSEUR_SECOURS.modele}")
+      <div class="ell e">
+        <figure class="ell-logo">
+          <img src="{base}/img/ellmer.png" alt="Logo du paquet R ellmer" />
+        </figure>
+        <div class="ell-txt">
+          <h2 class="e">ellmer</h2>
+          <p class="ell-sous">Un paquet R pour parler aux modèles de langage.</p>
+          <ul class="ell-pts">
+            <li><strong>Vingt-trois fournisseurs</strong>, une seule syntaxe</li>
+            <li>Changer de modèle tient sur une ligne</li>
+            <li>Maintenu par l'équipe de tidyverse</li>
+          </ul>
+          <p class="ell-cmd">install.packages("ellmer")</p>
+        </div>
+      </div>
+      <Code
+        petit
+        src={`chat_openrouter(model = "${FOURNISSEUR_SECOURS.modele}")
 chat_google_gemini(model = "${FOURNISSEUR.modele}")
 chat_openai(model  = "gpt-4o-mini")
 chat_anthropic(model = "claude-sonnet-5")
-chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
-        <Carte ton="ciel" titre="Pourquoi ça compte">
-          <p>
-            Changer de fournisseur devient une ligne. Vous pouvez donc <strong>comparer</strong> deux
-            modèles sur la même tâche — ce qui est une exigence de validation, pas un luxe.
-          </p>
-        </Carte>
-      </Deux>
+chat_ollama(model = "gemma3")     # sur VOTRE machine`}
+      />
     </Slide>
 
     <Slide bandeau="Le plus petit appel possible" droite="séance 1 · lun 24 août">

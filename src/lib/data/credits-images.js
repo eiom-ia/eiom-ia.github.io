@@ -3,6 +3,12 @@
  * Licences vérifiées à la source; toute image ajoutée doit l'être ici.
  */
 export const CREDITS_IMAGES = {
+  "ellmer": {
+    "licence": "MIT — logo du paquet R ellmer",
+    "auteur": "Posit / tidyverse",
+    "page": "https://ellmer.tidyverse.org/",
+    "fichier": "ellmer.png"
+  },
   "eiom": {
     "licence": "Logo de l'École d'été, reproduit avec la permission implicite du cadre du cours",
     "auteur": "École d'été sur les méthodes computationnelles",

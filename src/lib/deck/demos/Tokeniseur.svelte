@@ -10,6 +10,12 @@
    * d'écrire ce fichier.
    *
    * L'équivalent anglais est là pour le coût: même contenu, moins de jetons.
+   *
+   * Chaque jeton bascule vers son identifiant puis revient au texte, en vague
+   * de gauche à droite. Ce nombre est le vrai identifiant cl100k_base: c'est
+   * lui, et rien d'autre, qui entre dans le modèle. Le modèle va ensuite
+   * chercher un vecteur à cette adresse — on montre l'adresse, pas le
+   * vecteur, qu'on n'a pas mesuré.
    */
 </script>
 
@@ -24,7 +30,9 @@
       <span class="n fort">{d.fr.n} jetons</span>
     </div>
     <div class="jetons">
-      {#each d.fr.jetons as j}<span class="j">{j.replace(' ', '␣')}</span>{/each}
+      {#each d.fr.jetons as j, i}<span class="j" style="--i: {i}"
+          ><span class="mot">{j.replace(' ', '␣')}</span><span class="id">{d.fr.ids[i]}</span></span
+        >{/each}
     </div>
   </div>
 
@@ -34,7 +42,9 @@
       <span class="n">{d.en.n} jetons</span>
     </div>
     <div class="jetons">
-      {#each d.en.jetons as j}<span class="j en">{j.replace(' ', '␣')}</span>{/each}
+      {#each d.en.jetons as j, i}<span class="j en" style="--i: {i}"
+          ><span class="mot">{j.replace(' ', '␣')}</span><span class="id">{d.en.ids[i]}</span></span
+        >{/each}
     </div>
   </div>
 
@@ -95,11 +105,42 @@
   /* Chaque jeton est une boîte: la frontière est le sujet de la diapositive.
      L'espace initial est rendu visible — il fait partie du jeton. */
   .j {
+    position: relative;
+    display: inline-grid;
     font-size: 0.68em;
     padding: 0.12em 0.35em;
     border: 1px solid var(--dk-accent);
     color: var(--dk-accent);
     white-space: pre;
+  }
+  /* Les deux faces occupent la même case: la boîte ne change pas de taille
+     quand le texte devient un nombre, sinon toute la ligne se réagence. */
+  .j .mot,
+  .j .id {
+    grid-area: 1 / 1;
+    animation: bascule 9s infinite;
+    animation-delay: calc(var(--i) * 0.13s);
+  }
+  .j .id {
+    animation-name: bascule-id;
+    font-variant-numeric: tabular-nums;
+    justify-self: center;
+  }
+
+  @keyframes bascule {
+    0%, 26% { opacity: 1; }
+    32%, 62% { opacity: 0; }
+    68%, 100% { opacity: 1; }
+  }
+  @keyframes bascule-id {
+    0%, 26% { opacity: 0; }
+    32%, 62% { opacity: 1; }
+    68%, 100% { opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .j .mot { animation: none; opacity: 1; }
+    .j .id { animation: none; opacity: 0; }
   }
   .j.en {
     border-color: var(--dk-gris-2);
