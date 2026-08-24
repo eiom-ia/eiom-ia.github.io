@@ -319,7 +319,7 @@ OPENROUTER_API_KEY=votre_cle_ici
     </Slide>
 
     <Slide bandeau="Le contexte" droite="séance 1 · lun 24 août">
-      <h2 class="e">Où vit le modèle, et ce qui lui arrive</h2>
+      <h2 class="e">Chat vs API</h2>
       <Contexte />
     </Slide>
 
