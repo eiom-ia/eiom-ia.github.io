@@ -482,8 +482,8 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`}
       <Mesures />
     </Slide>
 
-    <Slide bandeau="Vos données" droite="séance 1 · lun 24 août">
-      <h2 class="e">Ce que devient le texte que vous envoyez</h2>
+    <Slide bandeau="Confidentialité" droite="séance 1 · lun 24 août">
+      <h2 class="e">Confidentialité des données</h2>
       <Donnees />
       <p class="e credits">
         Règles de l'API relevées dans la documentation d'OpenAI le 24 août 2026. Les modèles ouverts

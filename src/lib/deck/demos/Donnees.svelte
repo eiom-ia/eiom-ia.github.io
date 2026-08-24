@@ -1,51 +1,54 @@
 <script>
   /**
-   * Ce qui arrive au texte qu'on envoie, et les recours.
+   * Quatre paliers d'exposition, dessinés comme un escalier qui descend.
    *
-   * Quatre niveaux, du plus exposé au plus fermé. L'échelle est le propos:
-   * ce n'est pas « l'IA est dangereuse », c'est « voici où vous vous situez
-   * et comment descendre d'un cran ».
+   * La liste précédente disait la même chose mais ne la montrait pas: on
+   * lisait quatre lignes sans voir qu'elles formaient une échelle. Ici la
+   * hauteur de chaque colonne EST le degré d'exposition, et « descendre d'un
+   * cran » devient littéral.
    *
    * Les règles de l'API viennent de la documentation d'OpenAI, relevée le
-   * 24 août 2026: pas d'entraînement par défaut, journal de trente jours pour
-   * la surveillance des abus, rétention nulle sur approbation préalable.
+   * 24 août 2026.
    */
-  const NIVEAUX = [
+  const PALIERS = [
     {
-      n: 'CLAVARDAGE GRAND PUBLIC',
-      r: 'Vos conversations peuvent servir à entraîner le modèle, sauf refus explicite dans les réglages.',
-      e: 3
+      n: 'CLAVARDAGE\nGRAND PUBLIC',
+      h: 100,
+      r: 'Vos conversations peuvent servir à entraîner le modèle, sauf refus explicite dans les réglages.'
     },
     {
       n: 'PAR L’API',
-      r: 'Pas d’entraînement sur vos données, sauf accord explicite de votre part. Un journal de 30 jours pour la surveillance des abus.',
-      e: 2
+      h: 58,
+      r: 'Pas d’entraînement sur vos données. Un journal de 30 jours pour la surveillance des abus.'
     },
     {
-      n: 'API AVEC RÉTENTION NULLE',
-      r: 'Le journal lui-même est supprimé. Sur approbation préalable du fournisseur.',
-      e: 1
+      n: 'API,\nRÉTENTION NULLE',
+      h: 26,
+      r: 'Le journal lui-même est supprimé. Sur approbation préalable du fournisseur.'
     },
     {
-      n: 'MODÈLE OUVERT, SUR VOTRE MACHINE',
-      r: 'Rien ne sort. Aucune requête, aucun journal, aucun tiers.',
-      e: 0
+      n: 'MODÈLE OUVERT,\nCHEZ VOUS',
+      h: 4,
+      r: 'Rien ne sort. Aucune requête, aucun journal, aucun tiers.'
     }
   ];
 </script>
 
 <div class="don">
-  <ul class="ech">
-    {#each NIVEAUX as v}
-      <li class:sur={v.e === 3} class:sous={v.e === 0}>
-        <span class="pts" aria-hidden="true">
-          {#each Array(4) as _, k}<span class="p" class:on={k < v.e + 1}></span>{/each}
-        </span>
-        <span class="n">{v.n}</span>
-        <span class="r">{v.r}</span>
-      </li>
-    {/each}
-  </ul>
+  <div class="escalier">
+    <span class="axe">CE QUI SORT DE CHEZ VOUS</span>
+    <div class="cols">
+      {#each PALIERS as p, i}
+        <div class="col" class:sur={i === 0} class:sous={i === PALIERS.length - 1}>
+          <div class="fut">
+            <span class="bloc" style="height: {p.h}%"></span>
+          </div>
+          <span class="nom">{p.n}</span>
+          <span class="regle">{p.r}</span>
+        </div>
+      {/each}
+    </div>
+  </div>
 
   <p class="note">
     La question n'est pas « est-ce dangereux », c'est <strong>où vous vous situez</strong> — et vous
@@ -58,68 +61,72 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.6em;
+    gap: 0.7em;
   }
-  .ech {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .escalier {
     display: flex;
     flex-direction: column;
-    gap: 0.35em;
+    gap: 0.25em;
   }
-  .ech li {
+  .axe {
+    font-size: 0.55em;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: var(--dk-gris);
+  }
+
+  .cols {
     display: grid;
-    grid-template-columns: 3.6em 15em 1fr;
-    gap: 0.8em;
-    align-items: baseline;
-    border-left: 3px solid var(--dk-filet);
-    padding: 0.15em 0 0.15em 0.7em;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.7em;
+    align-items: end;
   }
-  /* Le haut de l'échelle est le plus exposé, le bas ne sort pas de la salle. */
-  .ech li.sur {
-    border-left-color: var(--dk-encre);
-  }
-  .ech li.sous {
-    border-left-color: var(--dk-accent);
-  }
-
-  .pts {
+  .col {
     display: flex;
-    gap: 0.18em;
-  }
-  .p {
-    width: 0.5em;
-    height: 0.5em;
-    border: 1px solid var(--dk-gris-2);
-  }
-  .p.on {
-    background: var(--dk-gris);
-    border-color: var(--dk-gris);
-  }
-  .ech li.sous .p.on {
-    background: var(--dk-accent);
-    border-color: var(--dk-accent);
+    flex-direction: column;
+    gap: 0.25em;
+    min-width: 0;
   }
 
-  .n {
-    font-size: 0.6em;
+  /* La hauteur du bloc est le degré d'exposition: l'escalier descend, et
+     c'est le dessin qui porte l'argument. */
+  .fut {
+    height: 6.2em;
+    display: flex;
+    align-items: flex-end;
+    border-bottom: 2px solid var(--dk-encre);
+  }
+  /* Gris pour l'exposition, accent pour le palier qu'on vise: la doctrine du
+     deck exclut les aplats sombres, et le noir écrasait la diapositive. */
+  .bloc {
+    display: block;
+    width: 100%;
+    background: var(--dk-gris-2);
+  }
+  .col.sous .bloc {
+    background: var(--dk-accent);
+  }
+
+  .nom {
+    font-size: 0.56em;
     letter-spacing: 0.1em;
     font-weight: 600;
     color: var(--dk-encre);
+    white-space: pre-line;
+    line-height: 1.25;
   }
-  .ech li.sous .n {
+  .col.sous .nom {
     color: var(--dk-accent);
   }
-  .r {
-    font-size: 0.62em;
+  .regle {
+    font-size: 0.58em;
     line-height: 1.4;
     color: var(--dk-gris);
   }
 
   .note {
     margin: 0;
-    font-size: 0.68em;
+    font-size: 0.7em;
     color: var(--dk-gris);
   }
   .note strong {
