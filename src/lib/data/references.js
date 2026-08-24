@@ -81,6 +81,20 @@ export const REFERENCES = {
     detail: 'NeurIPS 2020 · arXiv:2005.14165',
     lien: 'https://arxiv.org/abs/2005.14165'
   },
+  li2023: {
+    court: 'Li et al. 2023',
+    auteurs: 'P. Li, J. Yang, M. A. Islam, S. Ren',
+    titre: 'Making AI Less "Thirsty": Uncovering and Addressing the Secret Water Footprint of AI Models',
+    detail: "arXiv:2304.03271 · 700 000 litres évaporés pour l'entraînement de GPT-3",
+    lien: 'https://arxiv.org/abs/2304.03271'
+  },
+  meta2024: {
+    court: 'Meta Engineering 2024',
+    auteurs: 'Meta Engineering',
+    titre: "Building Meta's GenAI Infrastructure",
+    detail: 'engineering.fb.com · deux grappes de 24 576 GPU NVIDIA H100',
+    lien: 'https://engineering.fb.com/2024/03/12/data-center-engineering/building-metas-genai-infrastructure/'
+  },
   chiang2024: {
     court: 'Chiang et al. 2024',
     auteurs: 'W.-L. Chiang, L. Zheng, Y. Sheng et al.',
@@ -127,6 +141,8 @@ export const ORDRE_BIBLIO = [
   'bahdanau2015',
   'jordan2015',
   'vaswani2017',
+  'li2023',
+  'meta2024',
   'chiang2024',
   'ahia2023',
   'touvron2023',

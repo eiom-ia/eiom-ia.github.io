@@ -117,6 +117,7 @@
 .diapo-in:has(> .mod) { max-width: 56em; }
 .diapo-in:has(> .arn) { max-width: 54em; }
 .diapo-in:has(> .mes) { max-width: 54em; }
+.diapo-in:has(> .ctr) { max-width: 56em; }
 .diapo-in:has(> .don) { max-width: 56em; }
 .diapo-in:has(> .pds) { max-width: 54em; }
 .diapo-in:has(> .con) { max-width: 54em; }

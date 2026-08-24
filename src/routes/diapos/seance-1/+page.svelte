@@ -11,6 +11,7 @@
   import Frise from '$lib/deck/demos/Frise.svelte';
   import Arbre from '$lib/deck/demos/Arbre.svelte';
   import Api from '$lib/deck/demos/Api.svelte';
+  import Centre from '$lib/deck/demos/Centre.svelte';
   import Mesures from '$lib/deck/demos/Mesures.svelte';
   import Donnees from '$lib/deck/demos/Donnees.svelte';
   import Modeles from '$lib/deck/demos/Modeles.svelte';
@@ -36,7 +37,7 @@
   import Generation from '$lib/deck/demos/Generation.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS } from '$lib/data/config.js';
 
-  const TOTAL = 45;
+  const TOTAL = 46;
 
   const c_capitale = `library(ellmer)
 
@@ -315,6 +316,15 @@ OPENROUTER_API_KEY=votre_cle_ici
       <p class="e">
         Le modèle ne s'installe pas sur votre poste. Votre script lui envoie du texte&nbsp;; il en
         renvoie. Un API, c'est ce point d'entrée&nbsp;: une adresse à qui on écrit, et qui répond.
+      </p>
+    </Slide>
+
+    <Slide bandeau="Où c'est, physiquement" droite="séance 1 · lun 24 août">
+      <h2 class="e">L'adresse est un bâtiment</h2>
+      <Centre />
+      <p class="e credits">
+        Nombre de GPU <Cite k="meta2024" />, puissance par puce d'après la fiche technique NVIDIA du
+        H100 SXM, consommation d'un ménage d'après Hydro-Québec, eau <Cite k="li2023" />.
       </p>
     </Slide>
 
