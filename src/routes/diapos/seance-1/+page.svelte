@@ -258,11 +258,12 @@ OPENROUTER_API_KEY=votre_cle_ici
       </Citation>
     </Slide>
 
-    <Slide bandeau="Là où réside la réponse" droite="séance 1 · lun 24 août">
-      <h2 class="e">Peut-on regarder les poids ?</h2>
+    <Slide bandeau="Poids ouverts" droite="séance 1 · lun 24 août">
+      <h2 class="e">Poids ouverts : ce qu’on télécharge vraiment</h2>
       <Poids />
       <p class="e credits">
-        6,7 milliards de paramètres pour LLaMA-7B <Cite k="touvron2023" />, un écran de 1366 × 768.
+        Index du fichier <code>model.safetensors</code> de Qwen2.5-0.5B, lu dans l'en-tête du
+        fichier. La part entraînée par l'adaptateur est calculée depuis les mêmes formes.
       </p>
     </Slide>
 

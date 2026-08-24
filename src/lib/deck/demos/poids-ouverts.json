@@ -1,0 +1,53 @@
+{
+  "modele": "Qwen2.5-0.5B",
+  "depot": "huggingface.co/Qwen/Qwen2.5-0.5B",
+  "fichier": "model.safetensors",
+  "tenseurs": 290,
+  "couches": 24,
+  "params": 494032768,
+  "lora_rang": 8,
+  "lora_params": 540672,
+  "lora_part": 0.11,
+  "mesure": "index safetensors lu directement dans l'en-tête du fichier, 24 août 2026",
+  "extrait": [
+    {
+      "nom": "model.embed_tokens.weight",
+      "forme": [
+        151936,
+        896
+      ],
+      "type": "BF16"
+    },
+    {
+      "nom": "model.layers.0.input_layernorm.weight",
+      "forme": [
+        896
+      ],
+      "type": "BF16"
+    },
+    {
+      "nom": "model.layers.0.mlp.gate_proj.weight",
+      "forme": [
+        4864,
+        896
+      ],
+      "type": "BF16"
+    },
+    {
+      "nom": "model.layers.0.self_attn.q_proj.weight",
+      "forme": [
+        896,
+        896
+      ],
+      "type": "BF16"
+    },
+    {
+      "nom": "model.layers.0.self_attn.v_proj.weight",
+      "forme": [
+        128,
+        896
+      ],
+      "type": "BF16"
+    }
+  ]
+}

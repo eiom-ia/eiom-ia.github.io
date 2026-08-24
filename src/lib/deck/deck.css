@@ -113,7 +113,7 @@
 .diapo-in:has(> .bia) { max-width: 58em; }
 .diapo-in:has(> .temp) { max-width: 54em; }
 .diapo-in:has(> .cor) { max-width: 56em; }
-.diapo-in:has(> .poi) { max-width: 56em; }
+.diapo-in:has(> .po) { max-width: 58em; }
 .diapo-in:has(> .con) { max-width: 54em; }
 .diapo-in:has(> .ana) { max-width: 52em; }
 .diapo-in:has(> .compare-p) { max-width: 54em; }
