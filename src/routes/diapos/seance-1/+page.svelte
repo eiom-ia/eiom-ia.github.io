@@ -259,11 +259,11 @@ OPENROUTER_API_KEY=votre_cle_ici
     </Slide>
 
     <Slide bandeau="Poids ouverts" droite="séance 1 · lun 24 août">
-      <h2 class="e">Poids ouverts : ce qu’on télécharge vraiment</h2>
+      <h2 class="e">Un poids, c'est la force d'un lien</h2>
       <Poids />
       <p class="e credits">
-        Index du fichier <code>model.safetensors</code> de Qwen2.5-0.5B, lu dans l'en-tête du
-        fichier. La part entraînée par l'adaptateur est calculée depuis les mêmes formes.
+        Poids réels de <code>q_proj</code>, couche 0, lus dans le fichier <code>model.safetensors</code>
+        de Qwen2.5-0.5B. Modèle ouvert : on peut le télécharger et tout lister.
       </p>
     </Slide>
 

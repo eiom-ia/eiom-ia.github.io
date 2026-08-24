@@ -2,225 +2,153 @@
   import donnees from './corpus.json';
 
   /**
-   * Le corpus d'entraînement en treemap: la surface est la part réelle, donc
-   * la domination du web se voit au lieu de se lire.
+   * Le corpus en une bande proportionnelle plutôt qu'en treemap.
    *
-   * Deux niveaux — les quatre natures de source, puis les jeux eux-mêmes.
-   * Survoler une case donne sa part, ses époques et sa taille sur disque,
-   * toutes tirées du tableau 1 de Touvron et al. 2023.
+   * Deux raisons: les sous-ensembles n'ont pas de proportions publiées, donc
+   * un treemap promettait une profondeur qu'on ne pouvait pas tenir; et
+   * surtout, tout ce qui comptait était au survol — inutilisable quand on
+   * parle devant une salle.
    *
-   * Sans JavaScript, le treemap s'affiche entier; seule l'infobulle manque.
+   * Ici tout est à l'écran d'un coup: les parts, l'accolade des 82 % de web,
+   * et les trois faits qui surprennent, tirés du tableau 1 de Touvron et al.
+   * 2023 et de Dodge et al. 2021.
    */
-  const W = 1000, H = 420, ECART = 3;
+  const SRC = donnees.groupes.flatMap((g) => g.sources.map((s) => ({ ...s, groupe: g.nom })));
+  const WEB = SRC.filter((s) => s.groupe === 'WEB').reduce((a, s) => a + s.part, 0);
+  const TEINTE = { WEB: 1, RÉFÉRENCE: 0.6, CODE: 0.42, ACADÉMIQUE: 0.28 };
+  const virgule = (v) => String(v).replace('.', ',');
 
-  // Treemap « squarifié »: on remplit toujours le côté le plus court, ce qui
-  // garde les rectangles proches du carré et donc comparables à l'œil.
-  function decouper(items, x, y, w, h, out = []) {
-    if (!items.length) return out;
-    const total = items.reduce((a, b) => a + b.part, 0);
-    const horiz = w >= h;
-    const cote = horiz ? h : w;
-    let ligne = [], somme = 0, meilleur = Infinity, i = 0;
-    for (; i < items.length; i++) {
-      const s = somme + items[i].part;
-      const lg = (s / total) * (horiz ? w : h);
-      const r = Math.max(
-        ...[...ligne, items[i]].map((it) => {
-          const autre = (it.part / s) * cote;
-          return Math.max(lg / autre, autre / lg);
-        })
-      );
-      if (ligne.length && r > meilleur) break;
-      ligne.push(items[i]);
-      somme = s;
-      meilleur = r;
-    }
-    const lg = (somme / total) * (horiz ? w : h);
-    let d = 0;
-    for (const it of ligne) {
-      const autre = (it.part / somme) * cote;
-      out.push(
-        horiz
-          ? { it, x, y: y + d, w: lg, h: autre }
-          : { it, x: x + d, y, w: autre, h: lg }
-      );
-      d += autre;
-    }
-    const reste = items.slice(i);
-    return horiz
-      ? decouper(reste, x + lg, y, w - lg, h, out)
-      : decouper(reste, x, y + lg, w, h - lg, out);
-  }
-
-  const G = donnees.groupes;
-  const cadres = decouper(G, 0, 0, W, H);
-
-  // Chaque groupe est ensuite redécoupé pour ses propres jeux de données.
-  const cases = cadres.flatMap((c) =>
-    decouper(
-      c.it.sources,
-      c.x + ECART,
-      c.y + ECART,
-      Math.max(c.w - ECART * 2, 1),
-      Math.max(c.h - ECART * 2, 1)
-    ).map((s) => ({ ...s, groupe: c.it.nom }))
-  );
-
-  let survol = $state(null);
-  const TEINTE = { WEB: 1, RÉFÉRENCE: 0.62, CODE: 0.44, ACADÉMIQUE: 0.3 };
+  const FAITS = [
+    { q: 'Le site le plus représenté de C4', r: 'patents.google.com, devant Wikipédia et le New York Times' },
+    { q: 'Wikipédia est relu 2,45 fois', r: 'vingt langues, alphabets latin et cyrillique seulement' },
+    { q: 'GitHub n’est vu que 0,64 fois', r: 'licences Apache, BSD et MIT — le modèle n’en fait pas le tour' }
+  ];
 </script>
 
-<div class="cor">
-  <svg viewBox="0 0 {W} {H}" role="img" aria-label="Composition du corpus d'entraînement de LLaMA en treemap: le web occupe 82 % de la surface.">
-    {#each cases as c}
-      {@const petit = c.w < 118 || c.h < 46}
-      {@const clair = TEINTE[c.groupe] >= 0.6}
-      <g
-        class="tuile"
-        class:actif={survol === c.it.nom}
-        class:clair={clair}
-        role="button"
-        tabindex="0"
-        aria-label="{c.it.nom}, {c.it.part} pour cent"
-        onmouseenter={() => (survol = c.it.nom)}
-        onmouseleave={() => (survol = null)}
-        onfocus={() => (survol = c.it.nom)}
-        onblur={() => (survol = null)}
-      >
-        <rect x={c.x} y={c.y} width={c.w} height={c.h} style="--t: {TEINTE[c.groupe]}" />
-        {#if !petit}
-          <text class="n" x={c.x + 12} y={c.y + 26}>{c.it.nom}</text>
-          <text class="p" x={c.x + 12} y={c.y + 56}>{String(c.it.part).replace('.', ',')} %</text>
-        {:else}
-          <text class="n mini" x={c.x + c.w / 2} y={c.y + c.h / 2 - 4} text-anchor="middle"
-            >{c.it.nom.length * 8.4 > c.w ? c.it.nom.slice(0, Math.max(3, Math.floor(c.w / 8.4) - 1)) + '.' : c.it.nom}</text
-          >
-          <text class="p mini" x={c.x + c.w / 2} y={c.y + c.h / 2 + 18} text-anchor="middle"
-            >{String(c.it.part).replace('.', ',')} %</text
-          >
-        {/if}
-      </g>
+<div class="cps">
+  <div class="bande">
+    {#each SRC as s}
+      <div class="seg" style="--p: {s.part}; --t: {TEINTE[s.groupe]}">
+        <span class="pc">{virgule(s.part)}</span>
+      </div>
     {/each}
-  </svg>
-
-  <div class="info" class:vide={!survol}>
-    {#if survol}
-      {@const s = G.flatMap((g) => g.sources).find((x) => x.nom === survol)}
-      <span class="i-n">{s.nom} — {s.quoi}</span>
-      <ul class="i-d">
-        {#each s.dedans as ligne}<li>{ligne}</li>{/each}
-      </ul>
-      <span class="i-c"
-        >{String(s.part).replace('.', ',')} % du mélange · {s.epoques
-          .toFixed(2)
-          .replace('.', ',')} époque{s.epoques >= 2 ? 's' : ''} · {s.disque} · {s.src}</span
-      >
-    {:else}
-      <span class="i-q">Survolez une case pour voir ce qu'elle contient.</span>
-    {/if}
   </div>
+
+  <div class="noms">
+    {#each SRC as s}
+      <div class="nm" style="--p: {s.part}"><span>{s.nom}</span></div>
+    {/each}
+  </div>
+
+  <div class="accolade" style="--w: {WEB}">
+    <span class="trait"></span>
+    <span class="txt">{virgule(WEB)} % du mélange est du web ramassé automatiquement</span>
+  </div>
+
+  <ul class="faits">
+    {#each FAITS as f}
+      <li><span class="q">{f.q}</span><span class="r">{f.r}</span></li>
+    {/each}
+  </ul>
 </div>
 
 <style>
-  .cor {
+  .cps {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
-  }
-  svg {
-    width: 100%;
-    height: auto;
-    display: block;
+    gap: 0.15em;
   }
 
-  :global(.cor .tuile rect) {
-    fill: color-mix(in srgb, var(--dk-accent) calc(var(--t) * 100%), var(--dk-fond));
-    stroke: var(--dk-fond);
-    stroke-width: 3;
-    transition: fill 0.15s;
+  /* Une bande à l'échelle: la part se lit en largeur, pas dans une légende. */
+  .bande {
+    display: flex;
+    height: 3.4em;
+    border: 2px solid var(--dk-encre);
   }
-  :global(.cor .tuile.actif rect) {
-    stroke: var(--dk-encre);
+  .seg {
+    flex: var(--p);
+    background: color-mix(in srgb, var(--dk-accent) calc(var(--t) * 100%), var(--dk-fond));
+    border-right: 2px solid var(--dk-fond);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    overflow: hidden;
   }
-  :global(.cor .tuile) {
-    cursor: default;
-    outline: none;
+  .seg:last-child {
+    border-right: none;
   }
-
-  :global(.cor text) {
-    font-family: var(--dk-mono);
-    pointer-events: none;
-  }
-  /* Au-delà d'une certaine teinte le fond est trop sombre pour de l'encre. */
-  :global(.cor .tuile n),
-  :global(.cor .n) {
-    font-size: 21px;
+  .pc {
+    font-size: 0.8em;
     font-weight: 600;
-    fill: var(--dk-encre);
-  }
-  :global(.cor .p) {
-    font-size: 30px;
-    font-weight: 600;
-    fill: var(--dk-encre);
+    color: var(--dk-encre);
     font-variant-numeric: tabular-nums;
   }
-  :global(.cor .n.mini) {
-    font-size: 14px;
-  }
-  :global(.cor .p.mini) {
-    font-size: 19px;
-  }
-  /* Au-delà de 60 % de teinte, le fond est trop soutenu pour de l'encre. */
-  :global(.cor .tuile.clair .n),
-  :global(.cor .tuile.clair .p) {
-    fill: var(--dk-fond);
+  .seg:first-child .pc,
+  .seg:nth-child(2) .pc {
+    color: var(--dk-fond);
   }
 
-  .info {
+  .noms {
     display: flex;
-    flex-direction: column;
-    gap: 0.1em;
-    min-height: 5.4em;
-    border-left: 3px solid var(--dk-accent);
-    padding-left: 0.7em;
   }
-  .info.vide {
-    border-left-color: var(--dk-filet);
+  .nm {
+    flex: var(--p);
+    min-width: 0;
+    padding-top: 0.15em;
   }
-  .i-n {
-    font-size: 0.78em;
+  .nm span {
+    display: block;
+    font-size: 0.54em;
+    color: var(--dk-gris);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* L'accolade dit ce que la bande montre déjà, mais nomme la chose. */
+  .accolade {
+    width: calc(var(--w) * 1%);
+    margin-top: 0.35em;
+  }
+  .trait {
+    display: block;
+    height: 0.42em;
+    border: 2px solid var(--dk-accent);
+    border-top: none;
+  }
+  .accolade .txt {
+    display: block;
+    font-size: 0.62em;
     font-weight: 600;
     color: var(--dk-accent);
+    padding-top: 0.25em;
   }
-  .i-q {
-    font-size: 0.66em;
-    color: var(--dk-encre);
-  }
-  .info.vide .i-q {
-    color: var(--dk-gris-2);
-  }
-  .i-d {
+
+  .faits {
     list-style: none;
-    margin: 0.1em 0;
+    margin: 0.7em 0 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.02em;
+    gap: 0.22em;
   }
-  .i-d li {
-    font-size: 0.62em;
+  .faits li {
+    display: grid;
+    grid-template-columns: 17em 1fr;
+    gap: 0.8em;
+    align-items: baseline;
+    border-left: 3px solid var(--dk-filet);
+    padding-left: 0.7em;
+  }
+  .q {
+    font-size: 0.64em;
+    font-weight: 600;
     color: var(--dk-encre);
-    padding-left: 0.9em;
-    text-indent: -0.9em;
   }
-  .i-d li::before {
-    content: '· ';
-    color: var(--dk-accent);
-  }
-  .i-c {
-    font-size: 0.6em;
+  .r {
+    font-size: 0.62em;
     color: var(--dk-gris);
-    font-variant-numeric: tabular-nums;
   }
 </style>
