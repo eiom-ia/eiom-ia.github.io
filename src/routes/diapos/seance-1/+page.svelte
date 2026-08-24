@@ -187,7 +187,7 @@ OPENROUTER_API_KEY=votre_cle_ici
         </li>
       </ul>
       <p class="e">
-        Aucun consensus : 70+ définitions recensées.
+        Aucun consensus : beaucoup plus de définitions recensées.
         <Cite k="legg2007" /> <Cite k="wang2019" />
       </p>
     </Slide>
