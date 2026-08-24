@@ -4,7 +4,7 @@
    * LLM de Yang et al. 2023 (arXiv:2304.13712), cité sur la diapositive.
    *
    * Les deux branches en accent sont celles qui comptent pour la semaine:
-   * l'encodeur seul donne les classifieurs (séance 2), le décodeur seul donne
+   * l'encodeur donne les classifieurs (séance 2), le décodeur donne
    * les modèles génératifs (séance 1).
    */
   const N = [
@@ -14,9 +14,9 @@
     { id: 'stat',  x: 486, y: 372, t: 'Modèles statistiques',      s: 'régression, SVM, forêts', ton: 'gris' },
     { id: 'prof',  x: 486, y: 240, t: 'Réseaux profonds',          s: 'depuis 2012' },
     { id: 'trans', x: 700, y: 240, t: 'Transformers',              s: '2017' },
-    { id: 'enc',   x: 872, y: 128, t: 'Encodeur seul',             s: 'BERT · RoBERTa', b: 'classifieurs', ton: 'accent' },
+    { id: 'enc',   x: 872, y: 128, t: 'Encodeur',                  s: 'BERT · RoBERTa', b: 'classifieurs', ton: 'accent' },
     { id: 'encdec',x: 872, y: 240, t: 'Encodeur-décodeur',         s: 'T5 · BART', ton: 'gris' },
-    { id: 'dec',   x: 872, y: 350, t: 'Décodeur seul',             s: 'GPT · Claude · Llama', b: 'génératifs', ton: 'accent' }
+    { id: 'dec',   x: 872, y: 350, t: 'Décodeur',                  s: 'GPT · Claude · Llama', b: 'génératifs', ton: 'accent' }
   ];
   const idx = Object.fromEntries(N.map((n) => [n.id, n]));
 

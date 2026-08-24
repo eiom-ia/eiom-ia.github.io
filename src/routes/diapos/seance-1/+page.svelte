@@ -225,7 +225,7 @@ OPENROUTER_API_KEY=votre_cle_ici
     </Slide>
 
     <Slide bandeau="Situer les familles" droite="séance 1 · lun 24 août">
-      <h2 class="e">Le mot « IA » recouvre des familles distinctes</h2>
+      <h2 class="e">Arbre généalogique de l'IA</h2>
       <Arbre />
       <p class="e credits">
         Schéma original, inspiré de l’arbre évolutif des LLM de <Cite k="yang2023" />.
