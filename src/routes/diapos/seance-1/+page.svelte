@@ -478,11 +478,8 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`}
     </Slide>
 
     <Slide bandeau="Mesurer" droite="séance 1 · lun 24 août">
-      <h2 class="e">L'exactitude n'est pas la bonne mesure</h2>
+      <h2 class="e">La précision du modèle n'est pas toujours la bonne mesure</h2>
       <Mesures />
-      <p class="e credits">
-        Répartition réelle du corpus : 384 avis à cinq étoiles sur 551, et 41 à une étoile.
-      </p>
     </Slide>
 
     <Slide bandeau="Vos données" droite="séance 1 · lun 24 août">

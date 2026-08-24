@@ -1,60 +1,47 @@
 <script>
   /**
-   * Pourquoi l'exactitude seule ne suffit pas.
+   * Le modèle brisé qui a l'air excellent.
    *
-   * Deux cas côte à côte: la maladie rare, où le modèle nul est
-   * catastrophique, et leur propre corpus, où le modèle nul obtient déjà
-   * 69,7 %. Le second compte davantage: c'est le chiffre qu'ils devront battre
-   * demain, et il est calculé sur les 551 avis réels.
+   * Cent personnes, une seule malade. Un modèle qui répond « non » à tout le
+   * monde se trompe une fois sur cent — et ne sert à rien. Le dessin met les
+   * deux faits côte à côte: la grille presque toute juste, et le seul cas qui
+   * comptait, raté.
    *
-   * La barre d'exactitude est haute dans les deux cas. C'est le compte des
-   * ratés, en dessous, qui dit la vérité.
+   * Cent points plutôt que mille: à 1 % de prévalence, cent suffit pour que
+   * le point unique se voie, et le compte reste lisible.
    */
-  const CAS = [
-    {
-      titre: 'UNE MALADIE RARE',
-      regle: 'Le modèle répond toujours « non »',
-      n: 1000,
-      pos: 10,
-      exact: 99.0,
-      rates: '10 malades sur 10',
-      quoi: 'aucun malade détecté'
-    },
-    {
-      titre: 'VOTRE CORPUS, DEMAIN',
-      regle: 'Le modèle répond toujours « 5 étoiles »',
-      n: 551,
-      pos: 41,
-      exact: 69.7,
-      rates: '41 avis à 1 étoile sur 41',
-      quoi: 'aucun client fâché repéré'
-    }
-  ];
-  const virgule = (v) => String(v).replace('.', ',');
+  const N = 100;
+  const MALADE = 46; // au milieu, pour qu'on le cherche un instant
 </script>
 
 <div class="mes">
-  <div class="cas">
-    {#each CAS as c, i}
-      <section class:vise={i === 1}>
-        <span class="t">{c.titre}</span>
-        <p class="regle">{c.regle}</p>
+  <p class="premisse">
+    Une maladie qui touche <strong>1 %</strong> des gens. Un modèle brisé répond
+    <strong>« non »</strong> à tout le monde.
+  </p>
 
-        <div class="jauge">
-          <span class="rempli" style="width: {c.exact}%"></span>
-        </div>
-        <p class="chiffre">
-          <strong>{virgule(c.exact)} %</strong> d'exactitude
-        </p>
-
-        <p class="rate"><span class="x">✗</span>{c.rates} — {c.quoi}</p>
-      </section>
+  <div class="grille" role="img" aria-label="Cent personnes, une seule malade. Le modèle répond non à tout le monde: il a raison 99 fois et rate la seule personne malade.">
+    {#each Array(N) as _, i}
+      <span class="p" class:malade={i === MALADE}></span>
     {/each}
   </div>
 
+  <div class="bilan">
+    <div class="col">
+      <span class="v">99 %</span>
+      <span class="l">de précision</span>
+      <span class="d">99 personnes sur 100 correctement classées</span>
+    </div>
+    <div class="col rate">
+      <span class="v">0</span>
+      <span class="l">malade détecté</span>
+      <span class="d">le seul cas qui comptait est passé au travers</span>
+    </div>
+  </div>
+
   <p class="note">
-    Un modèle qui ne fait rien peut avoir l'air excellent. L'exactitude ne dit rien de ce qui
-    compte : ce qu'il <strong>rate</strong>.
+    D'autres mesures existent pour ce genre de situation. Vous les verrez avec
+    <strong>Antoine</strong>.
   </p>
 </div>
 
@@ -63,85 +50,76 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.7em;
+    gap: 0.6em;
   }
-  .cas {
+  .premisse {
+    margin: 0;
+    font-size: 0.78em;
+    line-height: 1.45;
+    color: var(--dk-encre);
+  }
+
+  /* Cent points, un seul en accent: on le cherche, et c'est le propos. */
+  .grille {
+    display: grid;
+    grid-template-columns: repeat(25, 1fr);
+    gap: 0.28em;
+    max-width: 30em;
+  }
+  .p {
+    aspect-ratio: 1;
+    border: 1.5px solid var(--dk-gris-2);
+  }
+  .p.malade {
+    background: var(--dk-accent);
+    border-color: var(--dk-accent);
+  }
+
+  .bilan {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.4em;
+    gap: 1.6em;
+    margin-top: 0.3em;
   }
-  section {
+  .col {
     display: flex;
     flex-direction: column;
-    gap: 0.15em;
+    gap: 0.02em;
     border-left: 3px solid var(--dk-gris-2);
     padding-left: 0.8em;
   }
-  /* Le second cas est le leur: c'est celui qu'ils devront battre. */
-  section.vise {
+  .col.rate {
     border-left-color: var(--dk-accent);
   }
-
-  .t {
-    font-size: 0.58em;
-    letter-spacing: 0.15em;
+  .v {
+    font-size: 2.1em;
     font-weight: 600;
-    color: var(--dk-gris);
-  }
-  section.vise .t {
-    color: var(--dk-accent);
-  }
-  .regle {
-    margin: 0 0 0.3em;
-    font-size: 0.68em;
-    color: var(--dk-encre);
-  }
-
-  /* La jauge est presque pleine dans les deux cas: c'est le piège. */
-  .jauge {
-    height: 0.9em;
-    border: 2px solid var(--dk-encre);
-  }
-  .rempli {
-    display: block;
-    height: 100%;
-    background: var(--dk-encre);
-  }
-  section.vise .rempli {
-    background: var(--dk-accent);
-  }
-  .chiffre {
-    margin: 0.1em 0 0;
-    font-size: 0.66em;
-    color: var(--dk-gris);
-  }
-  .chiffre strong {
-    font-size: 1.5em;
+    line-height: 1;
+    letter-spacing: -0.04em;
     color: var(--dk-encre);
     font-variant-numeric: tabular-nums;
   }
-  section.vise .chiffre strong {
+  .col.rate .v {
     color: var(--dk-accent);
   }
-
-  .rate {
-    margin: 0.35em 0 0;
-    font-size: 0.64em;
-    font-weight: 600;
-    color: var(--dk-encre);
+  .l {
+    font-size: 0.6em;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--dk-gris);
   }
-  .x {
-    color: var(--dk-accent);
-    margin-right: 0.4em;
+  .d {
+    font-size: 0.6em;
+    color: var(--dk-gris);
+    margin-top: 0.15em;
   }
 
   .note {
     margin: 0;
-    font-size: 0.7em;
-    line-height: 1.45;
-    color: var(--dk-gris);
+    font-size: 0.72em;
+    color: var(--dk-encre);
   }
   .note strong {
-    color: var(--dk-encre);
+    color: var(--dk-accent);
   }
 </style>
