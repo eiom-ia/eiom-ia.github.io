@@ -205,17 +205,17 @@ OPENROUTER_API_KEY=votre_cle_ici
       </ul>
     </Slide>
 
+    <Slide bandeau="Une histoire de l'IA" droite="séance 1 · lun 24 août">
+      <h2 class="e">Histoire de l'IA</h2>
+      <Frise />
+    </Slide>
+
     <Slide bandeau="Situer les familles" droite="séance 1 · lun 24 août">
       <h2 class="e">Le mot « IA » recouvre des familles distinctes</h2>
       <Arbre />
       <p class="e credits">
         Schéma original, inspiré de l’arbre évolutif des LLM de <Cite k="yang2023" />.
       </p>
-    </Slide>
-
-    <Slide bandeau="Une histoire de l'IA" droite="séance 1 · lun 24 août">
-      <h2 class="e">Histoire de l'IA</h2>
-      <Frise />
     </Slide>
 
     <Slide fond="encre" bandeau="Les modèles de langage" droite="séance 1 · lun 24 août">
