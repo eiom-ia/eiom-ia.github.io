@@ -463,9 +463,6 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`}
     <Slide bandeau="La formule" droite="séance 1 · lun 24 août">
       <h2 class="e">Rôle → Tâche → Contraintes → Format</h2>
       <Anatomie />
-      <p class="e">
-        Avec la sortie structurée, le format se règle tout seul : le schéma <em>est</em> le format.
-      </p>
     </Slide>
 
     <Slide bandeau="Avant / après" droite="séance 1 · lun 24 août">
