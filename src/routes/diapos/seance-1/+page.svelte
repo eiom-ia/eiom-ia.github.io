@@ -11,6 +11,7 @@
   import Frise from '$lib/deck/demos/Frise.svelte';
   import Arbre from '$lib/deck/demos/Arbre.svelte';
   import Api from '$lib/deck/demos/Api.svelte';
+  import Prix from '$lib/deck/demos/Prix.svelte';
   import Centre from '$lib/deck/demos/Centre.svelte';
   import Mesures from '$lib/deck/demos/Mesures.svelte';
   import Donnees from '$lib/deck/demos/Donnees.svelte';
@@ -37,7 +38,7 @@
   import Generation from '$lib/deck/demos/Generation.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS } from '$lib/data/config.js';
 
-  const TOTAL = 47;
+  const TOTAL = 48;
 
   const c_capitale = `library(ellmer)
 
@@ -419,6 +420,16 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`}
       <h2 class="e">Comment choisir son modèle ?</h2>
       <Modeles />
       <p class="e credits">Catalogue OpenRouter relevé le 24 août 2026.</p>
+    </Slide>
+
+    <Slide bandeau="Le prix, en vrai" droite="séance 1 · lun 24 août">
+      <h2 class="e">Comment interpréter le coût</h2>
+      <Prix />
+      <p class="e credits">
+        Tarifs relevés sur anthropic.com/pricing le 24 août 2026. Jetons comptés sur les 551 avis
+        réels du corpus; les prix d'Anthropic s'appliquent à leur propre tokeniseur, l'ordre de
+        grandeur tient.
+      </p>
     </Slide>
 
     <Slide bandeau="Un classement par duels" droite="séance 1 · lun 24 août">

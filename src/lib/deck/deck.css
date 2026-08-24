@@ -119,6 +119,7 @@
 .diapo-in:has(> .mes) { max-width: 54em; }
 .diapo-in:has(> .qs-num) { max-width: 52em; }
 .diapo-in:has(> .ctr) { max-width: 56em; }
+.diapo-in:has(> .prx) { max-width: 56em; }
 .diapo-in:has(> .don) { max-width: 56em; }
 .diapo-in:has(> .pds) { max-width: 54em; }
 .diapo-in:has(> .con) { max-width: 54em; }

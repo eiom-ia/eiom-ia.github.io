@@ -3,6 +3,12 @@
  * Licences vérifiées à la source; toute image ajoutée doit l'être ici.
  */
 export const CREDITS_IMAGES = {
+  "prix-anthropic": {
+    "licence": "Capture de la page de tarification publique, reproduite en contexte pédagogique",
+    "auteur": "Anthropic",
+    "page": "https://www.anthropic.com/pricing",
+    "fichier": "prix-anthropic.jpg"
+  },
   "centre-donnees": {
     "licence": "CC BY 2.0",
     "auteur": "Carl Lender",
