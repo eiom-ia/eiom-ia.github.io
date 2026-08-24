@@ -81,6 +81,13 @@ export const REFERENCES = {
     detail: 'NeurIPS 2020 · arXiv:2005.14165',
     lien: 'https://arxiv.org/abs/2005.14165'
   },
+  chiang2024: {
+    court: 'Chiang et al. 2024',
+    auteurs: 'W.-L. Chiang, L. Zheng, Y. Sheng et al.',
+    titre: 'Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference',
+    detail: 'arXiv:2403.04132 · plus de 240 000 votes appariés',
+    lien: 'https://arxiv.org/abs/2403.04132'
+  },
   ahia2023: {
     court: 'Ahia et al. 2023',
     auteurs: 'O. Ahia, S. Kumar, H. Gonen et al.',
@@ -120,6 +127,7 @@ export const ORDRE_BIBLIO = [
   'bahdanau2015',
   'jordan2015',
   'vaswani2017',
+  'chiang2024',
   'ahia2023',
   'touvron2023',
   'wang2019',

@@ -11,6 +11,9 @@
   import Frise from '$lib/deck/demos/Frise.svelte';
   import Arbre from '$lib/deck/demos/Arbre.svelte';
   import Api from '$lib/deck/demos/Api.svelte';
+  import Modeles from '$lib/deck/demos/Modeles.svelte';
+  import Arena from '$lib/deck/demos/Arena.svelte';
+  import Extractions from '$lib/deck/demos/Extractions.svelte';
   import Poids from '$lib/deck/demos/Poids.svelte';
   import Corpus from '$lib/deck/demos/Corpus.svelte';
   import Anatomie from '$lib/deck/demos/Anatomie.svelte';
@@ -31,7 +34,7 @@
   import Generation from '$lib/deck/demos/Generation.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS } from '$lib/data/config.js';
 
-  const TOTAL = 40;
+  const TOTAL = 43;
 
   const c_capitale = `library(ellmer)
 
@@ -344,6 +347,14 @@ OPENROUTER_API_KEY=votre_cle_ici
       <Classifieur />
     </Slide>
 
+    <Slide bandeau="La même donnée, d'autres questions" droite="séance 1 · lun 24 août">
+      <h2 class="e">On ne change pas la donnée, on change la consigne</h2>
+      <Extractions />
+      <p class="e credits">
+        Six appels réels à <code>gemini-3.5-flash-lite</code>, température 0, sortie JSON imposée.
+      </p>
+    </Slide>
+
     <Slide bandeau="Outillage" droite="séance 1 · lun 24 août">
       <div class="ell e">
         <figure class="ell-logo">
@@ -378,6 +389,20 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`}
     <Slide d={0.86} bandeau="La boucle" droite="séance 1 · lun 24 août">
       <h2 class="e">Le même geste, sur un vecteur</h2>
       <Code src={c_boucle} />
+    </Slide>
+
+    <Slide bandeau="Le catalogue" droite="séance 1 · lun 24 août">
+      <h2 class="e">Comment choisir son modèle ?</h2>
+      <Modeles />
+      <p class="e credits">Catalogue OpenRouter relevé le 24 août 2026.</p>
+    </Slide>
+
+    <Slide bandeau="Un classement par duels" droite="séance 1 · lun 24 août">
+      <h2 class="e">LM Arena</h2>
+      <Arena />
+      <p class="e credits">
+        Méthode et volume de votes <Cite k="chiang2024" />.
+      </p>
     </Slide>
 
     <Slide bandeau="Sécurité" droite="séance 1 · lun 24 août">
