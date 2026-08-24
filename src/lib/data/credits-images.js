@@ -3,6 +3,12 @@
  * Licences vérifiées à la source; toute image ajoutée doit l'être ici.
  */
 export const CREDITS_IMAGES = {
+  "centre-donnees": {
+    "licence": "CC BY 2.0",
+    "auteur": "Carl Lender",
+    "page": "https://commons.wikimedia.org/wiki/File:Datacenter_Server_Racks_(22370909788).jpg",
+    "fichier": "centre-donnees.jpg"
+  },
   "ellmer": {
     "licence": "MIT — logo du paquet R ellmer",
     "auteur": "Posit / tidyverse",

@@ -1,4 +1,6 @@
 <script>
+  import { base } from '$app/paths';
+
   /**
    * L'adresse à qui on écrit est un bâtiment, et il consomme.
    *
@@ -21,6 +23,10 @@
 </script>
 
 <div class="ctr">
+  <figure class="photo">
+    <img src="{base}/img/centre-donnees.jpg" alt="Une rangée de baies de serveurs dans un centre de données" />
+  </figure>
+
   <div class="calcul">
     <div class="etape">
       <span class="v">{esp(GPU)}</span>
@@ -63,7 +69,21 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.7em;
+    gap: 0.55em;
+  }
+  /* La photo d'abord: le mot « bâtiment » du titre devient une image avant
+     que les chiffres n'arrivent. */
+  .photo {
+    margin: 0;
+  }
+  .photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 7.4em;
+    object-fit: cover;
+    object-position: center 42%;
+    border: 2px solid var(--dk-encre);
   }
 
   /* Le calcul est posé à plat: on voit d'où sort le chiffre final. */
