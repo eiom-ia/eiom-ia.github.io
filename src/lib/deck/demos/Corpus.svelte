@@ -2,54 +2,41 @@
   import donnees from './corpus.json';
 
   /**
-   * Le corpus en une bande proportionnelle plutôt qu'en treemap.
+   * Une barre par source, groupées par nature.
    *
-   * Deux raisons: les sous-ensembles n'ont pas de proportions publiées, donc
-   * un treemap promettait une profondeur qu'on ne pouvait pas tenir; et
-   * surtout, tout ce qui comptait était au survol — inutilisable quand on
-   * parle devant une salle.
+   * La bande unique était plus compacte mais illisible: un segment à 2 % ne
+   * peut pas porter son nom, et « Wikipé… » ou « ArX…St… » ne renseignent
+   * personne. Ici chaque source a sa ligne, donc son nom entier, sa part et
+   * son fait — tout lisible depuis le fond de la salle, sans rien survoler.
    *
-   * Ici tout est à l'écran d'un coup: les parts, l'accolade des 82 % de web,
-   * et les trois faits qui surprennent, tirés du tableau 1 de Touvron et al.
-   * 2023 et de Dodge et al. 2021.
+   * Les parts viennent du tableau 1 de Touvron et al. 2023; le fait sur C4 de
+   * Dodge et al. 2021.
    */
-  const SRC = donnees.groupes.flatMap((g) => g.sources.map((s) => ({ ...s, groupe: g.nom })));
-  const WEB = SRC.filter((s) => s.groupe === 'WEB').reduce((a, s) => a + s.part, 0);
-  const TEINTE = { WEB: 1, RÉFÉRENCE: 0.6, CODE: 0.42, ACADÉMIQUE: 0.28 };
+  const G = donnees.groupes;
+  const MAX = 67;
   const virgule = (v) => String(v).replace('.', ',');
-
-  const FAITS = [
-    { q: 'Le site le plus représenté de C4', r: 'patents.google.com, devant Wikipédia et le New York Times' },
-    { q: 'Wikipédia est relu 2,45 fois', r: 'vingt langues, alphabets latin et cyrillique seulement' },
-    { q: 'GitHub n’est vu que 0,64 fois', r: 'licences Apache, BSD et MIT — le modèle n’en fait pas le tour' }
-  ];
+  const TEINTE = { WEB: 1, RÉFÉRENCE: 0.58, CODE: 0.42, ACADÉMIQUE: 0.28 };
 </script>
 
 <div class="cps">
-  <div class="bande">
-    {#each SRC as s}
-      <div class="seg" style="--p: {s.part}; --t: {TEINTE[s.groupe]}">
-        <span class="pc">{virgule(s.part)}</span>
+  {#each G as g}
+    <div class="grp">
+      <div class="g-tete">
+        <span class="g-nom">{g.nom}</span>
+        <span class="g-part">{virgule(g.part)} %</span>
       </div>
-    {/each}
-  </div>
-
-  <div class="noms">
-    {#each SRC as s}
-      <div class="nm" style="--p: {s.part}"><span>{s.nom}</span></div>
-    {/each}
-  </div>
-
-  <div class="accolade" style="--w: {WEB}">
-    <span class="trait"></span>
-    <span class="txt">{virgule(WEB)} % du mélange est du web ramassé automatiquement</span>
-  </div>
-
-  <ul class="faits">
-    {#each FAITS as f}
-      <li><span class="q">{f.q}</span><span class="r">{f.r}</span></li>
-    {/each}
-  </ul>
+      {#each g.sources as s}
+        <div class="ligne">
+          <span class="nom">{s.nom}</span>
+          <span class="piste">
+            <span class="barre" style="width: {(s.part / MAX) * 100}%; --t: {TEINTE[g.nom]}"></span>
+          </span>
+          <span class="pc">{virgule(s.part)} %</span>
+          <span class="fait">{s.court}</span>
+        </div>
+      {/each}
+    </div>
+  {/each}
 </div>
 
 <style>
@@ -57,98 +44,77 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.15em;
+    gap: 0.5em;
   }
-
-  /* Une bande à l'échelle: la part se lit en largeur, pas dans une légende. */
-  .bande {
-    display: flex;
-    height: 3.4em;
-    border: 2px solid var(--dk-encre);
-  }
-  .seg {
-    flex: var(--p);
-    background: color-mix(in srgb, var(--dk-accent) calc(var(--t) * 100%), var(--dk-fond));
-    border-right: 2px solid var(--dk-fond);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 0;
-    overflow: hidden;
-  }
-  .seg:last-child {
-    border-right: none;
-  }
-  .pc {
-    font-size: 0.8em;
-    font-weight: 600;
-    color: var(--dk-encre);
-    font-variant-numeric: tabular-nums;
-  }
-  .seg:first-child .pc,
-  .seg:nth-child(2) .pc {
-    color: var(--dk-fond);
-  }
-
-  .noms {
-    display: flex;
-  }
-  .nm {
-    flex: var(--p);
-    min-width: 0;
-    padding-top: 0.15em;
-  }
-  .nm span {
-    display: block;
-    font-size: 0.54em;
-    color: var(--dk-gris);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  /* L'accolade dit ce que la bande montre déjà, mais nomme la chose. */
-  .accolade {
-    width: calc(var(--w) * 1%);
-    margin-top: 0.35em;
-  }
-  .trait {
-    display: block;
-    height: 0.42em;
-    border: 2px solid var(--dk-accent);
-    border-top: none;
-  }
-  .accolade .txt {
-    display: block;
-    font-size: 0.62em;
-    font-weight: 600;
-    color: var(--dk-accent);
-    padding-top: 0.25em;
-  }
-
-  .faits {
-    list-style: none;
-    margin: 0.7em 0 0;
-    padding: 0;
+  .grp {
     display: flex;
     flex-direction: column;
-    gap: 0.22em;
+    gap: 0.1em;
   }
-  .faits li {
-    display: grid;
-    grid-template-columns: 17em 1fr;
-    gap: 0.8em;
+
+  /* L'entête de groupe porte le total: c'est là qu'on lit les 82 % de web. */
+  .g-tete {
+    display: flex;
     align-items: baseline;
-    border-left: 3px solid var(--dk-filet);
-    padding-left: 0.7em;
+    gap: 0.6em;
+    border-bottom: 2px solid var(--dk-filet);
+    padding-bottom: 0.1em;
   }
-  .q {
+  .g-nom {
+    font-size: 0.56em;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    color: var(--dk-gris);
+  }
+  .g-part {
+    font-size: 0.6em;
+    font-weight: 600;
+    color: var(--dk-accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .grp:first-child .g-nom,
+  .grp:first-child .g-part {
+    color: var(--dk-accent);
+  }
+  .grp:first-child .g-tete {
+    border-bottom-color: var(--dk-accent);
+  }
+
+  .ligne {
+    display: grid;
+    grid-template-columns: 8.6em 11em 3.4em 1fr;
+    gap: 0.7em;
+    align-items: center;
+    padding: 0.1em 0;
+  }
+  .nom {
     font-size: 0.64em;
     font-weight: 600;
     color: var(--dk-encre);
+    white-space: nowrap;
   }
-  .r {
+  .piste {
+    display: block;
+    height: 0.85em;
+    background: var(--dk-fond-2);
+  }
+  .barre {
+    display: block;
+    height: 100%;
+    background: color-mix(in srgb, var(--dk-accent) calc(var(--t) * 100%), var(--dk-fond));
+  }
+  .pc {
     font-size: 0.62em;
+    font-weight: 600;
+    color: var(--dk-encre);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .fait {
+    font-size: 0.58em;
     color: var(--dk-gris);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 </style>

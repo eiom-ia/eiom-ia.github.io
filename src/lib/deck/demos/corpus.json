@@ -15,7 +15,8 @@
             "Filtré par un modèle qui garde ce qui ressemble aux pages citées par Wikipédia",
             "Déduplication ligne par ligne"
           ],
-          "src": "Touvron et al. 2023, §2.1"
+          "src": "Touvron et al. 2023, §2.1",
+          "court": "cinq balayages du web, 2017-2020, anglais seulement"
         },
         {
           "nom": "C4",
@@ -28,7 +29,8 @@
             "Puis en.wikipedia.org, nytimes.com, latimes.com, theguardian.com",
             "Beaucoup de brevets et de sites gouvernementaux américains"
           ],
-          "src": "Dodge et al. 2021, figure 2"
+          "src": "Dodge et al. 2021, figure 2",
+          "court": "en tête : patents.google.com, devant Wikipédia"
         }
       ],
       "part": 82.0
@@ -47,7 +49,8 @@
             "bg ca cs da de en es fr hr hu it nl pl pt ro ru sl sr sv uk",
             "Relu 2,45 fois : le plus repassé de tout le mélange"
           ],
-          "src": "Touvron et al. 2023, §2.1"
+          "src": "Touvron et al. 2023, §2.1",
+          "court": "vingt langues · relu 2,45 fois, le plus repassé"
         },
         {
           "nom": "Livres",
@@ -60,7 +63,8 @@
             "Books3, tiré de ThePile",
             "Livres retirés s’ils se recouvrent à plus de 90 %"
           ],
-          "src": "Touvron et al. 2023, §2.1"
+          "src": "Touvron et al. 2023, §2.1",
+          "court": "Gutenberg (domaine public) et Books3"
         }
       ],
       "part": 9.0
@@ -79,7 +83,8 @@
             "En-têtes et passe-partout retirés",
             "Vu 0,64 fois : le modèle n’en a même pas fait le tour"
           ],
-          "src": "Touvron et al. 2023, §2.1"
+          "src": "Touvron et al. 2023, §2.1",
+          "court": "licences Apache, BSD, MIT · vu 0,64 fois seulement"
         }
       ],
       "part": 4.5
@@ -98,7 +103,8 @@
             "Tout ce qui précède la première section est retiré",
             "Bibliographies et commentaires retirés"
           ],
-          "src": "Touvron et al. 2023, §2.1"
+          "src": "Touvron et al. 2023, §2.1",
+          "court": "prépublications, en sources LaTeX"
         },
         {
           "nom": "StackExchange",
@@ -111,7 +117,8 @@
             "Réponses triées par score, la mieux notée en premier",
             "Balises HTML retirées"
           ],
-          "src": "Touvron et al. 2023, §2.1"
+          "src": "Touvron et al. 2023, §2.1",
+          "court": "les 28 plus gros sites, réponses triées par score"
         }
       ],
       "part": 4.5
