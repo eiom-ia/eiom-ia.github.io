@@ -18,11 +18,12 @@
 </script>
 
 <div class="prx">
-  <figure class="cap">
-    <img src="{base}/img/prix-anthropic.jpg" alt="Tarifs par million de jetons des modèles Claude" />
-  </figure>
+  <div class="haut">
+    <figure class="cap">
+      <img src="{base}/img/prix-anthropic.jpg" alt="Tarifs par million de jetons des modèles Claude" />
+      <figcaption>anthropic.com/pricing · 24 août 2026</figcaption>
+    </figure>
 
-  <div class="bas">
     <div class="col">
       <span class="et">CE QUE ÇA DONNE SUR VOTRE CORPUS</span>
       <p class="sous">Les {d.corpus.avis} avis de La Ligne Rouge, classés une fois</p>
@@ -36,20 +37,20 @@
         {/each}
       </ul>
     </div>
+  </div>
 
-    <div class="col">
-      <span class="et">CE QUI COÛTE VRAIMENT</span>
-      <ul class="rep">
-        <li><span class="v">{esp(d.corpus.jetons_avis)}</span><span class="l">jetons — les avis</span></li>
-        <li class="fort">
-          <span class="v">{esp(d.corpus.jetons_consigne_total)}</span
-          ><span class="l">jetons — la consigne, renvoyée {d.corpus.avis} fois</span>
-        </li>
-      </ul>
-      <p class="note">
-        La consigne coûte plus cher que les données. Elle repart entière à chaque appel.
-      </p>
-    </div>
+  <div class="col bas2">
+    <span class="et">CE QUI COÛTE VRAIMENT</span>
+    <ul class="rep">
+      <li><span class="v">{esp(d.corpus.jetons_avis)}</span><span class="l">jetons — les avis</span></li>
+      <li class="fort">
+        <span class="v">{esp(d.corpus.jetons_consigne_total)}</span
+        ><span class="l">jetons — la consigne, renvoyée {d.corpus.avis} fois</span>
+      </li>
+    </ul>
+    <p class="note">
+      La consigne coûte plus cher que les données. Elle repart entière à chaque appel.
+    </p>
   </div>
 </div>
 
@@ -70,10 +71,22 @@
     border: 2px solid var(--dk-encre);
   }
 
-  .bas {
+  /* La capture à gauche des coûts: en bandeau pleine largeur elle prenait le
+     tiers de la diapositive et écrasait ce qu'elle sert à expliquer. */
+  .haut {
     display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: 1.4em;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.3em;
+    align-items: start;
+  }
+  .bas2 {
+    border-top: 2px solid var(--dk-filet);
+    padding-top: 0.45em;
+  }
+  .cap figcaption {
+    font-size: 0.52em;
+    color: var(--dk-gris-2);
+    margin-top: 0.2em;
   }
   .col {
     display: flex;
@@ -103,7 +116,7 @@
   }
   .cous li {
     display: grid;
-    grid-template-columns: 6.4em 1fr 3.6em;
+    grid-template-columns: 7em 1fr 4.8em;
     gap: 0.6em;
     align-items: center;
     font-size: 0.62em;
@@ -122,6 +135,7 @@
   }
   .c {
     text-align: right;
+    white-space: nowrap;
     font-weight: 600;
     color: var(--dk-accent);
     font-variant-numeric: tabular-nums;
@@ -137,7 +151,7 @@
   }
   .rep li {
     display: grid;
-    grid-template-columns: 4.6em 1fr;
+    grid-template-columns: 5.2em 1fr;
     gap: 0.6em;
     align-items: baseline;
     border-left: 3px solid var(--dk-filet);
@@ -149,6 +163,7 @@
   }
   .rep .v {
     font-size: 0.9em;
+    white-space: nowrap;
     font-weight: 600;
     color: var(--dk-encre);
     font-variant-numeric: tabular-nums;
