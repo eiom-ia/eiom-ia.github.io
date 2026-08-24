@@ -11,6 +11,8 @@
   import Frise from '$lib/deck/demos/Frise.svelte';
   import Arbre from '$lib/deck/demos/Arbre.svelte';
   import Api from '$lib/deck/demos/Api.svelte';
+  import Mesures from '$lib/deck/demos/Mesures.svelte';
+  import Donnees from '$lib/deck/demos/Donnees.svelte';
   import Modeles from '$lib/deck/demos/Modeles.svelte';
   import Arena from '$lib/deck/demos/Arena.svelte';
   import Extractions from '$lib/deck/demos/Extractions.svelte';
@@ -34,7 +36,7 @@
   import Generation from '$lib/deck/demos/Generation.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS } from '$lib/data/config.js';
 
-  const TOTAL = 43;
+  const TOTAL = 45;
 
   const c_capitale = `library(ellmer)
 
@@ -472,6 +474,23 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`}
       </Deux>
       <p class="e">
         Le modèle connaît mieux que vous la forme de consigne à laquelle il obéit. Autant s'en servir.
+      </p>
+    </Slide>
+
+    <Slide bandeau="Mesurer" droite="séance 1 · lun 24 août">
+      <h2 class="e">L'exactitude n'est pas la bonne mesure</h2>
+      <Mesures />
+      <p class="e credits">
+        Répartition réelle du corpus : 384 avis à cinq étoiles sur 551, et 41 à une étoile.
+      </p>
+    </Slide>
+
+    <Slide bandeau="Vos données" droite="séance 1 · lun 24 août">
+      <h2 class="e">Ce que devient le texte que vous envoyez</h2>
+      <Donnees />
+      <p class="e credits">
+        Règles de l'API relevées dans la documentation d'OpenAI le 24 août 2026. Les modèles ouverts
+        et leurs enjeux : avec Antoine, plus tard cette semaine.
       </p>
     </Slide>
 
