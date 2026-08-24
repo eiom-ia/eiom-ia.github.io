@@ -32,7 +32,7 @@
     },
     {
       "t": 0.7,
-      "usage": "Rédaction assistée",
+      "usage": "Rédaction",
       "candidats": [
         {
           "t": "L",
@@ -58,7 +58,7 @@
     },
     {
       "t": 1.5,
-      "usage": "Exploration créative",
+      "usage": "Remue-méninges",
       "candidats": [
         {
           "t": "L",

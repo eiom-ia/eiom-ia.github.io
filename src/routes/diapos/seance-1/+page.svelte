@@ -157,7 +157,7 @@ OPENROUTER_API_KEY=votre_cle_ici
     </Slide>
 
     <Slide fond="encre" bandeau="Définir l'IA" droite="séance 1 · lun 24 août">
-      <h1 class="e">Qu’est-ce que l’IA !</h1>
+      <h1 class="e">Qu’est-ce que l’IA ?</h1>
       <hr class="filet" />
     </Slide>
 
@@ -265,7 +265,7 @@ OPENROUTER_API_KEY=votre_cle_ici
       </Citation>
     </Slide>
 
-    <Slide fond="encre" bandeau="Reformulation" droite="séance 1 · lun 24 août">
+    <Slide bandeau="Reformulation" droite="séance 1 · lun 24 août">
       <h2 class="e">L'hallucination n'est pas un bug</h2>
       <Hallucination />
       <p class="e credits">
