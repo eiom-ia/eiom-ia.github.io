@@ -15,14 +15,14 @@ export const REFERENCES = {
     court: 'McCarthy et al. 1955',
     auteurs: 'J. McCarthy, M. Minsky, N. Rochester, C. Shannon',
     titre: 'A Proposal for the Dartmouth Summer Research Project on Artificial Intelligence',
-    detail: 'Réimprimé dans AI Magazine, 27(4), 12–14, 2006',
+    detail: 'Réimprimé dans AI Magazine, 27(4), 2006',
     lien: 'https://doi.org/10.1609/aimag.v27i4.1904'
   },
   legg2007: {
     court: 'Legg et Hutter 2007',
     auteurs: 'S. Legg, M. Hutter',
     titre: 'A Collection of Definitions of Intelligence',
-    detail: 'Advances in Artificial General Intelligence, 17–24 · arXiv:0706.3639',
+    detail: 'Advances in Artificial General Intelligence · arXiv:0706.3639',
     lien: 'https://arxiv.org/abs/0706.3639'
   },
   jordan2015: {
@@ -102,6 +102,13 @@ export const REFERENCES = {
     detail: 'arXiv:2403.04132 · plus de 240 000 votes appariés',
     lien: 'https://arxiv.org/abs/2403.04132'
   },
+  dodge2021: {
+    court: 'Dodge et al. 2021',
+    auteurs: 'J. Dodge, M. Sap, A. Marasović et al.',
+    titre: 'Documenting Large Webtext Corpora: A Case Study on the Colossal Clean Crawled Corpus',
+    detail: 'EMNLP 2021, p. 1286-1305 · sites les plus représentés de C4, figure 2',
+    lien: 'https://aclanthology.org/2021.emnlp-main.98/'
+  },
   ahia2023: {
     court: 'Ahia et al. 2023',
     auteurs: 'O. Ahia, S. Kumar, H. Gonen et al.',
@@ -144,6 +151,7 @@ export const ORDRE_BIBLIO = [
   'nvidia2024',
   'li2023',
   'chiang2024',
+  'dodge2021',
   'ahia2023',
   'touvron2023',
   'wang2019',

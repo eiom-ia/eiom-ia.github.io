@@ -240,7 +240,10 @@ OPENROUTER_API_KEY=votre_cle_ici
     <Slide bandeau="Les données d’entraînement" droite="séance 1 · lun 24 août">
       <h2 class="e">Les données d'entraînement</h2>
       <Corpus />
-      <p class="e credits">Corpus d'entraînement de LLaMA, tableau 1 <Cite k="touvron2023" />.</p>
+      <p class="e credits">
+        Parts et époques : corpus d'entraînement de LLaMA, tableau 1 <Cite k="touvron2023" />.
+        Sites les plus représentés de C4 <Cite k="dodge2021" />.
+      </p>
     </Slide>
 
     <Slide bandeau="Mécanique" droite="séance 1 · lun 24 août">

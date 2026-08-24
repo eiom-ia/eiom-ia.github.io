@@ -11,12 +11,12 @@
           "disque": "3,3 To",
           "quoi": "Cinq balayages du web, de 2017 à 2020",
           "dedans": [
-            "Anglais seulement, détecté automatiquement",
+            "Le web entier est multilingue; LLaMA n'en garde que les pages anglaises",
             "Filtré par un modèle qui garde ce qui ressemble aux pages citées par Wikipédia",
             "Déduplication ligne par ligne"
           ],
           "src": "Touvron et al. 2023, §2.1",
-          "court": "cinq balayages du web, 2017-2020, anglais seulement"
+          "court": "cinq balayages du web, 2017-2020, filtrés pour ne garder que l’anglais"
         },
         {
           "nom": "C4",
