@@ -1,0 +1,78 @@
+{
+  "source": "Touvron et al. 2023, tableau 1 — données de pré-entraînement de LLaMA",
+  "groupes": [
+    {
+      "nom": "WEB",
+      "sources": [
+        {
+          "nom": "CommonCrawl",
+          "part": 67.0,
+          "epoques": 1.1,
+          "disque": "3,3 To",
+          "quoi": "Balayage massif du web ouvert, filtré par langue et par qualité"
+        },
+        {
+          "nom": "C4",
+          "part": 15.0,
+          "epoques": 1.06,
+          "disque": "783 Go",
+          "quoi": "Autre balayage du web, nettoyé plus agressivement"
+        }
+      ],
+      "part": 82.0
+    },
+    {
+      "nom": "RÉFÉRENCE",
+      "sources": [
+        {
+          "nom": "Wikipédia",
+          "part": 4.5,
+          "epoques": 2.45,
+          "disque": "83 Go",
+          "quoi": "Vingt langues à alphabet latin ou cyrillique. Relu 2,45 fois"
+        },
+        {
+          "nom": "Livres",
+          "part": 4.5,
+          "epoques": 2.23,
+          "disque": "85 Go",
+          "quoi": "Gutenberg et Books3. Relu 2,23 fois"
+        }
+      ],
+      "part": 9.0
+    },
+    {
+      "nom": "CODE",
+      "sources": [
+        {
+          "nom": "GitHub",
+          "part": 4.5,
+          "epoques": 0.64,
+          "disque": "328 Go",
+          "quoi": "Dépôts sous licence permissive. Vu moins d’une fois en entier"
+        }
+      ],
+      "part": 4.5
+    },
+    {
+      "nom": "ACADÉMIQUE",
+      "sources": [
+        {
+          "nom": "ArXiv",
+          "part": 2.5,
+          "epoques": 1.06,
+          "disque": "92 Go",
+          "quoi": "Prépublications scientifiques, en LaTeX"
+        },
+        {
+          "nom": "StackExchange",
+          "part": 2.0,
+          "epoques": 1.03,
+          "disque": "78 Go",
+          "quoi": "Questions et réponses techniques"
+        }
+      ],
+      "part": 4.5
+    }
+  ]
+}

@@ -11,6 +11,8 @@
   import Frise from '$lib/deck/demos/Frise.svelte';
   import Arbre from '$lib/deck/demos/Arbre.svelte';
   import Api from '$lib/deck/demos/Api.svelte';
+  import Poids from '$lib/deck/demos/Poids.svelte';
+  import Corpus from '$lib/deck/demos/Corpus.svelte';
   import Anatomie from '$lib/deck/demos/Anatomie.svelte';
   import Connaissances from '$lib/deck/demos/Connaissances.svelte';
   import Temperature from '$lib/deck/demos/Temperature.svelte';
@@ -29,7 +31,7 @@
   import Generation from '$lib/deck/demos/Generation.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS } from '$lib/data/config.js';
 
-  const TOTAL = 39;
+  const TOTAL = 40;
 
   const c_capitale = `library(ellmer)
 
@@ -223,17 +225,8 @@ OPENROUTER_API_KEY=votre_cle_ici
 
     <Slide bandeau="Les données d’entraînement" droite="séance 1 · lun 24 août">
       <h2 class="e">Les données d'entraînement</h2>
-      <hr class="filet" />
-      <ul class="barres e">
-        <li class="majeur"><span class="src">CommonCrawl</span><span class="piste-b"><span class="rempli" style="width: 100%"></span></span><span class="pct">67 %</span></li>
-        <li><span class="src">C4</span><span class="piste-b"><span class="rempli" style="width: 22.4%"></span></span><span class="pct">15 %</span></li>
-        <li><span class="src">GitHub</span><span class="piste-b"><span class="rempli" style="width: 6.7%"></span></span><span class="pct">4,5 %</span></li>
-        <li><span class="src">Wikipédia</span><span class="piste-b"><span class="rempli" style="width: 6.7%"></span></span><span class="pct">4,5 %</span></li>
-        <li><span class="src">Livres</span><span class="piste-b"><span class="rempli" style="width: 6.7%"></span></span><span class="pct">4,5 %</span></li>
-        <li><span class="src">ArXiv</span><span class="piste-b"><span class="rempli" style="width: 3.7%"></span></span><span class="pct">2,5 %</span></li>
-        <li><span class="src">StackExchange</span><span class="piste-b"><span class="rempli" style="width: 3%"></span></span><span class="pct">2 %</span></li>
-      </ul>
-      <p class="e credits">Corpus d’entraînement de LLaMA <Cite k="touvron2023" />.</p>
+      <Corpus />
+      <p class="e credits">Corpus d'entraînement de LLaMA, tableau 1 <Cite k="touvron2023" />.</p>
     </Slide>
 
     <Slide bandeau="Mécanique" droite="séance 1 · lun 24 août">
@@ -263,6 +256,14 @@ OPENROUTER_API_KEY=votre_cle_ici
         Une référence bibliographique produite par un modèle est une <em>hypothèse de référence</em>
         jusqu'à ce que vous l'ayez vérifiée dans un catalogue.
       </Citation>
+    </Slide>
+
+    <Slide bandeau="Là où réside la réponse" droite="séance 1 · lun 24 août">
+      <h2 class="e">On peut pointer une ligne, pas un poids</h2>
+      <Poids />
+      <p class="e credits">
+        Nappe engendrée pour la figure : c'est la texture qu'on montre, pas des poids mesurés.
+      </p>
     </Slide>
 
     <Slide bandeau="Reformulation" droite="séance 1 · lun 24 août">
