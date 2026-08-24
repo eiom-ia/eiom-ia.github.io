@@ -335,12 +335,12 @@ OPENROUTER_API_KEY=votre_cle_ici
     </Slide>
 
     <Slide bandeau="L'ancienne façon" droite="séance 1 · lun 24 août">
-      <h2 class="e">Avant : compter des mots dans une liste</h2>
+      <h2 class="e">Avant : Utilisation de dictionnaires</h2>
       <Dictionnaire />
     </Slide>
 
     <Slide bandeau="La nouvelle façon" droite="séance 1 · lun 24 août">
-      <h2 class="e">Classifier une colonne, ligne par ligne</h2>
+      <h2 class="e">Maintenant : Utilisation de LLMs</h2>
       <Classifieur />
     </Slide>
 
