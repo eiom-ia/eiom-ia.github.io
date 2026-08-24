@@ -11,6 +11,7 @@
   import Frise from '$lib/deck/demos/Frise.svelte';
   import Arbre from '$lib/deck/demos/Arbre.svelte';
   import Api from '$lib/deck/demos/Api.svelte';
+  import Likert from '$lib/deck/demos/Likert.svelte';
   import Centre from '$lib/deck/demos/Centre.svelte';
   import Mesures from '$lib/deck/demos/Mesures.svelte';
   import Donnees from '$lib/deck/demos/Donnees.svelte';
@@ -37,7 +38,7 @@
   import Generation from '$lib/deck/demos/Generation.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS } from '$lib/data/config.js';
 
-  const TOTAL = 46;
+  const TOTAL = 47;
 
   const c_capitale = `library(ellmer)
 
@@ -162,6 +163,30 @@ OPENROUTER_API_KEY=votre_cle_ici
         <li>Premier appel sur de vraies données</li>
         <li>Conception de prompts</li>
       </ul>
+    </Slide>
+
+    <Slide bandeau="Un tour de salle" droite="séance 1 · lun 24 août">
+      <h2 class="e">Levez la main</h2>
+      <Likert
+        question="Quel est votre niveau de compétence avec l'IA ?"
+        choix={[
+          'Jamais utilisée',
+          'Essayé, sans plus',
+          'De temps en temps',
+          'Chaque semaine',
+          'Tous les jours, pour travailler'
+        ]}
+      />
+      <Likert
+        question="Qui paie pour un service d'IA ?"
+        choix={[
+          'Jamais payé',
+          'Versions gratuites seulement',
+          'Payé une fois, pour essayer',
+          'Un abonnement, par moments',
+          'Un abonnement, en continu'
+        ]}
+      />
     </Slide>
 
     <Slide fond="encre" bandeau="Définir l'IA" droite="séance 1 · lun 24 août">
