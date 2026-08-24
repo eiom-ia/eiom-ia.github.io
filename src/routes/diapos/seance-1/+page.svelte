@@ -302,16 +302,6 @@ OPENROUTER_API_KEY=votre_cle_ici
       </p>
     </Slide>
 
-    <Slide fond="encre" bandeau="Pause" droite="séance 1 · lun 24 août">
-      <h1 class="e">Pause</h1>
-      <hr class="filet" />
-      <Minuterie minutes={15} />
-      <p class="lead e">Pendant la pause, allez chercher votre clé.</p>
-      <ul class="cmd-liste e">
-        <li>aistudio.google.com/apikey<span class="lieu">un compte Google suffit · aucune carte de crédit</span></li>
-      </ul>
-    </Slide>
-
     <Slide fond="encre" bandeau="Deuxième temps" droite="séance 1 · lun 24 août">
       <h1 class="e">Pourquoi ne pas utiliser le chat classique<br />mais l'API ?</h1>
       <hr class="filet" />
@@ -349,6 +339,16 @@ OPENROUTER_API_KEY=votre_cle_ici
     <Slide bandeau="Le paramètre qui compte" droite="séance 1 · lun 24 août">
       <h2 class="e">La température</h2>
       <Temperature />
+    </Slide>
+
+    <Slide fond="encre" bandeau="Pause" droite="séance 1 · lun 24 août">
+      <h1 class="e">Pause</h1>
+      <hr class="filet" />
+      <Minuterie minutes={15} />
+      <p class="lead e">Pendant la pause, allez chercher votre clé.</p>
+      <ul class="cmd-liste e">
+        <li>aistudio.google.com/apikey<span class="lieu">un compte Google suffit · aucune carte de crédit</span></li>
+      </ul>
     </Slide>
 
     <Slide fond="encre" bandeau="Troisième temps" droite="séance 1 · lun 24 août">
