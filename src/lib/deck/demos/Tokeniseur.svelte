@@ -118,8 +118,8 @@
   .j .mot,
   .j .id {
     grid-area: 1 / 1;
-    animation: bascule 9s infinite;
-    animation-delay: calc(var(--i) * 0.13s);
+    animation: bascule 4s infinite;
+    animation-delay: calc(var(--i) * 0.07s);
   }
   .j .id {
     animation-name: bascule-id;

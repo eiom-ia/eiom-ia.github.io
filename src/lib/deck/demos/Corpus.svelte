@@ -4,10 +4,12 @@
   /**
    * Une barre par source, groupées par nature.
    *
-   * La bande unique était plus compacte mais illisible: un segment à 2 % ne
-   * peut pas porter son nom, et « Wikipé… » ou « ArX…St… » ne renseignent
-   * personne. Ici chaque source a sa ligne, donc son nom entier, sa part et
-   * son fait — tout lisible depuis le fond de la salle, sans rien survoler.
+   * Chaque source a sa ligne: son nom entier, sa part et son fait — tout
+   * lisible depuis le fond de la salle, sans rien survoler.
+   *
+   * Les entêtes de groupe sont retirées à la demande de Laurence-Olivier. Les
+   * quatre natures restent lisibles par la teinte des barres, qui décroît du
+   * web vers l'académique.
    *
    * Les parts viennent du tableau 1 de Touvron et al. 2023; le fait sur C4 de
    * Dodge et al. 2021.
@@ -21,10 +23,6 @@
 <div class="cps">
   {#each G as g}
     <div class="grp">
-      <div class="g-tete">
-        <span class="g-nom">{g.nom}</span>
-        <span class="g-part">{virgule(g.part)} %</span>
-      </div>
       {#each g.sources as s}
         <div class="ligne">
           <span class="nom">{s.nom}</span>
@@ -44,40 +42,12 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    gap: 0.12em;
   }
   .grp {
     display: flex;
     flex-direction: column;
-    gap: 0.1em;
-  }
-
-  /* L'entête de groupe porte le total: c'est là qu'on lit les 82 % de web. */
-  .g-tete {
-    display: flex;
-    align-items: baseline;
-    gap: 0.6em;
-    border-bottom: 2px solid var(--dk-filet);
-    padding-bottom: 0.1em;
-  }
-  .g-nom {
-    font-size: 0.56em;
-    letter-spacing: 0.16em;
-    font-weight: 600;
-    color: var(--dk-gris);
-  }
-  .g-part {
-    font-size: 0.6em;
-    font-weight: 600;
-    color: var(--dk-accent);
-    font-variant-numeric: tabular-nums;
-  }
-  .grp:first-child .g-nom,
-  .grp:first-child .g-part {
-    color: var(--dk-accent);
-  }
-  .grp:first-child .g-tete {
-    border-bottom-color: var(--dk-accent);
+    gap: 0.12em;
   }
 
   .ligne {
