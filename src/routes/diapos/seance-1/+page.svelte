@@ -458,7 +458,6 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`}
     <Slide fond="encre" bandeau="Quatrième temps" droite="séance 1 · lun 24 août">
       <h1 class="e">Concevoir un prompt</h1>
       <hr class="filet" />
-      <p class="lead e">Puis passage de relais à la séance 2.</p>
     </Slide>
 
     <Slide bandeau="La formule" droite="séance 1 · lun 24 août">
