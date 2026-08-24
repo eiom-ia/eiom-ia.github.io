@@ -106,11 +106,17 @@
   <div class="info" class:vide={!survol}>
     {#if survol}
       {@const s = G.flatMap((g) => g.sources).find((x) => x.nom === survol)}
-      <span class="i-n">{s.nom}</span>
-      <span class="i-q">{s.quoi}</span>
-      <span class="i-c">{String(s.part).replace('.', ',')} % du mélange · {s.epoques.toFixed(2).replace('.', ',')} époque{s.epoques >= 2 ? 's' : ''} · {s.disque}</span>
+      <span class="i-n">{s.nom} — {s.quoi}</span>
+      <ul class="i-d">
+        {#each s.dedans as ligne}<li>{ligne}</li>{/each}
+      </ul>
+      <span class="i-c"
+        >{String(s.part).replace('.', ',')} % du mélange · {s.epoques
+          .toFixed(2)
+          .replace('.', ',')} époque{s.epoques >= 2 ? 's' : ''} · {s.disque} · {s.src}</span
+      >
     {:else}
-      <span class="i-q">Survolez une case pour son détail.</span>
+      <span class="i-q">Survolez une case pour voir ce qu'elle contient.</span>
     {/if}
   </div>
 </div>
@@ -174,8 +180,8 @@
   .info {
     display: flex;
     flex-direction: column;
-    gap: 0.05em;
-    min-height: 3.4em;
+    gap: 0.1em;
+    min-height: 5.4em;
     border-left: 3px solid var(--dk-accent);
     padding-left: 0.7em;
   }
@@ -193,6 +199,24 @@
   }
   .info.vide .i-q {
     color: var(--dk-gris-2);
+  }
+  .i-d {
+    list-style: none;
+    margin: 0.1em 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.02em;
+  }
+  .i-d li {
+    font-size: 0.62em;
+    color: var(--dk-encre);
+    padding-left: 0.9em;
+    text-indent: -0.9em;
+  }
+  .i-d li::before {
+    content: '· ';
+    color: var(--dk-accent);
   }
   .i-c {
     font-size: 0.6em;

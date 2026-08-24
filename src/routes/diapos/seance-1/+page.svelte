@@ -259,10 +259,10 @@ OPENROUTER_API_KEY=votre_cle_ici
     </Slide>
 
     <Slide bandeau="Là où réside la réponse" droite="séance 1 · lun 24 août">
-      <h2 class="e">On peut pointer une ligne, pas un poids</h2>
+      <h2 class="e">Peut-on regarder les poids ?</h2>
       <Poids />
       <p class="e credits">
-        Nappe engendrée pour la figure : c'est la texture qu'on montre, pas des poids mesurés.
+        6,7 milliards de paramètres pour LLaMA-7B <Cite k="touvron2023" />, un écran de 1366 × 768.
       </p>
     </Slide>
 

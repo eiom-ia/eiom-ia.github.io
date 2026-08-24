@@ -1,139 +1,177 @@
 <script>
   /**
-   * On sait dessiner une base de données: des lignes, des colonnes, une clé.
-   * Un modèle n'a rien de tout ça, et c'est précisément ce qu'il faut montrer.
+   * « Peut-on comprendre les poids ? » — la réponse est non, et la
+   * diapositive doit le démontrer plutôt que l'affirmer.
    *
-   * À gauche, la table: on y pointe une ligne, on la lit. À droite, la nappe
-   * de poids: aucune case ne contient « Paris », l'information est répartie
-   * sur des millions de nombres qu'aucun index ne rassemble.
+   * Une nappe de nombres ne disait rien: on y voyait du bruit, sans mesurer
+   * l'écart. Ici l'écart est calculé. Un pixel par poids, un écran de
+   * projection à 1366 x 768: il faudrait 6 387 écrans pleins pour afficher
+   * LLaMA-7B — et c'est le plus petit des quatre.
    *
-   * Les valeurs de la nappe ne sont PAS des poids mesurés — on n'a pas ouvert
-   * de modèle. Elles sont engendrées ici de façon reproductible et la
-   * diapositive le dit: c'est la texture qu'on montre, pas un contenu.
+   * L'animation remplit les écrans un par un. La barre n'avance visiblement
+   * pas, et c'est exactement l'argument.
    */
-  const COLS = 34, LIGNES = 14;
+  const POIDS = 6.7e9; // Touvron et al. 2023, tableau 2 — LLaMA-7B
+  const ECRAN = 1366 * 768;
+  const ECRANS = Math.round(POIDS / ECRAN);
 
-  // Générateur déterministe: le même dessin à chaque build, et aucune donnée
-  // prétendue réelle.
-  let g = 20260824;
-  const suivant = () => ((g = (g * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff) * 2 - 1;
-  const NAPPE = Array.from({ length: LIGNES * COLS }, () => suivant());
+  let hote = $state(null);
+  let js = $state(false);
+  let n = $state(0); // écrans déjà remplis
 
-  const TABLE = [
-    ['pays', 'capitale'],
-    ['France', 'Paris'],
-    ['Japon', 'Tokyo'],
-    ['Brésil', 'Brasilia']
-  ];
+  const espace = (v) => Math.round(v).toLocaleString('fr-CA').replace(/ |,/g, ' ');
 
-  let survol = $state(false);
+  $effect(() => {
+    if (!hote) return;
+    js = true;
+
+    const deck = hote.closest('.deck');
+    const diapo = hote.closest('.diapo');
+    if (!deck || !diapo) return;
+    const monIndex = [...deck.querySelectorAll('.diapo')].indexOf(diapo);
+
+    let af = 0, debut = 0;
+    function pas(t) {
+      if (!debut) debut = t;
+      // Accélération continue: on part écran par écran, puis de plus en plus
+      // vite, et on n'arrive quand même pas au bout.
+      const s = (t - debut) / 1000;
+      n = Math.min(ECRANS, Math.floor(Math.pow(s, 3.1) * 1.6));
+      if (n < ECRANS) af = requestAnimationFrame(pas);
+    }
+
+    let ici = false;
+    function verifier() {
+      const y = Math.round(deck.scrollTop / deck.clientHeight) === monIndex;
+      if (y && !ici) {
+        ici = true;
+        n = 0;
+        debut = 0;
+        cancelAnimationFrame(af);
+        af = requestAnimationFrame(pas);
+      } else if (!y && ici) {
+        ici = false;
+        cancelAnimationFrame(af);
+        n = 0;
+      }
+    }
+    deck.addEventListener('scroll', verifier, { passive: true });
+    verifier();
+    const t0 = setTimeout(verifier, 350);
+
+    return () => {
+      deck.removeEventListener('scroll', verifier);
+      cancelAnimationFrame(af);
+      clearTimeout(t0);
+    };
+  });
 </script>
 
-<div class="poi">
-  <section class="col">
-    <h3>UNE BASE DE DONNÉES</h3>
-    <table>
-      {#each TABLE as ligne, i}
-        <tr class:entete={i === 0} class:vise={i === 1 && survol}>
-          {#each ligne as cell}<td>{cell}</td>{/each}
-        </tr>
-      {/each}
-    </table>
-    <p class="dit">
-      On pointe une ligne, on lit la valeur. Elle est <strong>quelque part</strong>.
-    </p>
-  </section>
-
-  <section class="col">
-    <h3>LES POIDS D'UN MODÈLE</h3>
-    <div
-      class="nappe"
-      role="img"
-      aria-label="Une nappe de nombres sans structure lisible, figurant les poids d'un modèle."
-      onmouseenter={() => (survol = true)}
-      onmouseleave={() => (survol = false)}
-    >
-      {#each NAPPE as v}
-        <span class="c" style="--v: {Math.abs(v)}; --s: {v < 0 ? 1 : 0}"></span>
-      {/each}
+<div class="poi" bind:this={hote}>
+  <div class="haut">
+    <div class="mesure">
+      <span class="etq">UN PIXEL PAR POIDS, SUR UN ÉCRAN DE PROJECTION</span>
+      <span class="chiffre">{js ? espace(n) : espace(ECRANS)}</span>
+      <span class="unite">écrans pleins {js && n < ECRANS ? '…' : `sur ${espace(ECRANS)}`}</span>
     </div>
-    <p class="dit">
-      Aucune case ne contient « Paris ». La réponse est <strong>répartie</strong> sur des millions de
-      nombres, sans index.
-    </p>
-  </section>
+
+    <div class="jauge">
+      <span class="rempli" style="width: {(n / ECRANS) * 100}%"></span>
+    </div>
+    <span class="part">{((n / ECRANS) * 100).toFixed(2).replace('.', ',')} % affiché</span>
+  </div>
+
+  <div class="bas">
+    <div class="cote">
+      <span class="etq">CE QU'ON PEUT RELIRE</span>
+      <p>Un livre de codes de recherche : quelques dizaines de règles, relisibles en une heure.</p>
+    </div>
+    <div class="cote fort">
+      <span class="etq">CE QU'ON NE PEUT PAS</span>
+      <p>
+        {espace(POIDS)} nombres. Aucun ne contient un fait. Aucun ne se corrige à la main. Et
+        LLaMA-7B est le <strong>plus petit</strong> des quatre modèles du papier.
+      </p>
+    </div>
+  </div>
 </div>
 
 <style>
   .poi {
-    display: grid;
-    grid-template-columns: 1fr 1.35fr;
-    gap: 1.4em;
     width: 100%;
-    align-items: start;
-  }
-  .col {
     display: flex;
     flex-direction: column;
-    gap: 0.4em;
-    min-width: 0;
+    gap: 0.8em;
   }
-  h3 {
-    margin: 0;
-    font-size: 0.6em;
-    letter-spacing: 0.15em;
+  .haut {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+  }
+  .mesure {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.02em;
+  }
+  .etq {
+    font-size: 0.56em;
+    letter-spacing: 0.14em;
     font-weight: 600;
+    color: var(--dk-gris);
+  }
+  .chiffre {
+    font-size: 3.2em;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: var(--dk-accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .unite {
+    font-size: 0.7em;
     color: var(--dk-gris);
   }
 
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    font-size: 0.68em;
+  /* La jauge n'avance quasiment pas: c'est la démonstration, pas un défaut. */
+  .jauge {
+    height: 0.55em;
+    border: 2px solid var(--dk-encre);
+    margin-top: 0.3em;
   }
-  td {
-    border: 1px solid var(--dk-filet);
-    padding: 0.25em 0.5em;
-    color: var(--dk-encre);
-  }
-  tr.entete td {
-    color: var(--dk-gris);
-    font-weight: 600;
-    background: var(--dk-fond-2);
-  }
-  /* La ligne qu'on irait chercher: elle existe, on peut la désigner. */
-  tr.vise td {
+  .rempli {
+    display: block;
+    height: 100%;
     background: var(--dk-accent);
-    color: var(--dk-fond);
-    border-color: var(--dk-accent);
   }
-
-  /* La nappe: une case par poids, teinte selon la valeur. Le regard n'y
-     accroche rien, et c'est le propos. */
-  .nappe {
-    display: grid;
-    grid-template-columns: repeat(34, 1fr);
-    gap: 1px;
-    border: 2px solid var(--dk-filet);
-    padding: 3px;
-  }
-  .c {
-    aspect-ratio: 1;
-    background: color-mix(
-      in srgb,
-      var(--dk-accent) calc(var(--v) * 85%),
-      var(--dk-fond)
-    );
-    filter: saturate(calc(1 - var(--s) * 0.85));
-  }
-
-  .dit {
-    margin: 0;
-    font-size: 0.64em;
-    line-height: 1.4;
+  .part {
+    font-size: 0.6em;
     color: var(--dk-gris);
+    font-variant-numeric: tabular-nums;
   }
-  .dit strong {
+
+  .bas {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 1.2em;
+  }
+  .cote {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+    border-left: 3px solid var(--dk-filet);
+    padding-left: 0.7em;
+  }
+  .cote.fort {
+    border-left-color: var(--dk-accent);
+  }
+  .cote p {
+    margin: 0;
+    font-size: 0.66em;
+    line-height: 1.45;
     color: var(--dk-encre);
+  }
+  .cote.fort .etq {
+    color: var(--dk-accent);
   }
 </style>
