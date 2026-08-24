@@ -81,6 +81,13 @@ export const REFERENCES = {
     detail: 'NeurIPS 2020 · arXiv:2005.14165',
     lien: 'https://arxiv.org/abs/2005.14165'
   },
+  techcrunch2025: {
+    court: 'TechCrunch 2025',
+    auteurs: 'M. Zeff',
+    titre: 'xAI gets permits for 15 natural gas generators at Memphis data center',
+    detail: 'TechCrunch, 3 juillet 2025 · permis pour 15 turbines, jusqu’à 35 en service sans permis',
+    lien: 'https://techcrunch.com/2025/07/03/xai-gets-permits-for-15-natural-gas-generators-at-memphis-data-center'
+  },
   nvidia2024: {
     court: 'NVIDIA 2024',
     auteurs: 'NVIDIA',
@@ -148,6 +155,7 @@ export const ORDRE_BIBLIO = [
   'bahdanau2015',
   'jordan2015',
   'vaswani2017',
+  'techcrunch2025',
   'nvidia2024',
   'li2023',
   'chiang2024',

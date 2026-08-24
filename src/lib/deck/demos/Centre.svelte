@@ -2,87 +2,51 @@
   import { base } from '$app/paths';
 
   /**
-   * L'adresse à qui on écrit est un bâtiment, et il consomme.
+   * Ce qu'un modèle consomme, dit en choses qu'on connaît.
    *
-   * La diapositive ne fait qu'une chose: enchaîner deux chiffres officiels
-   * jusqu'à une comparaison que la salle connaît. Meta publie le nombre de
-   * GPU, NVIDIA publie la puissance d'un GPU, Hydro-Québec publie la
-   * consommation d'un ménage. Le reste est une multiplication faite ici.
+   * Aucune unité électrique: « 70 MW » ne parle à personne dans une salle de
+   * sciences sociales. Le même fait devient un nombre de foyers, un délai de
+   * construction, un compte de turbines, un volume d'eau.
    *
-   * Rien n'est estimé: chaque nombre affiché est soit relevé à la source,
-   * soit calculé depuis deux nombres relevés à la source.
+   * Le nombre de foyers reste calculé depuis deux chiffres officiels — la
+   * fiche technique du H100 et la consommation résidentielle moyenne
+   * d'Hydro-Québec — mais on n'affiche que le résultat.
    */
   const GPU = 100000;
-  const WATT = 700;
-  const MW = Math.round(((GPU * WATT) / 1e6) * 10) / 10;
-  const GWH = (MW * 1000 * 8760) / 1e6;
-  const MENAGE = 17600;
-  const FOYERS = Math.round((GWH * 1e6) / MENAGE);
-
+  const FOYERS = Math.round((GPU * 700 * 8760) / 1000 / 17600);
   const esp = (v) => Math.round(v).toLocaleString('fr-CA').replace(/ |,/g, ' ');
+
+  const FAITS = [
+    { v: esp(GPU), u: 'puces', d: 'dans un seul bâtiment, à Memphis' },
+    { v: '122', u: 'jours', d: 'pour le monter, du premier rack à l’entraînement' },
+    { v: esp(FOYERS), u: 'foyers', d: 'autant d’électricité que ce nombre de foyers québécois, sur une année' },
+    { v: '35', u: 'turbines', d: 'à gaz sur place, alors que le permis n’en autorisait que 15' },
+    { v: '700 000', u: 'litres', d: 'd’eau douce évaporés pour entraîner GPT-3' }
+  ];
 </script>
 
 <div class="ctr">
-  <div class="haut">
-    <figure class="photo">
-      <img src="{base}/img/centre-donnees.jpg" alt="Une rangée de baies de serveurs dans un centre de données" />
-    </figure>
+  <figure class="photo">
+    <img src="{base}/img/centre-donnees.jpg" alt="Une rangée de baies de serveurs dans un centre de données" />
+  </figure>
 
-    <div class="calcul">
-    <div class="etape">
-      <span class="v">{esp(GPU)}</span>
-      <span class="l">GPU Hopper dans une seule grappe</span>
-      <span class="s">Colossus, Memphis — bâti en 122 jours</span>
-    </div>
-    <span class="op">×</span>
-    <div class="etape">
-      <span class="v">{WATT} W</span>
-      <span class="l">par puce, à pleine charge</span>
-      <span class="s">fiche technique NVIDIA</span>
-    </div>
-    <span class="op">=</span>
-    <div class="etape fort">
-      <span class="v">{String(MW).replace('.', ',')} MW</span>
-      <span class="l">rien que pour les puces</span>
-      <span class="s">sans le refroidissement ni le reste</span>
-    </div>
-    </div>
-  </div>
-
-  <div class="compar">
-    <span class="ct">CE QUE ÇA REPRÉSENTE SUR UNE ANNÉE</span>
-    <p class="phrase">
-      <strong>{esp(FOYERS)} foyers québécois.</strong> Une seule grappe, et seulement ses
-      processeurs — ni le refroidissement, ni le reste du bâtiment.
-    </p>
-  </div>
-
-  <div class="eau">
-    <span class="ct">ET L'EAU</span>
-    <p class="phrase">
-      Entraîner GPT-3 a évaporé <strong>700 000 litres</strong> d'eau douce dans les centres de
-      données qui l'ont hébergé.
-    </p>
-  </div>
+  <ul class="faits">
+    {#each FAITS as f}
+      <li>
+        <span class="v">{f.v}</span>
+        <span class="u">{f.u}</span>
+        <span class="d">{f.d}</span>
+      </li>
+    {/each}
+  </ul>
 </div>
 
 <style>
   .ctr {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.55em;
-  }
-  /* La photo d'abord: le mot « bâtiment » du titre devient une image avant
-     que les chiffres n'arrivent. */
-  /* La photo tient une colonne à gauche plutôt qu'un bandeau pleine largeur:
-     en bandeau elle écrasait la diapositive et se lisait comme une image
-     d'illustration. Duotone papier/encre pour qu'elle appartienne à la
-     palette au lieu de la contredire. */
-  .haut {
     display: grid;
-    grid-template-columns: 0.58fr 1fr;
-    gap: 1.1em;
+    grid-template-columns: 0.5fr 1fr;
+    gap: 1.2em;
+    width: 100%;
     align-items: center;
   }
   .photo {
@@ -95,79 +59,42 @@
     border: 2px solid var(--dk-encre);
   }
 
-  /* Le calcul est posé à plat: on voit d'où sort le chiffre final. */
-  .calcul {
+  .faits {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.3em;
+    gap: 0.42em;
   }
-  .etape {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.02em;
-    border-left: 3px solid var(--dk-filet);
+  /* Le nombre d'abord, l'unité ensuite, l'explication après: on lit la
+     grandeur avant de lire la phrase. */
+  .faits li {
+    display: grid;
+    grid-template-columns: 7.2em 5em 1fr;
+    gap: 0.6em;
+    align-items: baseline;
+    border-left: 3px solid var(--dk-accent);
     padding-left: 0.7em;
-    min-width: 0;
-  }
-  .etape.fort {
-    border-left-color: var(--dk-accent);
   }
   .v {
-    font-size: 1.5em;
+    font-size: 1.2em;
+    white-space: nowrap;
     font-weight: 600;
-    line-height: 1.05;
-    letter-spacing: -0.04em;
-    color: var(--dk-encre);
+    line-height: 1;
+    color: var(--dk-accent);
     font-variant-numeric: tabular-nums;
+    text-align: right;
   }
-  .etape.fort .v {
-    color: var(--dk-accent);
-  }
-  .l {
-    font-size: 0.6em;
-    color: var(--dk-encre);
-    line-height: 1.3;
-  }
-  .s {
-    font-size: 0.54em;
-    color: var(--dk-gris-2);
-    margin-top: 0.1em;
-  }
-  .op {
-    font-size: 0.8em;
-    color: var(--dk-gris-2);
-    padding-left: 0.7em;
-  }
-
-  .compar,
-  .eau {
-    border-top: 2px solid var(--dk-filet);
-    padding-top: 0.35em;
-  }
-  .compar {
-    border-top-color: var(--dk-accent);
-  }
-  .ct {
-    font-size: 0.55em;
-    letter-spacing: 0.15em;
-    font-weight: 600;
+  .u {
+    font-size: 0.58em;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--dk-gris);
   }
-  .compar .ct {
-    color: var(--dk-accent);
-  }
-  .phrase {
-    margin: 0.1em 0 0;
-    font-size: 0.72em;
-    line-height: 1.45;
-    color: var(--dk-gris);
-  }
-  .phrase strong {
+  .d {
+    font-size: 0.64em;
+    line-height: 1.35;
     color: var(--dk-encre);
-  }
-  .compar .phrase strong {
-    font-size: 1.35em;
-    color: var(--dk-accent);
   }
 </style>

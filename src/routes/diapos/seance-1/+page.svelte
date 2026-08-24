@@ -261,11 +261,6 @@ OPENROUTER_API_KEY=votre_cle_ici
       </p>
     </Slide>
 
-    <Slide bandeau="Le paramètre qui compte" droite="séance 1 · lun 24 août">
-      <h2 class="e">La température</h2>
-      <Temperature />
-    </Slide>
-
     <Slide bandeau="Ce qu'un LLM n'est pas" droite="séance 1 · lun 24 août">
       <h2 class="e">Ce n'est pas une base de connaissances</h2>
       <Connaissances />
@@ -331,11 +326,12 @@ OPENROUTER_API_KEY=votre_cle_ici
     </Slide>
 
     <Slide bandeau="Où c'est, physiquement" droite="séance 1 · lun 24 août">
-      <h2 class="e">L'adresse est un bâtiment</h2>
+      <h2 class="e">Les LLMs sont tangibles</h2>
       <Centre />
       <p class="e credits">
-        Colossus <Cite k="nvidia2024" />, puissance du H100 SXM d'après NVIDIA, ménage québécois
-        d'après Hydro-Québec, eau <Cite k="li2023" />.
+        Colossus, à Memphis : puces et délai <Cite k="nvidia2024" />, turbines
+        <Cite k="techcrunch2025" />. Équivalent en foyers calculé d'après la fiche technique du
+        H100 SXM et la consommation résidentielle moyenne d'Hydro-Québec. Eau <Cite k="li2023" />.
       </p>
     </Slide>
 
@@ -347,6 +343,11 @@ OPENROUTER_API_KEY=votre_cle_ici
     <Slide bandeau="La fiche de méthode" droite="séance 1 · lun 24 août">
       <h2 class="e">Ce que l'API rend possible</h2>
       <Fiches />
+    </Slide>
+
+    <Slide bandeau="Le paramètre qui compte" droite="séance 1 · lun 24 août">
+      <h2 class="e">La température</h2>
+      <Temperature />
     </Slide>
 
     <Slide fond="encre" bandeau="Troisième temps" droite="séance 1 · lun 24 août">
@@ -381,11 +382,11 @@ OPENROUTER_API_KEY=votre_cle_ici
     <Slide bandeau="Outillage" droite="séance 1 · lun 24 août">
       <div class="ell e">
         <figure class="ell-logo">
-          <img src="{base}/img/ellmer.png" alt="Logo du paquet R ellmer" />
+          <img src="{base}/img/ellmer.png" alt="Logo du package R ellmer" />
         </figure>
         <div class="ell-txt">
           <h2 class="e">ellmer</h2>
-          <p class="ell-sous">Un paquet R pour parler aux modèles de langage.</p>
+          <p class="ell-sous">Un package R pour parler aux modèles de langage.</p>
           <ul class="ell-pts">
             <li><strong>Vingt-trois fournisseurs</strong>, une seule syntaxe</li>
             <li>Changer de modèle tient sur une ligne</li>
