@@ -109,6 +109,8 @@
 .diapo-in:has(> .arbre) { max-width: 56em; }
 .diapo-in:has(> .pl) { max-width: 50em; }
 .diapo-in:has(> .api) { max-width: 54em; }
+.diapo-in:has(> .ctx) { max-width: 56em; }
+.diapo-in:has(> .ech) { max-width: 50em; }
 .diapo-in:has(> .gen) { max-width: 54em; }
 .diapo-in:has(> .mur) { max-width: 56em; }
 .diapo-in:has(> .fi) { max-width: 52em; }
@@ -260,6 +262,16 @@
 
 .logo-ecole { margin: 0; display: flex; align-items: center; justify-content: flex-end; }
 .logo-ecole img { display: block; width: 100%; max-width: 9em; height: auto; }
+
+/* Les questions ouvertes d'une diapositive de passation. */
+.qs { list-style: none; padding: 0; margin: 0 0 0.7em; display: flex; flex-direction: column; gap: 0.3em; }
+.qs li { font-size: 1.15em; font-weight: 600; color: var(--dk-accent); }
+.diapo.encre .qs li { color: var(--dk-accent-clair); }
+
+/* La bibliographie tient rarement sur une hauteur d'écran: on la fait défiler
+   plutôt que de la réduire jusqu'à l'illisible. */
+.biblio-boite { overflow-y: auto; max-height: 62vh; border: 2px solid var(--dk-filet); padding: 0.6em 0.9em; }
+.diapo-in:has(> .biblio-boite) { max-width: 58em; }
 
 /* ---------- Grand chiffre ---------- */
 

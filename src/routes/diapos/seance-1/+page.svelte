@@ -12,6 +12,8 @@
   import Arbre from '$lib/deck/demos/Arbre.svelte';
   import Pipeline from '$lib/deck/demos/Pipeline.svelte';
   import Api from '$lib/deck/demos/Api.svelte';
+  import Echantillon from '$lib/deck/demos/Echantillon.svelte';
+  import Contexte from '$lib/deck/demos/Contexte.svelte';
   import Minuterie from '$lib/deck/demos/Minuterie.svelte';
   import Dictionnaire from '$lib/deck/demos/Dictionnaire.svelte';
   import MurAvis from '$lib/deck/demos/MurAvis.svelte';
@@ -364,30 +366,9 @@ OPENROUTER_API_KEY=votre_cle_ici
       </p>
     </Slide>
 
-    <Slide bandeau="La thèse" droite="séance 1 · lun 24 août">
-      <h2 class="e">Une sortie de chatbot n'est pas une donnée</h2>
-      <p class="lead e">
-        Ce n'est pas une question de puissance : c'est la même famille de modèles derrière les deux.
-        C'est une question de <strong>traçabilité</strong>.
-      </p>
-      <Deux>
-        <Carte ton="rose" titre="Dans une fenêtre de clavardage">
-          <ul>
-            <li>Quelle version du modèle? Inconnue, et elle change sans préavis</li>
-            <li>Quelle température? Inconnue</li>
-            <li>Quel contexte antérieur a influencé la réponse? Toute la conversation</li>
-            <li>Refaire tourner sur 500 documents? À la main</li>
-          </ul>
-        </Carte>
-        <Carte ton="vert" titre="Par l'API">
-          <ul>
-            <li>Modèle épinglé et écrit dans le code</li>
-            <li>Paramètres explicites</li>
-            <li>Chaque document est un appel indépendant</li>
-            <li>500 documents : une boucle</li>
-          </ul>
-        </Carte>
-      </Deux>
+    <Slide bandeau="Le contexte" droite="séance 1 · lun 24 août">
+      <h2 class="e">Où vit le modèle, et ce qui lui arrive</h2>
+      <Contexte />
     </Slide>
 
     <Slide bandeau="La fiche de méthode" droite="séance 1 · lun 24 août">
@@ -456,24 +437,9 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`} />
       </Deux>
     </Slide>
 
-    <Slide bandeau="Méthode" droite="séance 1 · lun 24 août">
-      <h2 class="e">Tester sur cinq documents avant de lancer sur cinq cents</h2>
-      <Deux>
-        <Carte ton="vert" titre="La discipline">
-          <ul>
-            <li>Cinq documents, choisis pour être difficiles</li>
-            <li>On lit les cinq sorties à l'œil</li>
-            <li>On ajuste le schéma ou le prompt</li>
-            <li><em>Puis</em> on lance le corpus</li>
-          </ul>
-        </Carte>
-        <Carte ton="rose" titre="Ce que ça évite">
-          <p>
-            Découvrir après 40 minutes d'exécution et quatre dollars que le schéma retournait
-            systématiquement « neutre » parce qu'une modalité était mal orthographiée.
-          </p>
-        </Carte>
-      </Deux>
+    <Slide bandeau="La marche à suivre" droite="séance 1 · lun 24 août">
+      <h2 class="e">D'abord un échantillon, ensuite tout le corpus</h2>
+      <Echantillon />
     </Slide>
 
     <Slide fond="encre" bandeau="Quatrième temps" droite="séance 1 · lun 24 août">
@@ -537,52 +503,49 @@ Reponds selon le schema fourni.`} />
     </Slide>
 
     <Slide bandeau="Un conseil qui surprend" droite="séance 1 · lun 24 août">
-      <h2 class="e">Écrire le prompt en anglais fonctionne souvent mieux</h2>
-      <Deux ratio="1.1fr 1fr">
-        <div>
+      <h2 class="e">Demandez à l'IA d'écrire le prompt</h2>
+      <Deux ratio="1fr 1fr">
+        <Carte ton="ciel" titre="Ce que vous écrivez">
           <p>
-            Les consignes techniques sont mieux suivies en anglais, parce que l'ajustement par retours
-            humains a été fait massivement en anglais.
+            « Je veux classer des avis de restaurant sur une échelle de −1 à +1. Écris-moi le prompt
+            système qui fera ça, avec un format de sortie strict. »
           </p>
+        </Carte>
+        <Carte ton="vert" titre="Ce que vous obtenez">
           <p>
-            Rien n'empêche d'analyser du texte français avec un prompt anglais. Les deux décisions sont
-            indépendantes.
-          </p>
-        </div>
-        <Carte ton="ambre" titre="Mais testez, ne croyez pas">
-          <p>
-            C'est une régularité, pas une loi. Sur votre tâche et votre corpus, la seule réponse valable
-            vient d'une comparaison mesurée. <Etiquette ton="ciel">séance 2</Etiquette>
+            Un prompt mieux structuré que le vôtre, en quelques secondes. Vous le lisez, vous le
+            corrigez, vous le gardez dans votre script.
           </p>
         </Carte>
       </Deux>
+      <p class="e">
+        Le modèle connaît mieux que vous la forme de consigne à laquelle il obéit. Autant s'en servir.
+      </p>
     </Slide>
 
     <Slide fond="encre" droite="séance 1 · lun 24 août">
-      <h1 class="e">La mesure n’est pas encore validée</h1>
+      <h1 class="e">Et maintenant ?</h1>
       <hr class="filet" />
+      <ul class="qs e">
+        <li>Comment valider un modèle ?</li>
+        <li>Quels scores utiliser ?</li>
+        <li>Est-ce que la précision est toujours bonne ?</li>
+      </ul>
       <p class="lead e">
-        Pas encore. Vous n'avez aucune idée si ces cinquante notes sont bonnes. Vous ne savez pas si le
-        modèle lit l'ironie, s'il traite le français comme l'anglais, ni s'il fait mieux que répondre
-        « 5 » les yeux fermés — ce qui, souvenez-vous, donne déjà 70 %.
+        Demain et mercredi, <strong>Antoine Lemor</strong> vous montrera comment valider un modèle et
+        quels scores utiliser.
       </p>
-      <Carte ton="ciel" titre="Demain matin, avec Antoine Lemor">
-        <p>
-          On confronte votre <code>seance1_notes.json</code> à la colonne <code>review_rating</code>.
-          Métriques, benchmarks, cas ambigus. C'est là que votre mesure devient un résultat — ou qu'elle
-          meurt, ce qui est aussi un résultat.
-        </p>
-      </Carte>
     </Slide>
 
     <Slide bandeau="Séance 1 · fin" droite="séance 1 · lun 24 août">
       <h1 class="e">Merci</h1>
     </Slide>
 
-    <Slide d={0.93} bandeau="Sources" droite="séance 1 · lun 24 août">
+    <Slide bandeau="Sources" droite="séance 1 · lun 24 août">
       <h2 class="e">Sources</h2>
       <hr class="filet" />
-      <ul class="biblio e">
+      <div class="biblio-boite e">
+        <ul class="biblio">
         {#each ORDRE_BIBLIO as k}
           <li>
             <span class="b-auteurs">{REFERENCES[k].auteurs}</span>,
@@ -590,8 +553,8 @@ Reponds selon le schema fourni.`} />
             <span class="b-detail">{REFERENCES[k].detail}</span>
           </li>
         {/each}
-      </ul>
-      <p class="e">Bibliographie complète : <code>eiom-ia.github.io/references.bib</code></p>
+        </ul>
+      </div>
       <p class="e credits">
         Images d'archives, Wikimedia Commons :
         {#each Object.values(CREDITS_IMAGES) as c, i}{i > 0 ? ' · ' : ''}{c.auteur} ({c.licence}){/each}
