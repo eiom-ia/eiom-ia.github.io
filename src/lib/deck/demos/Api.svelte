@@ -37,7 +37,7 @@
       if (l > dispo) console.warn(`[Api] « ${txt} » fait ${Math.round(l)} pour ${dispo} (${ou})`);
     };
     tient('CHEZ LE FOURNISSEUR', T_LIEU, 0.12, BOITE * 2, 'étiquette de droite');
-    tient('votre script R', T_DEDANS, 0, 220, 'boîte de gauche');
+    tient('votre ordinateur', T_DEDANS, 0, 220, 'boîte de gauche');
     tient('le modèle', T_DEDANS, 0, 220, 'boîte de droite');
     tient('votre texte · vos paramètres · votre clé', T_QUOI, 0, DR - GA + 40, 'requête');
     tient('le texte produit · le compte de jetons', T_QUOI, 0, DR - GA + 40, 'réponse');
@@ -55,7 +55,7 @@
     <text class="lieu" x={CX_G} y="22" text-anchor="middle">CHEZ VOUS</text>
     <rect class="boite" x="0" y="38" width={BOITE} height="210" />
     <rect class="dedans" x={CX_G - 110} y="108" width="220" height="70" />
-    <text class="dedans-t" x={CX_G} y="151" text-anchor="middle">votre script R</text>
+    <text class="dedans-t" x={CX_G} y="151" text-anchor="middle">votre ordinateur</text>
 
     <!-- chez le fournisseur -->
     <text class="lieu" x={CX_D} y="22" text-anchor="middle">CHEZ LE FOURNISSEUR</text>

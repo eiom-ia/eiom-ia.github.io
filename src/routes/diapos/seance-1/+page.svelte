@@ -10,8 +10,8 @@
   import Cite from '$lib/deck/Cite.svelte';
   import Frise from '$lib/deck/demos/Frise.svelte';
   import Arbre from '$lib/deck/demos/Arbre.svelte';
-  import Pipeline from '$lib/deck/demos/Pipeline.svelte';
   import Api from '$lib/deck/demos/Api.svelte';
+  import Biais from '$lib/deck/demos/Biais.svelte';
   import Echantillon from '$lib/deck/demos/Echantillon.svelte';
   import Contexte from '$lib/deck/demos/Contexte.svelte';
   import Minuterie from '$lib/deck/demos/Minuterie.svelte';
@@ -26,7 +26,7 @@
   import Generation from '$lib/deck/demos/Generation.svelte';
   import { FOURNISSEUR, FOURNISSEUR_SECOURS } from '$lib/data/config.js';
 
-  const TOTAL = 41;
+  const TOTAL = 39;
 
   const c_capitale = `library(ellmer)
 
@@ -303,43 +303,12 @@ OPENROUTER_API_KEY=votre_cle_ici
       <hr class="filet" />
     </Slide>
 
-    <Slide bandeau="Biais · 1 sur 3" droite="séance 1 · lun 24 août">
-      <h2 class="e">Dans les données</h2>
-      <Pipeline etape="corpus" />
-      <Deux>
-        <Carte titre="Ce qui entre">
-          <p>Deux tiers du corpus sont un balayage du web <Cite k="touvron2023" />.</p>
-        </Carte>
-        <Carte titre="Comment on le mesure">
-          <p>En comparant les sorties du modèle à une référence externe.</p>
-        </Carte>
-      </Deux>
-    </Slide>
-
-    <Slide bandeau="Biais · 2 sur 3" droite="séance 1 · lun 24 août">
-      <h2 class="e">Dans le balisage</h2>
-      <Pipeline etape="balisage" />
-      <Deux>
-        <Carte titre="Ce qui entre">
-          <p>Des humains rédigent des réponses exemplaires, puis en classent d’autres. Le modèle apprend ce qui plaît.</p>
-        </Carte>
-        <Carte titre="Comment on le mesure">
-          <p>Par l’accord entre codeurs, sur un sous-échantillon annoté deux fois.</p>
-        </Carte>
-      </Deux>
-    </Slide>
-
-    <Slide bandeau="Biais · 3 sur 3" droite="séance 1 · lun 24 août">
-      <h2 class="e">Dans le modèle</h2>
-      <Pipeline etape="entrainement" />
-      <Deux>
-        <Carte titre="Ce qui entre">
-          <p>L’optimisation retient la régularité majoritaire. La tokenisation elle-même découpe inégalement les langues.</p>
-        </Carte>
-        <Carte titre="Comment on le mesure">
-          <p>En comparant plusieurs modèles sur la même tâche et le même corpus.</p>
-        </Carte>
-      </Deux>
+    <Slide bandeau="Trois entrées, une seule chaîne" droite="séance 1 · lun 24 août">
+      <h2 class="e">Le biais entre à trois endroits</h2>
+      <Biais />
+      <p class="e credits">
+        Composition du corpus d'entraînement de LLaMA <Cite k="touvron2023" />.
+      </p>
     </Slide>
 
     <Slide fond="encre" bandeau="Pause" droite="séance 1 · lun 24 août">
@@ -358,7 +327,7 @@ OPENROUTER_API_KEY=votre_cle_ici
     </Slide>
 
     <Slide bandeau="Situer la chose" droite="séance 1 · lun 24 août">
-      <h2 class="e">Où vit le modèle, et ce qui voyage</h2>
+      <h2 class="e">Un API, c'est une adresse à qui on écrit</h2>
       <Api />
       <p class="e">
         Le modèle ne s'installe pas sur votre poste. Votre script lui envoie du texte&nbsp;; il en

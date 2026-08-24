@@ -110,6 +110,7 @@
 .diapo-in:has(> .pl) { max-width: 50em; }
 .diapo-in:has(> .api) { max-width: 54em; }
 .diapo-in:has(> .ctx) { max-width: 56em; }
+.diapo-in:has(> .bia) { max-width: 58em; }
 .diapo-in:has(> .ech) { max-width: 50em; }
 .diapo-in:has(> .gen) { max-width: 54em; }
 .diapo-in:has(> .mur) { max-width: 56em; }
