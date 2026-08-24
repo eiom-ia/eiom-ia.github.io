@@ -330,7 +330,7 @@ OPENROUTER_API_KEY=votre_cle_ici
       <h2 class="e">Les LLMs sont tangibles</h2>
       <Centre />
       <p class="e credits">
-        Colossus, à Memphis : puces et délai <Cite k="nvidia2024" />, turbines
+        Colossus, à Memphis : nombre de GPU <Cite k="nvidia2024" />, turbines
         <Cite k="techcrunch2025" />. Équivalent en foyers calculé d'après la fiche technique du
         H100 SXM et la consommation résidentielle moyenne d'Hydro-Québec. Eau <Cite k="li2023" />.
       </p>
@@ -505,9 +505,6 @@ chat_ollama(model = "gemma3")     # sur VOTRE machine`}
           </p>
         </Carte>
       </Deux>
-      <p class="e">
-        Le modèle connaît mieux que vous la forme de consigne à laquelle il obéit. Autant s'en servir.
-      </p>
     </Slide>
 
     <Slide bandeau="Mesurer" droite="séance 1 · lun 24 août">

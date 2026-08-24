@@ -19,17 +19,17 @@
     {
       n: 'PAR L’API',
       h: 58,
-      r: 'Pas d’entraînement sur vos données. Un journal de 30 jours pour la surveillance des abus.'
+      r: 'Pas d’entraînement sur vos données. Un log de 30 jours pour la surveillance des abus.'
     },
     {
       n: 'API,\nRÉTENTION NULLE',
       h: 26,
-      r: 'Le journal lui-même est supprimé. Sur approbation préalable du fournisseur.'
+      r: 'Le log lui-même est supprimé. Sur approbation préalable du fournisseur.'
     },
     {
       n: 'MODÈLE OUVERT,\nCHEZ VOUS',
       h: 4,
-      r: 'Rien ne sort. Aucune requête, aucun journal, aucun tiers.'
+      r: 'Rien ne sort. Aucune requête, aucun log, aucun tiers.'
     }
   ];
 </script>
@@ -50,10 +50,6 @@
     </div>
   </div>
 
-  <p class="note">
-    La question n'est pas « est-ce dangereux », c'est <strong>où vous vous situez</strong> — et vous
-    pouvez descendre d'un cran.
-  </p>
 </div>
 
 <style>

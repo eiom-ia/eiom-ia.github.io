@@ -17,10 +17,9 @@
   const esp = (v) => Math.round(v).toLocaleString('fr-CA').replace(/ |,/g, ' ');
 
   const FAITS = [
-    { v: esp(GPU), u: 'puces', d: 'dans un seul bâtiment, à Memphis' },
-    { v: '122', u: 'jours', d: 'pour le monter, du premier rack à l’entraînement' },
+    { v: esp(GPU), u: 'GPU', d: 'dans un seul bâtiment, à Memphis' },
     { v: esp(FOYERS), u: 'foyers', d: 'autant d’électricité que ce nombre de foyers québécois, sur une année' },
-    { v: '35', u: 'turbines', d: 'à gaz sur place, alors que le permis n’en autorisait que 15' },
+    { v: '35', u: 'turbines', d: 'à gaz brûlées sur place pour l’alimenter' },
     { v: '700 000', u: 'litres', d: 'd’eau douce évaporés pour entraîner GPT-3' }
   ];
 </script>
