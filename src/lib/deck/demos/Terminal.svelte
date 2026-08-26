@@ -64,7 +64,6 @@
 <div class="trmn" bind:this={hote}>
   <div class="trmn-cadre">
     <div class="trmn-barre">
-      <span class="trmn-pts"><i></i><i></i><i></i></span>
       <span class="trmn-titre">{invite}</span>
     </div>
     <pre class="trmn-corps">{#each lignes as l, i}{#if !js || i < e}<span class="trmn-inv">$</span> <span
@@ -90,16 +89,6 @@
     gap: 0.7em;
     padding: 0.35em 0.7em;
     border-bottom: 2px solid var(--dk-encre);
-  }
-  .trmn-pts {
-    display: inline-flex;
-    gap: 0.35em;
-  }
-  .trmn-pts i {
-    width: 0.5em;
-    height: 0.5em;
-    border: 1.5px solid var(--dk-gris-2);
-    display: block;
   }
   .trmn-titre {
     font-size: 0.66em;
