@@ -42,7 +42,7 @@
   import Contexte2 from '$lib/deck/demos/Contexte2.svelte';
   import Declencheurs from '$lib/deck/demos/Declencheurs.svelte';
 
-  const TOTAL = 47;
+  const TOTAL = 52;
   const D = 'IA agentique · mar 25 août';
 
   // Les deux terminaux du deuxième temps. Une commande par clic.
@@ -316,19 +316,47 @@ Classe-les du plus contradictoire au moins contradictoire.`;
 
     <Slide bandeau="Panorama" droite={D}>
       <h2 class="e">Les harnais que vous croiserez</h2>
-      <div class="pduo">
-        <div>
-          <Picto nom="terminal" taille="2.8em" />
-          <h4>DANS LE TERMINAL</h4>
-          <p>Claude Code · Codex · Gemini CLI<br />OpenCode · Crush · Antigravity</p>
-        </div>
-        <div>
-          <Picto nom="clic" taille="2.8em" />
-          <h4>DANS UNE INTERFACE</h4>
-          <p>Cursor · GitHub Copilot<br />Claude Desktop</p>
-        </div>
+      <table class="e large">
+        <thead><tr><th>Harnais</th><th>Qui le fait</th><th>Ce qui le distingue</th></tr></thead>
+        <tbody>
+          <tr><td>Claude Code</td><td>Anthropic</td><td>Le plus outillé ; skills et plugins</td></tr>
+          <tr><td>Codex</td><td>OpenAI</td><td>Votre abonnement marche ailleurs aussi</td></tr>
+          <tr><td>Antigravity CLI</td><td>Google</td><td>Palier gratuit, quota non publié</td></tr>
+          <tr><td>OpenCode</td><td>libre</td><td>N'importe quel modèle, y compris local</td></tr>
+          <tr><td>Pi</td><td>libre</td><td>Avec OpenCode, ~10 % du trafic Codex</td></tr>
+          <tr><td>Crush</td><td>Charm</td><td>Soigné, dans le terminal</td></tr>
+          <tr><td>DeepSeek Harness</td><td>DeepSeek</td><td>MIT — <em>tout</em> est un plugin, la boucle comprise</td></tr>
+        </tbody>
+      </table>
+      <p class="e credits">
+        Le choix compte moins qu'on ne le croit : les concepts de ce cours valent pour tous.
+      </p>
+    </Slide>
+
+    <Slide bandeau="La vraie question" droite={D}>
+      <h2 class="e">Qui vous laisse brancher quoi</h2>
+      <div class="pgrid c3">
+        <span class="pit"
+          ><Picto nom="coche" taille="2.2em" /><span class="pit-t"
+            >OpenAI<span class="s">votre abonnement marche dans un harnais tiers</span></span
+          ></span
+        >
+        <span class="pit"
+          ><Picto nom="croix" taille="2.2em" /><span class="pit-t"
+            >Anthropic<span class="s">bloqué depuis avril 2026</span></span
+          ></span
+        >
+        <span class="pit"
+          ><Picto nom="croix" taille="2.2em" /><span class="pit-t"
+            >Google<span class="s">bloqué depuis février 2026</span></span
+          ></span
+        >
       </div>
-      <p class="e">Le choix compte moins qu'on ne le croit : les concepts valent pour tous.</p>
+      <Citation source="La précision qui compte">
+        Ça vaut pour les <strong>abonnements</strong>. Une clé d'API, elle, marche partout et chez
+        tout le monde — vous payez au jeton. Ce qui se joue ici n'est pas technique : c'est un
+        modèle d'affaires, et de l'enfermement.
+      </Citation>
     </Slide>
 
 
@@ -593,6 +621,71 @@ Classe-les du plus contradictoire au moins contradictoire.`;
 
 
 
+    <Slide bandeau="Un cas" droite={D}>
+      <h2 class="e">Hermes : un agent qui vit sur un serveur</h2>
+      <Deux ratio="1fr 1fr">
+        <div class="pgrid">
+          <span class="pit"><Picto nom="horloge" /><span class="pit-t">Toujours allumé<span class="s">un VPS à 5 $, pas votre portable</span></span></span>
+          <span class="pit"><Picto nom="humain" /><span class="pit-t">Joignable par messagerie<span class="s">Telegram, Signal, Slack, courriel… 20 et plus</span></span></span>
+          <span class="pit"><Picto nom="page" /><span class="pit-t">Il écrit ses propres skills<span class="s">et les réutilise ensuite</span></span></span>
+          <span class="pit"><Picto nom="cadenas" /><span class="pit-t">Mémoire locale<span class="s">une base SQLite chez vous</span></span></span>
+        </div>
+        <Carte titre="Le geste que ça change">
+          <p>
+            « Parle-lui depuis Telegram pendant qu'il travaille sur une machine où vous ne vous
+            connectez jamais. »
+          </p>
+          <p class="e credits">
+            Nous Research · MIT · février 2026. Le projet ne publie aucune étude de cas : ce sont
+            ses capacités, pas des exemples rapportés.
+          </p>
+        </Carte>
+      </Deux>
+    </Slide>
+
+    <Slide fond="encre" bandeau="Un exemple, le mien" droite={D}>
+      <h1 class="e">Ma montre ne voulait pas<br />de mon plan d'entraînement</h1>
+      <hr class="filet" />
+      <p class="lead e">Alors j'ai reconstitué son API.</p>
+    </Slide>
+
+    <Slide bandeau="Comment" droite={D}>
+      <h2 class="e">Tout est branché sur tout</h2>
+      <div class="pgrid c2">
+        <span class="pit"><Picto nom="terminal" /><span class="pit-t">Claude Code<span class="s">le harnais</span></span></span>
+        <span class="pit"><Picto nom="page" /><span class="pit-t">Un skill <code>/coach</code><span class="s">ma méthode d'entraînement, écrite une fois</span></span></span>
+        <span class="pit"><Picto nom="prise" /><span class="pit-t">Google Agenda, par MCP<span class="s">pour savoir quand je peux courir</span></span></span>
+        <span class="pit"><Picto nom="loupe" /><span class="pit-t">Strava<span class="s">ce que j'ai réellement couru</span></span></span>
+        <span class="pit"><Picto nom="engrenage" /><span class="pit-t">Un outil que j'ai écrit<span class="s">l'API privée de la montre, reconstituée</span></span></span>
+        <span class="pit"><Picto nom="humain" /><span class="pit-t">Il demande avant d'écrire<span class="s">le garde-fou, sur ma propre montre</span></span></span>
+      </div>
+      <p class="e">
+        Aucune de ces pièces n'est nouvelle dans ce cours. C'est l'assemblage qui l'est.
+      </p>
+    </Slide>
+
+    <Slide bandeau="Ce que ça dit" droite={D}>
+      <h2 class="e">Ce qui n'a pas d'API en a une quand même</h2>
+      <Deux ratio="1fr 1fr">
+        <Carte titre="Ce que j'ai fait">
+          <p>
+            Observé ce que l'application web envoie, rejoué ses requêtes, catalogué les champs, et
+            écrit un outil qui pousse des séances avec allures cibles sur la montre.
+          </p>
+        </Carte>
+        <Carte titre="Ce que ça coûte">
+          <p>
+            C'est non officiel, non documenté, ça casse quand le fournisseur bouge, et c'est
+            possiblement contraire à ses conditions d'utilisation. À savoir avant de le faire.
+          </p>
+        </Carte>
+      </Deux>
+      <Citation source="Le vrai point">
+        Un agent abaisse tellement le coût de ce travail qu'il déplace la question : elle n'est plus
+        « est-ce faisable », elle est « ai-je le droit, et est-ce que j'assume ».
+      </Citation>
+    </Slide>
+
     <!-- ================= CE QUI N'EST PAS RÉGLÉ ================= -->
     <Slide fond="encre" bandeau="Sixième temps" droite={D}>
       <h1 class="e">Ce qui n'est pas<br />encore réglé</h1>
@@ -715,15 +808,18 @@ Classe-les du plus contradictoire au moins contradictoire.`;
 
     <!-- ================= CLÔTURE ================= -->
 
-    <Slide bandeau="Sources" droite={D}>
+    <Slide d={0.88} bandeau="Sources" droite={D}>
       <h2 class="e">Sources</h2>
       <hr class="filet" />
       <ul class="cmd-liste e">
         <li>modelcontextprotocol.io<span class="lieu">la spécification du protocole MCP</span></li>
         <li>github.com/openclaw/openclaw<span class="lieu">assistant libre, MIT, nov. 2025</span></li>
-        <li>hermes-agent.nousresearch.com<span class="lieu">Nous Research, MIT, févr. 2026 — agent permanent</span></li>
+        <li>hermes-agent.nousresearch.com<span class="lieu">Nous Research, MIT, févr. 2026</span></li>
         <li>MemPalace<span class="lieu">mémoire libre et locale, chargée par couches</span></li>
-        <li>donnees/ligne_rouge.csv<span class="lieu">551 avis Google, corpus du cours 8</span></li>
+        <li>github.com/deepseek-ai/deepseek-harness<span class="lieu">MIT, août 2026</span></li>
+        <li>Abonnements et harnais tiers<span class="lieu">Anthropic bloque (avril 2026), Google aussi (février 2026)</span></li>
+        <li>open-coros-training<span class="lieu">l'outil Coros, non officiel et non affilié</span></li>
+        <li>donnees/ligne_rouge.csv<span class="lieu">551 avis, corpus du cours 8</span></li>
         <li>code.claude.com/docs/en/plugins<span class="lieu">ce qu'un plugin empaquette</span></li>
       </ul>
       <p class="e credits">
