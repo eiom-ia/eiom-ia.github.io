@@ -43,24 +43,24 @@
       <Deux ratio="1fr 1fr">
         <div>
           <Carte titre="1 · C'est quoi un agent">
-            <p>Le mot avant la technologie. 40 minutes.</p>
+            <p>Le mot avant la technologie.</p>
           </Carte>
           <Carte titre="2 · Faire agir un LLM">
-            <p>Du texte à l'action, et les outils qui le permettent. 50 minutes.</p>
+            <p>Du texte à l'action, et les outils qui le permettent.</p>
           </Carte>
           <Carte titre="3 · MCP">
-            <p>Comment un agent se branche au monde. 40 minutes.</p>
+            <p>Comment un agent se branche au monde.</p>
           </Carte>
         </div>
         <div>
           <Carte titre="4 · L'écosystème">
-            <p>OpenClaw, ClawHub, Moltbook. 30 minutes.</p>
+            <p>OpenClaw, ClawHub, Moltbook.</p>
           </Carte>
           <Carte titre="5 · En recherche">
-            <p>Ce qu'on délègue vraiment, et un atelier. 60 minutes.</p>
+            <p>Ce qu'on délègue vraiment, et un atelier.</p>
           </Carte>
           <Carte titre="Pause">
-            <p>15 minutes, après le deuxième temps.</p>
+            <p>Après le deuxième temps.</p>
           </Carte>
         </div>
       </Deux>
