@@ -115,6 +115,7 @@
 .diapo-in:has(> .trmn) { max-width: 52em; }
 .diapo-in:has(> .ctx2) { max-width: 56em; }
 .diapo-in:has(> .dcl) { max-width: 54em; }
+.diapo-in:has(> .prt) { max-width: 62em; }
 .diapo-in:has(> .pgrid) { max-width: 54em; }
 .diapo-in:has(> .pduo) { max-width: 50em; }
 .diapo-in:has(> .collage) { max-width: none; padding: 0; }

@@ -36,6 +36,7 @@
   import Grand from '$lib/deck/Grand.svelte';
   import Minuterie from '$lib/deck/demos/Minuterie.svelte';
   import Collage from '$lib/deck/demos/Collage.svelte';
+  import Portee from '$lib/deck/demos/Portee.svelte';
   import Boucle from '$lib/deck/demos/Boucle.svelte';
   import Mcp from '$lib/deck/demos/Mcp.svelte';
   import TroisMots from '$lib/deck/demos/TroisMots.svelte';
@@ -43,7 +44,7 @@
   import Contexte2 from '$lib/deck/demos/Contexte2.svelte';
   import Declencheurs from '$lib/deck/demos/Declencheurs.svelte';
 
-  const TOTAL = 52;
+  const TOTAL = 54;
   const D = 'IA agentique · mar 25 août';
 
   // Les deux terminaux du deuxième temps. Une commande par clic.
@@ -169,7 +170,8 @@ Classe-les du plus contradictoire au moins contradictoire.`;
     <Slide fond="encre" bandeau="Laurence-Olivier M. Foisy" droite={D}>
       <h1 class="e">L'IA agentique</h1>
       <hr class="filet" />
-      <p class="lead e">Faire accomplir des actions à un modèle de langue</p>
+      <p class="lead e">Faire accomplir des actions à un modèle de langue —
+        et décider lesquelles</p>
     </Slide>
 
 
@@ -811,6 +813,19 @@ Classe-les du plus contradictoire au moins contradictoire.`;
         <span class="pit"><Picto nom="oeil" taille="2.1em" /><span class="pit-t">Les désaccords sont l'intérêt<span class="s">pas le bruit</span></span></span>
         <span class="pit"><Picto nom="git" taille="2.1em" /><span class="pit-t">Tout est du texte<span class="s">donc tout se vérifie</span></span></span>
       </div>
+    </Slide>
+
+    <!-- ================= CE QUE ÇA OUVRE ================= -->
+
+    <Slide bandeau="La portée" droite={D}>
+      <h2 class="e">Ce qu'une personne seule peut assembler</h2>
+      <Portee />
+    </Slide>
+
+    <Slide fond="encre" bandeau="Dernier temps" droite={D}>
+      <h1 class="e">Qu'est-ce que vous<br />allez en faire ?</h1>
+      <hr class="filet" />
+      <p class="lead e">La question n'est plus « est-ce faisable ».</p>
     </Slide>
 
     <!-- ================= CLÔTURE ================= -->
