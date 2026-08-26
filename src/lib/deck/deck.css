@@ -102,6 +102,7 @@
 /* La mesure de lecture vaut pour la prose. Un tableau, un bloc de code ou
    un schéma n'a pas de raison d'y être contraint: on les laisse respirer. */
 .diapo-in:has(> table) { max-width: 52em; }
+.diapo-in:has(> table.large) { max-width: 62em; }
 .diapo-in:has(> .biblio) { max-width: 56em; }
 .diapo-in:has(> .bloc-code) { max-width: 50em; }
 .diapo-in:has(> figure.schema) { max-width: 52em; }
