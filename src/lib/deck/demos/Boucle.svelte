@@ -104,7 +104,7 @@
       ? "Le modèle renvoie une commande en texte; un programme local l'exécute sur vos fichiers."
       : 'Un modèle isolé échange du texte et ne touche jamais vos fichiers.'}>
     <!-- chez vous -->
-    <text class="lieu" x="30" y="30">VOTRE MACHINE</text>
+    <text class="lieu" x="30" y="30">VOTRE ORDINATEUR</text>
     <rect class="zone" x="20" y="46" width="360" height="330" />
 
     {#each FICHIERS as f, i}
@@ -154,17 +154,6 @@
     {#if versModele}<rect class="paq va" x="390" y="133" width="15" height="15" />{/if}
     {#if versVous}<rect class="paq vient" x="595" y="283" width="15" height="15" />{/if}
 
-    <!-- Ce qui ne traverse pas. Une barrière serait ambiguë: du texte traverse
-         bel et bien. Ce qui ne passe jamais, ce sont les fichiers. -->
-    {#if !harnais}
-      <g class="bloque" class:on={phase === 'mur'}>
-        <rect class="fchip" x="428" y="196" width="144" height="36" />
-        <text class="fchip-t" x="500" y="220" text-anchor="middle">corpus.csv</text>
-        <path class="croix" d="M428 196 L572 232" />
-        <path class="croix" d="M572 196 L428 232" />
-        <text class="mur-t" x="500" y="262" text-anchor="middle">jamais</text>
-      </g>
-    {/if}
   </svg>
 
   <p class="bcl-leg" class:vide={!legende}>{legende || ' '}</p>

@@ -11,7 +11,7 @@
    */
   import { brancherTemps } from '../temps.js';
 
-  let { lignes = [], invite = '~/projet-these' } = $props();
+  let { lignes = [], invite = '~/projet-these', plein = false } = $props();
 
   let js = $state(false);
   let e = $state(lignes.length);
@@ -61,7 +61,7 @@
   });
 </script>
 
-<div class="trmn" bind:this={hote}>
+<div class="trmn" class:plein bind:this={hote}>
   <div class="trmn-cadre">
     <div class="trmn-barre">
       <span class="trmn-titre">{invite}</span>
@@ -83,6 +83,29 @@
     border: 2px solid var(--dk-encre);
     background: var(--dk-fond-2);
   }
+  .plein { height: 100%; }
+  .plein .trmn-cadre {
+    height: 100%;
+    box-sizing: border-box;
+    border: 0;
+    background: #050706;
+    color: #f5f7f4;
+  }
+  .plein .trmn-barre {
+    border-bottom-color: #4b514d;
+    padding: 0.55em 0.85em;
+  }
+  .plein .trmn-titre { color: #9da69f; font-size: 0.78em; }
+  .plein .trmn-corps {
+    min-height: 0;
+    padding: 1.1em 1.2em;
+    font-size: 1.05em;
+    line-height: 1.72;
+  }
+  .plein .trmn-inv { color: #73d99a; }
+  .plein .trmn-cmd { color: #f5f7f4; }
+  .plein .trmn-out { color: #c4cbc6; }
+  .plein .trmn-cur { background: #73d99a; }
   .trmn-barre {
     display: flex;
     align-items: center;

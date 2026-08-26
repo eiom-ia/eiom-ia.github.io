@@ -72,6 +72,7 @@
       {#each SYMPTOMES as s}<li>{s}</li>{/each}
     </ul>
     <p class="ctx2-rem">Le remède est toujours le même : découper en tâches courtes et fermées.</p>
+    <p class="ctx2-compact">Entre deux étapes, <code>/compact</code> demande souvent au harnais de résumer la session pour libérer du contexte.</p>
   </div>
 </div>
 
@@ -184,6 +185,13 @@
     margin: 0.35em 0 0;
     font-size: 0.84em;
     color: var(--dk-gris);
+  }
+  .ctx2-compact {
+    grid-column: 1 / -1;
+    margin: 0.45em 0 0;
+    padding-top: 0.45em;
+    border-top: 1px solid var(--dk-filet);
+    font-size: 0.82em;
   }
   @media (prefers-reduced-motion: reduce) {
     .ctx2-seg {
