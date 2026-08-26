@@ -109,7 +109,7 @@
 .diapo-in:has(> .semaine-bande) { max-width: 54em; }
 .diapo-in:has(> .arbre) { max-width: 56em; }
 .diapo-in:has(> .capture) { max-width: 64em; }
-.diapo-in:has(> .collage) { max-width: none; padding-bottom: 1.6em; }
+.diapo-in:has(> .collage) { max-width: none; padding: 0; }
 .diapo-in:has(> .gal-3) { max-width: 58em; }
 .diapo-in:has(> .gal-2) { max-width: 56em; }
 .diapo-in:has(> .pl) { max-width: 50em; }
@@ -1010,33 +1010,48 @@
 }
 
 /* ---------- Collage d'agents — repris de la présentation FAS1001 ----------
-   La source est en revealjs: scène de 960 x 700, images en position absolue,
-   révélées une par une, certaines débordant volontairement du cadre. On garde
-   la scène en proportion plutôt qu'en pixels, donc le collage suit l'échelle
-   du deck. Le débordement est coupé au bord, comme le fait la fenêtre de
-   revealjs. */
+   On reproduit le mécanisme de revealjs plutôt que de réinterpréter la mise
+   en page: scène de 1050 x 700 en pixels, mise à l'échelle par transform.
+
+   Les images débordent de la scène et ne sont PAS coupées à son bord —
+   reveal les laisse déborder, c'est la fenêtre qui coupe. Le rognage se fait
+   donc sur la diapositive, qui joue le rôle de la fenêtre. */
 
 .collage {
   flex: 1 1 auto;
   min-height: 0;
-  display: flex;
-  justify-content: center;
   width: 100%;
+}
+
+/* Le rognage se fait ici plutôt qu'au bord de l'écran: l'original n'avait pas
+   de bandeau, nous si, et une image qui le recouvre se lit comme un défaut. */
+.collage-cadre {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .collage-scene {
   position: relative;
-  height: 100%;
-  aspect-ratio: 1050 / 700;
-  max-width: 100%;
-  overflow: hidden;
+  width: 1050px;
+  height: 700px;
+  flex: none;
 }
 
 .collage-scene .col-titre {
   position: absolute;
   top: 0;
   left: 0;
+  width: 1050px;
   margin: 0;
+  font-size: 64px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--dk-encre);
   z-index: 2;
   pointer-events: none;
 }
@@ -1057,18 +1072,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .collage-scene .col-titre {
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.collage-scene .col-im {
+  .collage-scene .col-im {
     transition: none;
     transform: rotate(var(--rot, 0deg));
   }
 }
-

@@ -76,24 +76,25 @@ git diff memoire.tex`;
 
 
 
-  // Geometrie relevee sur le rendu d'origine, scene revealjs de 1050 x 700:
-  // position et largeur de chaque image mesurees au pixel, converties en
-  // pourcentages pour suivre l'echelle du deck.
+  // Coordonnees relevees sur le rendu d'origine, en pixels de la scene
+  // revealjs de 1050 x 700. La scene entiere est ensuite mise a l'echelle,
+  // exactement comme le fait reveal.
   const AGENTS_FICTION = [
     { src: '/img/agentique/007.png',   alt: 'James Bond, agent 007',
-      haut: 47.43, droite: 76.19, largeur: 33.14 },
+      haut: 332, droite: 800, largeur: 348 },
     { src: '/img/agentique/smith.png', alt: "L'agent Smith, dans Matrix",
-      haut: 51.71, droite: -9.52, largeur: 61.43 },
+      haut: 362, droite: -100, largeur: 645 },
     { src: '/img/agentique/47.png',    alt: "L'agent 47, dans Hitman",
-      haut: -12.57, droite: -19.05, largeur: 40, rotation: 180 }
+      haut: -88, droite: -200, largeur: 420, rotation: 180 }
   ];
 
   const AGENTS_REELS = [
     { src: '/img/agentique/remax.png',  alt: 'Un courtier immobilier',
-      haut: 30.29, droite: -9.52, largeur: 42.22 },
+      haut: 212, droite: -100, largeur: 443 },
     { src: '/img/agentique/voyage.png', alt: 'Une agence de voyage',
-      haut: 37.43, droite: 57.14, largeur: 70 }
+      haut: 262, droite: 600, largeur: 735 }
   ];
+
 
 
   // Les deux prompts de la demonstration. Le premier est celui qu'une personne

@@ -1,36 +1,52 @@
 <script>
   /**
-   * Le collage d'agents, repris tel quel de la présentation FAS1001.
+   * Le collage d'agents, repris de la présentation FAS1001.
    *
-   * L'original est en revealjs: des images en position absolue sur une scène
-   * de 960 x 700, révélées une par une au clic, dont certaines débordent
-   * volontairement du cadre. On reproduit la géométrie en pourcentages de
-   * cette scène, donc elle suit l'échelle du deck au lieu d'être figée en
-   * pixels comme dans la source.
+   * On ne réinterprète pas la mise en page: on reproduit le mécanisme de
+   * revealjs. Une scène de 1050 x 700 en pixels, les images posées dessus aux
+   * coordonnées relevées sur le rendu d'origine, et la scène entière mise à
+   * l'échelle par une transformation — exactement la formule de reveal,
+   * min(largeur/1050, hauteur/700) moins la marge de 10 %.
    *
-   * Rien ne se joue tout seul: un clic révèle l'image suivante. La touche
-   * « diapositive suivante » fait la même chose tant qu'il reste une image,
-   * puis reprend son rôle normal — une télécommande suffit.
+   * Les images débordent volontairement de la scène et ne sont PAS coupées à
+   * son bord: reveal les laisse déborder et c'est la fenêtre qui coupe. Le
+   * rognage se fait donc sur la diapositive.
+   *
+   * Un clic révèle l'image suivante. La touche « suivant » fait de même tant
+   * qu'il en reste, puis rend la main au deck: une télécommande suffit.
    */
   import { base } from '$app/paths';
 
+  const SCENE_L = 1050;
+  const SCENE_H = 700;
+  const MARGE = 0.9; // la marge de revealjs
+
   let { images = [], titre = '' } = $props();
 
-  // Sans JavaScript, tout est visible: une diapositive projetée ne doit jamais
-  // dépendre de l'hydratation pour montrer son contenu.
   let js = $state(false);
   let n = $state(images.length);
-
+  let echelle = $state(1);
   let hote = $state(null);
+  let cadre = $state(null);
 
   $effect(() => {
-    if (!hote) return;
+    if (!hote || !cadre) return;
     js = true;
     n = 0;
 
+    // La même formule que reveal, mesurée sur le cadre réel plutôt
+    // qu'estimée: la diapositive a un bandeau, la fenêtre n'en a pas.
+    const ro = new ResizeObserver(() => {
+      const r = cadre.getBoundingClientRect();
+      if (r.width && r.height) {
+        echelle = Math.min(r.width / SCENE_L, r.height / SCENE_H) * MARGE;
+      }
+    });
+    ro.observe(cadre);
+
     const deck = hote.closest('.deck');
     const diapo = hote.closest('.diapo');
-    if (!deck || !diapo) return;
+    if (!deck || !diapo) return () => ro.disconnect();
     const monIndex = [...deck.querySelectorAll('.diapo')].indexOf(diapo);
 
     function avancer() {
@@ -38,11 +54,8 @@
     }
     diapo.addEventListener('click', avancer);
 
-    // En capture sur window: le deck écoute en bouillonnement, donc
-    // stopPropagation le neutralise tant qu'il reste une image à montrer.
     const AVANT = ['ArrowRight', 'ArrowDown', 'PageDown', ' '];
     const ARRIERE = ['ArrowLeft', 'ArrowUp', 'PageUp'];
-
     function auClavier(ev) {
       if (Math.round(deck.scrollTop / deck.clientHeight) !== monIndex) return;
       if (AVANT.includes(ev.key) && n < images.length) {
@@ -57,7 +70,6 @@
     }
     window.addEventListener('keydown', auClavier, true);
 
-    // On repart du cadre vide en arrivant, et on remet à zéro en partant.
     let ici = false;
     function verifier() {
       const y = Math.round(deck.scrollTop / deck.clientHeight) === monIndex;
@@ -71,6 +83,7 @@
     const t = setTimeout(verifier, 350);
 
     return () => {
+      ro.disconnect();
       diapo.removeEventListener('click', avancer);
       deck.removeEventListener('scroll', verifier);
       window.removeEventListener('keydown', auClavier, true);
@@ -80,18 +93,20 @@
 </script>
 
 <div class="collage" bind:this={hote}>
-  <div class="collage-scene">
-    {#if titre}<h2 class="col-titre e">{titre}</h2>{/if}
-  {#each images as im, i}
-    <img
-      src="{base}{im.src}"
-      alt={im.alt}
-      class="col-im"
-      class:vue={!js || i < n}
-      style="top: {im.haut}%; right: {im.droite}%; width: {im.largeur}%;{im.rotation
-        ? ` --rot: ${im.rotation}deg;`
-        : ''}"
-    />
-  {/each}
+  <div class="collage-cadre" bind:this={cadre}>
+    <div class="collage-scene" style="transform: scale({echelle})">
+      {#if titre}<h2 class="col-titre">{titre}</h2>{/if}
+      {#each images as im, i}
+        <img
+          src="{base}{im.src}"
+          alt={im.alt}
+          class="col-im"
+          class:vue={!js || i < n}
+          style="top: {im.haut}px; right: {im.droite}px; width: {im.largeur}px;{im.rotation
+            ? ` --rot: ${im.rotation}deg;`
+            : ''}"
+        />
+      {/each}
+    </div>
   </div>
 </div>
