@@ -12,8 +12,10 @@
    * d'Antigravity n'est pas publié, et une case qui dirait « vous avez
    * téléchargé » serait fausse dans la pièce ce jour-là.
    *
-   * Le dernier clic n'ajoute aucune formule. Il ferme le cadre et constate.
-   * Le « wow » appartient à qui parle, pas à la diapositive.
+   * Le dernier clic n'ajoute aucun texte: il ferme le cadre, et c'est tout.
+   * Les six étiquettes disent déjà d'où vient chaque case; une phrase de plus
+   * ne ferait que la redire. Le « wow » appartient à qui parle, pas à la
+   * diapositive.
    */
   import Picto from '../Picto.svelte';
   import { brancherTemps } from '../temps.js';
@@ -52,7 +54,6 @@
       </div>
     {/each}
   </div>
-  <p class="prt-bas" class:on={ferme}>Tout ça a été montré aujourd'hui.</p>
 </div>
 
 <style>
@@ -98,19 +99,6 @@
     font-size: 0.76em;
     color: var(--dk-gris);
     letter-spacing: 0.02em;
-  }
-  .prt-bas {
-    margin: 0.9em 0 0;
-    text-align: center;
-    font-size: 0.9em;
-    letter-spacing: 0.06em;
-    color: var(--dk-gris);
-    opacity: 0;
-    transition: opacity 0.35s ease-out;
-  }
-  .prt-bas.on {
-    opacity: 1;
-    color: var(--dk-accent);
   }
   @media (prefers-reduced-motion: reduce) {
     .prt-case {

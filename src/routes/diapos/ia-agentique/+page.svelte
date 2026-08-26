@@ -825,7 +825,9 @@ Classe-les du plus contradictoire au moins contradictoire.`;
     <Slide fond="encre" bandeau="Dernier temps" droite={D}>
       <h1 class="e">Qu'est-ce que vous<br />allez en faire ?</h1>
       <hr class="filet" />
-      <p class="lead e">La question n'est plus « est-ce faisable ».</p>
+      <p class="lead e">
+        Elle n'est plus « est-ce faisable ». Elle est « ai-je le droit, et est-ce que j'assume ».
+      </p>
     </Slide>
 
     <!-- ================= CLÔTURE ================= -->
