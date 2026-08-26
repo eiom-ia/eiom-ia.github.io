@@ -32,6 +32,7 @@
   import Deux from '$lib/deck/Deux.svelte';
   import Citation from '$lib/deck/Citation.svelte';
   import Minuterie from '$lib/deck/demos/Minuterie.svelte';
+  import Collage from '$lib/deck/demos/Collage.svelte';
 
   const TOTAL = 38;
   const D = 'IA agentique · mar 25 août';
@@ -73,6 +74,26 @@ git diff memoire.tex`;
   .mcp.json       # des serveurs MCP`;
 
 
+
+
+  // Geometrie relevee sur le rendu d'origine, scene revealjs de 1050 x 700:
+  // position et largeur de chaque image mesurees au pixel, converties en
+  // pourcentages pour suivre l'echelle du deck.
+  const AGENTS_FICTION = [
+    { src: '/img/agentique/007.png',   alt: 'James Bond, agent 007',
+      haut: 47.43, droite: 76.19, largeur: 33.14 },
+    { src: '/img/agentique/smith.png', alt: "L'agent Smith, dans Matrix",
+      haut: 51.71, droite: -9.52, largeur: 61.43 },
+    { src: '/img/agentique/47.png',    alt: "L'agent 47, dans Hitman",
+      haut: -12.57, droite: -19.05, largeur: 40, rotation: 180 }
+  ];
+
+  const AGENTS_REELS = [
+    { src: '/img/agentique/remax.png',  alt: 'Un courtier immobilier',
+      haut: 30.29, droite: -9.52, largeur: 42.22 },
+    { src: '/img/agentique/voyage.png', alt: 'Une agence de voyage',
+      haut: 37.43, droite: 57.14, largeur: 70 }
+  ];
 
 
   // Les deux prompts de la demonstration. Le premier est celui qu'une personne
@@ -130,26 +151,11 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <Slide bandeau="Le mot, avant la technologie" droite={D}>
-      <h2 class="e">Vous connaissez déjà des agents</h2>
-      <div class="gal-3">
-        <figure><img src="{base}/img/agentique/007.png" alt="James Bond, agent 007" /></figure>
-        <figure><img src="{base}/img/agentique/smith.png" alt="L'agent Smith, dans Matrix" /></figure>
-        <figure><img src="{base}/img/agentique/47.png" alt="L'agent 47, dans Hitman" /></figure>
-      </div>
+      <Collage titre="C'est quoi un agent ?" images={AGENTS_FICTION} />
     </Slide>
 
     <Slide bandeau="Et des vrais" droite={D}>
-      <h2 class="e">Vous en avez même engagé</h2>
-      <div class="gal-2">
-        <figure>
-          <img src="{base}/img/agentique/remax.png" alt="Un courtier immobilier" />
-          <figcaption>Un courtier immobilier</figcaption>
-        </figure>
-        <figure>
-          <img src="{base}/img/agentique/voyage.png" alt="Une agence de voyage" />
-          <figcaption>Un agent de voyage</figcaption>
-        </figure>
-      </div>
+      <Collage titre="C'est quoi un agent ?" images={AGENTS_REELS} />
     </Slide>
 
     <Slide bandeau="Définition" droite={D}>

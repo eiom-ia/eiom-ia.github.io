@@ -109,6 +109,7 @@
 .diapo-in:has(> .semaine-bande) { max-width: 54em; }
 .diapo-in:has(> .arbre) { max-width: 56em; }
 .diapo-in:has(> .capture) { max-width: 64em; }
+.diapo-in:has(> .collage) { max-width: none; padding-bottom: 1.6em; }
 .diapo-in:has(> .gal-3) { max-width: 58em; }
 .diapo-in:has(> .gal-2) { max-width: 56em; }
 .diapo-in:has(> .pl) { max-width: 50em; }
@@ -1007,3 +1008,67 @@
   border: none;
   max-height: 9em;
 }
+
+/* ---------- Collage d'agents — repris de la présentation FAS1001 ----------
+   La source est en revealjs: scène de 960 x 700, images en position absolue,
+   révélées une par une, certaines débordant volontairement du cadre. On garde
+   la scène en proportion plutôt qu'en pixels, donc le collage suit l'échelle
+   du deck. Le débordement est coupé au bord, comme le fait la fenêtre de
+   revealjs. */
+
+.collage {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.collage-scene {
+  position: relative;
+  height: 100%;
+  aspect-ratio: 1050 / 700;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.collage-scene .col-titre {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.collage-scene .col-im {
+  position: absolute;
+  height: auto;
+  display: block;
+  opacity: 0;
+  transform: rotate(var(--rot, 0deg)) scale(0.96);
+  transition:
+    opacity 0.28s ease-out,
+    transform 0.28s ease-out;
+}
+.collage-scene .col-im.vue {
+  opacity: 1;
+  transform: rotate(var(--rot, 0deg)) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collage-scene .col-titre {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.collage-scene .col-im {
+    transition: none;
+    transform: rotate(var(--rot, 0deg));
+  }
+}
+
