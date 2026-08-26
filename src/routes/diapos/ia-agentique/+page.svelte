@@ -33,7 +33,7 @@
   import Citation from '$lib/deck/Citation.svelte';
   import Minuterie from '$lib/deck/demos/Minuterie.svelte';
 
-  const TOTAL = 36;
+  const TOTAL = 37;
   const D = 'IA agentique · mar 25 août';
 
   const c_terminal = `# Ou suis-je ?
@@ -74,6 +74,28 @@ git diff memoire.tex`;
 
 
 
+
+  // Le prompt de la demonstration, a copier depuis la diapositive.
+  // Les variables sont nommees pour que toute la salle obtienne le meme
+  // modele. Le code de non-reponse (-99) n'est PAS mentionne: c'est
+  // precisement ce qu'on va verifier ensemble a l'arrivee.
+  // Les accents restent: ce bloc se colle dans un agent, pas dans R.
+  const c_prompt = `Télécharge ce fichier de données dans le dossier de travail :
+https://dataverse.harvard.edu/api/access/datafile/13958997
+
+C'est l'Étude électorale canadienne 2025, au format Stata (.dta), 58 Mo.
+
+Ensuite, en R :
+
+1. Ouvre le fichier et regarde ce qu'il contient.
+2. Estime un modèle linéaire qui explique le placement gauche-droite
+   des répondants — variable cps25_lr_scale_bef_1, échelle de 0 à 10 —
+   par leur âge (cps25_age_in_years), leur scolarité (cps25_education)
+   et leur revenu (cps25_income).
+3. Produis un graphique lisible du résultat.
+4. Exporte le graphique en PNG dans ~/Downloads.
+
+Explique-moi chaque étape au fur et à mesure.`;
 
   const c_cron = `# Tous les lundis a 7 h, l'agent relit les nouveautes
 # et depose une fiche dans sorties/.
@@ -273,6 +295,7 @@ git diff memoire.tex`;
             <li>Codex</li>
             <li>Gemini CLI</li>
             <li>OpenCode, Crush</li>
+            <li>Google Antigravity</li>
           </ul>
           <p>Accès direct aux fichiers et au shell. Puissants, donc à encadrer.</p>
         </Carte>
@@ -281,7 +304,6 @@ git diff memoire.tex`;
             <li>Cursor</li>
             <li>GitHub Copilot</li>
             <li>Claude Desktop</li>
-            <li>Google Antigravity</li>
           </ul>
           <p>Plus confortables, périmètre plus étroit. Bon point d'entrée.</p>
         </Carte>
@@ -313,6 +335,11 @@ git diff memoire.tex`;
     </Slide>
 
     <!-- ================= PRATIQUE 1 ================= -->
+    <Slide bandeau="Le prompt" droite={D}>
+      <h2 class="e">À copier tel quel</h2>
+      <Code src={c_prompt} brut />
+    </Slide>
+
     <Slide fond="encre" bandeau="Pratique" droite={D}>
       <h1 class="e">À vous :<br />installer et lancer</h1>
       <hr class="filet" />
