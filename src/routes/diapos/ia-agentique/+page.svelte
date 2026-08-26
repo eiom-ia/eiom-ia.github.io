@@ -30,6 +30,7 @@
   import Code from '$lib/deck/Code.svelte';
   import Carte from '$lib/deck/Carte.svelte';
   import Picto from '$lib/deck/Picto.svelte';
+  import Logo from '$lib/deck/Logo.svelte';
   import Deux from '$lib/deck/Deux.svelte';
   import Citation from '$lib/deck/Citation.svelte';
   import Grand from '$lib/deck/Grand.svelte';
@@ -319,13 +320,13 @@ Classe-les du plus contradictoire au moins contradictoire.`;
       <table class="e large">
         <thead><tr><th>Harnais</th><th>Qui le fait</th><th>Ce qui le distingue</th></tr></thead>
         <tbody>
-          <tr><td>Claude Code</td><td>Anthropic</td><td>Le plus outillé ; skills et plugins</td></tr>
-          <tr><td>Codex</td><td>OpenAI</td><td>Votre abonnement marche ailleurs aussi</td></tr>
-          <tr><td>Antigravity CLI</td><td>Google</td><td>Palier gratuit, quota non publié</td></tr>
-          <tr><td>OpenCode</td><td>libre</td><td>N'importe quel modèle, y compris local</td></tr>
+          <tr><td><span class="nomlogo"><Logo nom="anthropic" alt="Anthropic" />Claude Code</span></td><td>Anthropic</td><td>Le plus outillé ; skills et plugins</td></tr>
+          <tr><td><span class="nomlogo"><Logo nom="openai" alt="OpenAI" />Codex</span></td><td>OpenAI</td><td>Votre abonnement marche ailleurs aussi</td></tr>
+          <tr><td><span class="nomlogo"><Logo nom="google" alt="Google" />Antigravity CLI</span></td><td>Google</td><td>Palier gratuit, quota non publié</td></tr>
+          <tr><td><span class="nomlogo"><Logo nom="opencode" alt="OpenCode" />OpenCode</span></td><td>libre</td><td>N'importe quel modèle, y compris local</td></tr>
           <tr><td>Pi</td><td>libre</td><td>Avec OpenCode, ~10 % du trafic Codex</td></tr>
-          <tr><td>Crush</td><td>Charm</td><td>Soigné, dans le terminal</td></tr>
-          <tr><td>DeepSeek Harness</td><td>DeepSeek</td><td>MIT — <em>tout</em> est un plugin, la boucle comprise</td></tr>
+          <tr><td><span class="nomlogo"><Logo nom="charm" alt="Charm" />Crush</span></td><td>Charm</td><td>Soigné, dans le terminal</td></tr>
+          <tr><td><span class="nomlogo"><Logo nom="deepseek" alt="DeepSeek" />DeepSeek Harness</span></td><td>DeepSeek</td><td>MIT — <em>tout</em> est un plugin, la boucle comprise</td></tr>
         </tbody>
       </table>
       <p class="e credits">
@@ -338,17 +339,17 @@ Classe-les du plus contradictoire au moins contradictoire.`;
       <div class="pgrid c3">
         <span class="pit"
           ><Picto nom="coche" taille="2.2em" /><span class="pit-t"
-            >OpenAI<span class="s">votre abonnement marche dans un harnais tiers</span></span
+            ><span class="nomlogo"><Logo nom="openai" alt="OpenAI" taille="1.5em" />OpenAI</span><span class="s">votre abonnement marche dans un harnais tiers</span></span
           ></span
         >
         <span class="pit"
           ><Picto nom="croix" taille="2.2em" /><span class="pit-t"
-            >Anthropic<span class="s">bloqué depuis avril 2026</span></span
+            ><span class="nomlogo"><Logo nom="anthropic" alt="Anthropic" taille="1.5em" />Anthropic</span><span class="s">bloqué depuis avril 2026</span></span
           ></span
         >
         <span class="pit"
           ><Picto nom="croix" taille="2.2em" /><span class="pit-t"
-            >Google<span class="s">bloqué depuis février 2026</span></span
+            ><span class="nomlogo"><Logo nom="google" alt="Google" taille="1.5em" />Google</span><span class="s">bloqué depuis février 2026</span></span
           ></span
         >
       </div>
@@ -622,7 +623,10 @@ Classe-les du plus contradictoire au moins contradictoire.`;
 
 
     <Slide bandeau="Un cas" droite={D}>
-      <h2 class="e">Hermes : un agent qui vit sur un serveur</h2>
+      <h2 class="e">
+        <span class="nomlogo"><Logo nom="nousresearch" alt="Nous Research" taille="1.5em" />Hermes :
+        un agent qui vit sur un serveur</span>
+      </h2>
       <Deux ratio="1fr 1fr">
         <div class="pgrid">
           <span class="pit"><Picto nom="horloge" /><span class="pit-t">Toujours allumé<span class="s">un VPS à 5 $, pas votre portable</span></span></span>
@@ -652,10 +656,10 @@ Classe-les du plus contradictoire au moins contradictoire.`;
     <Slide bandeau="Comment" droite={D}>
       <h2 class="e">Tout est branché sur tout</h2>
       <div class="pgrid c2">
-        <span class="pit"><Picto nom="terminal" /><span class="pit-t">Claude Code<span class="s">le harnais</span></span></span>
+        <span class="pit"><Logo nom="anthropic" alt="Anthropic" /><span class="pit-t">Claude Code<span class="s">le harnais</span></span></span>
         <span class="pit"><Picto nom="page" /><span class="pit-t">Un skill <code>/coach</code><span class="s">ma méthode d'entraînement, écrite une fois</span></span></span>
-        <span class="pit"><Picto nom="prise" /><span class="pit-t">Google Agenda, par MCP<span class="s">pour savoir quand je peux courir</span></span></span>
-        <span class="pit"><Picto nom="loupe" /><span class="pit-t">Strava<span class="s">ce que j'ai réellement couru</span></span></span>
+        <span class="pit"><Logo nom="google" alt="Google" /><span class="pit-t">Google Agenda, par MCP<span class="s">pour savoir quand je peux courir</span></span></span>
+        <span class="pit"><Logo nom="strava" alt="Strava" /><span class="pit-t">Strava<span class="s">ce que j'ai réellement couru</span></span></span>
         <span class="pit"><Picto nom="engrenage" /><span class="pit-t">Un outil que j'ai écrit<span class="s">l'API privée de la montre, reconstituée</span></span></span>
         <span class="pit"><Picto nom="humain" /><span class="pit-t">Il demande avant d'écrire<span class="s">le garde-fou, sur ma propre montre</span></span></span>
       </div>
@@ -722,14 +726,17 @@ Classe-les du plus contradictoire au moins contradictoire.`;
       <h2 class="e">Ce que les gens essaient</h2>
       <Deux ratio="1fr 1fr 1fr">
         <Carte titre="OpenClaw">
+          <p class="logo-l"><Logo nom="openclaw" alt="OpenClaw" taille="2.1em" /></p>
           <p>Un assistant qu'on héberge soi-même, joignable par ses messageries.</p>
           <p class="e credits">MIT · fondation à but non lucratif · depuis nov. 2025</p>
         </Carte>
         <Carte titre="Hermes">
+          <p class="logo-l"><Logo nom="nousresearch" alt="Hermes" taille="2.1em" /></p>
           <p>Un agent permanent qui écrit ses propres skills en travaillant.</p>
           <p class="e credits">Nous Research · MIT · depuis févr. 2026</p>
         </Carte>
         <Carte titre="MemPalace">
+          <p class="logo-l"><Logo nom="mempalace" alt="MemPalace" taille="2.1em" /></p>
           <p>Une mémoire qui garde tout et le range dans un espace, plutôt que de résumer.</p>
           <p class="e credits">libre · local · chargement par couches</p>
         </Carte>
@@ -823,7 +830,8 @@ Classe-les du plus contradictoire au moins contradictoire.`;
         <li>code.claude.com/docs/en/plugins<span class="lieu">ce qu'un plugin empaquette</span></li>
       </ul>
       <p class="e credits">
-        Images de fiction : James Bond, Matrix, Hitman, citées à titre d'illustration.
+        Images de fiction : James Bond, Matrix, Hitman, citées à titre d'illustration. Les logos
+        sont ceux des organisations, repris de leur compte public et cités nominativement.
       </p>
     </Slide>
 

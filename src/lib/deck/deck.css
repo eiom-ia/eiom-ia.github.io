@@ -1346,3 +1346,12 @@
   margin: 0;
   font-size: 0.9em;
 }
+
+/* Une cellule de tableau qui porte un logo et un nom. */
+.nomlogo {
+  display: flex;
+  align-items: center;
+  gap: 0.55em;
+}
+
+.carte-d .logo-l { margin: 0 0 0.5em; }
