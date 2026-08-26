@@ -20,10 +20,10 @@
   ];
 
   const SYMPTOMES = [
-    'il oublie une consigne du début',
-    'il refait une action déjà faite',
-    'il ralentit, et coûte plus cher',
-    'il dérive vers une tâche voisine'
+    'oublie le début',
+    'refait ce qui est fait',
+    'ralentit, coûte plus',
+    'dérive'
   ];
 
   let js = $state(false);
@@ -62,8 +62,8 @@
   </div>
 
   <p class="ctx2-note">
-    À chaque tour, <strong>tout</strong> repart : la consigne, vos demandes, chaque appel d'outil et
-    chaque résultat. Ce n'est pas la question qui pèse, c'est l'accumulation.
+    À chaque tour, <strong>tout</strong> repart. Ce n'est pas la question qui pèse, c'est
+    l'accumulation.
   </p>
 
   <div class="ctx2-symp" class:vue={!js || sature}>

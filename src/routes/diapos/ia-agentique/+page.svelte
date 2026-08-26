@@ -29,6 +29,7 @@
   import Slide from '$lib/deck/Slide.svelte';
   import Code from '$lib/deck/Code.svelte';
   import Carte from '$lib/deck/Carte.svelte';
+  import Picto from '$lib/deck/Picto.svelte';
   import Deux from '$lib/deck/Deux.svelte';
   import Citation from '$lib/deck/Citation.svelte';
   import Minuterie from '$lib/deck/demos/Minuterie.svelte';
@@ -163,17 +164,23 @@ Explique-moi chaque étape au fur et à mesure.`;
         Un agent est une entité autonome mandatée pour agir dans le monde afin de produire un effet
         au nom d'un objectif ou d'un mandant.
       </p>
-      <Deux ratio="1fr 1fr 1fr">
-        <Carte titre="Délégation">
-          <p>L'agent agit pour le compte de quelque chose : un État, une organisation, un système, une personne.</p>
-        </Carte>
-        <Carte titre="Autonomie">
-          <p>L'agent dispose d'une liberté dans la manière d'exécuter sa mission.</p>
-        </Carte>
-        <Carte titre="Effectivité">
-          <p>L'agent produit un changement réel. Il détruit, il élimine, il protège, il accomplit.</p>
-        </Carte>
-      </Deux>
+      <div class="pgrid c3">
+        <span class="pit"
+          ><Picto nom="humain" taille="2.2em" /><span class="pit-t"
+            >Délégation<span class="s">il agit pour un autre</span></span
+          ></span
+        >
+        <span class="pit"
+          ><Picto nom="engrenage" taille="2.2em" /><span class="pit-t"
+            >Autonomie<span class="s">libre de ses moyens</span></span
+          ></span
+        >
+        <span class="pit"
+          ><Picto nom="eclair" taille="2.2em" /><span class="pit-t"
+            >Effectivité<span class="s">ça change quelque chose</span></span
+          ></span
+        >
+      </div>
     </Slide>
 
 
@@ -199,23 +206,21 @@ Explique-moi chaque étape au fur et à mesure.`;
 
     <Slide bandeau="Reculons d'un pas" droite={D}>
       <h2 class="e">C'est quoi, un terminal ?</h2>
-      <Deux ratio="1fr 1fr">
-        <Carte titre="Ce que vous connaissez">
-          <p>
-            Vous cliquez sur un dossier, il s'ouvre. Vous glissez un fichier, il se déplace. La
-            machine vous montre des images de vos fichiers.
-          </p>
-        </Carte>
-        <Carte titre="L'autre porte">
-          <p>
-            Vous écrivez le nom de ce que vous voulez. La machine répond par du texte. Même
-            ordinateur, mêmes fichiers — une autre façon de lui parler.
-          </p>
-        </Carte>
-      </Deux>
+      <div class="pduo">
+        <div>
+          <Picto nom="clic" taille="3.4em" />
+          <h4>CE QUE VOUS CONNAISSEZ</h4>
+          <p>Vous cliquez. La machine vous montre des images de vos fichiers.</p>
+        </div>
+        <div>
+          <Picto nom="terminal" taille="3.4em" />
+          <h4>L'AUTRE PORTE</h4>
+          <p>Vous écrivez. Elle répond par du texte.</p>
+        </div>
+      </div>
       <p class="e">
-        Rien d'ésotérique : c'est la porte que l'ordinateur a toujours eue, et la seule qu'un modèle
-        de langue puisse franchir.
+        Même ordinateur, mêmes fichiers. Et c'est la seule porte qu'un modèle de langue puisse
+        franchir.
       </p>
     </Slide>
 
@@ -254,21 +259,19 @@ Explique-moi chaque étape au fur et à mesure.`;
 
     <Slide bandeau="Le mot qui manquait" droite={D}>
       <h2 class="e">Un harnais, c'est le programme qui tient la bride</h2>
-      <Deux ratio="1fr 1fr">
-        <Carte titre="Ce qu'il n'est pas">
-          <p>Ce n'est pas le modèle. Le modèle est ailleurs, chez un fournisseur, et ne fait que du texte.</p>
-        </Carte>
-        <Carte titre="Ce qu'il est">
-          <p>
-            Un logiciel sur <em>votre</em> machine. Il parle au modèle, exécute ce que le modèle
-            propose, lui renvoie le résultat, et recommence.
-          </p>
-        </Carte>
-      </Deux>
-      <p class="e">
-        Claude Code, Codex, OpenCode, Cursor : ce sont des harnais. Le modèle qu'ils appellent est
-        interchangeable.
-      </p>
+      <div class="pduo">
+        <div>
+          <Picto nom="croix" taille="3em" />
+          <h4>CE QU'IL N'EST PAS</h4>
+          <p>Le modèle. Celui-là est ailleurs, et ne fait que du texte.</p>
+        </div>
+        <div>
+          <Picto nom="engrenage" taille="3em" />
+          <h4>CE QU'IL EST</h4>
+          <p>Un logiciel sur <em>votre</em> machine, qui exécute et recommence.</p>
+        </div>
+      </div>
+      <p class="e">Claude Code, Codex, OpenCode, Cursor. Le modèle qu'ils appellent est interchangeable.</p>
     </Slide>
 
 
@@ -276,36 +279,27 @@ Explique-moi chaque étape au fur et à mesure.`;
       <h2 class="e">Le modèle propose, le harnais dispose</h2>
       <p class="lead e">
         Le modèle n'a aucun pouvoir d'exécution. Il produit une chaîne de caractères qui
-        <em>ressemble</em> à une commande. Ce qui décide de l'exécuter, c'est le harnais — donc vous.
+        <em>ressemble</em> à une commande.
       </p>
       <Citation source="Le point de contrôle">
-        Toute la sécurité d'un agent se joue là : dans ce que le harnais accepte de faire sans vous
-        demander.
+        Toute la sécurité d'un agent tient dans ce que le harnais accepte de faire sans vous demander.
       </Citation>
     </Slide>
 
     <Slide bandeau="Panorama" droite={D}>
       <h2 class="e">Les harnais que vous croiserez</h2>
-      <Deux ratio="1fr 1fr">
-        <Carte titre="Dans le terminal">
-          <ul>
-            <li>Claude Code</li>
-            <li>Codex</li>
-            <li>Gemini CLI</li>
-            <li>OpenCode, Crush</li>
-            <li>Google Antigravity</li>
-          </ul>
-          <p>Accès direct aux fichiers et au shell. Puissants, donc à encadrer.</p>
-        </Carte>
-        <Carte titre="Dans une interface">
-          <ul>
-            <li>Cursor</li>
-            <li>GitHub Copilot</li>
-            <li>Claude Desktop</li>
-          </ul>
-          <p>Plus confortables, périmètre plus étroit. Bon point d'entrée.</p>
-        </Carte>
-      </Deux>
+      <div class="pduo">
+        <div>
+          <Picto nom="terminal" taille="2.8em" />
+          <h4>DANS LE TERMINAL</h4>
+          <p>Claude Code · Codex · Gemini CLI<br />OpenCode · Crush · Antigravity</p>
+        </div>
+        <div>
+          <Picto nom="clic" taille="2.8em" />
+          <h4>DANS UNE INTERFACE</h4>
+          <p>Cursor · GitHub Copilot<br />Claude Desktop</p>
+        </div>
+      </div>
       <p class="e">Le choix compte moins qu'on ne le croit : les concepts valent pour tous.</p>
     </Slide>
 
@@ -319,17 +313,23 @@ Explique-moi chaque étape au fur et à mesure.`;
 
     <Slide bandeau="Quoi regarder" droite={D}>
       <h2 class="e">Trois choses, pendant que ça tourne</h2>
-      <Deux ratio="1fr 1fr 1fr">
-        <Carte titre="La boucle">
-          <p>Il propose une commande, elle s'exécute, le résultat lui revient. Comptez les tours.</p>
-        </Carte>
-        <Carte titre="Les demandes d'accord">
-          <p>Où s'arrête-t-il pour demander ? C'est le réglage le plus important.</p>
-        </Carte>
-        <Carte titre="Ce qu'il se trompe">
-          <p>Il se trompera. Ce qui compte est de voir <em>comment</em> ça se rattrape.</p>
-        </Carte>
-      </Deux>
+      <div class="pgrid c3">
+        <span class="pit"
+          ><Picto nom="retour" taille="2.2em" /><span class="pit-t"
+            >La boucle<span class="s">comptez les tours</span></span
+          ></span
+        >
+        <span class="pit"
+          ><Picto nom="humain" taille="2.2em" /><span class="pit-t"
+            >Les demandes d'accord<span class="s">où s'arrête-t-il ?</span></span
+          ></span
+        >
+        <span class="pit"
+          ><Picto nom="croix" taille="2.2em" /><span class="pit-t"
+            >Ses erreurs<span class="s">comment ça se rattrape</span></span
+          ></span
+        >
+      </div>
     </Slide>
 
     <!-- ================= PRATIQUE 1 ================= -->
@@ -384,24 +384,15 @@ Explique-moi chaque étape au fur et à mesure.`;
     <Slide bandeau="Skill" droite={D}>
       <h2 class="e">Des instructions chargées au bon moment</h2>
       <Deux ratio="1.1fr 1fr">
-        <div>
-          <p>
-            Un skill est un document de consignes que l'agent charge <em>seulement</em> quand la
-            tâche le justifie.
-          </p>
-          <Code titre="Structure minimale" src={c_skill} />
+        <Code titre="Un skill, c'est un dossier" src={c_skill} />
+        <div class="pgrid">
+          <span class="pit"><Picto nom="page" /><span class="pit-t">Un fichier de consignes</span></span>
+          <span class="pit"><Picto nom="horloge" /><span class="pit-t">Chargé quand ça sert</span></span>
+          <span class="pit"><Picto nom="git" /><span class="pit-t">Versionné, partagé</span></span>
+          <span class="pit"><Picto nom="coche" /><span class="pit-t">Appliqué à l'identique</span></span>
         </div>
-        <Carte titre="Pourquoi en recherche">
-          <p>
-            Vos exigences méthodologiques — comment citer, quoi vérifier, quel gabarit — deviennent
-            un fichier versionné, relu, partagé avec l'équipe.
-          </p>
-          <p>
-            Une consigne écrite une fois, appliquée identiquement à chaque exécution. C'est de la
-            standardisation de protocole.
-          </p>
-        </Carte>
       </Deux>
+      <p class="e">Votre méthode devient un fichier. C'est de la standardisation de protocole.</p>
     </Slide>
 
 
@@ -417,22 +408,17 @@ Explique-moi chaque étape au fur et à mesure.`;
 
     <Slide bandeau="Plugin" droite={D}>
       <h2 class="e">Un emballage, propre à un harnais</h2>
-      <Deux ratio="1fr 1.1fr">
+      <Deux ratio="1fr 1fr">
         <Code titre="Ce qu'un plugin contient" src={c_plugin} />
-        <Carte titre="Ce que ça règle">
-          <p>
-            Un skill se copie à la main. Un serveur MCP se configure à la main. À trois personnes
-            dans une équipe, ça dérive déjà.
-          </p>
-          <p>
-            Le plugin en fait une chose versionnée qu'on installe, qu'on met à jour et qu'on
-            désinstalle d'un geste.
-          </p>
-        </Carte>
+        <div class="pgrid">
+          <span class="pit"><Picto nom="boite" /><span class="pit-t">Tout d'un coup</span></span>
+          <span class="pit"><Picto nom="git" /><span class="pit-t">Versionné</span></span>
+          <span class="pit"><Picto nom="poubelle" /><span class="pit-t">Désinstallable</span></span>
+          <span class="pit"><Picto nom="croix" /><span class="pit-t">Un seul harnais</span></span>
+        </div>
       </Deux>
       <p class="e">
-        C'est aussi la limite : un plugin ne vaut que dans le harnais pour lequel il est écrit. Le
-        serveur MCP qu'il contient, lui, vaut partout.
+        Le serveur MCP qu'il contient, lui, vaut partout. C'est toute la différence.
       </p>
     </Slide>
 
@@ -445,26 +431,19 @@ Explique-moi chaque étape au fur et à mesure.`;
 
     <Slide bandeau="Précaution" droite={D}>
       <h2 class="e">Rendre les effets réversibles</h2>
-      <Deux>
-        <Carte titre="Ce qu'on ne laisse pas faire">
-          <ul>
-            <li>Écraser un fichier de données source</li>
-            <li>Modifier en place, sans copie</li>
-            <li>Agir sur un dossier non versionné</li>
-          </ul>
-        </Carte>
-        <Carte titre="Ce qu'on met en place">
-          <ul>
-            <li>Données brutes en lecture seule, toujours</li>
-            <li>Écriture uniquement dans un dossier de sortie</li>
-            <li>Un point de contrôle Git avant l'exécution</li>
-          </ul>
-        </Carte>
-      </Deux>
-      <Citation source="Règle simple">
-        Les données brutes ne changent jamais. Les modifications suivies reviennent au point de
-        contrôle ; les nouveaux fichiers restent confinés dans un dossier qu'on peut supprimer en bloc.
-      </Citation>
+      <div class="pduo">
+        <div>
+          <Picto nom="croix" taille="2.8em" />
+          <h4>JAMAIS</h4>
+          <p>Écraser une source · modifier en place · agir hors versionnement</p>
+        </div>
+        <div>
+          <Picto nom="retour" taille="2.8em" />
+          <h4>TOUJOURS</h4>
+          <p>Sources en lecture seule · écriture dans <code>sorties/</code> · un point Git avant</p>
+        </div>
+      </div>
+      <p class="e">Les données brutes ne changent jamais. Le reste se supprime en bloc.</p>
     </Slide>
 
 
@@ -479,28 +458,29 @@ Explique-moi chaque étape au fur et à mesure.`;
 
     <Slide bandeau="La thèse, payée" droite={D}>
       <h2 class="e">Ce qui est du texte, l'agent le tient</h2>
-      <Deux ratio="1fr 1fr">
-        <Carte titre="Ce qu'il peut faire, sur du texte brut">
-          <ul>
-            <li>Le lire en entier, d'un coup</li>
-            <li>Le chercher, le comparer, le compter</li>
-            <li>En voir le <em>diff</em> ligne à ligne</li>
-            <li>Le modifier de façon vérifiable</li>
-          </ul>
-        </Carte>
-        <Carte titre="Ce qui lui reste opaque">
-          <ul>
-            <li>Un .docx : une archive compressée</li>
-            <li>Un tableur avec des formules et des couleurs</li>
-            <li>Un PDF mis en page</li>
-            <li>Ce que vous avez fait en cliquant</li>
-          </ul>
-        </Carte>
-      </Deux>
-      <Citation source="La règle">
-        Ce n'est pas une préférence esthétique. Un format binaire est un mur : ni l'agent, ni Git, ni
-        vous dans six mois n'y voyez ce qui a changé.
-      </Citation>
+      <div class="pduo">
+        <div>
+          <Picto nom="page" taille="3.2em" />
+          <h4>IL TIENT</h4>
+          <div class="pgrid">
+            <span class="pit"><Picto nom="oeil" /><span class="pit-t">Lire en entier</span></span>
+            <span class="pit"><Picto nom="loupe" /><span class="pit-t">Chercher, compter</span></span>
+            <span class="pit"><Picto nom="diff" /><span class="pit-t">Voir ce qui a changé</span></span>
+            <span class="pit"><Picto nom="git" /><span class="pit-t">Versionner</span></span>
+          </div>
+        </div>
+        <div>
+          <Picto nom="page-close" taille="3.2em" />
+          <h4>MUR</h4>
+          <div class="pgrid">
+            <span class="pit"><Picto nom="page-close" /><span class="pit-t">.docx, .pdf</span></span>
+            <span class="pit"><Picto nom="grille" /><span class="pit-t">Un tableur</span></span>
+            <span class="pit"><Picto nom="image" /><span class="pit-t">Une capture</span></span>
+            <span class="pit"><Picto nom="clic" /><span class="pit-t">Ce que vous avez cliqué</span></span>
+          </div>
+        </div>
+      </div>
+      <p class="e">Un format binaire est un mur : ni l'agent, ni Git, ni vous dans six mois.</p>
     </Slide>
 
     <Slide bandeau="Concrètement" droite={D}>
@@ -508,15 +488,15 @@ Explique-moi chaque étape au fur et à mesure.`;
       <table class="e large">
         <thead><tr><th>Au lieu de</th><th>Préférer</th><th>Ce qu'on y gagne</th></tr></thead>
         <tbody>
-          <tr><td>Word</td><td>LaTeX, Quarto, Markdown</td><td>Le diff, la citation gérée, l'agent qui relit</td></tr>
-          <tr><td>Cliquer dans un tableur</td><td>Un script R</td><td>Le geste est rejouable et contestable</td></tr>
-          <tr><td>Dropbox, « version_finale_2 »</td><td>Git</td><td>Qui a changé quoi, quand, et le retour arrière</td></tr>
-          <tr><td>Une capture d'écran</td><td>Le fichier de données</td><td>L'agent peut le relire, pas la regarder</td></tr>
-          <tr><td>Un PDF annoté</td><td>Des notes en texte</td><td>Cherchable dans quatre cents fichiers</td></tr>
+          <tr><td>Word</td><td>LaTeX, Quarto, Markdown</td><td>Le diff, la citation, la relecture</td></tr>
+          <tr><td>Cliquer dans un tableur</td><td>Un script R</td><td>Rejouable, contestable</td></tr>
+          <tr><td>Dropbox, « version_finale_2 »</td><td>Git</td><td>Qui, quoi, quand, et le retour</td></tr>
+          <tr><td>Une capture d'écran</td><td>Le fichier de données</td><td>Il le relit, il ne la regarde pas</td></tr>
+          <tr><td>Un PDF annoté</td><td>Des notes en texte</td><td>Cherchable en masse</td></tr>
         </tbody>
       </table>
       <p class="e">
-        Chaque ligne vaut aussi sans agent. L'agent ne fait qu'augmenter fortement la prime.
+        Chaque ligne vaut déjà sans agent. Il ne fait qu'augmenter la prime.
       </p>
     </Slide>
 
@@ -527,42 +507,47 @@ Explique-moi chaque étape au fur et à mesure.`;
 
     <Slide bandeau="La bonne unité de travail" droite={D}>
       <h2 class="e">Une tâche, un début, une fin vérifiable</h2>
-      <Deux ratio="1fr 1fr">
-        <Carte titre="Mal découpé">
+      <div class="pduo">
+        <div>
+          <Picto nom="croix" taille="2.6em" />
+          <h4>MAL DÉCOUPÉ</h4>
           <p>« Fais ma revue de littérature. »</p>
-          <p>Aucun critère d'arrêt, aucune façon de savoir si c'est fini ni si c'est bon.</p>
-        </Carte>
-        <Carte titre="Bien découpé">
-          <p>
-            « Pour chacun des 40 PDF de <code>corpus/</code>, extrais titre, auteurs, année et DOI
-            dans <code>sorties/refs.csv</code>. »
-          </p>
-          <p>On sait quand c'est fini, et on peut vérifier chaque ligne.</p>
-        </Carte>
-      </Deux>
+          <p class="e credits">Aucun critère d'arrêt.</p>
+        </div>
+        <div>
+          <Picto nom="coche" taille="2.6em" />
+          <h4>BIEN DÉCOUPÉ</h4>
+          <p>« Pour les 40 PDF de <code>corpus/</code>, extrais titre, auteurs, année, DOI. »</p>
+          <p class="e credits">On sait quand c'est fini, et on peut vérifier chaque ligne.</p>
+        </div>
+      </div>
     </Slide>
 
     <Slide bandeau="En recherche" droite={D}>
       <h2 class="e">Ce qu'on lui confie vraiment</h2>
-      <Deux ratio="1fr 1fr">
-        <div>
-          <Carte titre="Collecte">
-            <p>Récupérer, renommer, ranger. Le travail que personne ne veut refaire.</p>
-          </Carte>
-          <Carte titre="Nettoyage">
-            <p>La mise en forme des données. Le <em>tidy data</em>, délégué — puis relu.</p>
-          </Carte>
-        </div>
-        <div>
-          <Carte titre="Repérage">
-            <p>Retrouver dans vos propres notes ce que vous savez avoir lu.</p>
-          </Carte>
-          <Carte titre="Vérification">
-            <p>Recontrôler mécaniquement ce qu'un modèle a produit. Y compris lui-même.</p>
-          </Carte>
-        </div>
-      </Deux>
-      <p class="e">Et vos idées : qu'est-ce qui, dans votre semaine, est du texte et se répète ?</p>
+      <div class="pgrid c2">
+        <span class="pit"
+          ><Picto nom="boite" taille="2.2em" /><span class="pit-t"
+            >Collecte<span class="s">récupérer, renommer, ranger</span></span
+          ></span
+        >
+        <span class="pit"
+          ><Picto nom="grille" taille="2.2em" /><span class="pit-t"
+            >Nettoyage<span class="s">le tidy data, puis relu</span></span
+          ></span
+        >
+        <span class="pit"
+          ><Picto nom="loupe" taille="2.2em" /><span class="pit-t"
+            >Repérage<span class="s">retrouver ce que vous avez lu</span></span
+          ></span
+        >
+        <span class="pit"
+          ><Picto nom="coche" taille="2.2em" /><span class="pit-t"
+            >Vérification<span class="s">recontrôler, lui compris</span></span
+          ></span
+        >
+      </div>
+      <p class="e">Qu'est-ce qui, dans votre semaine, est du texte et se répète ?</p>
     </Slide>
 
     <!-- ================= 7 · AGENTS PERMANENTS ================= -->
