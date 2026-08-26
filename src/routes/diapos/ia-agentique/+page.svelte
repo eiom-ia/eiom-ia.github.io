@@ -324,7 +324,7 @@ Classe-les du plus contradictoire au moins contradictoire.`;
           <tr><td><span class="nomlogo"><Logo nom="openai" alt="OpenAI" />Codex</span></td><td>OpenAI</td><td>Votre abonnement marche ailleurs aussi</td></tr>
           <tr><td><span class="nomlogo"><Logo nom="google" alt="Google" />Antigravity CLI</span></td><td>Google</td><td>Palier gratuit, quota non publié</td></tr>
           <tr><td><span class="nomlogo"><Logo nom="opencode" alt="OpenCode" />OpenCode</span></td><td>libre</td><td>N'importe quel modèle, y compris local</td></tr>
-          <tr><td>Pi</td><td>libre</td><td>Avec OpenCode, ~10 % du trafic Codex</td></tr>
+          <tr><td><span class="nomlogo"><Logo nom="pi" alt="Earendil Works" />Pi</span></td><td>Earendil Works</td><td>MIT — avec OpenCode, ~10 % du trafic Codex</td></tr>
           <tr><td><span class="nomlogo"><Logo nom="charm" alt="Charm" />Crush</span></td><td>Charm</td><td>Soigné, dans le terminal</td></tr>
           <tr><td><span class="nomlogo"><Logo nom="deepseek" alt="DeepSeek" />DeepSeek Harness</span></td><td>DeepSeek</td><td>MIT — <em>tout</em> est un plugin, la boucle comprise</td></tr>
         </tbody>
