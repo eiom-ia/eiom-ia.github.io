@@ -37,6 +37,8 @@
   import Mcp from '$lib/deck/demos/Mcp.svelte';
   import TroisMots from '$lib/deck/demos/TroisMots.svelte';
   import Terminal from '$lib/deck/demos/Terminal.svelte';
+  import Contexte2 from '$lib/deck/demos/Contexte2.svelte';
+  import Declencheurs from '$lib/deck/demos/Declencheurs.svelte';
 
   const TOTAL = 38;
   const D = 'IA agentique · mar 25 août';
@@ -520,23 +522,7 @@ Explique-moi chaque étape au fur et à mesure.`;
 
     <Slide bandeau="Ressource rare" droite={D}>
       <h2 class="e">Le contexte est une ressource limitée</h2>
-      <Deux ratio="1fr 1.1fr">
-        <div>
-          <p>
-            Chaque tour réinjecte tout l'historique : votre demande, les appels d'outils, leurs
-            résultats. La fenêtre se remplit vite.
-          </p>
-        </div>
-        <Carte titre="Les symptômes d'un contexte saturé">
-          <ul>
-            <li>L'agent oublie une consigne donnée au début</li>
-            <li>Il refait une action déjà faite</li>
-            <li>Il devient plus lent et plus cher à chaque tour</li>
-            <li>Il « dérive » vers une tâche voisine</li>
-          </ul>
-          <p>Le remède est toujours le même : découper en tâches courtes et fermées.</p>
-        </Carte>
-      </Deux>
+      <Contexte2 />
     </Slide>
 
     <Slide bandeau="La bonne unité de travail" droite={D}>
@@ -587,17 +573,7 @@ Explique-moi chaque étape au fur et à mesure.`;
 
     <Slide bandeau="Qui appuie sur le bouton" droite={D}>
       <h2 class="e">Un agent n'a pas besoin de vous pour démarrer</h2>
-      <Deux ratio="1fr 1fr 1fr">
-        <Carte titre="Le temps">
-          <p>Une tâche planifiée. Tous les lundis à 7 h, sans que personne n'ouvre un terminal.</p>
-        </Carte>
-        <Carte titre="Un événement">
-          <p>Un fichier déposé, un dépôt mis à jour, un courriel reçu.</p>
-        </Carte>
-        <Carte titre="Un autre agent">
-          <p>Le premier finit, le second commence. C'est là que ça devient difficile à suivre.</p>
-        </Carte>
-      </Deux>
+      <Declencheurs />
       <Code src={c_cron} />
     </Slide>
 
