@@ -725,8 +725,6 @@ Classe-les du plus contradictoire au moins contradictoire.`;
         <li>MemPalace<span class="lieu">mémoire libre et locale, chargée par couches</span></li>
         <li>donnees/ligne_rouge.csv<span class="lieu">551 avis Google, corpus du cours 8</span></li>
         <li>code.claude.com/docs/en/plugins<span class="lieu">ce qu'un plugin empaquette</span></li>
-        <li>openclaw.ai<span class="lieu">harnais libre, licence MIT — dépôt github.com/openclaw/openclaw</span></li>
-        <li>api.crossref.org<span class="lieu">résolution des DOI, pour la vérification des références</span></li>
       </ul>
       <p class="e credits">
         Images de fiction : James Bond, Matrix, Hitman, citées à titre d'illustration.
