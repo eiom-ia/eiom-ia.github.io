@@ -32,6 +32,7 @@
   import Picto from '$lib/deck/Picto.svelte';
   import Deux from '$lib/deck/Deux.svelte';
   import Citation from '$lib/deck/Citation.svelte';
+  import Grand from '$lib/deck/Grand.svelte';
   import Minuterie from '$lib/deck/demos/Minuterie.svelte';
   import Collage from '$lib/deck/demos/Collage.svelte';
   import Boucle from '$lib/deck/demos/Boucle.svelte';
@@ -41,7 +42,7 @@
   import Contexte2 from '$lib/deck/demos/Contexte2.svelte';
   import Declencheurs from '$lib/deck/demos/Declencheurs.svelte';
 
-  const TOTAL = 38;
+  const TOTAL = 47;
   const D = 'IA agentique · mar 25 août';
 
   // Les deux terminaux du deuxième temps. Une commande par clic.
@@ -122,6 +123,33 @@ En R :
 
 Explique-moi chaque étape au fur et à mesure.`;
 
+
+  // Les trois prompts de l'exercice final. Le premier dit explicitement à
+  // l'agent de ne PAS classer lui-même: 551 avis, c'est 551 tours d'agent et
+  // un quota gratuit épuisé en trois minutes. Il écrit le script, le script
+  // appelle le modèle. L'agent fait la plomberie, pas la mesure.
+  const c_ex1 = `Le fichier donnees/ligne_rouge.csv contient 551 avis Google
+d'un restaurant de Montréal, en français et en anglais.
+Colonnes : id, avis, note, reponse_proprietaire.
+
+Écris un script R qui, pour chaque avis, demande à un modèle
+un score de sentiment entre -1 et +1, et enregistre le tout
+dans sorties/scores_agent.csv (colonnes : id, score).
+
+N'appelle pas le modèle toi-même : écris le script, lance-le,
+puis montre-moi les dix premières lignes du résultat.`;
+
+  const c_ex2 = `Compare sorties/scores_agent.csv à la colonne note
+de donnees/ligne_rouge.csv. Quel pourcentage d'accord ?
+
+Puis calcule le score qu'obtiendrait un classificateur
+qui répond « positif » à tout, sans rien lire.`;
+
+  const c_ex3 = `Trouve les avis dont la note en étoiles contredit le texte.
+
+Pour chacun : l'avis, sa note, le score, et une phrase
+qui explique pourquoi il est ambigu.
+Classe-les du plus contradictoire au moins contradictoire.`;
 
   const c_cron = `# Tous les lundis a 7 h, l'agent relit les nouveautes
 # et depose une fiche dans sorties/.
@@ -565,14 +593,124 @@ Explique-moi chaque étape au fur et à mesure.`;
 
 
 
-    <!-- ================= PRATIQUE 2 ================= -->
-    <Slide fond="encre" bandeau="Pratique" droite={D}>
-      <h1 class="e">À vous :<br />sur votre matériel</h1>
+    <!-- ================= CE QUI N'EST PAS RÉGLÉ ================= -->
+    <Slide fond="encre" bandeau="Sixième temps" droite={D}>
+      <h1 class="e">Ce qui n'est pas<br />encore réglé</h1>
       <hr class="filet" />
-      <p class="lead e">
-        Une tâche de votre semaine, qui est du texte et qui se répète. On la découpe, on la lance, on
-        vérifie la sortie.
+      <p class="lead e">Trois problèmes ouverts. Personne n'a la réponse.</p>
+    </Slide>
+
+    <Slide bandeau="Les trois murs" droite={D}>
+      <h2 class="e">Trois problèmes ouverts</h2>
+      <div class="pgrid c3">
+        <span class="pit"
+          ><Picto nom="poubelle" taille="2.4em" /><span class="pit-t"
+            >Aucune mémoire<span class="s">chaque session repart de zéro</span></span
+          ></span
+        >
+        <span class="pit"
+          ><Picto nom="boite" taille="2.4em" /><span class="pit-t"
+            >Le contexte<span class="s">il se remplit, rien ne le vide bien</span></span
+          ></span
+        >
+        <span class="pit"
+          ><Picto nom="eclair" taille="2.4em" /><span class="pit-t"
+            >Le mauvais modèle<span class="s">un modèle de pointe pour renommer des fichiers</span></span
+          ></span
+        >
+      </div>
+      <p class="e">
+        Le troisième est le plus coûteux et le moins visible : on paie un raisonnement de pointe
+        pour des gestes qui n'en demandent aucun.
       </p>
+    </Slide>
+
+    <Slide bandeau="Les tentatives" droite={D}>
+      <h2 class="e">Ce que les gens essaient</h2>
+      <Deux ratio="1fr 1fr 1fr">
+        <Carte titre="OpenClaw">
+          <p>Un assistant qu'on héberge soi-même, joignable par ses messageries.</p>
+          <p class="e credits">MIT · fondation à but non lucratif · depuis nov. 2025</p>
+        </Carte>
+        <Carte titre="Hermes">
+          <p>Un agent permanent qui écrit ses propres skills en travaillant.</p>
+          <p class="e credits">Nous Research · MIT · depuis févr. 2026</p>
+        </Carte>
+        <Carte titre="MemPalace">
+          <p>Une mémoire qui garde tout et le range dans un espace, plutôt que de résumer.</p>
+          <p class="e credits">libre · local · chargement par couches</p>
+        </Carte>
+      </Deux>
+      <Citation source="L'état des lieux">
+        Aucune de ces pistes n'est une solution arrêtée. C'est exactement ce que les gens qui font
+        de l'IA essaient de régler en ce moment — et c'est pour ça que le domaine bouge chaque mois.
+      </Citation>
+    </Slide>
+
+    <Slide fond="encre" bandeau="Pause" droite={D}>
+      <h1 class="e">Pause</h1>
+      <hr class="filet" />
+      <Minuterie minutes={15} />
+    </Slide>
+
+    <!-- ================= L'EXERCICE ================= -->
+    <Slide fond="encre" bandeau="Septième temps" droite={D}>
+      <h1 class="e">À vous :<br />le corpus que vous connaissez</h1>
+      <hr class="filet" />
+      <p class="lead e">Le même travail qu'au cours 8. Cette fois, l'agent l'écrit.</p>
+    </Slide>
+
+    <Slide bandeau="Le corpus" droite={D}>
+      <h2 class="e">551 avis, et un piège dedans</h2>
+      <Deux ratio="1fr 1.15fr">
+        <Grand valeur="70 %" legende="des avis ont cinq étoiles" />
+        <div class="pgrid">
+          <span class="pit"><Picto nom="page" /><span class="pit-t">551 avis Google<span class="s">La Ligne Rouge, Montréal</span></span></span>
+          <span class="pit"><Picto nom="grille" /><span class="pit-t">Français et anglais mêlés<span class="s">185 avis franchement français</span></span></span>
+          <span class="pit"><Picto nom="humain" /><span class="pit-t">380 réponses du propriétaire<span class="s">une colonne jamais exploitée</span></span></span>
+          <span class="pit"><Picto nom="croix" /><span class="pit-t">43 avis de moins de 15 signes<span class="s">« Bon. » — classez ça</span></span></span>
+        </div>
+      </Deux>
+      <p class="e credits">
+        Fichier <code>donnees/ligne_rouge.csv</code> · colonnes : id, avis, note, reponse_proprietaire.
+      </p>
+    </Slide>
+
+    <Slide bandeau="Étape 1" droite={D}>
+      <h2 class="e">Faites-lui refaire le travail du cours 8</h2>
+      <Code src={c_ex1} brut />
+      <p class="e">
+        La dernière phrase est la plus importante : <strong>l'agent n'est pas le classificateur, il
+        l'écrit</strong>. 551 avis classés par l'agent lui-même, c'est 551 tours et votre quota mort.
+      </p>
+    </Slide>
+
+    <Slide bandeau="Étape 2" droite={D}>
+      <h2 class="e">Maintenant, vérifiez-le</h2>
+      <Code src={c_ex2} brut />
+      <Citation source="Ce que vous allez trouver">
+        Un accord autour de 70 %, et de la satisfaction. Puis le même 70 % pour un classificateur
+        qui ne lit rien et répond « positif » à tout. Votre modèle n'a peut-être rien appris.
+      </Citation>
+    </Slide>
+
+    <Slide bandeau="Étape 3" droite={D}>
+      <h2 class="e">Ce que la boucle du cours 8 ne savait pas faire</h2>
+      <Code src={c_ex3} brut />
+      <Citation source="avis-001, cinq étoiles">
+        Excellents gyros. Bien sûr, le service est raide, c'est fermé pour on ne sait pas quoi, mais
+        on s'en fout.
+      </Citation>
+    </Slide>
+
+    <Slide bandeau="Ce qui reste" droite={D}>
+      <h2 class="e">Ce que vous emportez</h2>
+      <div class="pgrid c2">
+        <span class="pit"><Picto nom="engrenage" taille="2.1em" /><span class="pit-t">L'agent fait la plomberie<span class="s">vous gardez la mesure</span></span></span>
+        <span class="pit"><Picto nom="coche" taille="2.1em" /><span class="pit-t">Un chiffre se compare<span class="s">à un modèle qui ne lit rien</span></span></span>
+        <span class="pit"><Picto nom="oeil" taille="2.1em" /><span class="pit-t">Les désaccords sont l'intérêt<span class="s">pas le bruit</span></span></span>
+        <span class="pit"><Picto nom="git" taille="2.1em" /><span class="pit-t">Tout est du texte<span class="s">donc tout se vérifie</span></span></span>
+      </div>
     </Slide>
 
     <!-- ================= CLÔTURE ================= -->
@@ -582,15 +720,16 @@ Explique-moi chaque étape au fur et à mesure.`;
       <hr class="filet" />
       <ul class="cmd-liste e">
         <li>modelcontextprotocol.io<span class="lieu">la spécification du protocole MCP</span></li>
-        <li>code.claude.com/docs/en/plugins<span class="lieu">ce qu'un plugin empaquette — consulté le 24 août 2026</span></li>
+        <li>github.com/openclaw/openclaw<span class="lieu">assistant libre, MIT, nov. 2025</span></li>
+        <li>hermes-agent.nousresearch.com<span class="lieu">Nous Research, MIT, févr. 2026 — agent permanent</span></li>
+        <li>MemPalace<span class="lieu">mémoire libre et locale, chargée par couches</span></li>
+        <li>donnees/ligne_rouge.csv<span class="lieu">551 avis Google, corpus du cours 8</span></li>
+        <li>code.claude.com/docs/en/plugins<span class="lieu">ce qu'un plugin empaquette</span></li>
         <li>openclaw.ai<span class="lieu">harnais libre, licence MIT — dépôt github.com/openclaw/openclaw</span></li>
-        <li>clawhub.ai<span class="lieu">dépôt de skills pour agents</span></li>
-        <li>moltbook.com<span class="lieu">réseau social pour agents</span></li>
         <li>api.crossref.org<span class="lieu">résolution des DOI, pour la vérification des références</span></li>
       </ul>
       <p class="e credits">
-        Captures d'écran reproduites en contexte pédagogique. Images de fiction : James Bond, Matrix,
-        Hitman, citées à titre d'illustration.
+        Images de fiction : James Bond, Matrix, Hitman, citées à titre d'illustration.
       </p>
     </Slide>
 
