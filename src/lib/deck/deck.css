@@ -107,6 +107,9 @@
 .diapo-in:has(> figure.schema) { max-width: 52em; }
 .diapo-in:has(> .semaine-bande) { max-width: 54em; }
 .diapo-in:has(> .arbre) { max-width: 56em; }
+.diapo-in:has(> .capture) { max-width: 64em; }
+.diapo-in:has(> .gal-3) { max-width: 58em; }
+.diapo-in:has(> .gal-2) { max-width: 56em; }
 .diapo-in:has(> .pl) { max-width: 50em; }
 .diapo-in:has(> .api) { max-width: 54em; }
 .diapo-in:has(> .ctx) { max-width: 56em; }
@@ -930,3 +933,76 @@
       transition: none;
     }
   }
+
+/* ---------- Galeries d'images — deck « IA agentique » ----------
+   Les images viennent d'une présentation revealjs où elles étaient posées en
+   absolu. Ici elles tiennent dans une grille: rien ne se chevauche, rien ne
+   dépend d'une résolution. La hauteur est bornée en em, donc elle suit le
+   facteur d'échelle de la diapo comme le reste. */
+
+.gal-3,
+.gal-2 {
+  display: grid;
+  gap: 1.4em;
+  align-items: end;
+  width: 100%;
+}
+.gal-3 { grid-template-columns: repeat(3, 1fr); }
+.gal-2 { grid-template-columns: repeat(2, 1fr); }
+
+.gal-3 figure,
+.gal-2 figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  align-items: center;
+}
+.gal-3 img,
+.gal-2 img {
+  display: block;
+  max-width: 100%;
+  max-height: 11em;
+  object-fit: contain;
+}
+.gal-3 figcaption,
+.gal-2 figcaption {
+  font-size: 0.8em;
+  color: var(--dk-gris);
+  letter-spacing: 0.04em;
+}
+
+/* Le cluster de logos de la diapositive de section MCP. */
+.gal-logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6em;
+  align-items: center;
+  margin-top: 0.4em;
+}
+.gal-logos img {
+  display: block;
+  height: 3.4em;
+  width: auto;
+}
+
+/* Une capture d'écran occupe la diapositive: c'est elle qu'on commente.
+   Le filet la détache du fond clair, sinon les captures sombres flottent. */
+.capture {
+  margin: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.capture img {
+  display: block;
+  max-width: 100%;
+  max-height: 30em;
+  object-fit: contain;
+  border: 2px solid var(--dk-filet);
+}
+/* Le logo d'OpenClaw est un lettrage, pas une capture: pas de cadre. */
+.capture img[src$='openclaw.png'] {
+  border: none;
+  max-height: 9em;
+}

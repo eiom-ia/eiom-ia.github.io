@@ -5,6 +5,10 @@ import { SEANCES } from '../src/lib/data/seances.js';
 const lire = (n) => readFileSync(`build/diapos/${n}/index.html`, 'utf8');
 const compterDiapos = (html) => (html.match(/class="diapo[ "]/g) || []).length;
 
+// Tout deck publié, séance ou non. Un deck absent d'ici n'est vérifié par
+// rien: c'est ainsi qu'un TOTAL faux avait pu être projeté devant la salle.
+const DECKS = ['seance-1', 'seance-4', 'seance-5', 'ia-agentique'];
+
 describe('decks publiés', () => {
   it('publie un deck pour les séances 1, 4 et 5', () => {
     expect(existsSync('build/diapos/seance-1/index.html')).toBe(true);
@@ -12,12 +16,16 @@ describe('decks publiés', () => {
     expect(existsSync('build/diapos/seance-5/index.html')).toBe(true);
   });
 
+  it('publie le deck du cours « IA agentique »', () => {
+    expect(existsSync('build/diapos/ia-agentique/index.html')).toBe(true);
+  });
+
   // Ce test répond à « le rendu statique produit-il bien des diapos ». Le
   // compte exact est vérifié plus bas, contre le total annoncé par le deck:
   // un seuil chiffré ici ne ferait qu'échouer chaque fois qu'on retire une
   // diapositive, sans rien dire de plus.
   it('rend les diapos dans le HTML statique, sans JavaScript', () => {
-    for (const n of ['seance-1', 'seance-4', 'seance-5']) {
+    for (const n of DECKS) {
       expect(compterDiapos(lire(n)), `${n}: aucune diapo au rendu statique`).toBeGreaterThan(1);
     }
   });
@@ -27,7 +35,7 @@ describe('decks publiés', () => {
   // une diapo, et le public voit « 28 / 63 » sur un deck qui en compte 65.
   // Une pastille est rendue par diapo annoncée: on les compte.
   it('annonce autant de diapos qu\'il en rend', () => {
-    for (const n of ['seance-1', 'seance-4', 'seance-5']) {
+    for (const n of DECKS) {
       const html = lire(n);
       const rendues = compterDiapos(html);
       const annoncees = (html.match(/aria-label="Aller à la diapo /g) || []).length;
@@ -62,7 +70,7 @@ describe('decks publiés', () => {
   it('ne charge aucune ressource externe', () => {
     const chargements = /(?:<link[^>]+href|<script[^>]+src|<img[^>]+src)=["']https?:\/\//g;
     const dansCss = /url\(\s*["']?https?:\/\//g;
-    for (const d of ['seance-1', 'seance-4', 'seance-5']) {
+    for (const d of DECKS) {
       const h = lire(d);
       expect(h.match(chargements), `${d} charge une ressource externe`).toBeNull();
       expect(h.match(dansCss), `${d} charge une police ou image externe en CSS`).toBeNull();
