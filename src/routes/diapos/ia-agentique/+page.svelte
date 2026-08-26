@@ -36,31 +36,24 @@
   import Boucle from '$lib/deck/demos/Boucle.svelte';
   import Mcp from '$lib/deck/demos/Mcp.svelte';
   import TroisMots from '$lib/deck/demos/TroisMots.svelte';
+  import Terminal from '$lib/deck/demos/Terminal.svelte';
 
   const TOTAL = 38;
   const D = 'IA agentique · mar 25 août';
 
-  const c_terminal = `# Ou suis-je ?
-pwd
-#> /home/vous/projet-these
+  // Les deux terminaux du deuxième temps. Une commande par clic.
+  const T_BASE = [
+    { cmd: 'pwd', out: '/home/vous/projet-these' },
+    { cmd: 'ls', out: 'donnees/   analyse.R   memoire.tex' },
+    { cmd: 'cat analyse.R', out: 'library(tidyverse)\ndonnees <- read_csv("donnees/corpus.csv")' }
+  ];
 
-# Qu'est-ce qu'il y a ici ?
-ls
-#> donnees/   analyse.R   memoire.tex
+  const T_LEVIER = [
+    { cmd: 'wc -l donnees/*.csv', out: '   20180 donnees/corpus.csv\n     551 donnees/avis.csv' },
+    { cmd: 'grep -rl "populisme" notes/', out: 'notes/2024-03-lecture.md\nnotes/2024-09-seminaire.md\nnotes/2025-01-plan.md' },
+    { cmd: 'git diff --stat memoire.tex', out: ' memoire.tex | 34 ++++++++++------' }
+  ];
 
-# Montre-moi ce fichier
-cat analyse.R
-#> library(tidyverse)
-#> donnees <- read_csv("donnees/corpus.csv")`;
-
-  const c_texte = `# Compter les lignes de tout un corpus
-wc -l donnees/*.csv
-
-# Chercher un mot dans 400 fichiers d'un coup
-grep -r "populisme" notes/
-
-# Ce qui a change depuis hier
-git diff memoire.tex`;
 
 
   const c_skill = `skills/
@@ -226,7 +219,7 @@ Explique-moi chaque étape au fur et à mesure.`;
 
     <Slide bandeau="Trois commandes" droite={D}>
       <h2 class="e">Ça suffit pour comprendre le reste</h2>
-      <Code src={c_terminal} />
+      <Terminal lignes={T_BASE} />
       <p class="e">
         <code>pwd</code> : où suis-je. <code>ls</code> : qu'y a-t-il ici. <code>cat</code> :
         montre-moi. Tout le reste est une variation.
@@ -235,7 +228,7 @@ Explique-moi chaque étape au fur et à mesure.`;
 
     <Slide bandeau="Ce que ça débloque" droite={D}>
       <h2 class="e">Des gestes qu'aucune interface ne propose</h2>
-      <Code src={c_texte} />
+      <Terminal lignes={T_LEVIER} invite="~/projet-these" />
       <p class="e">
         Chercher un mot dans quatre cents fichiers, compter les lignes d'un corpus, voir exactement
         ce qui a changé depuis hier. Trois secondes chacun.
