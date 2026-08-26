@@ -110,6 +110,8 @@
 .diapo-in:has(> .arbre) { max-width: 56em; }
 .diapo-in:has(> .capture) { max-width: 64em; }
 .diapo-in:has(> .bcl) { max-width: 58em; }
+.diapo-in:has(> .mcp) { max-width: 58em; }
+.diapo-in:has(> .trm) { max-width: 58em; }
 .diapo-in:has(> .collage) { max-width: none; padding: 0; }
 .diapo-in:has(> .gal-3) { max-width: 58em; }
 .diapo-in:has(> .gal-2) { max-width: 56em; }

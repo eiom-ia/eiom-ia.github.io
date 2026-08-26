@@ -34,6 +34,8 @@
   import Minuterie from '$lib/deck/demos/Minuterie.svelte';
   import Collage from '$lib/deck/demos/Collage.svelte';
   import Boucle from '$lib/deck/demos/Boucle.svelte';
+  import Mcp from '$lib/deck/demos/Mcp.svelte';
+  import TroisMots from '$lib/deck/demos/TroisMots.svelte';
 
   const TOTAL = 38;
   const D = 'IA agentique · mar 25 août';
@@ -381,27 +383,7 @@ Explique-moi chaque étape au fur et à mesure.`;
 
     <Slide bandeau="Le nœud du temps" droite={D}>
       <h2 class="e">Trois mots qu'on confond</h2>
-      <Deux ratio="1fr 1fr 1fr">
-        <Carte titre="Skill">
-          <p><strong>Du savoir-faire.</strong></p>
-          <p>Un fichier d'instructions, chargé seulement quand la tâche le justifie.</p>
-          <p>« Voici comment on fait une fiche de lecture ici. »</p>
-        </Carte>
-        <Carte titre="MCP">
-          <p><strong>Des capacités.</strong></p>
-          <p>Un protocole ouvert. Un serveur expose des outils ; tout harnais conforme s'y branche.</p>
-          <p>« Tu peux maintenant interroger Zotero. »</p>
-        </Carte>
-        <Carte titre="Plugin">
-          <p><strong>Un emballage.</strong></p>
-          <p>Le format de distribution d'un harnais. Il empaquette les deux autres.</p>
-          <p>« Installe tout ça d'un coup. »</p>
-        </Carte>
-      </Deux>
-      <p class="e">
-        La coupure utile : <strong>MCP est un protocole</strong>, commun à tous les harnais ;
-        <strong>un plugin est un format de distribution</strong>, propre à un seul.
-      </p>
+      <TroisMots />
     </Slide>
 
     <Slide bandeau="Skill" droite={D}>
@@ -431,13 +413,7 @@ Explique-moi chaque étape au fur et à mesure.`;
 
     <Slide bandeau="MCP" droite={D}>
       <h2 class="e">C'est quoi un MCP ?</h2>
-      <figure class="schema e">
-        <img
-          src="{base}/img/agentique/api_vs_mcp_flow.svg"
-          alt="Comparaison entre un appel d'API traditionnel et un accès via MCP"
-        />
-        <figcaption>Appel d'API classique, puis accès par un serveur MCP</figcaption>
-      </figure>
+      <Mcp />
       <p class="e">
         Le serveur déclare ce qu'il sait faire ; le harnais lit cette déclaration et s'en sert. Les
         identifiants restent du côté du serveur, jamais dans le contexte du modèle.
