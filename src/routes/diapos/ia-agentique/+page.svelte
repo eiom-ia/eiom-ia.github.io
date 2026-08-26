@@ -33,7 +33,7 @@
   import Citation from '$lib/deck/Citation.svelte';
   import Minuterie from '$lib/deck/demos/Minuterie.svelte';
 
-  const TOTAL = 37;
+  const TOTAL = 38;
   const D = 'IA agentique · mar 25 août';
 
   const c_terminal = `# Ou suis-je ?
@@ -75,27 +75,32 @@ git diff memoire.tex`;
 
 
 
-  // Le prompt de la demonstration, a copier depuis la diapositive.
-  // Les variables sont nommees pour que toute la salle obtienne le meme
-  // modele. Le code de non-reponse (-99) n'est PAS mentionne: c'est
-  // precisement ce qu'on va verifier ensemble a l'arrivee.
-  // Les accents restent: ce bloc se colle dans un agent, pas dans R.
-  const c_prompt = `Télécharge ce fichier de données dans le dossier de travail :
+  // Les deux prompts de la demonstration. Le premier est celui qu'une personne
+  // ecrit spontanement; le second dit la meme chose en ne laissant rien a
+  // deviner. On les fait tourner l'un apres l'autre, sur la meme tache.
+  // Accents conserves: ces blocs se collent dans un agent, pas dans R.
+  const c_prompt_vague = `Télécharge l'étude électorale canadienne 2025 et utilise R
+pour faire une régression entre l'éducation et le fait d'être
+à droite, en contrôlant pour l'âge et le revenu.
+
+Produis un tableau de régression en PNG et exporte-le dans
+mes téléchargements.`;
+
+  const c_prompt_precis = `Télécharge ce fichier dans le dossier de travail :
 https://dataverse.harvard.edu/api/access/datafile/13958997
 
-C'est l'Étude électorale canadienne 2025, au format Stata (.dta), 58 Mo.
+Étude électorale canadienne 2025, format Stata (.dta), 58 Mo.
 
-Ensuite, en R :
+En R :
 
-1. Ouvre le fichier et regarde ce qu'il contient.
-2. Estime un modèle linéaire qui explique le placement gauche-droite
-   des répondants — variable cps25_lr_scale_bef_1, échelle de 0 à 10 —
-   par leur âge (cps25_age_in_years), leur scolarité (cps25_education)
-   et leur revenu (cps25_income).
-3. Produis un graphique lisible du résultat.
-4. Exporte le graphique en PNG dans ~/Downloads.
+1. Ouvre-le avec haven. Les non-réponses valent -99 : mets-les à NA.
+2. Estime cps25_lr_scale_bef_1 (placement gauche-droite, 0 à 10)
+   par cps25_education, cps25_age_in_years et cps25_income.
+3. Fais-en un tableau de régression, exporté en PNG dans ~/Downloads
+   avec gridExtra::tableGrob et ggplot2::ggsave. N'installe rien d'autre.
 
 Explique-moi chaque étape au fur et à mesure.`;
+
 
   const c_cron = `# Tous les lundis a 7 h, l'agent relit les nouveautes
 # et depose une fiche dans sorties/.
@@ -335,9 +340,21 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <!-- ================= PRATIQUE 1 ================= -->
-    <Slide bandeau="Le prompt" droite={D}>
-      <h2 class="e">À copier tel quel</h2>
-      <Code src={c_prompt} brut />
+    <Slide bandeau="Premier essai" droite={D}>
+      <h2 class="e">Ce qu'on écrit spontanément</h2>
+      <Code src={c_prompt_vague} brut />
+      <Carte titre="Ce qu'il doit deviner tout seul">
+        <p>
+          Où trouver l'étude · lequel des deux fichiers · ce que veut dire « être à droite »
+          parmi 1440 variables · que les non-réponses valent −99 · comment fabriquer une image
+          d'un tableau · où sont « mes téléchargements ».
+        </p>
+      </Carte>
+    </Slide>
+
+    <Slide bandeau="Deuxième essai" droite={D}>
+      <h2 class="e">La même chose, sans rien à deviner</h2>
+      <Code src={c_prompt_precis} brut />
     </Slide>
 
     <Slide fond="encre" bandeau="Pratique" droite={D}>
