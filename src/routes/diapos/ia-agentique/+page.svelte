@@ -33,6 +33,7 @@
   import Citation from '$lib/deck/Citation.svelte';
   import Minuterie from '$lib/deck/demos/Minuterie.svelte';
   import Collage from '$lib/deck/demos/Collage.svelte';
+  import Boucle from '$lib/deck/demos/Boucle.svelte';
 
   const TOTAL = 38;
   const D = 'IA agentique · mar 25 août';
@@ -188,13 +189,7 @@ Explique-moi chaque étape au fur et à mesure.`;
 
     <Slide bandeau="Le point de départ" droite={D}>
       <h2 class="e">Seul, un LLM ne fait que du texte</h2>
-      <figure class="schema e">
-        <img
-          src="{base}/img/agentique/llm_isole_texte_seulement_fr.svg"
-          alt="Un LLM isolé n'a aucun accès à votre machine"
-        />
-        <figcaption>Le modèle et votre machine ne se touchent pas</figcaption>
-      </figure>
+      <Boucle />
     </Slide>
 
     <Slide bandeau="La bascule" droite={D}>
@@ -257,13 +252,7 @@ Explique-moi chaque étape au fur et à mesure.`;
 
     <Slide bandeau="Le pont" droite={D}>
       <h2 class="e">Le harnais relie le modèle et la machine</h2>
-      <figure class="schema e">
-        <img
-          src="{base}/img/agentique/claude_code_pont_local_cloud_fr.svg"
-          alt="Un agent local exécute des commandes sur votre machine"
-        />
-        <figcaption>Le logiciel local reçoit les décisions et exécute</figcaption>
-      </figure>
+      <Boucle harnais />
     </Slide>
 
     <Slide bandeau="Le mot qui manquait" droite={D}>

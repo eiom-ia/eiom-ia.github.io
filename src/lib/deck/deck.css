@@ -109,6 +109,7 @@
 .diapo-in:has(> .semaine-bande) { max-width: 54em; }
 .diapo-in:has(> .arbre) { max-width: 56em; }
 .diapo-in:has(> .capture) { max-width: 64em; }
+.diapo-in:has(> .bcl) { max-width: 58em; }
 .diapo-in:has(> .collage) { max-width: none; padding: 0; }
 .diapo-in:has(> .gal-3) { max-width: 58em; }
 .diapo-in:has(> .gal-2) { max-width: 56em; }
@@ -1076,4 +1077,185 @@
     transition: none;
     transform: rotate(var(--rot, 0deg));
   }
+}
+
+/* ---------- La boucle: le modèle seul, puis le harnais ----------
+   Deux diapositives sur une seule scène. La leçon tient dans la différence
+   entre les deux images, donc elles sont superposables: mêmes zones, mêmes
+   fichiers, même couloir. Seul le pont apparaît. */
+
+.bcl {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+}
+.bcl svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.bcl text {
+  font-family: var(--dk-mono);
+}
+
+.bcl .lieu {
+  font-size: 19px;
+  letter-spacing: 0.14em;
+  fill: var(--dk-gris);
+}
+.bcl .zone {
+  fill: none;
+  stroke: var(--dk-encre);
+  stroke-width: 2.5;
+}
+
+.bcl .fchip {
+  fill: var(--dk-fond-2);
+  stroke: var(--dk-gris-2);
+  stroke-width: 2;
+  transition: fill 0.25s ease-out, stroke 0.25s ease-out;
+}
+.bcl .fchip-t {
+  font-size: 17px;
+  fill: var(--dk-gris);
+  transition: fill 0.25s ease-out;
+}
+/* Quand le harnais agit, ce sont ces fichiers-là qu'il touche. */
+.bcl .fich.touche .fchip {
+  fill: var(--dk-fond);
+  stroke: var(--dk-accent);
+}
+.bcl .fich.touche .fchip-t {
+  fill: var(--dk-accent);
+}
+
+.bcl .hbox {
+  fill: none;
+  stroke: var(--dk-encre);
+  stroke-width: 2.5;
+  transition: stroke 0.25s ease-out;
+}
+.bcl .harn.actif .hbox {
+  stroke: var(--dk-accent);
+  stroke-width: 4;
+}
+.bcl .hn {
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  fill: var(--dk-encre);
+  transition: fill 0.25s ease-out;
+}
+.bcl .harn.actif .hn {
+  fill: var(--dk-accent);
+}
+.bcl .hd {
+  font-size: 16px;
+  fill: var(--dk-gris);
+}
+
+.bcl .mod {
+  fill: var(--dk-accent);
+  stroke: var(--dk-accent);
+  stroke-width: 2.5;
+}
+.bcl .mod-t {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  fill: var(--dk-fond);
+}
+.bcl .mod-d {
+  font-size: 17px;
+  fill: var(--dk-accent-clair);
+}
+
+.bcl .note {
+  font-size: 16px;
+  fill: var(--dk-gris-2);
+}
+
+.bcl .fx {
+  stroke: var(--dk-filet);
+  stroke-width: 2.5;
+  fill: none;
+}
+/* La flèche interne: le harnais qui agit sur les fichiers. */
+.bcl .fx-int {
+  stroke: var(--dk-accent);
+  stroke-width: 3;
+  fill: none;
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+}
+.bcl .fx-int.on {
+  opacity: 1;
+}
+
+.bcl .quoi {
+  font-size: 17px;
+  fill: var(--dk-gris-2);
+  transition: fill 0.25s ease-out;
+}
+.bcl .quoi.on {
+  fill: var(--dk-accent);
+  font-weight: 600;
+}
+
+.bcl .paq {
+  fill: var(--dk-accent);
+  transform-box: view-box;
+}
+.bcl .paq.va {
+  animation: bcl-va 1.5s ease-in-out infinite;
+}
+.bcl .paq.vient {
+  animation: bcl-vient 1.5s ease-in-out infinite;
+}
+@keyframes bcl-va {
+  0% { transform: translateX(0); opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { transform: translateX(205px); opacity: 0; }
+}
+@keyframes bcl-vient {
+  0% { transform: translateX(0); opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { transform: translateX(-205px); opacity: 0; }
+}
+
+/* Ce qui ne traverse pas: un fichier, barré, au milieu du couloir. */
+.bcl .bloque {
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+.bcl .bloque.on {
+  opacity: 1;
+}
+.bcl .croix {
+  stroke: var(--dk-encre);
+  stroke-width: 3;
+}
+.bcl .mur-t {
+  font-size: 17px;
+  letter-spacing: 0.1em;
+  fill: var(--dk-encre);
+  font-weight: 600;
+}
+
+.bcl-leg {
+  margin: 0;
+  min-height: 1.5em;
+  font-size: 0.94em;
+  color: var(--dk-encre);
+}
+.bcl-leg.vide {
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bcl .paq { animation: none; opacity: 1; }
 }
