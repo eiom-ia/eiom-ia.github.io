@@ -31,7 +31,7 @@
   .tvb { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75em; width: 100%; }
   .consigne { grid-column: 1 / -1; color: var(--dk-accent); font-size: 1.05em; font-weight: 600; }
   section { border: 3px solid var(--dk-encre); opacity: 0; transform: translateY(0.4em); transition: opacity 0.3s, transform 0.3s; }
-  section.vue, p.vue { opacity: 1; transform: none; }
+  section.vu, p.vu { opacity: 1; transform: none; }
   section header { display: flex; justify-content: space-between; gap: 0.5em; padding: 0.55em 0.7em; border-bottom: 2px solid var(--dk-encre); }
   section header strong { font-size: 0.78em; }
   section header span { color: var(--dk-gris); font-size: 0.56em; }
