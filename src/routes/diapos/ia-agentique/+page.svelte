@@ -63,7 +63,7 @@
   import DefiAvis from '$lib/deck/demos/DefiAvis.svelte';
   import SourcesAgentiques from '$lib/deck/demos/SourcesAgentiques.svelte';
 
-  const TOTAL = 52;
+  const TOTAL = 50;
   const D = 'IA agentique · jeu 27 août';
 
   // Les trois terminaux du deuxième temps. Une commande par clic.
@@ -338,8 +338,8 @@ Explique-moi chaque étape au fur et à mesure.`;
       <hr class="filet" />
     </Slide>
 
-    <Slide bandeau="La thèse, payée" droite={D}>
-      <h2 class="e">Un bouton cache le changement, le texte le montre</h2>
+    <Slide bandeau="Deux façons de faire la même chose" droite={D}>
+      <h2 class="e">Text based vs GUI based</h2>
       <TexteVsBouton />
     </Slide>
 
