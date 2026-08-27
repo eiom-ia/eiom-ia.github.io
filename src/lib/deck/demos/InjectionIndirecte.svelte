@@ -1,17 +1,17 @@
 <script>
   import { brancherTemps } from '../temps.js';
   let js = $state(false);
-  let e = $state(3);
+  let e = $state(2);
   let hote = $state(null);
   $effect(() => {
     if (!hote) return;
     js = true;
     e = 0;
-    return brancherTemps(hote, { total: 3, lire: () => e, ecrire: (v) => (e = v) });
+    return brancherTemps(hote, { total: 2, lire: () => e, ecrire: (v) => (e = v) });
   });
   const CV = [
     'Doctorat en science politique, 2024',
-    'Assistante de recherche, 2021-2024',
+    'Auxiliaire de recherche, 2021-2024',
     'Méthodes quantitatives · R · Python',
     'Trois articles avec comité de lecture'
   ];
@@ -23,7 +23,7 @@
     <figure class="oeil" class:vu={!js || e >= 1}>
       <figcaption>CE QUE L'ŒIL VOIT</figcaption>
       <div class="page">
-        <span class="nom">Camille Tremblay</span>
+        <span class="nom">Laurence-Olivier M. Foisy</span>
         <span class="poste">Candidature — poste de recherche</span>
         {#each CV as l}<span class="ligne">{l}</span>{/each}
         <span class="cache">{PIEGE}</span>
@@ -34,7 +34,7 @@
     <figure class="modele" class:vu={!js || e >= 2}>
       <figcaption>CE QUE LE MODÈLE LIT</figcaption>
       <div class="page">
-        <span class="nom">Camille Tremblay</span>
+        <span class="nom">Laurence-Olivier M. Foisy</span>
         <span class="poste">Candidature — poste de recherche</span>
         {#each CV as l}<span class="ligne">{l}</span>{/each}
         <span class="revele">{PIEGE}</span>
@@ -43,11 +43,6 @@
     </figure>
   </div>
 
-  <p class="cle" class:vu={!js || e >= 3}>
-    <strong>Personne n'a tapé cette consigne dans le chat.</strong> Elle était dans le document.
-    Vos 551 avis Google ont exactement la même forme : du texte écrit par des inconnus, que
-    l'agent lira sans le voir.
-  </p>
 </div>
 
 <style>

@@ -21,6 +21,33 @@
   const ZOOMS = [0.8, 0.9, 1, 1.12, 1.25];
   let z = $state(2);
 
+  // La minuterie de pause, commandée depuis n'importe quelle diapositive.
+  // Elle sert à la personne qui enseigne: on veut voir de loin ce qu'il
+  // reste, sans changer de diapositive ni sortir son téléphone.
+  const DUREES = [5, 10, 15];
+  let pause = $state(false);
+  let fin = $state(0);
+  let reste = $state(0);
+  let bat = null;
+
+  const mm = $derived(String(Math.floor(Math.max(reste, 0) / 60)).padStart(2, '0'));
+  const ss = $derived(String(Math.max(reste, 0) % 60).padStart(2, '0'));
+
+  function battre() {
+    clearTimeout(bat);
+    reste = Math.max(0, Math.round((fin - Date.now()) / 1000));
+    if (reste > 0) bat = setTimeout(battre, 250);
+  }
+  function partir(min) {
+    fin = Date.now() + min * 60 * 1000;
+    battre();
+  }
+  function fermerPause() {
+    clearTimeout(bat);
+    pause = false;
+    reste = 0;
+  }
+
   $effect(() => { js = true; });
 
   function versDiapo(n) {
@@ -29,6 +56,21 @@
   }
 
   function auClavier(e) {
+    // Pendant une pause, le clavier ne fait plus avancer le deck: on ne veut
+    // pas changer de diapositive en frôlant la télécommande.
+    if (pause) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        fermerPause();
+      }
+      return;
+    }
+    if (e.key === 'p' || e.key === 'P') {
+      e.preventDefault();
+      pause = true;
+      reste = 0;
+      return;
+    }
     if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(e.key)) {
       e.preventDefault();
       versDiapo(suivant(deck).index);
@@ -73,3 +115,29 @@
   <span>{etiquette(deck)}</span>
   {#if js && ZOOMS[z] !== 1}<span class="zoom">{Math.round(ZOOMS[z] * 100)} %</span>{/if}
 </div>
+
+{#if js}
+  <button class="pause-app" onclick={() => { pause = true; reste = 0; }} aria-label="Ouvrir la minuterie de pause" title="Pause (p)">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7 L12 12 L16 14" /></svg>
+  </button>
+{/if}
+
+{#if pause}
+  <div class="pause-voile" role="dialog" aria-label="Pause">
+    {#if reste > 0}
+      <p class="pause-compte">{mm}:{ss}</p>
+      <p class="pause-mot">Pause</p>
+    {:else if fin && reste === 0}
+      <p class="pause-compte fini">00:00</p>
+      <p class="pause-mot">On reprend</p>
+    {:else}
+      <p class="pause-mot">Combien de temps ?</p>
+    {/if}
+    <div class="pause-choix">
+      {#each DUREES as d}
+        <button onclick={() => partir(d)}>{d} min</button>
+      {/each}
+    </div>
+    <button class="pause-fermer" onclick={fermerPause}>Fermer · Échap</button>
+  </div>
+{/if}

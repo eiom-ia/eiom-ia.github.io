@@ -33,7 +33,6 @@
   import Logo from '$lib/deck/Logo.svelte';
   import Deux from '$lib/deck/Deux.svelte';
   import Citation from '$lib/deck/Citation.svelte';
-  import Minuterie from '$lib/deck/demos/Minuterie.svelte';
   import InstallerAgy from '$lib/deck/demos/InstallerAgy.svelte';
   import Collage from '$lib/deck/demos/Collage.svelte';
   import Boucle from '$lib/deck/demos/Boucle.svelte';
@@ -50,7 +49,8 @@
   import PluginPaquet from '$lib/deck/demos/PluginPaquet.svelte';
   import TexteVsBouton from '$lib/deck/demos/TexteVsBouton.svelte';
   import PassagesTexte from '$lib/deck/demos/PassagesTexte.svelte';
-  import InjectionDirecte from '$lib/deck/demos/InjectionDirecte.svelte';
+  import GitVersion from '$lib/deck/demos/GitVersion.svelte';
+  import FluxRecherche from '$lib/deck/demos/FluxRecherche.svelte';
   import InjectionIndirecte from '$lib/deck/demos/InjectionIndirecte.svelte';
   import CoutJetons from '$lib/deck/demos/CoutJetons.svelte';
   import Beads from '$lib/deck/demos/Beads.svelte';
@@ -64,7 +64,7 @@
   import DefiAvis from '$lib/deck/demos/DefiAvis.svelte';
   import SourcesAgentiques from '$lib/deck/demos/SourcesAgentiques.svelte';
 
-  const TOTAL = 51;
+  const TOTAL = 50;
   const D = 'IA agentique · jeu 27 août';
 
   // Les trois terminaux du deuxième temps. Une commande par clic.
@@ -271,12 +271,6 @@ Explique-moi chaque étape au fur et à mesure.`;
       <Code src={c_prompt_precis} brut />
     </Slide>
 
-    <Slide fond="encre" droite={D}>
-      <h1 class="e">Pause</h1>
-      <hr class="filet" />
-      <Minuterie minutes={15} />
-    </Slide>
-
     <!-- ================= 4 · ÉTENDRE UN AGENT ================= -->
     <Slide fond="encre" droite={D}>
       <h1 class="e">Augmenter les capacités<br />d'un agent</h1>
@@ -328,11 +322,6 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <Slide droite={D}>
-      <h2 class="e">L'injection de prompt directe</h2>
-      <InjectionDirecte />
-    </Slide>
-
-    <Slide droite={D}>
       <h2 class="e">L'injection de prompt indirecte</h2>
       <InjectionIndirecte />
     </Slide>
@@ -352,6 +341,11 @@ Explique-moi chaque étape au fur et à mesure.`;
     <Slide droite={D}>
       <h2 class="e">Ce que ça change dans vos fichiers</h2>
       <PassagesTexte />
+    </Slide>
+
+    <Slide droite={D}>
+      <h2 class="e">Git et GitHub : le filet</h2>
+      <GitVersion />
     </Slide>
 
     <Slide droite={D}>
@@ -382,6 +376,11 @@ Explique-moi chaque étape au fur et à mesure.`;
       </div>
     </Slide>
 
+    <Slide droite={D}>
+      <h2 class="e">Mon flux de travail, en entier</h2>
+      <FluxRecherche />
+    </Slide>
+
     <!-- ================= 7 · AGENTS PERMANENTS ================= -->
     <Slide fond="encre" droite={D}>
       <h1 class="e">Des agents qui vivent<br />dans le cloud</h1>
@@ -397,7 +396,7 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <Slide droite={D}>
-      <h2 class="e">Ce que des gens ont déjà branché à Hermes</h2>
+      <h2 class="e">Ce qu’un agent permanent fait pour vous</h2>
       <HermesProjets />
     </Slide>
 
@@ -461,12 +460,6 @@ Explique-moi chaque étape au fur et à mesure.`;
     <Slide droite={D}>
       <h2 class="e">Une ville d'agents, un modèle par métier</h2>
       <Gastown />
-    </Slide>
-
-    <Slide fond="encre" droite={D}>
-      <h1 class="e">Pause</h1>
-      <hr class="filet" />
-      <Minuterie minutes={15} />
     </Slide>
 
     <!-- ================= L'EXERCICE ================= -->

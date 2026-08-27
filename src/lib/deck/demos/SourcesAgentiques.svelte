@@ -16,11 +16,7 @@
       titre: 'Agents cloud et communauté',
       sources: [
         ['hermes-agent.nousresearch.com', 'fonctions, architecture et illustration Nous'],
-        ['github.com/NousResearch/hermes-agent', 'code et documentation Hermes'],
-        ['github.com/agent-sh/computer-use-linux', 'contrôle du bureau Linux'],
-        ['github.com/AaronWong1999/hermesclaw', 'pont WeChat'],
-        ['github.com/Snehal707/Hermes-mars-rover', 'simulation de rover'],
-        ['github.com/leecoin06-commits/hermes-agent-android', 'port Android']
+        ['github.com/NousResearch/hermes-agent', 'code et documentation Hermes']
       ]
     },
     {

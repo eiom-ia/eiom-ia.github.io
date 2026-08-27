@@ -1,5 +1,4 @@
 <script>
-  import { base } from '$app/paths';
   import { brancherTemps } from '../temps.js';
   let js = $state(false);
   let e = $state(4);
@@ -10,33 +9,58 @@
     e = 0;
     return brancherTemps(hote, { total: 4, lire: () => e, ecrire: (v) => (e = v) });
   });
-  // Captures prises sur les depots publics le 27 aout 2026.
-  const P = [
-    { img: 'computer-use-linux', quoi: 'Contrôle du bureau Linux : Hermes pilote les applications Wayland et GNOME par MCP.', url: 'github.com/agent-sh/computer-use-linux' },
-    { img: 'hermesclaw', quoi: 'Un pont vers la messagerie : on écrit à son agent dans WeChat, il répond.', url: 'github.com/AaronWong1999/hermesclaw' },
-    { img: 'mars-rover', quoi: 'Une simulation de rover martien pilotée par un agent Hermes.', url: 'github.com/Snehal707/Hermes-mars-rover' },
-    { img: 'android', quoi: 'Hermes installé sur un téléphone Android, par Termux.', url: 'github.com/leecoin06-commits/hermes-agent-android' }
+  const CAS = [
+    {
+      quand: 'CHAQUE MATIN, 7 H',
+      quoi: 'La veille',
+      fait: 'Il interroge les bases sur vos mots-clés, lit les résumés, écarte les hors-sujet.',
+      recu: 'Cinq références, et pourquoi chacune compte.'
+    },
+    {
+      quand: 'TOUTES LES SIX HEURES',
+      quoi: 'Le terrain',
+      fait: 'Il collecte les nouvelles publications, avis ou pages, et les range dans le corpus.',
+      recu: 'Un corpus qui grossit seul, et une alerte quand le volume bouge.'
+    },
+    {
+      quand: 'DÈS QUE LES DONNÉES CHANGENT',
+      quoi: 'La chaîne d’analyse',
+      fait: 'Il relance le nettoyage et les figures, puis compare aux résultats de la veille.',
+      recu: 'Un message si un chiffre a bougé. Sinon, rien.'
+    }
   ];
 </script>
 
 <div class="hpj" bind:this={hote}>
-  {#each P as p, i}
-    <figure class:vu={!js || e >= i + 1}>
-      <img src="{base}/img/agentique/projets/{p.img}.png" alt="En-tête du dépôt {p.url}" />
-      <figcaption><span class="quoi">{p.quoi}</span><code>{p.url}</code></figcaption>
-    </figure>
-  {/each}
-  <p class="note">Captures prises sur les dépôts publics le 27 août 2026. Le nombre d'étoiles est celui affiché ce jour-là.</p>
+  <div class="cartes">
+    {#each CAS as c, i}
+      <article class:vu={!js || e >= i + 1}>
+        <span class="quand">{c.quand}</span>
+        <h3>{c.quoi}</h3>
+        <p class="fait">{c.fait}</p>
+        <div class="recu"><span>VOUS RECEVEZ</span><p>{c.recu}</p></div>
+      </article>
+    {/each}
+  </div>
+
+  <p class="cle" class:vu={!js || e >= 4}>
+    <strong>Vous lui écrivez depuis votre téléphone ; il travaille sur un serveur à 5 $ par mois.</strong>
+    Ce n'est pas une démonstration technique : c'est du travail de recherche qui avance pendant
+    que vous faites autre chose.
+  </p>
 </div>
 
 <style>
-  .hpj { width: 100%; display: flex; flex-direction: column; gap: 0.4em; }
-  figure { margin: 0; display: grid; grid-template-columns: 1.15fr 1fr; gap: 0.6em; align-items: center; opacity: 0; transform: translateY(0.3em); transition: opacity 0.3s, transform 0.3s; }
-  img { display: block; width: 100%; border: 2px solid var(--dk-filet); }
-  figcaption { display: flex; flex-direction: column; gap: 0.15em; }
-  .quoi { font-size: 0.52em; line-height: 1.35; }
-  code { color: var(--dk-accent); font-size: 0.44em; word-break: break-all; }
-  .note { margin-top: 0.2em; border-top: 2px solid var(--dk-filet); padding-top: 0.35em; color: var(--dk-gris); font-size: 0.45em; }
+  .hpj { width: 100%; display: flex; flex-direction: column; gap: 0.7em; }
+  .cartes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7em; align-items: stretch; }
+  article { border: 3px solid var(--dk-encre); padding: 0.7em 0.75em; display: flex; flex-direction: column; gap: 0.3em; opacity: 0; transform: translateY(0.4em); transition: opacity 0.3s, transform 0.3s; }
+  .quand { color: var(--dk-accent); font-size: 0.48em; letter-spacing: 0.12em; }
+  h3 { margin: 0; font-size: 0.92em; line-height: 1.15; }
+  .fait { margin: 0; font-size: 0.56em; line-height: 1.45; flex: 1; }
+  .recu { border-top: 2px solid var(--dk-filet); padding-top: 0.4em; }
+  .recu span { display: block; color: var(--dk-gris); font-size: 0.44em; letter-spacing: 0.12em; margin-bottom: 0.12em; }
+  .recu p { margin: 0; color: var(--dk-accent); font-size: 0.56em; line-height: 1.4; font-weight: 600; }
+  .cle { border-left: 0.35em solid var(--dk-accent); padding-left: 0.7em; font-size: 0.66em; line-height: 1.45; opacity: 0; transition: opacity 0.3s; }
   .vu { opacity: 1 !important; transform: none !important; }
-  @media (prefers-reduced-motion: reduce) { figure { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { article, .cle { transition: none; } }
 </style>

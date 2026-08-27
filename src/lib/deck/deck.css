@@ -19,7 +19,9 @@
    Constaté par capture sur une diapo encre. */
 .deck,
 .deck-barre,
-.deck-pied {
+.deck-pied,
+.pause-app,
+.pause-voile {
   --dk-fond: #f6f6f3;
   --dk-fond-2: #eeeee9;
   --dk-encre: #0c0e0f;
@@ -1359,3 +1361,92 @@
 }
 
 .carte-d .logo-l { margin: 0 0 0.5em; }
+
+/* ---- La minuterie de pause, appelable depuis n'importe quelle diapositive ---- */
+.pause-app {
+  position: fixed;
+  left: 1.1rem;
+  bottom: 1.1rem;
+  z-index: 40;
+  width: 2.1rem;
+  height: 2.1rem;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--dk-filet);
+  border-radius: 50%;
+  background: var(--dk-fond);
+  color: var(--dk-gris-2);
+  opacity: 0.35;
+  cursor: pointer;
+  transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+}
+.pause-app:hover,
+.pause-app:focus-visible {
+  opacity: 1;
+  color: var(--dk-accent);
+  border-color: var(--dk-accent);
+}
+.pause-app svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.pause-voile {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: var(--dk-encre);
+  color: var(--dk-fond);
+}
+.pause-compte {
+  margin: 0;
+  font-family: var(--dk-mono);
+  font-size: clamp(5rem, 22vw, 16rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--dk-fond);
+}
+.pause-compte.fini { color: var(--dk-accent-clair); }
+.pause-mot {
+  margin: 0;
+  font-family: var(--dk-mono);
+  font-size: clamp(1rem, 3vw, 2rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--dk-gris-2);
+}
+.pause-choix { display: flex; gap: 0.6rem; margin-top: 1rem; }
+.pause-choix button {
+  padding: 0.5rem 1.1rem;
+  border: 2px solid var(--dk-gris);
+  background: none;
+  color: var(--dk-fond);
+  font: inherit;
+  font-family: var(--dk-mono);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.pause-choix button:hover { border-color: var(--dk-accent-clair); color: var(--dk-accent-clair); }
+.pause-fermer {
+  margin-top: 0.8rem;
+  border: 0;
+  background: none;
+  color: var(--dk-gris);
+  font: inherit;
+  font-family: var(--dk-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+}
+.pause-fermer:hover { color: var(--dk-fond); }
+@media print { .pause-app, .pause-voile { display: none; } }
