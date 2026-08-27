@@ -133,7 +133,7 @@ Explique-moi chaque étape au fur et à mesure.`;
   {#snippet children()}
 
     <!-- ================= OUVERTURE ================= -->
-    <Slide fond="encre" bandeau="Laurence-Olivier M. Foisy" droite={D}>
+    <Slide fond="encre" droite={D}>
       <h1 class="e">L'IA agentique</h1>
       <hr class="filet" />
       <p class="lead e">Parcours <em>L'intelligence artificielle et la recherche</em></p>
@@ -142,47 +142,47 @@ Explique-moi chaque étape au fur et à mesure.`;
 
 
     <!-- ================= 1 · C'EST QUOI UN AGENT ================= -->
-    <Slide bandeau="Le mot, avant la technologie" droite={D}>
+    <Slide droite={D}>
       <Collage titre="C'est quoi un agent ?" images={AGENTS_FICTION} />
     </Slide>
 
-    <Slide bandeau="Et des vrais" droite={D}>
+    <Slide droite={D}>
       <Collage titre="C'est quoi un agent ?" images={AGENTS_REELS} />
     </Slide>
 
-    <Slide bandeau="Définition" droite={D}>
+    <Slide droite={D}>
       <EntreeAgent />
     </Slide>
 
 
     <!-- ================= 2 · LE TERMINAL ET LE HARNAIS ================= -->
-    <Slide fond="encre" bandeau="Deuxième temps" droite={D}>
+    <Slide fond="encre" droite={D}>
       <h1 class="e">Les harnais</h1>
       <hr class="filet" />
       <p class="lead e">Comment du texte devient une action.</p>
     </Slide>
 
-    <Slide bandeau="Trois mots à ne pas confondre" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Le modèle, le harnais, l'agent</h2>
       <ModeleHarnaisAgent />
     </Slide>
 
-    <Slide bandeau="Le point de départ" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Seul, un LLM ne fait que du texte</h2>
       <Boucle />
     </Slide>
 
-    <Slide bandeau="Le pont" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Le harnais relie le modèle et la machine</h2>
       <Boucle harnais />
     </Slide>
 
-    <Slide bandeau="Le mot qui manquait" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Un harnais, c'est le programme qui tient la bride</h2>
       <ChevalHarnais />
     </Slide>
 
-    <Slide bandeau="La bascule" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Mais du texte peut être une commande</h2>
       <div class="commande-pont e">
         <div class="cp-source"><span>LE MODÈLE ÉCRIT</span><strong>« mkdir résultats »</strong></div>
@@ -194,12 +194,12 @@ Explique-moi chaque étape au fur et à mesure.`;
       <p class="lead e">La sortie de l'un est exactement l'entrée de l'autre.</p>
     </Slide>
 
-    <Slide fond="encre" bandeau="Troisième temps" droite={D}>
+    <Slide fond="encre" droite={D}>
       <h1 class="e">Le terminal</h1>
       <hr class="filet" />
     </Slide>
 
-    <Slide bandeau="Deux portes, une même machine" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">L'interface graphique et le terminal</h2>
       <GuiVsTerminal />
     </Slide>
@@ -208,7 +208,7 @@ Explique-moi chaque étape au fur et à mesure.`;
       <Terminal lignes={T_BASE} invite="terminal — trois commandes pour commencer" plein />
     </Slide>
 
-    <Slide fond="encre" bandeau="La thèse du cours" droite={D}>
+    <Slide fond="encre" droite={D}>
       <h1 class="e">Le texte<br />devient roi</h1>
       <hr class="filet" />
       <p class="lead e">
@@ -218,12 +218,12 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
 
-    <Slide bandeau="Panorama" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Tout le monde construit son harnais</h2>
       <PanoramaHarnais />
     </Slide>
 
-    <Slide bandeau="La vraie question" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Qui vous laisse brancher quoi</h2>
       <div class="pgrid c3">
         <span class="pit"
@@ -249,30 +249,30 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <!-- ================= PRATIQUE 1 ================= -->
-    <Slide fond="encre" bandeau="Pratique" droite={D}>
+    <Slide fond="encre" droite={D}>
       <h1 class="e">À vous :<br />installer et lancer</h1>
       <hr class="filet" />
       <p class="lead e">On ouvre un terminal et on installe un harnais.</p>
     </Slide>
 
-    <Slide bandeau="Premier essai" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">À votre tour d'essayer</h2>
       <Code src={c_prompt_vague} brut />
     </Slide>
 
-    <Slide bandeau="Deuxième essai" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">La même chose, sans rien à deviner</h2>
       <Code src={c_prompt_precis} brut />
     </Slide>
 
-    <Slide fond="encre" bandeau="Pause" droite={D}>
+    <Slide fond="encre" droite={D}>
       <h1 class="e">Pause</h1>
       <hr class="filet" />
       <Minuterie minutes={15} />
     </Slide>
 
     <!-- ================= 4 · ÉTENDRE UN AGENT ================= -->
-    <Slide fond="encre" bandeau="Troisième temps" droite={D}>
+    <Slide fond="encre" droite={D}>
       <h1 class="e">Augmenter les capacités<br />d'un agent</h1>
       <hr class="filet" />
       <div class="gal-logos">
@@ -285,19 +285,19 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
 
-    <Slide bandeau="Le nœud du temps" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Le vocabulaire essentiel</h2>
       <TroisMots />
     </Slide>
 
-    <Slide bandeau="Skill" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">SKILL.md</h2>
       <SkillFichier />
     </Slide>
 
 
 
-    <Slide bandeau="MCP" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Model Context Protocol, ou MCP</h2>
       <Mcp />
       <p class="e">
@@ -306,13 +306,13 @@ Explique-moi chaque étape au fur et à mesure.`;
       </p>
     </Slide>
 
-    <Slide bandeau="Plugin" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Les plugins</h2>
       <PluginPaquet />
     </Slide>
 
     <!-- ================= 5 · CE QUI PEUT MAL TOURNER ================= -->
-    <Slide fond="encre" bandeau="Ce qui peut mal tourner" droite={D}>
+    <Slide fond="encre" droite={D}>
       <h1 class="e">Les dangers de<br />l'IA agentique</h1>
       <hr class="filet" />
       <p class="lead e">
@@ -321,44 +321,44 @@ Explique-moi chaque étape au fur et à mesure.`;
       </p>
     </Slide>
 
-    <Slide bandeau="Première porte" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">L'injection de prompt directe</h2>
       <InjectionDirecte />
     </Slide>
 
-    <Slide bandeau="Deuxième porte" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">L'injection de prompt indirecte</h2>
       <InjectionIndirecte />
     </Slide>
 
 
     <!-- ================= 6 · UN BON FLUX DE TRAVAIL ================= -->
-    <Slide fond="encre" bandeau="Quatrième temps" droite={D}>
+    <Slide fond="encre" droite={D}>
       <h1 class="e">Un bon flux de travail</h1>
       <hr class="filet" />
     </Slide>
 
-    <Slide bandeau="Deux façons de faire la même chose" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Text based vs GUI based</h2>
       <TexteVsBouton />
     </Slide>
 
-    <Slide bandeau="Concrètement" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Ce que ça change dans vos fichiers</h2>
       <PassagesTexte />
     </Slide>
 
-    <Slide bandeau="Ressource rare" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Le contexte est une ressource limitée</h2>
       <Contexte2 />
     </Slide>
 
-    <Slide bandeau="Ce que ça coûte" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Deux façons de payer l'agent</h2>
       <CoutJetons />
     </Slide>
 
-    <Slide bandeau="La bonne unité de travail" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Une tâche, un début, une fin vérifiable</h2>
       <div class="pduo tache-unite">
         <div>
@@ -377,12 +377,12 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <!-- ================= 7 · AGENTS PERMANENTS ================= -->
-    <Slide fond="encre" bandeau="Cinquième temps" droite={D}>
+    <Slide fond="encre" droite={D}>
       <h1 class="e">Des agents qui vivent<br />dans le cloud</h1>
       <hr class="filet" />
     </Slide>
 
-    <Slide bandeau="Un cas" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">
         <span class="nomlogo"><Logo nom="nousresearch" alt="Nous Research" taille="1.5em" />Hermes :
         un agent qui vit sur un serveur</span>
@@ -390,24 +390,24 @@ Explique-moi chaque étape au fur et à mesure.`;
       <HermesFusion />
     </Slide>
 
-    <Slide bandeau="La communauté" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Ce que des gens ont déjà branché à Hermes</h2>
       <HermesProjets />
     </Slide>
 
-    <Slide fond="encre" bandeau="Un exemple, le mien" droite={D}>
+    <Slide fond="encre" droite={D}>
       <h1 class="e">Demandez et<br />vous recevrez</h1>
       <hr class="filet" />
       <p class="lead e">Quand l'IA a réglé mon problème de montre intelligente</p>
     </Slide>
 
-    <Slide bandeau="Comment" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">De mes données jusqu'à ma montre</h2>
       <MontreFlux />
     </Slide>
 
     <!-- ================= CE QUI N'EST PAS RÉGLÉ ================= -->
-    <Slide bandeau="Les trois murs" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Les trois défis principaux de l'IA agentique</h2>
       <div class="pgrid c3">
         <span class="pit"
@@ -432,56 +432,56 @@ Explique-moi chaque étape au fur et à mesure.`;
       </p>
     </Slide>
 
-    <Slide bandeau="Défi 1 · la mémoire" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Se souvenir sans tout traîner</h2>
       <DefiMemoire />
     </Slide>
 
-    <Slide bandeau="Défi 2 · le contexte" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Les fenêtres grandissent, les tâches doivent rétrécir</h2>
       <DefiContexte />
     </Slide>
 
-    <Slide bandeau="Beads, par Steve Yegge" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Solution au contexte : Beads</h2>
       <Beads />
     </Slide>
 
-    <Slide bandeau="Défi 3 · les modèles" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Le bon modèle pour le bon travail</h2>
       <DefiModeles />
     </Slide>
 
-    <Slide bandeau="Gastown, par Steve Yegge" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Une ville d'agents, un modèle par métier</h2>
       <Gastown />
     </Slide>
 
-    <Slide fond="encre" bandeau="Pause" droite={D}>
+    <Slide fond="encre" droite={D}>
       <h1 class="e">Pause</h1>
       <hr class="filet" />
       <Minuterie minutes={15} />
     </Slide>
 
     <!-- ================= L'EXERCICE ================= -->
-    <Slide fond="encre" bandeau="Septième temps" droite={D}>
+    <Slide fond="encre" droite={D}>
       <h1 class="e">À votre tour</h1>
       <hr class="filet" />
     </Slide>
 
-    <Slide bandeau="Le corpus" droite={D}>
+    <Slide droite={D}>
       <h2 class="e">Le défi : analyser 551 avis avec un LLM</h2>
       <DefiAvis />
     </Slide>
 
-    <Slide fond="encre" bandeau="Dernier temps" droite={D}>
+    <Slide fond="encre" droite={D}>
       <h1 class="e">Qu'est-ce que vous<br />allez en faire ?</h1>
       <hr class="filet" />
     </Slide>
 
     <!-- ================= CLÔTURE ================= -->
 
-    <Slide d={0.88} bandeau="Sources" droite={D}>
+    <Slide d={0.88} droite={D}>
       <h2 class="e">Sources</h2>
       <hr class="filet" />
       <SourcesAgentiques />
