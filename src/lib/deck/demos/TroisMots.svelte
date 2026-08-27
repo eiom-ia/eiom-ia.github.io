@@ -5,7 +5,7 @@
     { n: 'AGENTS.md', d: 'Les règles du projet.', q: 'Portable entre plusieurs harnais.', groupe: 'instructions' },
     { n: 'CLAUDE.md', d: 'Les règles pour Claude.', q: 'Lu automatiquement par Claude Code.', groupe: 'instructions' },
     { n: 'SKILL', d: 'Du savoir-faire.', q: 'Chargé seulement quand la tâche le demande.', groupe: 'extension' },
-    { n: 'MCP', d: 'Une prise standard.', q: 'Branche des outils et des services.', groupe: 'extension' },
+    { n: 'MCP', d: 'Un protocole commun.', q: 'Un seul langage pour brancher outils, données et services.', groupe: 'extension' },
     { n: 'PLUGIN', d: 'Un paquet à installer.', q: 'Regroupe skills, agents, hooks et MCP.', groupe: 'extension' }
   ];
 

@@ -39,12 +39,13 @@
   import Mcp from '$lib/deck/demos/Mcp.svelte';
   import TroisMots from '$lib/deck/demos/TroisMots.svelte';
   import Terminal from '$lib/deck/demos/Terminal.svelte';
+  import GuiVsTerminal from '$lib/deck/demos/GuiVsTerminal.svelte';
   import Contexte2 from '$lib/deck/demos/Contexte2.svelte';
   import EntreeAgent from '$lib/deck/demos/EntreeAgent.svelte';
   import ChevalHarnais from '$lib/deck/demos/ChevalHarnais.svelte';
-  import AnatomieHarnais from '$lib/deck/demos/AnatomieHarnais.svelte';
+  import ModeleHarnaisAgent from '$lib/deck/demos/ModeleHarnaisAgent.svelte';
   import PanoramaHarnais from '$lib/deck/demos/PanoramaHarnais.svelte';
-  import SkillFlux from '$lib/deck/demos/SkillFlux.svelte';
+  import SkillFichier from '$lib/deck/demos/SkillFichier.svelte';
   import PluginPaquet from '$lib/deck/demos/PluginPaquet.svelte';
   import TexteVsBouton from '$lib/deck/demos/TexteVsBouton.svelte';
   import PassagesTexte from '$lib/deck/demos/PassagesTexte.svelte';
@@ -65,25 +66,13 @@
   import SourcesAgentiques from '$lib/deck/demos/SourcesAgentiques.svelte';
 
   const TOTAL = 52;
-  const D = 'IA agentique · mar 25 août';
+  const D = 'IA agentique · jeu 27 août';
 
   // Les trois terminaux du deuxième temps. Une commande par clic.
-  const T_PORTE = [
-    { cmd: 'ouvrir interface_graphique', out: '[souris] Vous cliquez.\n[écran] L’ordinateur vous montre des images.' },
-    { cmd: 'ouvrir terminal', out: '[clavier] Vous écrivez.\n[texte] L’ordinateur répond avec du texte.' },
-    { cmd: 'comparer --machine', out: 'Même ordinateur. Mêmes fichiers.\nLe terminal est la porte naturelle d’un modèle de langue.' }
-  ];
-
   const T_BASE = [
     { cmd: 'pwd', out: '/home/vous/projet-these' },
-    { cmd: 'ls', out: 'donnees/   analyse.R   memoire.tex' },
-    { cmd: 'cat analyse.R', out: 'library(tidyverse)\ndonnees <- read_csv("donnees/corpus.csv")' }
-  ];
-
-  const T_LEVIER = [
-    { cmd: 'ls donnees/', out: 'corpus.csv   avis.csv   codebook.pdf' },
-    { cmd: 'grep -rl "populisme" notes/', out: 'notes/2024-03-lecture.md\nnotes/2024-09-seminaire.md\nnotes/2025-01-plan.md' },
-    { cmd: 'git diff --stat memoire.tex', out: ' memoire.tex | 34 ++++++++++------' }
+    { cmd: 'ls', out: 'donnees/   llm.R   memoire.tex' },
+    { cmd: 'cat llm.R', out: 'library(ellmer)\n\nchat <- chat_openrouter(\n  model = "google/gemini-3.5-flash-lite",\n  echo  = "none"\n)\n\nchat$chat("Quelle est la capitale de la France ?")' }
   ];
 
 
@@ -150,6 +139,7 @@ Explique-moi chaque étape au fur et à mesure.`;
       <h1 class="e">L'IA agentique</h1>
       <hr class="filet" />
       <p class="lead e">Parcours <em>L'intelligence artificielle et la recherche</em></p>
+      <p class="lead e">Laurence-Olivier M. Foisy</p>
     </Slide>
 
 
@@ -174,6 +164,11 @@ Explique-moi chaque étape au fur et à mesure.`;
       <p class="lead e">Comment du texte devient une action.</p>
     </Slide>
 
+    <Slide bandeau="Trois mots à ne pas confondre" droite={D}>
+      <h2 class="e">Le modèle, le harnais, l'agent</h2>
+      <ModeleHarnaisAgent />
+    </Slide>
+
     <Slide bandeau="Le point de départ" droite={D}>
       <h2 class="e">Seul, un LLM ne fait que du texte</h2>
       <Boucle />
@@ -191,16 +186,18 @@ Explique-moi chaque étape au fur et à mesure.`;
       <p class="lead e">La sortie de l'un est exactement l'entrée de l'autre.</p>
     </Slide>
 
-    <Slide fond="terminal">
-      <Terminal lignes={T_PORTE} invite="terminal — c'est quoi ?" plein />
+    <Slide fond="encre" bandeau="Troisième temps" droite={D}>
+      <h1 class="e">Le terminal</h1>
+      <hr class="filet" />
+    </Slide>
+
+    <Slide bandeau="Deux portes, une même machine" droite={D}>
+      <h2 class="e">L'interface graphique et le terminal</h2>
+      <GuiVsTerminal />
     </Slide>
 
     <Slide fond="terminal">
       <Terminal lignes={T_BASE} invite="terminal — trois commandes suffisent" plein />
-    </Slide>
-
-    <Slide fond="terminal">
-      <Terminal lignes={T_LEVIER} invite="terminal — agir sur beaucoup de fichiers" plein />
     </Slide>
 
     <Slide fond="encre" bandeau="La thèse du cours" droite={D}>
@@ -222,11 +219,6 @@ Explique-moi chaque étape au fur et à mesure.`;
       <ChevalHarnais />
     </Slide>
 
-
-    <Slide bandeau="Le levier de contrôle" droite={D}>
-      <h2 class="e">Une chaîne de caractères devient une action</h2>
-      <AnatomieHarnais />
-    </Slide>
 
     <Slide bandeau="Panorama" droite={D}>
       <h2 class="e">Tout le monde construit son harnais</h2>
@@ -268,13 +260,6 @@ Explique-moi chaque étape au fur et à mesure.`;
     <Slide bandeau="Premier essai" droite={D}>
       <h2 class="e">À votre tour d'essayer</h2>
       <Code src={c_prompt_vague} brut />
-      <Carte titre="Ce qu'il doit deviner tout seul">
-        <p>
-          Où trouver l'étude · lequel des deux fichiers · ce que veut dire « être à droite »
-          parmi 1440 variables · que les non-réponses valent −99 · comment fabriquer une image
-          d'un tableau · où sont « mes téléchargements ».
-        </p>
-      </Carte>
     </Slide>
 
     <Slide bandeau="Deuxième essai" droite={D}>
@@ -308,14 +293,14 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <Slide bandeau="Skill" droite={D}>
-      <h2 class="e">Des instructions chargées au bon moment</h2>
-      <SkillFlux />
+      <h2 class="e">SKILL.md</h2>
+      <SkillFichier />
     </Slide>
 
 
 
     <Slide bandeau="MCP" droite={D}>
-      <h2 class="e">C'est quoi un MCP ?</h2>
+      <h2 class="e">Model Context Protocol, ou MCP</h2>
       <Mcp />
       <p class="e">
         Le serveur déclare ce qu'il sait faire ; le harnais lit cette déclaration et s'en sert. Les
@@ -324,15 +309,18 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <Slide bandeau="Plugin" droite={D}>
-      <h2 class="e">Un plugin, c'est le carton de livraison</h2>
+      <h2 class="e">Les plugins</h2>
       <PluginPaquet />
     </Slide>
 
     <!-- ================= 5 · CE QUI PEUT MAL TOURNER ================= -->
     <Slide fond="encre" bandeau="Ce qui peut mal tourner" droite={D}>
-      <h1 class="e">Le texte qu'il lit<br />peut lui donner des ordres</h1>
+      <h1 class="e">Les dangers de<br />l'IA agentique</h1>
       <hr class="filet" />
-      <p class="lead e">On vient de lui ouvrir vos fichiers, vos outils et vos données. Voici la facture.</p>
+      <p class="lead e">
+        Vous ne donnez plus seulement vos conversations au modèle : vous lui donnez l'ensemble de
+        votre ordinateur et de vos données.
+      </p>
     </Slide>
 
     <Slide bandeau="Deux portes" droite={D}>
@@ -348,7 +336,7 @@ Explique-moi chaque étape au fur et à mesure.`;
 
     <!-- ================= 6 · UN BON FLUX DE TRAVAIL ================= -->
     <Slide fond="encre" bandeau="Quatrième temps" droite={D}>
-      <h1 class="e">Un bon flux<br />de travail</h1>
+      <h1 class="e">Un bon flux de travail</h1>
       <hr class="filet" />
     </Slide>
 
