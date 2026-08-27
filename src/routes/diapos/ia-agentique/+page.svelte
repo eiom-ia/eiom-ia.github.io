@@ -49,14 +49,12 @@
   import PluginPaquet from '$lib/deck/demos/PluginPaquet.svelte';
   import TexteVsBouton from '$lib/deck/demos/TexteVsBouton.svelte';
   import PassagesTexte from '$lib/deck/demos/PassagesTexte.svelte';
-  import Injection from '$lib/deck/demos/Injection.svelte';
-  import TriadeLetale from '$lib/deck/demos/TriadeLetale.svelte';
+  import InjectionDirecte from '$lib/deck/demos/InjectionDirecte.svelte';
+  import InjectionIndirecte from '$lib/deck/demos/InjectionIndirecte.svelte';
   import CoutJetons from '$lib/deck/demos/CoutJetons.svelte';
-  import CoutCorpus from '$lib/deck/demos/CoutCorpus.svelte';
   import Beads from '$lib/deck/demos/Beads.svelte';
   import Gastown from '$lib/deck/demos/Gastown.svelte';
-  import HermesCloud from '$lib/deck/demos/HermesCloud.svelte';
-  import HermesPortrait from '$lib/deck/demos/HermesPortrait.svelte';
+  import HermesFusion from '$lib/deck/demos/HermesFusion.svelte';
   import HermesProjets from '$lib/deck/demos/HermesProjets.svelte';
   import MontreFlux from '$lib/deck/demos/MontreFlux.svelte';
   import DefiMemoire from '$lib/deck/demos/DefiMemoire.svelte';
@@ -323,14 +321,14 @@ Explique-moi chaque étape au fur et à mesure.`;
       </p>
     </Slide>
 
-    <Slide bandeau="Deux portes" droite={D}>
-      <h2 class="e">L'injection directe et l'injection indirecte</h2>
-      <Injection />
+    <Slide bandeau="Première porte" droite={D}>
+      <h2 class="e">L'injection de prompt directe</h2>
+      <InjectionDirecte />
     </Slide>
 
-    <Slide bandeau="Les trois conditions" droite={D}>
-      <h2 class="e">Il faut les trois pour se faire avoir</h2>
-      <TriadeLetale />
+    <Slide bandeau="Deuxième porte" droite={D}>
+      <h2 class="e">L'injection de prompt indirecte</h2>
+      <InjectionIndirecte />
     </Slide>
 
 
@@ -356,13 +354,8 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <Slide bandeau="Ce que ça coûte" droite={D}>
-      <h2 class="e">Vous payez au jeton, dans les deux sens</h2>
+      <h2 class="e">Deux façons de payer l'agent</h2>
       <CoutJetons />
-    </Slide>
-
-    <Slide bandeau="Sur votre corpus" droite={D}>
-      <h2 class="e">Ce que coûterait vraiment l'exercice de tantôt</h2>
-      <CoutCorpus />
     </Slide>
 
     <Slide bandeau="La bonne unité de travail" droite={D}>
@@ -383,36 +376,18 @@ Explique-moi chaque étape au fur et à mesure.`;
       </div>
     </Slide>
 
-    <Slide bandeau="Beads" droite={D}>
-      <h2 class="e">Quand la tâche survit à la séance</h2>
-      <Beads />
-    </Slide>
-
-    <Slide bandeau="Gastown" droite={D}>
-      <h2 class="e">Le même principe, poussé à trente agents</h2>
-      <Gastown />
-    </Slide>
-
     <!-- ================= 7 · AGENTS PERMANENTS ================= -->
     <Slide fond="encre" bandeau="Cinquième temps" droite={D}>
       <h1 class="e">Des agents qui vivent<br />dans le cloud</h1>
       <hr class="filet" />
     </Slide>
 
-    <Slide bandeau="Qui appuie sur le bouton" droite={D}>
-      <h2 class="e">Hermes travaille même quand vous dormez</h2>
-      <HermesCloud />
-    </Slide>
-
-
-
-
     <Slide bandeau="Un cas" droite={D}>
       <h2 class="e">
         <span class="nomlogo"><Logo nom="nousresearch" alt="Nous Research" taille="1.5em" />Hermes :
         un agent qui vit sur un serveur</span>
       </h2>
-      <HermesPortrait />
+      <HermesFusion />
     </Slide>
 
     <Slide bandeau="La communauté" droite={D}>
@@ -467,9 +442,19 @@ Explique-moi chaque étape au fur et à mesure.`;
       <DefiContexte />
     </Slide>
 
+    <Slide bandeau="Beads, par Steve Yegge" droite={D}>
+      <h2 class="e">Solution au contexte : Beads</h2>
+      <Beads />
+    </Slide>
+
     <Slide bandeau="Défi 3 · les modèles" droite={D}>
       <h2 class="e">Le bon modèle pour le bon travail</h2>
       <DefiModeles />
+    </Slide>
+
+    <Slide bandeau="Gastown, par Steve Yegge" droite={D}>
+      <h2 class="e">Une ville d'agents, un modèle par métier</h2>
+      <Gastown />
     </Slide>
 
     <Slide fond="encre" bandeau="Pause" droite={D}>

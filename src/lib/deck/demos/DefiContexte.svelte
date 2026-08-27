@@ -2,10 +2,9 @@
   <div class="fenetre"><strong>UNE TÂCHE GÉANTE</strong><div><span style="width: 23%">demande</span><span style="width: 31%">outils</span><span style="width: 38%">résultats</span></div><p>La fenêtre grandit, mais une longue boucle finit toujours par accumuler du bruit.</p></div>
   <div class="coupe"><span>÷</span><strong>DÉCOUPER</strong></div>
   <div class="graphe">
-    <div class="bead a"><b>BD-1</b><span>collecter</span></div><i>→</i><div class="bead b"><b>BD-2</b><span>nettoyer</span></div><i>→</i><div class="bead c"><b>BD-3</b><span>analyser</span></div><i>→</i><div class="bead d"><b>BD-4</b><span>vérifier</span></div>
+    <div class="bead a"><b>1</b><span>collecter</span></div><i>→</i><div class="bead b"><b>2</b><span>nettoyer</span></div><i>→</i><div class="bead c"><b>3</b><span>analyser</span></div><i>→</i><div class="bead d"><b>4</b><span>vérifier</span></div>
   </div>
-  <div class="cycle"><code>bd create</code><span>→</span><code>bd ready</code><span>→</span><code>bd close</code></div>
-  <p class="idee"><strong>C’est exactement ce que fait beads,</strong> vu tantôt : un graphe de petites tâches persistantes. Chaque agent prend un problème fermé, le termine, puis libère le suivant.</p>
+  <p class="idee"><strong>Une longue boucle accumule du bruit ; quatre tâches fermées n'en accumulent pas.</strong> Reste à savoir où écrire ces tâches, pour qu'elles survivent à la séance.</p>
 </div>
 
 <style>

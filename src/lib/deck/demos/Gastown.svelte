@@ -1,65 +1,58 @@
 <script>
   import { brancherTemps } from '../temps.js';
   let js = $state(false);
-  let e = $state(3);
+  let e = $state(6);
   let hote = $state(null);
   $effect(() => {
     if (!hote) return;
     js = true;
     e = 0;
-    return brancherTemps(hote, { total: 3, lire: () => e, ecrire: (v) => (e = v) });
+    return brancherTemps(hote, { total: 6, lire: () => e, ecrire: (v) => (e = v) });
   });
+  // Les roles de Gas Town, d'apres l'observation de Maggie Appleton.
   const ROLES = [
-    { n: 'LES OUVRIERS', d: 'font une tâche, puis disparaissent' },
-    { n: 'LE TÉMOIN', d: 'surveille les ouvriers, débloque' },
-    { n: 'LA RAFFINERIE', d: 'tient la file de fusion, règle les conflits' }
+    { n: 'LE MAIRE', d: "votre seul interlocuteur : il découpe le travail, n'écrit jamais de code", m: 'un grand modèle', fort: true },
+    { n: 'LES OUVRIERS', d: 'font une tâche isolée, puis disparaissent', m: 'un petit modèle' },
+    { n: 'LE TÉMOIN', d: 'surveille les ouvriers, débloque, relance', m: 'un modèle moyen' },
+    { n: 'LA RAFFINERIE', d: 'tient la file de fusion, règle les conflits', m: 'un grand modèle' },
+    { n: "L'ENTRETIEN", d: 'nettoie, range, garde la ville en état', m: 'un petit modèle' }
   ];
 </script>
 
 <div class="gt" bind:this={hote}>
-  <div class="ville" class:vu={!js || e >= 1}>
-    <div class="haut">
-      <div class="vous">VOUS</div>
-      <b>→</b>
-      <div class="role chef"><strong>LE MAIRE</strong><span>votre seul interlocuteur : il découpe le travail, n'écrit jamais de code</span></div>
-    </div>
-    <b class="bas">↓</b>
-    <div class="roles">
-      {#each ROLES as r}
-        <div class="role"><strong>{r.n}</strong><span>{r.d}</span></div>
-      {/each}
-    </div>
-    <p class="socle">tous branchés sur le même graphe de <code>beads</code></p>
+  <div class="roles">
+    {#each ROLES as r, i}
+      <div class="role" class:chef={r.fort} class:vu={!js || e >= i + 1}>
+        <strong>{r.n}</strong>
+        <span>{r.d}</span>
+        <em>{r.m}</em>
+      </div>
+    {/each}
   </div>
 
-  <div class="chiffre" class:vu={!js || e >= 2}>
-    <b>20 à 30</b><span>agents en parallèle, sur une seule base de code</span>
+  <div class="socle" class:vu={!js || e >= 6}>
+    <div class="chiffre"><b>20 à 30</b><span>agents en parallèle, sur une seule base de code</span></div>
+    <p class="cle">
+      <strong>Chaque rôle reçoit le modèle qu'il mérite.</strong> On ne paie pas un grand modèle
+      pour ranger des fichiers. C'est là que le choix du modèle cesse d'être une question de goût :
+      il devient une question de facture.
+    </p>
   </div>
-
-  <p class="cle" class:vu={!js || e >= 3}>
-    <strong>« Comme diriger une équipe de juniors très rapides. »</strong>
-    Yegge le dit lui-même : il faut corriger sans arrêt. Et on peut aller si vite qu'on ne s'arrête plus pour réfléchir.
-    Décider <em>quoi</em> construire reste le seul goulot que la machine ne desserre pas.
-  </p>
 </div>
 
 <style>
-  .gt { width: 100%; display: grid; grid-template-columns: 1fr 0.5fr; gap: 0.7em; align-items: start; }
-  .ville { border: 4px solid var(--dk-accent); padding: 0.6em; text-align: center; opacity: 0; transform: translateY(0.4em); transition: opacity 0.3s, transform 0.3s; }
-  .haut { display: grid; grid-template-columns: auto auto 1fr; gap: 0.5em; align-items: center; }
-  .vous { border: 2px solid var(--dk-encre); padding: 0.28em 0.7em; font-size: 0.55em; font-weight: 600; }
-  .haut b { color: var(--dk-accent); font-size: 0.8em; }
-  .ville > b.bas { display: block; color: var(--dk-accent); font-size: 0.85em; line-height: 1.1; }
-  .roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4em; }
-  .role { border: 2px solid var(--dk-encre); padding: 0.45em 0.35em; display: flex; flex-direction: column; gap: 0.15em; text-align: left; }
-  .role.chef { border-width: 3px; border-color: var(--dk-accent); }
-  .role strong { font-size: 0.5em; }
-  .role span { color: var(--dk-gris); font-size: 0.44em; line-height: 1.3; }
-  .socle { margin-top: 0.45em; padding-top: 0.4em; border-top: 2px solid var(--dk-filet); color: var(--dk-gris); font-size: 0.5em; }
-  .chiffre { border: 3px solid var(--dk-encre); padding: 0.7em; display: flex; flex-direction: column; gap: 0.2em; opacity: 0; transform: translateY(0.4em); transition: opacity 0.3s, transform 0.3s; }
-  .chiffre b { color: var(--dk-accent); font-size: 1.4em; line-height: 1; }
-  .chiffre span { color: var(--dk-gris); font-size: 0.5em; line-height: 1.3; }
-  .cle { grid-column: 1 / -1; border-left: 0.35em solid var(--dk-accent); padding-left: 0.7em; font-size: 0.68em; line-height: 1.4; opacity: 0; transition: opacity 0.3s; }
+  .gt { width: 100%; display: flex; flex-direction: column; gap: 0.65em; }
+  .roles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5em; align-items: stretch; }
+  .role { border: 2px solid var(--dk-encre); padding: 0.5em 0.45em; display: flex; flex-direction: column; gap: 0.18em; opacity: 0; transform: translateY(0.4em); transition: opacity 0.3s, transform 0.3s; }
+  .role.chef { border-width: 4px; border-color: var(--dk-accent); }
+  .role strong { font-size: 0.5em; letter-spacing: 0.04em; }
+  .role span { color: var(--dk-gris); font-size: 0.43em; line-height: 1.3; flex: 1; }
+  .role em { font-style: normal; font-size: 0.4em; letter-spacing: 0.08em; color: var(--dk-accent); border-top: 1px solid var(--dk-filet); padding-top: 0.25em; }
+  .socle { display: grid; grid-template-columns: auto 1fr; gap: 0.8em; align-items: center; opacity: 0; transition: opacity 0.3s; }
+  .chiffre { border: 3px solid var(--dk-encre); padding: 0.55em 0.7em; display: flex; flex-direction: column; }
+  .chiffre b { color: var(--dk-accent); font-size: 1.05em; line-height: 1; }
+  .chiffre span { color: var(--dk-gris); font-size: 0.44em; line-height: 1.25; max-width: 9em; }
+  .cle { border-left: 0.35em solid var(--dk-accent); padding-left: 0.65em; font-size: 0.62em; line-height: 1.45; }
   .vu { opacity: 1 !important; transform: none !important; }
-  @media (prefers-reduced-motion: reduce) { .ville, .chiffre, .cle { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .role, .socle { transition: none; } }
 </style>
