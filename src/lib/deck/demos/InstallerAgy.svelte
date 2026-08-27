@@ -1,7 +1,9 @@
 <script>
+  import Copier from '../Copier.svelte';
   // Diapositive d'atelier: tout est visible d'emblee. Personne ne doit
   // attendre un clic pendant qu'il tape une commande, et le depannage
   // reste affiche pendant qu'on fait le tour de la salle.
+  const CMD = 'curl -fsSL https://antigravity.google/cli/install.cmd -o install.cmd && install.cmd';
   const PLATEFORMES = [
     { os: 'macOS et Linux', ou: 'dans le Terminal', cmd: 'curl -fsSL https://antigravity.google/cli/install.sh | bash' },
     { os: 'Windows', ou: 'dans PowerShell', cmd: 'irm https://antigravity.google/cli/install.ps1 | iex' }
@@ -35,20 +37,20 @@
         <div class="plats">
           {#each PLATEFORMES as p}
             <div class="plat">
-              <span class="os">{p.os}<i>{p.ou}</i></span>
+              <div class="tete"><span class="os">{p.os}<i>{p.ou}</i></span><Copier texte={p.cmd} /></div>
               <code>{p.cmd}</code>
             </div>
           {/each}
         </div>
-        <small>Sous Windows, si PowerShell refuse, dans l'invite de commandes :</small>
-        <code class="repli">curl -fsSL https://antigravity.google/cli/install.cmd -o install.cmd &amp;&amp; install.cmd</code>
+        <div class="tete"><small>Sous Windows, si PowerShell refuse, dans l'invite de commandes :</small><Copier texte={CMD} /></div>
+        <code class="repli">{CMD}</code>
       </div>
     </li>
 
     <li>
       <span class="num">2</span>
       <div class="corps">
-        <strong>Lancer</strong>
+        <div class="tete"><strong>Lancer</strong><Copier texte="agy" /></div>
         <code class="seul gros">agy</code>
         <small>Le navigateur s'ouvre pour la connexion Google. Ensuite, la session est retenue
           dans le trousseau du système.</small>
@@ -72,10 +74,10 @@
       {/each}
     </div>
     <p class="partout">
-      <b>Dans les deux cas :</b> retapez la commande à la main plutôt que de la coller depuis un
-      PDF — les tirets et les guillemets s'y transforment en caractères que le terminal ne
-      comprend pas. Et sur un portable d'employeur, l'antivirus ou le VPN peut bloquer le
-      téléchargement : levez la main.
+      <b>Dans les deux cas :</b> servez-vous du bouton « copier » plutôt que de recopier la
+      commande depuis un PDF ou une capture — les tirets et les guillemets s'y transforment en
+      caractères que le terminal ne comprend pas. Et sur un portable d'employeur, l'antivirus ou
+      le VPN peut bloquer le téléchargement : levez la main.
     </p>
   </section>
 </div>
@@ -89,6 +91,7 @@
   .corps > strong { font-size: 0.62em; }
   .plats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5em; }
   .plat { display: flex; flex-direction: column; gap: 0.15em; min-width: 0; }
+  .tete { display: flex; align-items: center; justify-content: space-between; gap: 0.6em; }
   .os { color: var(--dk-accent); font-size: 0.47em; letter-spacing: 0.08em; }
   .os i { font-style: normal; color: var(--dk-gris); margin-left: 0.5em; }
   code { display: block; padding: 0.35em 0.5em; background: #0f1214; color: #8de0a9; font-size: 0.46em; line-height: 1.4; word-break: break-all; }

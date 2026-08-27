@@ -1,13 +1,13 @@
 <script>
   import { brancherTemps } from '../temps.js';
   let js = $state(false);
-  let e = $state(4);
+  let e = $state(3);
   let hote = $state(null);
   $effect(() => {
     if (!hote) return;
     js = true;
     e = 0;
-    return brancherTemps(hote, { total: 4, lire: () => e, ecrire: (v) => (e = v) });
+    return brancherTemps(hote, { total: 3, lire: () => e, ecrire: (v) => (e = v) });
   });
   const CAS = [
     {
@@ -43,11 +43,6 @@
     {/each}
   </div>
 
-  <p class="cle" class:vu={!js || e >= 4}>
-    <strong>Vous lui écrivez depuis votre téléphone ; il travaille sur un serveur à 5 $ par mois.</strong>
-    Ce n'est pas une démonstration technique : c'est du travail de recherche qui avance pendant
-    que vous faites autre chose.
-  </p>
 </div>
 
 <style>

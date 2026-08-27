@@ -45,6 +45,7 @@
   import ChevalHarnais from '$lib/deck/demos/ChevalHarnais.svelte';
   import ModeleHarnaisAgent from '$lib/deck/demos/ModeleHarnaisAgent.svelte';
   import PanoramaHarnais from '$lib/deck/demos/PanoramaHarnais.svelte';
+  import ReglesFichier from '$lib/deck/demos/ReglesFichier.svelte';
   import SkillFichier from '$lib/deck/demos/SkillFichier.svelte';
   import PluginPaquet from '$lib/deck/demos/PluginPaquet.svelte';
   import TexteVsBouton from '$lib/deck/demos/TexteVsBouton.svelte';
@@ -64,7 +65,7 @@
   import DefiAvis from '$lib/deck/demos/DefiAvis.svelte';
   import SourcesAgentiques from '$lib/deck/demos/SourcesAgentiques.svelte';
 
-  const TOTAL = 50;
+  const TOTAL = 51;
   const D = 'IA agentique · jeu 27 août';
 
   // Les trois terminaux du deuxième temps. Une commande par clic.
@@ -291,6 +292,11 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <Slide droite={D}>
+      <h2 class="e">AGENTS.md, ou CLAUDE.md</h2>
+      <ReglesFichier />
+    </Slide>
+
+    <Slide droite={D}>
       <h2 class="e">SKILL.md</h2>
       <SkillFichier />
     </Slide>
@@ -431,10 +437,6 @@ Explique-moi chaque étape au fur et à mesure.`;
           ></span
         >
       </div>
-      <p class="e">
-        Le troisième est le plus coûteux et le moins visible : on paie un raisonnement de pointe
-        pour des gestes qui n'en demandent aucun.
-      </p>
     </Slide>
 
     <Slide droite={D}>

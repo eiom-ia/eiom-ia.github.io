@@ -1,12 +1,18 @@
+<script>
+  import Copier from '../Copier.svelte';
+</script>
+
 <div class="da">
   <div class="fichier"><span>CSV</span><strong>avis.csv</strong><b>551 avis Google</b><small>français + anglais · texte des avis · notes · réponses</small></div>
   <div class="plus">+</div>
   <div class="harnais"><strong>UN HARNAIS</strong><span>Antigravity CLI</span><span>ou celui de votre choix</span></div>
   <div class="plus">+</div>
   <div class="modele"><strong>UN LLM GRATUIT</strong><span>aucun crédit payant</span><span>aucune API facturée</span></div>
-  <a class="telecharger" href="https://eiom-ia.github.io/avis.csv">
-    <span>À TÉLÉCHARGER</span><code>eiom-ia.github.io/avis.csv</code>
-  </a>
+  <div class="telecharger">
+    <span>À TÉLÉCHARGER</span>
+    <a href="https://eiom-ia.github.io/avis.csv"><code>eiom-ia.github.io/avis.csv</code></a>
+    <Copier texte="https://eiom-ia.github.io/avis.csv" />
+  </div>
   <div class="mission"><span>VOTRE SEULE CONSIGNE</span><strong>Faites une analyse de texte sur les avis eux-mêmes à l'aide d'un LLM.</strong></div>
   <div class="pistes">
     <span class="lab">QUATRE PISTES, AU CHOIX</span>
@@ -26,6 +32,7 @@
   .fichier { border-color: var(--dk-accent); position: relative; }.fichier > span { position: absolute; top: -0.65em; right: 0.5em; color: white; background: var(--dk-accent); padding: 0.25em 0.45em; font-size: 0.55em; }.fichier strong, .harnais strong, .modele strong { color: var(--dk-accent); font-size: 0.72em; }.fichier b { font-size: 0.95em; }.fichier small, .harnais span, .modele span { color: var(--dk-gris); font-size: 0.58em; line-height: 1.3; }
   .telecharger { grid-column: 1 / -1; display: flex; align-items: center; gap: 0.8em; padding: 0.4em 0.7em; background: var(--dk-encre); text-decoration: none; }
   .telecharger span { color: var(--dk-gris-2); font-size: 0.5em; letter-spacing: 0.14em; flex: none; }
+  .telecharger a { text-decoration: none; flex: 1; }
   .telecharger code { color: #8de0a9; font-size: 0.8em; white-space: nowrap; }
   .plus { color: var(--dk-accent); font-size: 1.7em; font-weight: 600; }
   .mission { grid-column: 1 / -1; border-left: 0.45em solid var(--dk-accent); padding: 0.5em 0 0.5em 0.9em; }.mission > span { display: block; color: var(--dk-accent); font-size: 0.56em; letter-spacing: 0.14em; }.mission strong { display: block; margin-top: 0.2em; font-size: 0.95em; line-height: 1.3; }
