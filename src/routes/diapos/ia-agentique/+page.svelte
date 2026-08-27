@@ -34,6 +34,7 @@
   import Deux from '$lib/deck/Deux.svelte';
   import Citation from '$lib/deck/Citation.svelte';
   import Minuterie from '$lib/deck/demos/Minuterie.svelte';
+  import InstallerAgy from '$lib/deck/demos/InstallerAgy.svelte';
   import Collage from '$lib/deck/demos/Collage.svelte';
   import Boucle from '$lib/deck/demos/Boucle.svelte';
   import Mcp from '$lib/deck/demos/Mcp.svelte';
@@ -63,7 +64,7 @@
   import DefiAvis from '$lib/deck/demos/DefiAvis.svelte';
   import SourcesAgentiques from '$lib/deck/demos/SourcesAgentiques.svelte';
 
-  const TOTAL = 50;
+  const TOTAL = 51;
   const D = 'IA agentique · jeu 27 août';
 
   // Les trois terminaux du deuxième temps. Une commande par clic.
@@ -253,6 +254,11 @@ Explique-moi chaque étape au fur et à mesure.`;
       <h1 class="e">À vous :<br />installer et lancer</h1>
       <hr class="filet" />
       <p class="lead e">On ouvre un terminal et on installe un harnais.</p>
+    </Slide>
+
+    <Slide droite={D}>
+      <h2 class="e">Installer Antigravity CLI</h2>
+      <InstallerAgy />
     </Slide>
 
     <Slide droite={D}>

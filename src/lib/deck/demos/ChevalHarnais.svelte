@@ -8,11 +8,11 @@
    */
   import { brancherTemps } from '../temps.js';
 
+  // e va de 0 a 2, un etat par temps: le repos est le premier, pas le dernier.
   const ETAPES = ['rodeo', 'harnache', 'travail'];
-  let js = $state(false);
-  let e = $state(ETAPES.length);
+  let e = $state(0);
   let hote = $state(null);
-  const phase = $derived(js && e > 0 ? ETAPES[e - 1] : 'travail');
+  const phase = $derived(ETAPES[Math.min(e, ETAPES.length - 1)]);
   const LEG = {
     rodeo: 'Seul, il ne va nulle part.',
     harnache: 'Le harnais, puis la charrette.',
@@ -21,9 +21,8 @@
 
   $effect(() => {
     if (!hote) return;
-    js = true;
     e = 0;
-    return brancherTemps(hote, { total: ETAPES.length, lire: () => e, ecrire: (v) => (e = v) });
+    return brancherTemps(hote, { total: ETAPES.length - 1, lire: () => e, ecrire: (v) => (e = v) });
   });
 </script>
 
