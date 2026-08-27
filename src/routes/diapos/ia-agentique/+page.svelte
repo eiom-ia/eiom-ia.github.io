@@ -199,7 +199,19 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <Slide fond="encre" droite={D}>
-      <h1 class="e">Le terminal</h1>
+      <div class="titre-shells e">
+        <h1>Le terminal</h1>
+        <div class="shells">
+          <figure>
+            <Logo nom="terminal" alt="Terminal, sur macOS" taille="5.4em" />
+            <figcaption>macOS<br />Terminal</figcaption>
+          </figure>
+          <figure>
+            <Logo nom="powershell" alt="PowerShell, sur Windows" taille="5.4em" />
+            <figcaption>Windows<br />PowerShell</figcaption>
+          </figure>
+        </div>
+      </div>
       <hr class="filet" />
     </Slide>
 
@@ -538,4 +550,9 @@ Explique-moi chaque étape au fur et à mesure.`;
     .commande-pont { grid-template-columns: 1fr; }
     .cp-fleche { transform: rotate(90deg); }
   }
+  .titre-shells { display: flex; align-items: center; justify-content: space-between; gap: 2em; }
+  .titre-shells h1 { margin: 0; }
+  .shells { display: flex; gap: 1.6em; flex: none; }
+  .shells figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 0.5em; }
+  .shells figcaption { color: var(--dk-fond); font-size: 0.5em; line-height: 1.35; letter-spacing: 0.1em; text-align: center; }
 </style>

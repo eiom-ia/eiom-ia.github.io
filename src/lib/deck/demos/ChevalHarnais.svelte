@@ -49,39 +49,46 @@
 
       <!-- le cheval -->
       <g class="animal" class:rue={phase === 'rodeo'}>
-        <path class="queue" d="M336 214 C286 196 268 150 300 132 C292 176 330 182 356 198 Z" />
-        <path class="jambe arriere" d="M372 268 L352 350" />
-        <path class="jambe arriere" d="M410 272 L418 350" />
-        <path class="corps" d="M336 246
-          C344 198 372 182 432 178
-          C486 175 524 172 556 166
-          C572 142 596 122 626 110
-          C648 101 668 97 684 93
-          C696 88 714 89 724 99
-          C740 114 750 132 752 148
-          C754 160 749 170 740 174
-          C726 180 710 178 702 170
-          C692 160 682 152 664 150
-          C636 148 612 158 592 178
-          C572 198 562 216 552 234
-          C544 252 534 264 514 270
-          C464 282 394 282 356 270
-          C342 265 335 258 336 246 Z" />
-        <path class="criniere" d="M600 168 C616 138 648 112 690 98 C664 122 640 152 626 182 Z" />
-        <path class="oreille" d="M700 92 L692 62 L716 86 Z" />
-        <path class="oreille" d="M722 92 L732 64 L740 96 Z" />
-        <circle class="oeil" cx="722" cy="126" r="5.5" />
-        <path class="jambe avant" d="M528 266 L520 350" />
-        <path class="jambe avant" d="M556 258 L572 350" />
-        <text class="llm" x="412" y="248" text-anchor="middle">LLM</text>
+        <path class="queue" d="M348 200 C326 208 312 232 308 262 C305 288 306 310 310 328" />
+        <path class="jambe arriere" d="M368 268 L352 350" />
+        <path class="jambe arriere" d="M404 274 L414 350" />
+        <!-- Une seule silhouette continue: croupe, creux du dos, garrot,
+             encolure, tete. Proportions d'un cheval: le tronc fait un peu
+             plus de deux fois sa hauteur, la tete un tiers du tronc, et
+             l'encolure la longueur de la tete. Trop longue, elle donnait
+             un lama. -->
+        <path class="corps" d="M345 202
+          C352 184 368 174 392 176
+          C432 180 470 186 500 186
+          C522 186 540 184 552 178
+          C586 160 618 132 648 108
+          C662 100 676 100 684 112
+          C702 130 722 144 738 154
+          C748 160 752 172 744 180
+          C736 187 720 186 706 182
+          C692 178 680 174 666 174
+          C642 182 618 198 600 218
+          C584 232 574 244 566 256
+          C558 268 546 274 528 277
+          C486 284 432 284 398 276
+          C372 270 356 256 348 236
+          C344 224 343 212 345 202 Z" />
+        <path class="criniere" d="M656 108 C628 125 604 146 582 172 C570 186 560 200 554 212" />
+        <path class="toupet" d="M666 102 C676 108 682 114 686 122" />
+        <path class="oreille" d="M648 110 L654 78 L668 104 Z" />
+        <path class="oreille" d="M668 104 L682 76 L690 108 Z" />
+        <circle class="oeil" cx="676" cy="131" r="5.5" />
+        <path class="jambe avant" d="M534 272 L528 350" />
+        <path class="jambe avant" d="M560 266 L574 350" />
+        <text class="llm" x="445" y="242" text-anchor="middle">LLM</text>
 
         <!-- le harnais -->
         <g class="harnais" class:vu={phase !== 'rodeo'}>
-          <ellipse class="collier" cx="568" cy="202" rx="15" ry="41" transform="rotate(-27 568 202)" />
-          <path class="sangle" d="M498 176 C498 220 498 248 500 268" />
-          <path class="sangle" d="M542 172 C542 216 542 244 544 264" />
-          <path class="dos" d="M498 176 L552 170" />
-          <path class="trait" d="M552 232 L300 270" />
+          <ellipse class="collier" cx="572" cy="222" rx="15" ry="42" transform="rotate(-32 572 222)" />
+          <path class="sangle" d="M498 186 C498 230 498 260 499 282" />
+          <path class="sangle" d="M540 183 C540 226 540 254 541 277" />
+          <path class="dos" d="M498 186 L540 183" />
+          <path class="trait" d="M556 240 L300 270" />
         </g>
       </g>
 
@@ -112,7 +119,11 @@
   .cheval { width: 100%; display: flex; flex-direction: column; gap: 0.35em; }
   svg { width: 100%; height: auto; overflow: visible; }
   .sol { stroke: var(--dk-filet); stroke-width: 3; }
-  .corps, .queue, .criniere, .oreille { fill: var(--dk-encre); }
+  .corps, .oreille { fill: var(--dk-encre); }
+  .queue, .criniere, .toupet { fill: none; stroke: var(--dk-encre); stroke-linecap: round; }
+  .queue { stroke-width: 17; }
+  .criniere { stroke-width: 21; }
+  .toupet { stroke-width: 11; }
   .oeil { fill: var(--dk-fond); }
   .jambe { stroke: var(--dk-encre); stroke-width: 15; stroke-linecap: round; fill: none; }
   .llm { fill: var(--dk-fond); font-family: var(--dk-mono); font-size: 34px; font-weight: 600; letter-spacing: 3px; }
@@ -141,7 +152,7 @@
   .animal.rue { animation: ruade 0.85s ease-in-out infinite; }
   @keyframes ruade {
     0%, 100% { transform: rotate(0deg) translateY(0); }
-    35% { transform: rotate(-17deg) translateY(-16px); }
+    35% { transform: rotate(-12deg) translateY(-11px); }
     70% { transform: rotate(7deg) translateY(4px); }
   }
   .poussiere { opacity: 0; transition: opacity 0.3s; }

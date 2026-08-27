@@ -38,12 +38,6 @@
     {/each}
   </div>
 
-  <p class="partout">
-    <b>Dans les deux cas :</b> servez-vous du bouton « copier » plutôt que de recopier la commande
-    depuis une capture — les tirets et les guillemets s'y transforment en caractères que le
-    terminal ne comprend pas. Et sur un portable d'employeur, l'antivirus ou le VPN peut bloquer
-    le téléchargement : levez la main.
-  </p>
 </div>
 
 <style>
@@ -56,6 +50,4 @@
   dd { margin: 0.12em 0 0; color: var(--dk-gris); font-size: 0.6em; line-height: 1.5; }
   dd :global(code) { display: inline; padding: 0.06em 0.3em; background: var(--dk-fond-2); color: var(--dk-encre); font-size: 1em; }
   dd :global(b) { color: var(--dk-encre); }
-  .partout { border-left: 0.35em solid #8f1822; padding-left: 0.7em; font-size: 0.62em; line-height: 1.5; }
-  .partout b { color: #8f1822; }
 </style>
