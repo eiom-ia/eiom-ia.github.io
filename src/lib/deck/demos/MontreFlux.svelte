@@ -28,13 +28,13 @@
       <div class="cal-grille">
         {#each ['L', 'M', 'M', 'J', 'V', 'S', 'D'] as j}<i class="jour">{j}</i>{/each}
         {#each Array(7) as _, k}
-          <i class="case" class:seance={k === 2}>{k === 2 ? '10×400' : ''}</i>
+          <i class="case" class:seance={k === 2}>{k === 2 ? '3×4km' : ''}</i>
         {/each}
       </div>
       <small>la séance est déposée au bon jour</small>
     </div>
     <b class="vers-bas">↓</b>
-  <div class="montre"><div class="cadran"><span>10 × 400 m</span><strong>4:05/km</strong></div><b></b><b></b><p>LA MONTRE SE SYNCHRONISE</p></div>
+  <div class="montre"><div class="cadran"><span>3 × 4 km</span><strong>5:40/km</strong></div><b></b><b></b><p>LA MONTRE SE SYNCHRONISE</p></div>
   </div>
 </div>
 

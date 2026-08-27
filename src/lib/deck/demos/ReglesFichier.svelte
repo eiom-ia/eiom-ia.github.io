@@ -60,17 +60,17 @@ Git pour tout le reste.`;
 <style>
   .rg { width: 100%; display: grid; grid-template-columns: 1.7fr 1fr; gap: 0.8em; align-items: start; }
   .fenetre { border: 3px solid var(--dk-encre); overflow: hidden; }
-  .chemin { display: flex; align-items: center; justify-content: space-between; gap: 0.6em; padding: 0.28em 0.4em 0.28em 0.55em; color: var(--dk-fond); background: var(--dk-encre); font-size: 0.46em; }
+  .chemin { display: flex; align-items: center; justify-content: space-between; gap: 0.6em; padding: 0.28em 0.4em 0.28em 0.55em; color: var(--dk-fond); background: var(--dk-encre); font-size: 0.58em; }
   .chemin b { color: white; }
   pre { margin: 0; padding: 0.6em 0.7em; background: #0f1214; overflow-x: auto; }
-  code { font-size: 0.44em; line-height: 1.55; color: #cfd8e3; }
+  code { font-size: 0.6em; line-height: 1.5; color: #cfd8e3; }
   .bloc { display: block; opacity: 0; transition: opacity 0.3s; }
   aside { display: flex; flex-direction: column; gap: 0.55em; }
   .note { border-left: 0.35em solid var(--dk-accent); padding-left: 0.6em; display: flex; flex-direction: column; gap: 0.1em; opacity: 0; transform: translateY(0.35em); transition: opacity 0.3s, transform 0.3s; }
-  .note strong { font-size: 0.55em; letter-spacing: 0.1em; }
-  .note span { color: var(--dk-gris); font-size: 0.5em; line-height: 1.35; }
+  .note strong { font-size: 0.68em; letter-spacing: 0.08em; }
+  .note span { color: var(--dk-gris); font-size: 0.62em; line-height: 1.45; }
   .note span code { font-size: 1em; color: var(--dk-encre); }
-  .fin { border-top: 3px solid var(--dk-encre); padding-top: 0.5em; font-size: 0.62em; opacity: 0; transition: opacity 0.3s; }
+  .fin { border-top: 3px solid var(--dk-encre); padding-top: 0.55em; font-size: 0.74em; opacity: 0; transition: opacity 0.3s; }
   .vu { opacity: 1 !important; transform: none !important; }
   @media (prefers-reduced-motion: reduce) { .bloc, .note, .fin { transition: none; } }
 </style>

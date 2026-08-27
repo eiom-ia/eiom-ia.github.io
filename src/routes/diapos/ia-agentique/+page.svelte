@@ -34,6 +34,7 @@
   import Deux from '$lib/deck/Deux.svelte';
   import Citation from '$lib/deck/Citation.svelte';
   import InstallerAgy from '$lib/deck/demos/InstallerAgy.svelte';
+  import DepannageAgy from '$lib/deck/demos/DepannageAgy.svelte';
   import Collage from '$lib/deck/demos/Collage.svelte';
   import Boucle from '$lib/deck/demos/Boucle.svelte';
   import Mcp from '$lib/deck/demos/Mcp.svelte';
@@ -54,7 +55,7 @@
   import GitVersion from '$lib/deck/demos/GitVersion.svelte';
   import FluxRecherche from '$lib/deck/demos/FluxRecherche.svelte';
   import InjectionIndirecte from '$lib/deck/demos/InjectionIndirecte.svelte';
-  import CoutJetons from '$lib/deck/demos/CoutJetons.svelte';
+  import LimitesUsage from '$lib/deck/demos/LimitesUsage.svelte';
   import Beads from '$lib/deck/demos/Beads.svelte';
   import Gastown from '$lib/deck/demos/Gastown.svelte';
   import HermesFusion from '$lib/deck/demos/HermesFusion.svelte';
@@ -66,7 +67,7 @@
   import DefiAvis from '$lib/deck/demos/DefiAvis.svelte';
   import SourcesAgentiques from '$lib/deck/demos/SourcesAgentiques.svelte';
 
-  const TOTAL = 52;
+  const TOTAL = 53;
   const D = 'IA agentique · jeu 27 août';
 
   // Les trois terminaux du deuxième temps. Une commande par clic.
@@ -264,6 +265,11 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <Slide droite={D}>
+      <h2 class="e">Si ça ne marche pas</h2>
+      <DepannageAgy />
+    </Slide>
+
+    <Slide droite={D}>
       <h2 class="e">À votre tour d'essayer</h2>
       <Code src={c_prompt_vague} brut />
     </Slide>
@@ -366,8 +372,8 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <Slide droite={D}>
-      <h2 class="e">Deux façons de payer l'agent</h2>
-      <CoutJetons />
+      <h2 class="e">Savoir où vous en êtes</h2>
+      <LimitesUsage />
     </Slide>
 
     <Slide droite={D}>
