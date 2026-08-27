@@ -205,11 +205,11 @@ Explique-moi chaque étape au fur et à mesure.`;
         <h1>Le terminal</h1>
         <div class="shells">
           <figure>
-            <Logo nom="terminal" alt="Terminal, sur macOS" taille="5.4em" />
+            <img src="{base}/img/logos/terminal.png" alt="Terminal, sur macOS" />
             <figcaption>macOS<br />Terminal</figcaption>
           </figure>
           <figure>
-            <Logo nom="powershell" alt="PowerShell, sur Windows" taille="5.4em" />
+            <img src="{base}/img/logos/powershell.png" alt="PowerShell, sur Windows" />
             <figcaption>Windows<br />PowerShell</figcaption>
           </figure>
         </div>
@@ -566,5 +566,6 @@ Explique-moi chaque étape au fur et à mesure.`;
   .titre-shells h1 { margin: 0; }
   .shells { display: flex; gap: 1.6em; flex: none; }
   .shells figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 0.5em; }
+  .shells img { display: block; width: 5.6em; height: 5.6em; }
   .shells figcaption { color: var(--dk-fond); font-size: 0.5em; line-height: 1.35; letter-spacing: 0.1em; text-align: center; }
 </style>
