@@ -376,7 +376,7 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <Slide droite={D}>
-      <h2 class="e">Text based vs GUI based</h2>
+      <h2 class="e">Text vs GUI</h2>
       <TexteVsBouton />
     </Slide>
 
