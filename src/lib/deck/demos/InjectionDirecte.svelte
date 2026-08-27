@@ -21,7 +21,7 @@
     <div class="acteur agent"><strong>L'AGENT</strong><span>exécute</span></div>
   </div>
 
-  <div class="deux" class:vu={!js || e >= 2}>
+  <div class="trois-pts" class:vu={!js || e >= 2}>
     <div class="pt">
       <strong>C'EST VISIBLE</strong>
       <span>La consigne est dans votre propre message. Vous la voyez, vous l'avez écrite.</span>
@@ -48,12 +48,12 @@
   .bulle { border: 3px dashed var(--dk-gris-2); padding: 0.7em 0.85em; font-size: 0.68em; line-height: 1.45; }
   .bulle code { font-size: 0.95em; }
   .fl { color: var(--dk-accent); font-size: 1.3em; }
-  .deux { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6em; opacity: 0; transform: translateY(0.4em); transition: opacity 0.3s, transform 0.3s; }
+  .trois-pts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6em; opacity: 0; transform: translateY(0.4em); transition: opacity 0.3s, transform 0.3s; }
   .pt { border-top: 3px solid var(--dk-encre); padding-top: 0.5em; display: flex; flex-direction: column; gap: 0.2em; }
   .pt strong { font-size: 0.55em; letter-spacing: 0.1em; }
   .pt span { color: var(--dk-gris); font-size: 0.52em; line-height: 1.4; }
   .pt.fort { border-top-color: var(--dk-accent); }
   .pt.fort strong { color: var(--dk-accent); }
   .vu { opacity: 1 !important; transform: none !important; }
-  @media (prefers-reduced-motion: reduce) { .scene, .deux { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .scene, .trois-pts { transition: none; } }
 </style>

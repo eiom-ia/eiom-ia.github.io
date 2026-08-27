@@ -8,6 +8,7 @@
         ['github.com/Piebald-AI/claude-code-system-prompts', 'prompts internes capturés, versions 2.1.x'],
         ['github.com/MoonshotAI/kimi-cli', 'Kimi CLI'],
         ['github.com/deepseek-ai/deepseek-harness', 'DeepSeek Harness'],
+        ['docs.openclaw.ai', 'OpenClaw, et son pont ACP vers les autres harnais'],
         ['github.com/lm-sys/RouteLLM', 'routage et évaluation de modèles']
       ]
     },
@@ -38,10 +39,12 @@
       sources: [
         ['simonwillison.net/tags/prompt-injection', 'injection indirecte et « triade létale »'],
         ['platform.claude.com/docs/en/about-claude/pricing', 'prix par million de jetons, cache et lots'],
+        ['claude.com/pricing', 'grille des abonnements Pro et Max'],
         ['github.com/gastownhall/gastown', 'Gastown, l’orchestrateur de Steve Yegge'],
         ['maggieappleton.com/gastown', 'les rôles de Gastown, observés de près'],
         ['cnrtl.fr/definition/agent', 'Trésor de la langue française, sens 1 et 2'],
-        ['gdt.oqlf.gouv.qc.ca, fiche 8383172', 'OQLF, vocabulaire de l’intelligence artificielle, 2020']
+        ['gdt.oqlf.gouv.qc.ca, fiche 8383172', 'OQLF, vocabulaire de l’intelligence artificielle, 2020'],
+        ['coros.com', 'logo Coros, repris à la source']
       ]
     }
   ];
