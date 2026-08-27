@@ -32,6 +32,15 @@
         ['openrouter.ai/docs/guides/routing/routers/auto-router', 'classification et routage automatique'],
         ['donnees/ligne_rouge.csv', '551 avis du corpus pédagogique']
       ]
+    },
+    {
+      titre: 'Sécurité, coût et orchestration',
+      sources: [
+        ['simonwillison.net/tags/prompt-injection', 'injection indirecte et « triade létale »'],
+        ['platform.claude.com/docs/en/about-claude/pricing', 'prix par million de jetons, cache et lots'],
+        ['github.com/gastownhall/gastown', 'Gastown, l’orchestrateur de Steve Yegge'],
+        ['maggieappleton.com/gastown', 'les rôles de Gastown, observés de près']
+      ]
     }
   ];
 </script>
@@ -44,7 +53,7 @@
 </div>
 
 <style>
-  .sources-a { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; width: 100%; }
+  .sources-a { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8em; width: 100%; }
   section { border-top: 0.3em solid var(--dk-accent); padding-top: 0.45em; }
   h3 { color: var(--dk-accent); font-size: 0.64em; letter-spacing: 0.08em; }
   ul { list-style: none; padding: 0; margin: 0.45em 0 0; display: flex; flex-direction: column; gap: 0.38em; }

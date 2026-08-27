@@ -48,6 +48,12 @@
   import PluginPaquet from '$lib/deck/demos/PluginPaquet.svelte';
   import TexteVsBouton from '$lib/deck/demos/TexteVsBouton.svelte';
   import PassagesTexte from '$lib/deck/demos/PassagesTexte.svelte';
+  import Injection from '$lib/deck/demos/Injection.svelte';
+  import TriadeLetale from '$lib/deck/demos/TriadeLetale.svelte';
+  import CoutJetons from '$lib/deck/demos/CoutJetons.svelte';
+  import CoutCorpus from '$lib/deck/demos/CoutCorpus.svelte';
+  import Beads from '$lib/deck/demos/Beads.svelte';
+  import Gastown from '$lib/deck/demos/Gastown.svelte';
   import HermesCloud from '$lib/deck/demos/HermesCloud.svelte';
   import HermesPortrait from '$lib/deck/demos/HermesPortrait.svelte';
   import HermesProjets from '$lib/deck/demos/HermesProjets.svelte';
@@ -58,7 +64,7 @@
   import DefiAvis from '$lib/deck/demos/DefiAvis.svelte';
   import SourcesAgentiques from '$lib/deck/demos/SourcesAgentiques.svelte';
 
-  const TOTAL = 45;
+  const TOTAL = 52;
   const D = 'IA agentique · mar 25 août';
 
   // Les trois terminaux du deuxième temps. Une commande par clic.
@@ -323,10 +329,21 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <!-- ================= 5 · CE QUI PEUT MAL TOURNER ================= -->
+    <Slide fond="encre" bandeau="Ce qui peut mal tourner" droite={D}>
+      <h1 class="e">Le texte qu'il lit<br />peut lui donner des ordres</h1>
+      <hr class="filet" />
+      <p class="lead e">On vient de lui ouvrir vos fichiers, vos outils et vos données. Voici la facture.</p>
+    </Slide>
 
+    <Slide bandeau="Deux portes" droite={D}>
+      <h2 class="e">L'injection directe et l'injection indirecte</h2>
+      <Injection />
+    </Slide>
 
-
-
+    <Slide bandeau="Les trois conditions" droite={D}>
+      <h2 class="e">Il faut les trois pour se faire avoir</h2>
+      <TriadeLetale />
+    </Slide>
 
 
     <!-- ================= 6 · UN BON FLUX DE TRAVAIL ================= -->
@@ -350,6 +367,16 @@ Explique-moi chaque étape au fur et à mesure.`;
       <Contexte2 />
     </Slide>
 
+    <Slide bandeau="Ce que ça coûte" droite={D}>
+      <h2 class="e">Vous payez au jeton, dans les deux sens</h2>
+      <CoutJetons />
+    </Slide>
+
+    <Slide bandeau="Sur votre corpus" droite={D}>
+      <h2 class="e">Ce que coûterait vraiment l'exercice de tantôt</h2>
+      <CoutCorpus />
+    </Slide>
+
     <Slide bandeau="La bonne unité de travail" droite={D}>
       <h2 class="e">Une tâche, un début, une fin vérifiable</h2>
       <div class="pduo tache-unite">
@@ -366,6 +393,16 @@ Explique-moi chaque étape au fur et à mesure.`;
           <p class="e credits">On sait quand c'est fini, et on peut vérifier chaque ligne.</p>
         </div>
       </div>
+    </Slide>
+
+    <Slide bandeau="Beads" droite={D}>
+      <h2 class="e">Quand la tâche survit à la séance</h2>
+      <Beads />
+    </Slide>
+
+    <Slide bandeau="Gastown" droite={D}>
+      <h2 class="e">Le même principe, poussé à trente agents</h2>
+      <Gastown />
     </Slide>
 
     <!-- ================= 7 · AGENTS PERMANENTS ================= -->

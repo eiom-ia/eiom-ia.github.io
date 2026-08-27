@@ -5,7 +5,7 @@
     <div class="bead a"><b>BD-1</b><span>collecter</span></div><i>→</i><div class="bead b"><b>BD-2</b><span>nettoyer</span></div><i>→</i><div class="bead c"><b>BD-3</b><span>analyser</span></div><i>→</i><div class="bead d"><b>BD-4</b><span>vérifier</span></div>
   </div>
   <div class="cycle"><code>bd create</code><span>→</span><code>bd ready</code><span>→</span><code>bd close</code></div>
-  <p class="idee"><strong>Beads, créé par Steve Yegge:</strong> un graphe de petites tâches persistantes. Chaque agent prend un problème fermé, le termine, puis libère le suivant.</p>
+  <p class="idee"><strong>C’est exactement ce que fait beads,</strong> vu tantôt : un graphe de petites tâches persistantes. Chaque agent prend un problème fermé, le termine, puis libère le suivant.</p>
 </div>
 
 <style>
