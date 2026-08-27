@@ -106,9 +106,9 @@
   // ecrit spontanement; le second dit la meme chose en ne laissant rien a
   // deviner. On les fait tourner l'un apres l'autre, sur la meme tache.
   // Accents conserves: ces blocs se collent dans un agent, pas dans R.
-  const c_prompt_vague = `Télécharge l'étude électorale canadienne 2025 et utilise R
-pour faire une régression entre l'éducation et le fait d'être
-à droite, en contrôlant pour l'âge et le revenu.
+  const c_prompt_vague = `Télécharge l'étude électorale canadienne 2025 et fais une
+régression entre l'éducation et le fait d'être à droite,
+en contrôlant pour l'âge et le revenu.
 
 Produis un tableau de régression en PNG et exporte-le dans
 mes téléchargements.`;
