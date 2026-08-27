@@ -27,7 +27,7 @@
         ['github.com/letta-ai/letta', 'agents avec état'],
         ['github.com/gastownhall/beads', 'beads, créé par Steve Yegge'],
         ['openrouter.ai/docs/guides/routing/routers/auto-router', 'classification et routage automatique'],
-        ['donnees/ligne_rouge.csv', '551 avis du corpus pédagogique']
+        ['eiom-ia.github.io/avis.csv', '551 avis du corpus pédagogique, à télécharger']
       ]
     },
     {

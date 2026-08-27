@@ -458,7 +458,7 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <Slide droite={D}>
-      <h2 class="e">Une ville d'agents, un modèle par métier</h2>
+      <h2 class="e">Gastown, une armée d'agents</h2>
       <Gastown />
     </Slide>
 

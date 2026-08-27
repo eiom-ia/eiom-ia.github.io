@@ -106,3 +106,21 @@ describe('avis réels extraits du corpus La Ligne Rouge', () => {
     expect(mur.avis.some((a) => a.langue === 'en')).toBe(true);
   });
 });
+
+// Le corpus est téléchargé en classe depuis une URL courte, tapée au clavier
+// depuis le projecteur: static/avis.csv. C'est une copie de celui du dossier
+// materiel/, qui part avec le reste du matériel. Deux fichiers, donc deux
+// occasions de diverger — sauf si la compilation le refuse.
+describe('le corpus servi en classe', () => {
+  it('est exactement celui du dossier matériel', () => {
+    const court = readFileSync('static/avis.csv');
+    const long = readFileSync('static/materiel/donnees/ligne_rouge.csv');
+    expect(court.equals(long)).toBe(true);
+  });
+
+  it('contient bien les 551 avis annoncés', () => {
+    const lignes = readFileSync('static/avis.csv', 'utf8').trim().split('\n');
+    expect(lignes[0]).toContain('avis');
+    expect(lignes.length).toBeGreaterThan(551);
+  });
+});
