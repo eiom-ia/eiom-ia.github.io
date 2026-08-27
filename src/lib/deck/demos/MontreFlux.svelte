@@ -13,21 +13,35 @@
   <div class="agent"><Logo nom="anthropic" alt="Anthropic" taille="3em" /><strong>CLAUDE CODE</strong><span>compose la séance</span></div>
   <div class="permission"><span>1</span><strong>VOUS DEMANDE L'ACCORD</strong><small>avant toute écriture</small></div>
   <div class="api"><span>2</span><strong>OUTIL COROS</strong><small>traduit la séance vers l'API privée reconstituée</small></div>
+  <!-- Le trait vit dans sa propre colonne: tant qu'il etait un SVG etire
+       par-dessus toute la grille, il barrait le texte de l'etape 1. -->
+  <div class="fleche">
+    <svg viewBox="0 0 120 24" aria-hidden="true">
+      <path class="flux" d="M2 12 H104" />
+      <path class="pointe" d="M100 4 L116 12 L100 20" />
+    </svg>
+    <span>la séance part</span>
+  </div>
   <div class="montre"><div class="cadran"><span>10 × 400 m</span><strong>4:05/km</strong></div><b></b><b></b><p>LA MONTRE REÇOIT LA SÉANCE</p></div>
-  <svg viewBox="0 0 1000 400" aria-hidden="true"><path d="M500 190 L500 250 L765 250" /><path d="M760 242 L776 250 L760 258" /></svg>
 </div>
 
 <style>
-  .mf { width: 100%; position: relative; display: grid; grid-template-columns: 1.2fr 0.8fr 1fr; grid-template-rows: auto auto auto; gap: 0.55em 0.8em; align-items: center; }
-  .services { grid-column: 1 / 4; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65em; }
+  .mf { width: 100%; display: grid; grid-template-columns: 1.15fr 1fr auto 0.85fr; grid-template-rows: auto auto auto auto; gap: 0.55em 0.7em; align-items: center; }
+  .services { grid-column: 1 / 5; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65em; }
   .services div { border: 2px solid var(--dk-encre); padding: 0.5em; display: grid; grid-template-columns: auto 1fr; gap: 0.05em 0.5em; }
   .services :global(.logo), .services :global(.picto) { grid-row: span 2; }.services strong { font-size: 0.65em; }.services span { color: var(--dk-gris); font-size: 0.55em; }
-  .vers-agent { grid-column: 1 / 4; text-align: center; color: var(--dk-accent); font-size: 0.58em; }
-  .agent { grid-column: 1; border: 4px solid var(--dk-accent); padding: 0.75em; display: grid; grid-template-columns: auto 1fr; gap: 0.1em 0.6em; }.agent :global(.logo) { grid-row: span 2; }.agent strong { font-size: 0.72em; }.agent span { color: var(--dk-gris); font-size: 0.57em; }
+  .vers-agent { grid-column: 1 / 5; text-align: center; color: var(--dk-accent); font-size: 0.58em; }
+  .agent { grid-column: 1; grid-row: 3 / 5; border: 4px solid var(--dk-accent); padding: 0.75em; display: grid; grid-template-columns: auto 1fr; gap: 0.1em 0.6em; }.agent :global(.logo) { grid-row: span 2; }.agent strong { font-size: 0.72em; }.agent span { color: var(--dk-gris); font-size: 0.57em; }
+  .permission { grid-column: 2; grid-row: 3; }
+  .api { grid-column: 2; grid-row: 4; }
   .permission, .api { border-left: 0.35em solid var(--dk-accent); padding: 0.5em; display: grid; grid-template-columns: 1.4em 1fr; gap: 0 0.4em; }.permission span, .api span { grid-row: span 2; color: var(--dk-accent); font-size: 1.2em; font-weight: 600; }.permission strong, .api strong { font-size: 0.58em; }.permission small, .api small { color: var(--dk-gris); font-size: 0.5em; }
-  .montre { grid-column: 3; grid-row: 3 / 5; justify-self: center; display: flex; flex-direction: column; align-items: center; }
+  .fleche { grid-column: 3; grid-row: 3 / 5; display: flex; flex-direction: column; align-items: center; gap: 0.3em; }
+  .fleche svg { width: 5.5em; height: 1.2em; overflow: visible; }
+  .fleche path { fill: none; stroke: var(--dk-accent); stroke-width: 5; }
+  .fleche .flux { stroke-dasharray: 10 8; animation: flux 0.7s linear infinite; }
+  .fleche span { color: var(--dk-gris); font-size: 0.48em; letter-spacing: 0.08em; }
+  .montre { grid-column: 4; grid-row: 3 / 5; justify-self: center; display: flex; flex-direction: column; align-items: center; }
   .cadran { width: 7em; height: 7em; border: 0.6em solid var(--dk-encre); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--dk-accent); color: white; }.cadran span { font-size: 0.52em; }.cadran strong { font-size: 0.8em; }.montre b { display: block; width: 2.5em; height: 0.6em; background: var(--dk-encre); }.montre p { margin-top: 0.4em; font-size: 0.48em; text-align: center; }
-  svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; } svg path { fill: none; stroke: var(--dk-accent); stroke-width: 6; stroke-dasharray: 10 8; animation: flux 0.7s linear infinite; }
   @keyframes flux { to { stroke-dashoffset: -18; } }
-  @media (prefers-reduced-motion: reduce) { svg path { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .fleche .flux { animation: none; } }
 </style>
