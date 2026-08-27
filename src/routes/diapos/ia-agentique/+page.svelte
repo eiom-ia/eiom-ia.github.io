@@ -169,6 +169,11 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <Slide droite={D}>
+      <h2 class="e">Un harnais, c'est le programme qui tient la bride</h2>
+      <ChevalHarnais />
+    </Slide>
+
+    <Slide droite={D}>
       <h2 class="e">Le modèle, le harnais, l'agent</h2>
       <ModeleHarnaisAgent />
     </Slide>
@@ -181,11 +186,6 @@ Explique-moi chaque étape au fur et à mesure.`;
     <Slide droite={D}>
       <h2 class="e">Le harnais relie le modèle et la machine</h2>
       <Boucle harnais />
-    </Slide>
-
-    <Slide droite={D}>
-      <h2 class="e">Un harnais, c'est le programme qui tient la bride</h2>
-      <ChevalHarnais />
     </Slide>
 
     <Slide droite={D}>
