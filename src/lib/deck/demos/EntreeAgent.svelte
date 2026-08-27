@@ -10,23 +10,33 @@
     <span class="pron">[aʒɑ̃, aʒɑ̃t]</span>
   </header>
   <p class="nature">nom <abbr title="masculin">m.</abbr> et <abbr title="féminin">f.</abbr></p>
-  <p class="origine"><strong>ÉTYM.</strong> XII<sup>e</sup> ; latin <i>agens</i>, « qui agit ».</p>
+  <p class="origine">
+    <strong>ÉTYM.</strong> 1337 comme adjectif ; 1680 comme nom ; du latin <i>agens</i>, participe
+    présent de <i>agere</i>, « agir ».
+  </p>
   <ol>
     <li>
-      <span class="sens">Personne qui agit</span> pour le compte d'une autre personne ou d'une
-      organisation. <i>Agent immobilier. Agent de voyage.</i>
+      <span class="sens">Celui qui exerce une action</span>, par opposition au <i>patient</i>, qui la
+      subit. <span class="dom">(philosophie)</span>
     </li>
     <li>
-      <span class="sens">Ce qui produit un effet.</span> <i>Un agent de transformation.</i>
+      <span class="sens">Personne qui, dans un domaine limité, exerce une action d'exécution</span>
+      pour le compte d'une autorité publique ou privée. <i>Agent immobilier. Agent de voyage.</i>
     </li>
     <li class="retenu">
-      <span class="marque">IA</span>
-      Entité autonome <span class="sens">mandatée pour agir dans le monde</span> afin d'atteindre
-      un objectif au nom d'un mandant.
-      <div class="traits"><span>DÉLÉGATION</span><span>AUTONOMIE</span><span>EFFECTIVITÉ</span></div>
+      <span class="marque">INTELL. ARTIF.</span>
+      <span class="sens">« Entité physique ou virtuelle capable de percevoir son environnement et
+      d'agir sur lui. »</span>
+      <div class="notule">
+        Un agent peut être un logiciel ou un robot. Plusieurs agents qui interagissent forment un
+        <i>système multiagent</i>.
+      </div>
     </li>
   </ol>
-  <footer><span>AGIR</span><span>MANDAT</span><span>EFFET</span></footer>
+  <footer>
+    <span>1 et 2 · Trésor de la langue française</span>
+    <span>3 · Office québécois de la langue française, 2020</span>
+  </footer>
 </article>
 
 <style>
@@ -82,7 +92,7 @@
     letter-spacing: 0.08em;
     vertical-align: 0.2em;
   }
-  .traits { display: flex; gap: 0.75em; margin-top: 0.45em; font-family: var(--dk-mono); }
-  .traits span { color: #8f1822; font-size: 0.5em; letter-spacing: 0.08em; }
-  footer { display: flex; justify-content: flex-end; gap: 1.1em; margin-top: 0.55em; color: #655f56; font-size: 0.48em; letter-spacing: 0.14em; }
+  .dom { color: #655f56; font-style: italic; font-size: 0.85em; }
+  .notule { margin-top: 0.35em; color: #4a453d; font-size: 0.7em; line-height: 1.3; }
+  footer { display: flex; justify-content: flex-end; gap: 1.4em; margin-top: 0.55em; color: #655f56; font-size: 0.46em; letter-spacing: 0.08em; font-family: var(--dk-mono); }
 </style>

@@ -39,7 +39,9 @@
         ['simonwillison.net/tags/prompt-injection', 'injection indirecte et « triade létale »'],
         ['platform.claude.com/docs/en/about-claude/pricing', 'prix par million de jetons, cache et lots'],
         ['github.com/gastownhall/gastown', 'Gastown, l’orchestrateur de Steve Yegge'],
-        ['maggieappleton.com/gastown', 'les rôles de Gastown, observés de près']
+        ['maggieappleton.com/gastown', 'les rôles de Gastown, observés de près'],
+        ['cnrtl.fr/definition/agent', 'Trésor de la langue française, sens 1 et 2'],
+        ['gdt.oqlf.gouv.qc.ca, fiche 8383172', 'OQLF, vocabulaire de l’intelligence artificielle, 2020']
       ]
     }
   ];
@@ -49,7 +51,7 @@
   {#each GROUPES as g}
     <section><h3>{g.titre}</h3><ul>{#each g.sources as s}<li><strong>{s[0]}</strong><span>{s[1]}</span></li>{/each}</ul></section>
   {/each}
-  <p>Images de fiction utilisées à titre d'illustration. Logos et personnage Nous repris des comptes ou dépôts publics des organisations. Style lexicographique inspiré des dictionnaires Le Robert.</p>
+  <p>Images de fiction utilisées à titre d'illustration. Logos et personnage Nous repris des comptes ou dépôts publics des organisations. Mise en page lexicographique inspirée des dictionnaires Le Robert ; les définitions viennent des sources citées.</p>
 </div>
 
 <style>
