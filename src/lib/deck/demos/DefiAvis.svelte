@@ -22,7 +22,6 @@
       <div><b>LES SUGGESTIONS</b><span>Que réclament les clients ? Extrayez chaque reproche actionnable.</span></div>
       <div><b>LA VÔTRE</b><span>Le service, l'attente, le prix, la comparaison français / anglais… votre question.</span></div>
     </div>
-    <p>La méthode et la forme du résultat vous appartiennent. Codez-en cinquante à la main d'abord : c'est votre seul moyen de savoir si la machine a raison.</p>
   </div>
 </div>
 
@@ -33,7 +32,7 @@
   .telecharger { grid-column: 1 / -1; display: flex; align-items: center; gap: 0.8em; padding: 0.4em 0.7em; background: var(--dk-encre); text-decoration: none; }
   .telecharger span { color: var(--dk-gris-2); font-size: 0.5em; letter-spacing: 0.14em; flex: none; }
   .telecharger a { text-decoration: none; flex: 1; }
-  .telecharger code { color: #8de0a9; font-size: 0.8em; white-space: nowrap; }
+  .telecharger code { background: none; padding: 0; color: #8de0a9; font-size: 0.86em; letter-spacing: 0.02em; white-space: nowrap; }
   .plus { color: var(--dk-accent); font-size: 1.7em; font-weight: 600; }
   .mission { grid-column: 1 / -1; border-left: 0.45em solid var(--dk-accent); padding: 0.5em 0 0.5em 0.9em; }.mission > span { display: block; color: var(--dk-accent); font-size: 0.56em; letter-spacing: 0.14em; }.mission strong { display: block; margin-top: 0.2em; font-size: 0.95em; line-height: 1.3; }
   .pistes { grid-column: 1 / -1; }

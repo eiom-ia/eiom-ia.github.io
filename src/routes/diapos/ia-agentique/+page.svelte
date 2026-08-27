@@ -37,6 +37,7 @@
   import Collage from '$lib/deck/demos/Collage.svelte';
   import Boucle from '$lib/deck/demos/Boucle.svelte';
   import Mcp from '$lib/deck/demos/Mcp.svelte';
+  import McpRecherche from '$lib/deck/demos/McpRecherche.svelte';
   import TroisMots from '$lib/deck/demos/TroisMots.svelte';
   import Terminal from '$lib/deck/demos/Terminal.svelte';
   import GuiVsTerminal from '$lib/deck/demos/GuiVsTerminal.svelte';
@@ -65,7 +66,7 @@
   import DefiAvis from '$lib/deck/demos/DefiAvis.svelte';
   import SourcesAgentiques from '$lib/deck/demos/SourcesAgentiques.svelte';
 
-  const TOTAL = 51;
+  const TOTAL = 52;
   const D = 'IA agentique · jeu 27 août';
 
   // Les trois terminaux du deuxième temps. Une commande par clic.
@@ -310,6 +311,11 @@ Explique-moi chaque étape au fur et à mesure.`;
         Le serveur déclare ce qu'il sait faire ; le harnais lit cette déclaration et s'en sert. Les
         identifiants restent du côté du serveur, jamais dans le contexte du modèle.
       </p>
+    </Slide>
+
+    <Slide droite={D}>
+      <h2 class="e">Les MCP utiles en sciences sociales</h2>
+      <McpRecherche />
     </Slide>
 
     <Slide droite={D}>
