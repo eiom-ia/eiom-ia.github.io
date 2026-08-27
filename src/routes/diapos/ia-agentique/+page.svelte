@@ -55,6 +55,8 @@
   import GitVersion from '$lib/deck/demos/GitVersion.svelte';
   import FluxRecherche from '$lib/deck/demos/FluxRecherche.svelte';
   import InjectionIndirecte from '$lib/deck/demos/InjectionIndirecte.svelte';
+  import DangerDonnees from '$lib/deck/demos/DangerDonnees.svelte';
+  import AutresDangers from '$lib/deck/demos/AutresDangers.svelte';
   import LimitesUsage from '$lib/deck/demos/LimitesUsage.svelte';
   import Beads from '$lib/deck/demos/Beads.svelte';
   import Gastown from '$lib/deck/demos/Gastown.svelte';
@@ -67,7 +69,7 @@
   import DefiAvis from '$lib/deck/demos/DefiAvis.svelte';
   import SourcesAgentiques from '$lib/deck/demos/SourcesAgentiques.svelte';
 
-  const TOTAL = 53;
+  const TOTAL = 55;
   const D = 'IA agentique · jeu 27 août';
 
   // Les trois terminaux du deuxième temps. Une commande par clic.
@@ -354,6 +356,16 @@ Explique-moi chaque étape au fur et à mesure.`;
     <Slide droite={D}>
       <h2 class="e">L'injection de prompt indirecte</h2>
       <InjectionIndirecte />
+    </Slide>
+
+    <Slide droite={D}>
+      <h2 class="e">Vos données quittent votre machine</h2>
+      <DangerDonnees />
+    </Slide>
+
+    <Slide droite={D}>
+      <h2 class="e">Trois autres dangers</h2>
+      <AutresDangers />
     </Slide>
 
 
