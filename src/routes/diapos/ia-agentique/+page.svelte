@@ -172,6 +172,16 @@ Explique-moi chaque étape au fur et à mesure.`;
       <Boucle />
     </Slide>
 
+    <Slide bandeau="Le pont" droite={D}>
+      <h2 class="e">Le harnais relie le modèle et la machine</h2>
+      <Boucle harnais />
+    </Slide>
+
+    <Slide bandeau="Le mot qui manquait" droite={D}>
+      <h2 class="e">Un harnais, c'est le programme qui tient la bride</h2>
+      <ChevalHarnais />
+    </Slide>
+
     <Slide bandeau="La bascule" droite={D}>
       <h2 class="e">Mais du texte peut être une commande</h2>
       <div class="commande-pont e">
@@ -195,7 +205,7 @@ Explique-moi chaque étape au fur et à mesure.`;
     </Slide>
 
     <Slide fond="terminal">
-      <Terminal lignes={T_BASE} invite="terminal — trois commandes suffisent" plein />
+      <Terminal lignes={T_BASE} invite="terminal — trois commandes pour commencer" plein />
     </Slide>
 
     <Slide fond="encre" bandeau="La thèse du cours" droite={D}>
@@ -205,16 +215,6 @@ Explique-moi chaque étape au fur et à mesure.`;
         Tout ce qui est du texte brut, un modèle peut le lire, l'écrire, le chercher, le comparer et
         le versionner. Tout le reste lui est opaque.
       </p>
-    </Slide>
-
-    <Slide bandeau="Le pont" droite={D}>
-      <h2 class="e">Le harnais relie le modèle et la machine</h2>
-      <Boucle harnais />
-    </Slide>
-
-    <Slide bandeau="Le mot qui manquait" droite={D}>
-      <h2 class="e">Un harnais, c'est le programme qui tient la bride</h2>
-      <ChevalHarnais />
     </Slide>
 
 
